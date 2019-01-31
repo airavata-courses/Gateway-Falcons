@@ -21,12 +21,14 @@ passport.use(new GoogleStrategy({
       console.log(token);
       console.log('user_type', user_type);
       const id = profile.id;
+      const email = profile.emails[0].value;
+      const userID = email.substring(0, email.indexOf("@"));
       const userObj = {
-        //userID      : ...,
+        userID        : userID,
         social_id     : id,
         social_token  : token,
         name          : profile.displayName,
-        email         : profile.emails[0].value,
+        email         : email,
         oauthProvider : 'google',
         user_type : user_type
       };

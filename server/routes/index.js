@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const passport = require('../auth/auth.js');
 
-// TODO: use this better
+// TODO: ensure this is restricted to login auth route gaurding
 const isLoggedIn = (req, res, next) => {
   // if (req.isAuthenticated()) return next();
   if (!req.user) return next();

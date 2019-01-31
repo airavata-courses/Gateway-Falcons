@@ -16,7 +16,7 @@
     "express": "~4.16.0",
     "express-session": "^1.15.6",
     "helmet": "^3.15.0",
-    "http-errors": "~1.6.2",
+    "http-errors": "^1.6.3",
     "jade": "~1.11.0",
     "jsonwebtoken": "^8.4.0",
     "kroknet-passport-google-oauth": "0.0.2",
