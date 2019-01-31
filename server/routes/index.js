@@ -45,8 +45,8 @@ router.get('/auth/google/callback',
     failureRedirect : '/fail'
 }));
 
-// TODO: Need to send user type
-router.get('/profile/:userID', (req, res) => {
+// TODO: Need to send user type and to specific userID
+router.get('/profile', (req, res) => {
   res.send('hello from profile');
 });
 

@@ -1,7 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
-var path = require('path');
-const middleware = require('./config/middleware.js');
+const middleware = require('./utils/middleware');
 var session = require('express-session')
 
 var indexRouter = require('./routes/index');
@@ -15,6 +14,7 @@ require('dotenv').config()
 const mongoose = require('mongoose');
 const parseFile = require('./utils/json_fileparser');
 const mlab_credentials = parseFile(process.env.MLAB_CREDENTIALS);
+
 mongoose
   .connect(mlab_credentials.mongoURI)
   .then(() => console.log('mlab connected successfully'))
@@ -22,20 +22,6 @@ mongoose
 
   
 // TODO: Understand this section 
-// ----------- ------
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({
-  secret: 'i_like_cats',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
-}))
-
 // ----------- ------
 // end TODO:
 

@@ -10,7 +10,7 @@ const BikerSchema = new Schema({
     type: String,
     required: true
   },
-  bikerId: {
+  userID: {
     type: String,
     required: false
   },

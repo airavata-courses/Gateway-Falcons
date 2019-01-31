@@ -59,7 +59,7 @@ passport.use(new GoogleStrategy({
         else {
           console.log(token);
           console.log(profile.id);
-          var newViewer = new Biker();
+          var newViewer = new Viewer();
           Object.assign(newViewer, userObj);
           newViewer.save((err) => {
             if (err) throw err;

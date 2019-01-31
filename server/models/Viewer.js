@@ -10,7 +10,7 @@ const ViewerSchema = new Schema({
     type: String,
     required: true
   },
-  viewerId: {
+  userID: {
     type: String,
     required: false
   },
