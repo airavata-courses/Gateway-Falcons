@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
+const ViewerSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -10,7 +10,7 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  userId: {
+  viewerId: {
     type: String,
     required: false
   },
@@ -39,4 +39,4 @@ const UserSchema = new Schema({
   }
 });
 
-module.exports = User = mongoose.model("users", UserSchema);
+module.exports = Viewer = mongoose.model("viewers", ViewerSchema);

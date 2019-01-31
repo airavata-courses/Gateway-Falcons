@@ -1,52 +1,56 @@
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const GoogleStrategy = require( 'kroknet-passport-google-oauth' ).Strategy;
 const passport = require('passport');
 require('dotenv').config()
-const User = require('../models/User.js');
+const Viewer = require('../models/Viewer.js');
+const Biker = require('../models/Biker.js');
 
 const parseFile = require('../utils/json_fileparser');
 const google_credentials = parseFile(process.env.GOOGLE_CREDENTIALS);
-console.log(google_credentials);
 
 // TODO: ADD FB
 // TODO: Add userID
-
 passport.use(new GoogleStrategy({
-
   clientID        : google_credentials.CLIENT_ID,
   clientSecret    : google_credentials.CLIENT_SECRET,
-  callbackURL     : google_credentials.GOOGLE_CALLBACK
-
+  callbackURL     : google_credentials.GOOGLE_CALLBACK,
+  passReqToCallback: true
 },
-(token, refreshToken, profile, done) => {
-    process.nextTick(() => {
+(req, token, refreshToken, profile, done) => {
+  process.nextTick(() => {
+      const user_type = req.session.user_type;
       console.log(token);
-        User.findOne({ 'google.id' : profile.id }, (err, user) => {
-          if (err)
-            return done(err);
+      console.log('user_type', user_type);
+      if (user_type === 'biker')
+        console.log('biker');
+      else 
+        console.log('viewer');
+      //   User.findOne({ 'google.id' : profile.id }, (err, user) => {
+      //     if (err)
+      //       return done(err);
 
-          if (user) {
-                return done(null, user);
-          } else {
-            console.log(token);
-            console.log(profile.id);
-            console.log(profile);
+      //     if (user) {
+      //           return done(null, user);
+      //     } else {
+      //       console.log(token);
+      //       console.log(profile.id);
+      //       console.log(profile);
       
-            var newUser = new User();
-
-            newUser.social_id     = profile.id;
-            newUser.social_token  = token;
-            newUser.name          = profile.displayName;
-            newUser.email         = profile.emails[0].value; // pull the first email
-            newUser.oauthProvider = 'google';
-            newUser.save((err) => {
-              if (err) throw err;
-              return done(null, newUser);
-            });
-          }
+      //       var newUser = new User();
+      //       newUser.social_id     = profile.id;
+      //       newUser.social_token  = token;
+      //       newUser.name          = profile.displayName;
+      //       newUser.email         = profile.emails[0].value; // pull the first email
+      //       newUser.oauthProvider = 'google';
+      //       newUser.save((err) => {
+      //         if (err) throw err;
+      //         return done(null, newUser);
+      //       });
+      //     }
       });
-  });
+  // });
 }));
 
-require('./init.js')(User, passport);
+// TODO: if biker or viewer ...
+// require('./init.js')(User, passport);
 
 module.exports = passport;

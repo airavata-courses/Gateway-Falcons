@@ -8,14 +8,21 @@ const isLoggedIn = (req, res, next) => {
 }
 
 router.get('/', function(req, res, next) {
+  console.log(req.isAuthenticated(), req.user)
   res.render('index', { title: 'Express' });
 });
 
 /**
  * Google Auth
  */
-router.get('/auth/google', isLoggedIn,
-  passport.authenticate('google', {scope: ['profile', 'email']})
+router.get('/auth/google', 
+  function(req,res,next){
+    req.session.user_type = 'biker';
+    // req.session.user_type = 'viewer';
+    passport.authenticate(
+      'google', {scope: ['profile', 'email']}
+    )(req,res,next);
+  }
 );
 
 router.get('/auth/google/callback',
@@ -29,8 +36,11 @@ router.get('/profile', (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-  req.logout();
-  res.redirect('/');
+  // req.logout();
+  // res.redirect('/');
+  req.session.destroy(function (err) {
+    res.redirect('/'); //Inside a callback… bulletproof!
+  });
 });
 
 module.exports = router;

@@ -19,6 +19,7 @@
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
     "jsonwebtoken": "^8.4.0",
+    "kroknet-passport-google-oauth": "0.0.2",
     "mongoose": "^5.4.7",
     "morgan": "~1.9.0",
     "passport": "^0.4.0",
