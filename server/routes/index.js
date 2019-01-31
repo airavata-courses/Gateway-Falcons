@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const passport = require('../auth/auth.js');
 
-// TODO: use this
+// TODO: use this better
 const isLoggedIn = (req, res, next) => {
-  if (req.isAuthenticated()) return next();
+  // if (req.isAuthenticated()) return next();
+  if (!req.user) return next();
   res.redirect('/');
 }
 
@@ -13,12 +14,25 @@ router.get('/', function(req, res, next) {
 });
 
 /**
- * Google Auth
+ * Google Auth for bikers
  */
-router.get('/auth/google', 
+router.get('/auth/google/biker',
+  isLoggedIn,
   function(req,res,next){
     req.session.user_type = 'biker';
-    // req.session.user_type = 'viewer';
+    passport.authenticate(
+      'google', {scope: ['profile', 'email']}
+    )(req,res,next);
+  }
+);
+
+/**
+ * Google Auth for viewers
+ */
+router.get('/auth/google/viewer',
+  isLoggedIn,
+  function(req,res,next){
+    req.session.user_type = 'viewer';
     passport.authenticate(
       'google', {scope: ['profile', 'email']}
     )(req,res,next);
@@ -31,13 +45,14 @@ router.get('/auth/google/callback',
     failureRedirect : '/fail'
 }));
 
-router.get('/profile', (req, res) => {
+// TODO: Need to send user type
+router.get('/profile/:userID', (req, res) => {
   res.send('hello from profile');
 });
 
 router.get('/logout', (req, res) => {
-  // req.logout();
-  // res.redirect('/');
+  req.logout();
+  req.logOut();
   req.session.destroy(function (err) {
     res.redirect('/'); //Inside a callback… bulletproof!
   });

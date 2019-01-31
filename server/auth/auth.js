@@ -20,37 +20,57 @@ passport.use(new GoogleStrategy({
       const user_type = req.session.user_type;
       console.log(token);
       console.log('user_type', user_type);
-      if (user_type === 'biker')
+      const id = profile.id;
+      const userObj = {
+        //userID      : ...,
+        social_id     : id,
+        social_token  : token,
+        name          : profile.displayName,
+        email         : profile.emails[0].value,
+        oauthProvider : 'google',
+        user_type : user_type
+      };
+      console.log(userObj);
+      if (user_type === 'biker') {
         console.log('biker');
-      else 
-        console.log('viewer');
-      //   User.findOne({ 'google.id' : profile.id }, (err, user) => {
-      //     if (err)
-      //       return done(err);
-
-      //     if (user) {
-      //           return done(null, user);
-      //     } else {
-      //       console.log(token);
-      //       console.log(profile.id);
-      //       console.log(profile);
-      
-      //       var newUser = new User();
-      //       newUser.social_id     = profile.id;
-      //       newUser.social_token  = token;
-      //       newUser.name          = profile.displayName;
-      //       newUser.email         = profile.emails[0].value; // pull the first email
-      //       newUser.oauthProvider = 'google';
-      //       newUser.save((err) => {
-      //         if (err) throw err;
-      //         return done(null, newUser);
-      //       });
-      //     }
+        Biker.findOne({ 'google.id' : id }, (err, user) => {
+          if (err) return done(err);
+          if (user) return done(null, user);
+          else {
+            console.log(token);
+            console.log(profile.id);
+            var newBiker = new Biker();
+            Object.assign(newBiker, userObj);
+            newBiker.save((err) => {
+              if (err) throw err;
+              return done(null, newBiker);
+            });
+            require('./init.js')(Biker, passport);
+          }
       });
-  // });
+    }
+    else if (user_type === 'viewer') {
+      console.log('viewer');
+      Viewer.findOne({ 'google.id' : id }, (err, user) => {
+        if (err) return done(err);
+        if (user) return done(null, user);
+        else {
+          console.log(token);
+          console.log(profile.id);
+          var newViewer = new Biker();
+          Object.assign(newViewer, userObj);
+          newViewer.save((err) => {
+            if (err) throw err;
+            return done(null, newViewer);
+          });
+          require('./init.js')(Viewer, passport);
+        }
+    });
+  }
+
+  });
 }));
 
 // TODO: if biker or viewer ...
-// require('./init.js')(User, passport);
 
 module.exports = passport;

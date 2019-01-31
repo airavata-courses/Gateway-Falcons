@@ -35,7 +35,7 @@ const BikerSchema = new Schema({
   },
   accountType: {
     type: String,
-    default: "viewer"
+    default: "biker"
   }
 });
 
