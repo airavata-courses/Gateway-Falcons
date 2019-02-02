@@ -1,100 +1,36 @@
 import React, { Component } from 'react';
 import './App.css';
-import HomePage from "./components/HomePage";
 import { BrowserRouter, Route } from "react-router-dom";
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import muiTheme from './components/Theme';
+import HomePage from "./pages/HomePage";
+import LivePage from "./pages/LivePage";
+import MediaPage from "./pages/MediaPage";
+import DataPage from "./pages/DataPage";
+import LocationPage from "./pages/LocationPage";
+import ContactPage from "./pages/ContactPage";
 import Footer from "./components/Footer";
-import LivePage from "./components/LivePage";
-import MediaPage from "./components/MediaPage";
-import DataPage from "./components/DataPage";
-import LocationPage from "./components/LocationPage";
-import ContactPage from "./components/ContactPage";
+import ButtonAppBar from './components/ButtonAppBar';
 
 class App extends Component {
   render() {
-    
     return (
-      <BrowserRouter>
-        <div>
-          <Route
-            exact={true}
-            path="/"
-            render={() => (
-              <React.Fragment>
-                <div className="App">
-                  <HomePage />
-                </div>
-                <Footer></Footer>
-              </React.Fragment>
-
-            )}
-          />
-          <Route
-            exact={true}
-            path="/live"
-            render={() => (
-              <React.Fragment>
-                <div className="App">
-                  <LivePage />
-                </div>
-                <Footer></Footer>
-              </React.Fragment>
-
-            )}
-          />
-          <Route
-            exact={true}
-            path="/media"
-            render={() => (
-              <React.Fragment>
-                <div className="App">
-                  <MediaPage />
-                </div>
-                <Footer></Footer>
-              </React.Fragment>
-
-            )}
-          />
-          <Route
-            exact={true}
-            path="/data"
-            render={() => (
-              <React.Fragment>
-                <div className="App">
-                  <DataPage />
-                </div>
-                <Footer></Footer>
-              </React.Fragment>
-
-            )}
-          />
-          <Route
-            exact={true}
-            path="/location"
-            render={() => (
-              <React.Fragment>
-                <div className="App">
-                  <LocationPage />
-                </div>
-                <Footer></Footer>
-              </React.Fragment>
-
-            )}
-          />
-          <Route
-            exact={true}
-            path="/contact"
-            render={() => (
-              <React.Fragment>
-                <div className="App">
-                  <ContactPage />
-                </div>
-                <Footer></Footer>
-              </React.Fragment>
-
-            )}
-          />
-        </div>
-      </BrowserRouter>
+      <MuiThemeProvider theme={muiTheme}>
+        <CssBaseline />
+        <BrowserRouter>
+          <div className="site-content">
+            <ButtonAppBar />
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/live" component={LivePage} />
+            <Route exact path="/media" component={MediaPage} />
+            <Route exact path="/data" component={DataPage} />
+            <Route exact path="/location" component={LocationPage} />
+            <Route exact path="/contact" component={ContactPage} />
+            <Footer></Footer>
+          </div>
+        </BrowserRouter>
+      </MuiThemeProvider>
     );
   }
 }

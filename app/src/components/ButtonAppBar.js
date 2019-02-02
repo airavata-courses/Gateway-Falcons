@@ -41,7 +41,8 @@ function ButtonAppBar(props) {
       <AppBar style={{ background: '#424242' }} position="static">
         <Toolbar>
           <Typography variant="h6" color="inherit" className={classes.grow} align = "left">
-            Schwenck Live
+            
+            <Button color="inherit" onClick = {handleLiveClick}>Schwenck Live</Button>
           </Typography>
           <Button color="inherit" onClick = {handleLiveClick}>Live</Button>
           <Button color="inherit" onClick = {handleMediaClick}>Media</Button>
