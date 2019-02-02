@@ -1,15 +1,14 @@
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-// import CameraIcon from '@material-ui/icons/PhotoCamera';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
@@ -58,9 +57,16 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 class MediaPage extends Component {
 
-    uploadImage = () => {
-        alert('Pick an image!')
+    state = { selectedFile: null }
+
+    fileChangedHandler = (event) => {
+        this.setState({ selectedFile: event.target.files[0] })
     }
+      
+    uploadHandler = () => { 
+        console.log(this.state.selectedFile)
+    }
+      
 
     render() {
         const { classes } = this.props;
@@ -79,9 +85,10 @@ class MediaPage extends Component {
                         <div className={classes.heroButtons}>
                             <Grid container spacing={16} justify="center">
                                 <Grid item>
-                                    <Button variant="contained" color="primary" onClick={this.uploadImage}>
-                                        Upload an image
-                                    </Button>
+                                    <div>
+                                        <input type="file" onChange={this.fileChangedHandler} />
+                                        <button onClick={this.uploadHandler}>Upload!</button>
+                                    </div>
                                 </Grid>
                                 <Grid item>
                                     <Button variant="outlined" color="primary">

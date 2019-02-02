@@ -16,6 +16,9 @@ const styles = {
 
 };
 
+function handleHomeClick(){
+  window.location.assign('/');
+}
 function handleLiveClick(){
     window.location.assign('/live');
 }
@@ -41,8 +44,7 @@ function ButtonAppBar(props) {
       <AppBar style={{ background: '#424242' }} position="static">
         <Toolbar>
           <Typography variant="h6" color="inherit" className={classes.grow} align = "left">
-            
-            <Button color="inherit" onClick = {handleLiveClick}>Schwenck Live</Button>
+            <Button color="inherit" onClick = {handleHomeClick}>Schwenck Home</Button>
           </Typography>
           <Button color="inherit" onClick = {handleLiveClick}>Live</Button>
           <Button color="inherit" onClick = {handleMediaClick}>Media</Button>

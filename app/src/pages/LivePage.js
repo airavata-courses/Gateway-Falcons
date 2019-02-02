@@ -19,20 +19,20 @@ const styles = theme => ({
         maxWidth: 600,
         margin: '0 auto',
         padding: `${theme.spacing.unit * 8}px 0 ${theme.spacing.unit * 6}px`,
-      },
-      heroButtons: {
+    },
+    heroButtons: {
         marginTop: theme.spacing.unit * 4,
-      },
-      layout: {
+    },
+    layout: {
         width: 'auto',
         marginLeft: theme.spacing.unit * 3,
         marginRight: theme.spacing.unit * 3,
         [theme.breakpoints.up(1100 + theme.spacing.unit * 3 * 2)]: {
-          width: 1100,
-          marginLeft: 'auto',
-          marginRight: 'auto',
+            width: 1100,
+            marginLeft: 'auto',
+            marginRight: 'auto',
         },
-      },
+    },
 });
 class LivePage extends Component {
 
@@ -51,7 +51,7 @@ class LivePage extends Component {
                         <Grid item>
                             <Button variant="contained" color="primary">
                                 Main call to action
-                  </Button>
+                            </Button>
                         </Grid>
                         <Grid item>
                             <Button variant="outlined" color="primary">
