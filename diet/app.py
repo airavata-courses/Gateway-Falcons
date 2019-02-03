@@ -69,5 +69,6 @@ def create_exercise(exercises):
         exercises_list.append(e)
     return exercises_list
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
