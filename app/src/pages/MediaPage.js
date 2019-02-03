@@ -1,4 +1,3 @@
-import { MuiThemeProvider } from '@material-ui/core/styles';
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
@@ -65,6 +64,35 @@ class MediaPage extends Component {
       
     uploadHandler = () => { 
         console.log(this.state.selectedFile)
+        const obj = {
+            file: this.state.selectedFile,
+            fileName: this.state.selectedFile.name
+        };
+        var formData = new FormData();
+        // formData.append('file', this.state.selectedFile);
+        // formData.append('fileName', this.state.selectedFile.name);
+        for (var key in obj) {
+            formData.append(key, obj[key]);
+        }
+        for (var data of formData) {
+            console.log(data);
+        }
+        // fetch('http://149.161.251.113:3001/images',
+        fetch('http://149.160.249.188:8081/upload',
+        {   
+            mode: 'no-cors',
+            method: 'POST',
+            // headers: {
+            //     'Content-Type': 'multipart/form-data'
+            // },
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'multipart/form-data;boundary=gc0p4Jq0M2Yt08jU534c0p'
+            },
+            data: formData
+        })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));  
     }
       
 
