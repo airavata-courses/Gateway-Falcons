@@ -1,12 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 const middleware = require('./utils/middleware');
-var session = require('express-session')
-
-var indexRouter = require('./routes/index');
-var viewerRouter = require('./routes/viewers');
-var bikerRouter = require('./routes/bikers');
-var imagesRouter = require('./routes/images');
+const fs = require('fs');
 
 var app = express();
 middleware(app);
@@ -22,15 +17,17 @@ mongoose
   .catch((err) => console.error('error connecting to mlab:', err))
 
   
-// TODO: Understand this section 
-// ----------- ------
-// end TODO:
 
-
-app.use('/', indexRouter);
-app.use('/bikers', bikerRouter);
-app.use('/images', imagesRouter);
-app.use('/viewers', viewerRouter);
+fs.readdirSync('./routes').forEach(file => {
+    const fileName = file.substring(0, file.indexOf('.'));
+    const router = require(`./routes/${fileName}`);
+    // console.log(router);
+    if (fileName !== 'index') {
+        app.use(`/${fileName}`, router);
+    } else {
+        app.use(`/`, router);      
+    }
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

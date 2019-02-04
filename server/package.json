@@ -30,6 +30,7 @@
     "passport-google-oauth": "^1.0.0",
     "passport-google-oauth20": "^1.0.0",
     "passport-jwt": "^4.0.0",
+    "plop": "^2.2.0",
     "pug": "^2.0.3",
     "validator": "^10.11.0"
   },
