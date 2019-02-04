@@ -16,8 +16,6 @@ mongoose
   .then(() => console.log('mlab connected successfully'))
   .catch((err) => console.error('error connecting to mlab:', err))
 
-  
-
 fs.readdirSync('./routes').forEach(file => {
     const fileName = file.substring(0, file.indexOf('.'));
     const router = require(`./routes/${fileName}`);

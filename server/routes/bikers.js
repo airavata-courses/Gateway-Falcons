@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require("mongoose");
 const Biker = require("../models/Biker");
-const validation = require("../validation/utils");
+//TODO: validation-utils
+const validation = require("../validation/utils"); 
 const bikerValidation = require("../validation/biker");
 
 // TODO: Error handling
