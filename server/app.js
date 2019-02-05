@@ -18,8 +18,7 @@ mongoose
   .then(() => console.log('mlab connected successfully'))
   .catch((err) => console.error('error connecting to mlab:', err))
 
-app.use(cors())
-
+app.use(cors({ origin: "http://localhost:3000"}))
 
 fs.readdirSync('./routes').forEach(file => {
     const fileName = file.substring(0, file.indexOf('.'));
@@ -53,3 +52,4 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+``
