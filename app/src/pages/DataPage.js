@@ -6,19 +6,16 @@ import { withStyles } from '@material-ui/core/styles';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 
 import { mainListItems, secondaryListItems } from './listitems';
 import SimpleLineChart from './SimpleLineChart';
 import SimpleTable from './SimpleTable';
+import * as Constants from '../constants';
 
 const drawerWidth = 240;
 
@@ -103,6 +100,10 @@ class DataPage extends Component {
 
     state = {
         open: true,
+        selected: "Fitness",
+        loading: true,
+        fitnessData: [],
+        dietData: []
     };
 
     handleDrawerOpen = () => {
@@ -112,6 +113,16 @@ class DataPage extends Component {
     handleDrawerClose = () => {
         this.setState({ open: false });
     };
+
+    componentDidMount() {
+        console.log('mounted');
+        fetch(`${Constants.apiUrl}/fitness`)
+            .then(res => res.json())
+            .then(res => this.setState({ fitnessData: res }))
+        fetch(`${Constants.apiUrl}/diet`)
+            .then(res => res.json())
+            .then(res => this.setState({ dietData: Array(res) }))
+    }
 
     render() {
         const { classes } = this.props;
@@ -126,17 +137,17 @@ class DataPage extends Component {
                     }}
                     open={this.state.open}
                 >
-                <IconButton
-                            color="inherit"
-                            aria-label="Open drawer"
-                            onClick={this.handleDrawerOpen}
-                            className={classNames(
-                                classes.menuButton,
-                                this.state.open && classes.menuButtonHidden,
-                            )}
-                        >
-                            <MenuIcon />
-                        </IconButton>
+                    <IconButton
+                        color="inherit"
+                        aria-label="Open drawer"
+                        onClick={this.handleDrawerOpen}
+                        className={classNames(
+                            classes.menuButton,
+                            this.state.open && classes.menuButtonHidden,
+                        )}
+                    >
+                        <MenuIcon />
+                    </IconButton>
                     <div className={classes.toolbarIcon}>
                         <IconButton onClick={this.handleDrawerClose}>
                             <ChevronLeftIcon />
@@ -150,16 +161,17 @@ class DataPage extends Component {
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
                     <Typography variant="h4" gutterBottom component="h2">
-                        Orders
-              </Typography>
+                        {this.state.selected}
+                    </Typography>
                     <Typography component="div" className={classes.chartContainer}>
                         <SimpleLineChart />
                     </Typography>
                     <Typography variant="h4" gutterBottom component="h2">
-                        Products
-              </Typography>
+                        {this.state.selected}
+                    </Typography>
                     <div className={classes.tableContainer}>
-                        <SimpleTable />
+                        <SimpleTable data={this.state.fitnessData} selected={this.state.selected} />
+                        {/* <SimpleTable dietData={this.state.dietData} /> */}
                     </div>
                 </main>
             </div>
@@ -170,5 +182,5 @@ class DataPage extends Component {
 DataPage.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-    
+
 export default withStyles(styles)(DataPage);
