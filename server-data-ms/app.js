@@ -22,19 +22,11 @@ require('dotenv').config()
 // require('dotenv').config({path: ../../})
 
 const mongoose = require('mongoose');
-const parseFile = require('../global-utils/json_fileparser');
+// const parseFile = require('../global-utils/json_fileparser');
+// const mlab_credentials = parseFile(__dirname, "server", process.env.MLAB_CREDENTIALS);
+const parseFile = require('./utils/json_fileparser');
 const mlab_credentials = parseFile(process.env.MLAB_CREDENTIALS);
-// var MongoClient = require('mongodb').MongoClient;
-
-// MongoClient.connect(mlab_credentials.mongoURI, function(err, db) {
-//   if (err) throw err;
-//   var dbo = db.db("country-cycle");
-//   dbo.collection("bikers").find({}).toArray(function(err, result) {
-//     if (err) throw err;
-//     console.log(result);
-//     db.close();
-//   });
-// });
+console.log(mlab_credentials)
 
 mongoose
   .connect(mlab_credentials.mongoURI)

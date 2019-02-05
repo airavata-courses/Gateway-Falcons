@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "install": "cd server && npm i && cd ../server-data-ms && npm i",
-    "start:dev": "nodemon server/bin/www && nodemon server-data-ms/bin/www",
+    "start:dev": "nodemon server-data-ms/bin/www && nodemon server/bin/www",
     "start:prod": "node server/bin/www && server-data-ms/bin/www"
   },
   "dependencies": {

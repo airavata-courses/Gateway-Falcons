@@ -9,7 +9,8 @@ middleware(app);
 require('dotenv').config()
 
 const mongoose = require('mongoose');
-const parseFile = require('../global-utils/json_fileparser');
+// const parseFile = require('../global-utils/json_fileparser');
+const parseFile = require('./utils/json_fileparser');
 const mlab_credentials = parseFile(process.env.MLAB_CREDENTIALS);
 
 mongoose
@@ -40,6 +41,8 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

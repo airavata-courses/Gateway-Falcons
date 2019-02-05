@@ -3,7 +3,9 @@ const passport = require('passport');
 require('dotenv').config()
 const Viewer = require('../models/Viewer.js');
 const Biker = require('../models/Biker.js');
-
+const path = require('path');
+// const parseFile = require('../../global-utils/json_fileparser');
+// const _path = path.join(__dirname, '../')
 const parseFile = require('../utils/json_fileparser');
 const google_credentials = parseFile(process.env.GOOGLE_CREDENTIALS);
 
