@@ -94,7 +94,7 @@ class MediaPage extends Component {
                 'content-type': 'multipart/form-data;boundary=gc0p4Jq0M2Yt08jU534c0p'
             }
         }
-        post('http://149.160.208.8:8081/upload', formData, config)
+        post('http://localhost:8081/upload', formData, config)
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
     }
