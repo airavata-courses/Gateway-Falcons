@@ -25,8 +25,11 @@ function handleLiveClick(){
 function handleMediaClick(){
     window.location.assign('/media');
 }
-function handleDataClick(){
-    window.location.assign('/data');
+function handleDietDataClick(){
+    window.location.assign('/diet');
+}
+function handleFitnessDataClick(){
+  window.location.assign('/fitness');
 }
 function handleLocationClick(){
     window.location.assign('/location');
@@ -48,7 +51,8 @@ function ButtonAppBar(props) {
           </Typography>
           <Button color="inherit" onClick = {handleLiveClick}>Live</Button>
           <Button color="inherit" onClick = {handleMediaClick}>Media</Button>
-          <Button color="inherit" onClick = {handleDataClick}>Data</Button>
+          <Button color="inherit" onClick = {handleFitnessDataClick}>Fitness</Button>
+          <Button color="inherit" onClick = {handleDietDataClick}>Diet</Button>
           <Button color="inherit" onClick = {handleLocationClick}>Location</Button>
           <Button color="inherit" onClick = {handleContactClick}>Contact</Button>
         </Toolbar>

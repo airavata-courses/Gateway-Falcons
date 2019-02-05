@@ -24,7 +24,12 @@ class App extends Component {
             <Route exact path="/" component={HomePage} />
             <Route exact path="/live" component={LivePage} />
             <Route exact path="/media" component={MediaPage} />
-            <Route exact path="/data" component={DataPage} />
+            <Route exact path="/fitness" 
+              component={() => <DataPage data_set="fitness"/>} 
+            />
+            <Route exact path="/diet" 
+              component={() => <DataPage data_set="diet"/>} 
+            />
             <Route exact path="/location" component={LocationPage} />
             <Route exact path="/contact" component={ContactPage} />
             <Footer></Footer>

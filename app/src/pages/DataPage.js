@@ -1,19 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
-import { mainListItems, secondaryListItems } from './listitems';
-import SimpleLineChart from './SimpleLineChart';
 import SimpleTable from './SimpleTable';
 import * as Constants from '../constants';
 
@@ -100,10 +91,9 @@ class DataPage extends Component {
 
     state = {
         open: true,
-        selected: "Fitness",
+        data_set: "",
         loading: true,
-        fitnessData: [],
-        dietData: []
+        data: []
     };
 
     handleDrawerOpen = () => {
@@ -115,22 +105,22 @@ class DataPage extends Component {
     };
 
     componentDidMount() {
-        console.log('mounted');
-        fetch(`${Constants.apiUrl}/fitness`)
+        console.log('mounted', this.props.data_set);
+        const data_set = this.props.data_set;
+        fetch(`${Constants.serverUrl}/${data_set}`)
             .then(res => res.json())
-            .then(res => this.setState({ fitnessData: res }))
-        fetch(`${Constants.apiUrl}/diet`)
-            .then(res => res.json())
-            .then(res => this.setState({ dietData: Array(res) }))
+            .then(res => this.setState({
+                data: [].concat(res),
+                data_set: data_set
+            }))
     }
 
     render() {
         const { classes } = this.props;
-
         return (
             <div className={classes.root}>
                 <CssBaseline />
-                <Drawer
+                {/* <Drawer
                     variant="permanent"
                     classes={{
                         paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
@@ -157,20 +147,23 @@ class DataPage extends Component {
                     <List>{mainListItems}</List>
                     <Divider />
                     <List>{secondaryListItems}</List>
-                </Drawer>
+                </Drawer> */}
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
                     <Typography variant="h4" gutterBottom component="h2">
-                        {this.state.selected}
+                        {
+                            this.state.data_set.charAt(0).toUpperCase() + 
+                            this.state.data_set.substr(1)
+                        }
                     </Typography>
-                    <Typography component="div" className={classes.chartContainer}>
+                    {/* <Typography component="div" className={classes.chartContainer}>
                         <SimpleLineChart />
-                    </Typography>
+                    </Typography> */}
                     <Typography variant="h4" gutterBottom component="h2">
                         {this.state.selected}
                     </Typography>
                     <div className={classes.tableContainer}>
-                        <SimpleTable data={this.state.fitnessData} selected={this.state.selected} />
+                        <SimpleTable data={this.state.data} data_set={this.state.data_set} />
                         {/* <SimpleTable dietData={this.state.dietData} /> */}
                     </div>
                 </main>

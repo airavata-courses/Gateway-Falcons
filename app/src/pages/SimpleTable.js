@@ -20,9 +20,9 @@ const styles = {
 
 // TODO: Reuse for diet ... if conditional
 function SimpleTable(props) {
-  const { classes, data, selected } = props;
-  console.log('data', data)
-  if (selected === 'Fitness') {
+  const { classes, data, data_set } = props;
+  console.log(data_set, data)
+  if (data_set === 'fitness') {
     return (
       <Paper className={classes.root}>
         <Table className={classes.table}>
@@ -62,7 +62,7 @@ function SimpleTable(props) {
       </Paper>
     );
   }
-  else if (selected === 'Diet') {
+  else if (data_set === 'diet') {
     return (
       <Paper className={classes.root}>
         <Table className={classes.table}>
@@ -91,6 +91,18 @@ function SimpleTable(props) {
                 <TableCell align="right">{record.totals.sugar}</TableCell>
               </TableRow>
             ))}
+          </TableBody>
+        </Table>
+      </Paper>
+    );
+  }
+  else {
+    return (
+      <Paper className={classes.root}>
+        <Table className={classes.table}>
+          <TableHead>
+          </TableHead>
+          <TableBody>
           </TableBody>
         </Table>
       </Paper>
