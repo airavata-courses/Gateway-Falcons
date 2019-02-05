@@ -2,19 +2,23 @@ var createError = require('http-errors');
 var express = require('express');
 const middleware = require('./utils/middleware');
 const fs = require('fs');
+const cors = require('cors')
 
 var app = express();
 middleware(app);
 require('dotenv').config()
 
 const mongoose = require('mongoose');
-const parseFile = require('./utils/json_fileparser');
+const parseFile = require('../global-utils/json_fileparser');
 const mlab_credentials = parseFile(process.env.MLAB_CREDENTIALS);
 
 mongoose
   .connect(mlab_credentials.mongoURI)
   .then(() => console.log('mlab connected successfully'))
   .catch((err) => console.error('error connecting to mlab:', err))
+
+app.use(cors())
+
 
 fs.readdirSync('./routes').forEach(file => {
     const fileName = file.substring(0, file.indexOf('.'));

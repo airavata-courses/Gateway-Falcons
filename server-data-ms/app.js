@@ -17,7 +17,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// TODO:
 require('dotenv').config()
+// require('dotenv').config({path: ../../})
+
 const mongoose = require('mongoose');
 const parseFile = require('../global-utils/json_fileparser');
 const mlab_credentials = parseFile(process.env.MLAB_CREDENTIALS);

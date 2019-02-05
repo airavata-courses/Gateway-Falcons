@@ -7,17 +7,17 @@ const express = require('express');
 const logger = require('morgan');
 const helmet = require('helmet');
 const path = require('path');
-const cors = require('cors')
 const multer = require("multer");
 
+// TODO:
 require('dotenv').config()
+// require('dotenv').config({ path: "../../" })
 
 module.exports = (app) => {
 
   app.use(compression());
   app.use(logger('dev'));
   app.use(helmet());
-  app.use(cors())
   
   // view engine setup
   app.set('views', './views');
