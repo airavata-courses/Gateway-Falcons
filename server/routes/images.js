@@ -11,10 +11,7 @@ const fs = require('fs');
 router.get('/:username', function (req, res, next) {
     const username = req.params['username'];
     console.log(username);
-    // fetch('TODO: URL HERE (e.g. something/userID/album/imageID')
-    console.log(`http://149.160.208.8:8081/GetImages?username=${username}`);
-
-    axios(`http://149.160.208.8:8081/GetImages?username=${username}`)
+    axios(`http://localhost:8081/GetImages?username=${username}`)
         .then(res => res.data)
         .then((images) => {
             console.log(images);
@@ -59,7 +56,7 @@ router.post('/', upload.single("file"), (req, res) => {
     // }
     // console.log(formData.getLength())
     axios({
-        url: 'http://149.160.249.188:8081/upload',
+        url: 'http://localhost:8081/upload',
         data: formData,
         method: 'post',
         headers: {
@@ -84,7 +81,6 @@ router.post('/:userID/:album', function (req, res, next) {
     const userID = req.params['userID'];
     const album = req.params['album'];
     fetch('TODO: URL HERE (e.g. something/userID/album')
-        // TODO: What type of data is sent
         .then((res) => //res.status(res.statusCode).send(res))
         {
             console.log(res)

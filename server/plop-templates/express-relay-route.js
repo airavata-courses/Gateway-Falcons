@@ -11,7 +11,7 @@ const axios = require('axios');
 router.get('/:userID',  (req, res) => {
     const userID = req.params['userID'];
     axios({
-            url: `http://149.160.249.188:3002/${userID}/{{camelCase name}}`, 
+            url: `http://localhost:3002/${userID}/{{camelCase name}}`, 
             headers: {
                 'Content-Type': 'application/json'
             }
