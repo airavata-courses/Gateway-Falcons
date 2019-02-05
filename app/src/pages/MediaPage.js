@@ -10,6 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import * as Constants from '../constants';
+import { post } from 'axios';
 
 const styles = theme => ({
     heroUnit: {
@@ -63,13 +64,11 @@ class MediaPage extends Component {
     componentDidMount() {
         console.log('mounted')
         const username = `my_folder`;
-        // fetch(`http://149.160.208.8:8081/GetImages?username=my_folder`, {mode: "no-cors"})
         fetch(`${Constants.serverUrl}/images/${username}`)
             .then(res => res.json())
             .then(images => this.setState({
-                    images: images.filter(image => image.bytes > 0)
-                })
-            )
+                images: images.filter(image => image.bytes > 0)
+            }))
             .catch(err => console.error(err));
     }
 
@@ -81,35 +80,24 @@ class MediaPage extends Component {
         console.log(this.state.selectedFile)
         const obj = {
             file: this.state.selectedFile,
-            fileName: this.state.selectedFile.name
+            data: this.state.selectedFile.name
         };
         var formData = new FormData();
-        // formData.append('file', this.state.selectedFile);
-        // formData.append('fileName', this.state.selectedFile.name);
         for (var key in obj) {
             formData.append(key, obj[key]);
         }
-        for (var data of formData) {
-            console.log(data);
+        // for (var data of formData) {
+        //     console.log(data);
+        // }
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data;boundary=gc0p4Jq0M2Yt08jU534c0p'
+            }
         }
-        // fetch('http://149.161.251.113:3001/images',
-        fetch('http://149.160.249.188:8081/upload',
-            {
-                mode: 'no-cors',
-                method: 'POST',
-                // headers: {
-                //     'Content-Type': 'multipart/form-data'
-                // },
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'multipart/form-data;boundary=gc0p4Jq0M2Yt08jU534c0p'
-                },
-                data: formData
-            })
+        post('http://149.160.208.8:8081/upload', formData, config)
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
     }
-
 
     render() {
         const { classes } = this.props;
@@ -176,9 +164,7 @@ class MediaPage extends Component {
                 </div>
             </main>
         );
-
     }
-
 }
 
 MediaPage.propTypes = {

@@ -37,6 +37,9 @@ function handleLocationClick(){
 function handleContactClick(){
     window.location.assign('/contact');
 }
+function handleLoginClick(){
+  window.location.assign('/login');
+}
 
 
 // Appbar  on the screen
@@ -49,6 +52,7 @@ function ButtonAppBar(props) {
           <Typography variant="h6" color="inherit" className={classes.grow} align = "left">
             <Button color="inherit" onClick = {handleHomeClick}>Schwenck Home</Button>
           </Typography>
+          {/* <Button color="inherit" onClick = {handleLoginClick}>Login</Button> */}
           <Button color="inherit" onClick = {handleLiveClick}>Live</Button>
           <Button color="inherit" onClick = {handleMediaClick}>Media</Button>
           <Button color="inherit" onClick = {handleFitnessDataClick}>Fitness</Button>
