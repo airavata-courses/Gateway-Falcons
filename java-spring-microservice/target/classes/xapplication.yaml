@@ -1,0 +1,14 @@
+server:
+   port: 8081
+spring:
+    http:
+        multipart:
+            enabled: true
+            max-file-size: 100MB
+            max-request-size: 100MB
+
+#spring:
+#  servlet:
+#    multipart:
+#      max-file-size: 100MB
+#      max-request-size: 100MB
