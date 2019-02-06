@@ -14,7 +14,8 @@ router.get('/', function(req, res, next) {
     // const userID = req.params['userID'];
     console.log('diet route')
     Diet
-        .findById('5c54b3bb254fea3f29e0d39f')
+        // .findById('5c54b3bb254fea3f29e0d39f')
+        .find()
         .then(dietLogs => {
             // console.log(dietLogs)
             res.status(res.statusCode).send(dietLogs)
