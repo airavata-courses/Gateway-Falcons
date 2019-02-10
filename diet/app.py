@@ -14,8 +14,8 @@ mongo = PyMongo(app)
 def add_diet():
     client = myfitnesspal.Client('schwenck.live@gmail.com')
     date = datetime.datetime.now()
-    # day = client.get_date(date.year, date.month, date.day)
-    day = client.get_date(2019, 1, 31)
+    day = client.get_date(date.year, date.month, date.day)
+    # day = client.get_date(2019, 1, 31)
     diet_db = mongo.db.diet
     meals = create_meal(day.meals)
 
