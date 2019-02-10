@@ -18,7 +18,7 @@ const styles = {
   },
 };
 
-// TODO: Reuse for diet ... if conditional
+// TODO: Abstract headings to text files ...
 function SimpleTable(props) {
   const { classes, data, data_set } = props;
   console.log(data_set, data)

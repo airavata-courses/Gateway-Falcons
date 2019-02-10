@@ -13,6 +13,7 @@ import ContactPage from "./pages/ContactPage";
 import Footer from "./components/Footer";
 import ButtonAppBar from './components/ButtonAppBar';
 import LoginPage from './pages/LoginPage';
+import LandingPage from './pages/LandingPage';
 
 class App extends Component {
   render() {
@@ -22,7 +23,8 @@ class App extends Component {
         <BrowserRouter>
           <div className="site-content">
             <ButtonAppBar />
-            {/* <Route exact path="/login" component={LoginPage} /> */}
+            <Route exact path="/landing" component={LandingPage} />
+            <Route exact path="/login" component={LoginPage} />
             <Route exact path="/" component={HomePage} />
             <Route exact path="/live" component={LivePage} />
             <Route exact path="/media" component={MediaPage} />

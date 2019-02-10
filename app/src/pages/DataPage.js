@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import SimpleTable from './SimpleTable';
+import SimpleTable from '../components/SimpleTable';
 import * as Constants from '../constants';
 
 const drawerWidth = 240;

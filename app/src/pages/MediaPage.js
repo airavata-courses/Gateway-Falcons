@@ -61,8 +61,7 @@ class MediaPage extends Component {
         images: []
     }
 
-    componentDidMount() {
-        console.log('mounted')
+    fetchImages() {
         const username = `my_folder`;
         fetch(`${Constants.serverUrl}/images/${username}`)
             .then(res => res.json())
@@ -70,6 +69,11 @@ class MediaPage extends Component {
                 images: images.filter(image => image.bytes > 0)
             }))
             .catch(err => console.error(err));
+    }
+
+    componentDidMount() {
+        console.log('mounted')
+        this.fetchImages();
     }
 
     fileChangedHandler = (event) => {
@@ -95,7 +99,10 @@ class MediaPage extends Component {
             }
         }
         post('http://localhost:8081/upload', formData, config)
-            .then((res) => console.log(res))
+            .then((res) => {
+                alert("Success");
+                this.fetchImages();
+            })
             .catch((err) => console.log(err));
     }
 
@@ -122,9 +129,9 @@ class MediaPage extends Component {
                                     </div>
                                 </Grid>
                                 <Grid item>
-                                    <Button variant="outlined" color="primary">
+                                    {/* <Button variant="outlined" color="primary">
                                         Or Do something else
-                                    </Button>
+                                    </Button> */}
                                 </Grid>
                             </Grid>
                         </div>

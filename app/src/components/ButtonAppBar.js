@@ -16,31 +16,9 @@ const styles = {
 
 };
 
-function handleHomeClick(){
-  window.location.assign('/');
+const navigate = (path) => {
+  window.location.assign(path);
 }
-function handleLiveClick(){
-    window.location.assign('/live');
-}
-function handleMediaClick(){
-    window.location.assign('/media');
-}
-function handleDietDataClick(){
-    window.location.assign('/diet');
-}
-function handleFitnessDataClick(){
-  window.location.assign('/fitness');
-}
-function handleLocationClick(){
-    window.location.assign('/location');
-}
-function handleContactClick(){
-    window.location.assign('/contact');
-}
-function handleLoginClick(){
-  window.location.assign('/login');
-}
-
 
 // Appbar  on the screen
 function ButtonAppBar(props) {
@@ -50,15 +28,15 @@ function ButtonAppBar(props) {
       <AppBar style={{ background: '#424242' }} position="static">
         <Toolbar>
           <Typography variant="h6" color="inherit" className={classes.grow} align = "left">
-            <Button color="inherit" onClick = {handleHomeClick}>Schwenck Home</Button>
+            <Button color="inherit" onClick = {() => navigate('')}>Schwenck Home</Button>
           </Typography>
           {/* <Button color="inherit" onClick = {handleLoginClick}>Login</Button> */}
-          <Button color="inherit" onClick = {handleLiveClick}>Live</Button>
-          <Button color="inherit" onClick = {handleMediaClick}>Media</Button>
-          <Button color="inherit" onClick = {handleFitnessDataClick}>Fitness</Button>
-          <Button color="inherit" onClick = {handleDietDataClick}>Diet</Button>
-          <Button color="inherit" onClick = {handleLocationClick}>Location</Button>
-          <Button color="inherit" onClick = {handleContactClick}>Contact</Button>
+          <Button color="inherit" onClick = {() => navigate('live')}>Live</Button>
+          <Button color="inherit" onClick = {() => navigate('media')}>Media</Button>
+          <Button color="inherit" onClick = {() => navigate('fitness')}>Fitness</Button>
+          <Button color="inherit" onClick = {() => navigate('diet')}>Diet</Button>
+          <Button color="inherit" onClick = {() => navigate('location')}>Location</Button>
+          <Button color="inherit" onClick = {() => navigate('contact')}>Contact</Button>
         </Toolbar>
       </AppBar>
     </div>
