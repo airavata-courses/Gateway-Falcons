@@ -13,9 +13,14 @@ mongo = PyMongo(app)
 @app.route('/add')
 def add_diet():
     client = myfitnesspal.Client('schwenck.live@gmail.com')
+
     date = datetime.datetime.now()
     day = client.get_date(date.year, date.month, date.day)
-    # day = client.get_date(2019, 1, 31)
+
+
+    if not day.totals:
+        return 'No data is added in fitnesspal today.'
+
     diet_db = mongo.db.diet
     meals = create_meal(day.meals)
 
@@ -27,7 +32,7 @@ def add_diet():
         "date": date.strftime('%Y-%m-%d')
     })
 
-    diet_db.insert({
+    diet_db.insert_one({
         "date": date.strftime('%Y-%m-%d'),
         "totals": day.totals,
         "water": day.water,
@@ -36,13 +41,15 @@ def add_diet():
     exercise_db.delete_many({
         "date": date.strftime('%Y-%m-%d')
     })
-    exercise_db.insert(
+    exercise_db.insert_one(
         {
             "date": date.strftime('%Y-%m-%d'),
             "exercises": exercises
 
         }
     )
+
+
     return "Added data"
 
 
