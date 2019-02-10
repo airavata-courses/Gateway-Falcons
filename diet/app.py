@@ -17,7 +17,6 @@ def add_diet():
     date = datetime.datetime.now()
     day = client.get_date(date.year, date.month, date.day)
 
-
     if not day.totals:
         return 'No data is added in fitnesspal today.'
 
@@ -38,17 +37,18 @@ def add_diet():
         "water": day.water,
         "meals": meals
     })
-    exercise_db.delete_many({
-        "date": date.strftime('%Y-%m-%d')
-    })
-    exercise_db.insert_one(
-        {
-            "date": date.strftime('%Y-%m-%d'),
-            "exercises": exercises
 
-        }
-    )
+    if exercises:
+        exercise_db.delete_many({
+            "date": date.strftime('%Y-%m-%d')
+        })
+        exercise_db.insert_one(
+            {
+                "date": date.strftime('%Y-%m-%d'),
+                "exercises": exercises
 
+            }
+        )
 
     return "Added data"
 
@@ -60,20 +60,23 @@ def create_meal(meals):
         meals_list.append(m)
     return meals_list
 
+
 def create_exercise(exercises):
     exercises_list = []
     for exercise in exercises:
-        e = { 'name': exercise.name,
-                'items': exercise.get_as_list(),
-            }
-        total_minutes = 0
-        calories_burned = 0
-        for entry in exercise.entries:
-            total_minutes += entry.nutrition_information['minutes']
-            calories_burned += entry.nutrition_information['calories burned']
-        e['total minutes'] = total_minutes
-        e['calories burned']  = calories_burned
-        exercises_list.append(e)
+        l = exercise.get_as_list()
+        if l:
+            e = {'name': exercise.name,
+                 'items': l,
+                 }
+            total_minutes = 0
+            calories_burned = 0
+            for entry in exercise.entries:
+                total_minutes += entry.nutrition_information['minutes']
+                calories_burned += entry.nutrition_information['calories burned']
+            e['total minutes'] = total_minutes
+            e['calories burned'] = calories_burned
+            exercises_list.append(e)
     return exercises_list
 
 
