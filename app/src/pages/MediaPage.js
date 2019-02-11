@@ -102,7 +102,7 @@ class MediaPage extends Component {
             .then((res) => {
                 console.log(res)
                 alert(res.data);
-                if(res=="Upload Successful"){
+                if(res.data=="Upload Successful"){
                     this.fetchImages();
                 } 
             })
