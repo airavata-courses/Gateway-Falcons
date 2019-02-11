@@ -59,23 +59,15 @@ public class GreetingController {
                 "context", metadataString.toString());
 
 //        Map ObjectUtils.asMap params = (");
-
         try {
             Map uploadResult = cloudinary.uploader().upload(file.getBytes(), params2);
             System.out.println(uploadResult);
-        } catch (IOException e) {
+            return "Upload Successful";
+        } catch (Exception e) {
             e.printStackTrace();
+            return "Upload Failed";
         }
 
-        ResponseEntity res = new ResponseEntity<>(HttpStatus.OK);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
-
-//        ResponseEntity.ok()
-//                .headers(headers)
-//                .body("Upload successfull. Please visit http://localhost:3000");
-//        return
-        return "Upload Successful "+data + "\n" + file.getOriginalFilename() + "\n" + file.getSize();
     }
     @CrossOrigin(origins = "http://localhost:8081")
     @RequestMapping(value = "/GetImages", method = RequestMethod.GET)
