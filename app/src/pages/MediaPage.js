@@ -100,8 +100,11 @@ class MediaPage extends Component {
         }
         post('http://localhost:8081/upload', formData, config)
             .then((res) => {
-                alert("Success");
-                this.fetchImages();
+                console.log(res)
+                alert(res.data);
+                if(res=="Upload Successful"){
+                    this.fetchImages();
+                } 
             })
             .catch((err) => console.log(err));
     }
