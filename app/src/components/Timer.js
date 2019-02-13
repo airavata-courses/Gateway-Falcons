@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
 });
@@ -49,22 +48,36 @@ class Timer extends Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, fontColor } = this.props;
         return (
             <div className={classes.root} >
                 {!this.state.nextTimeDetermined ?
-                    <Paper>
-                        Check back later for next stream time
-                    </Paper> :
-                    <Paper>
+                    <h2 style={{color:fontColor}}> Check back later for next stream time </h2> :
+                    <div style={{color:fontColor, display: "inline-block"}}>
+                        {/* <div style={{color:fontColor, display: "inline-block"}}>
+                            <p>
+                            {this.state.days} 
+                            </p>
+                            <p>
+                                days
+                            </p>
+                        </div>
+                        <div style={{color:fontColor, display: "inline-block"}}>
+                            <p>
+                            {this.state.hours} 
+                            </p>
+                            <p>
+                                hours
+                            </p>
+                        </div> */}
                         {this.state.days} days :
                         {this.state.hours} hours :
                         {this.state.minutes} minutes :
                         {this.state.seconds} seconds
-                  </Paper>
+                    </div>
                 }
-            </div >
-        )
+            </div>
+        );
     }
 }
 
@@ -73,4 +86,3 @@ Timer.propTypes = {
 };
 
 export default withStyles(styles)(Timer);
-
