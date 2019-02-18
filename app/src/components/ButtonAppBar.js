@@ -11,8 +11,9 @@ import Paper from '@material-ui/core/Paper';
 const styles = {
   root: {
     flexGrow: 1,
-    // paddingBottom: 10,
+    paddingBottom: 10,
     marginBottom: 10,
+
   },
   grow: {
     flexGrow: 1,
@@ -43,7 +44,11 @@ function ButtonAppBar(props) {
           <Button color="inherit" onClick = {() => navigate('contact')}>Contact</Button>
         </Toolbar>
         <div style={{ marginBottom: 10, color: "red" }}> 
-        <Grid container spacing={24}>
+        <Grid 
+          container 
+          spacing={24}
+          style={{margin: 0, width: '100%'}}
+        >
           <Grid item xs>
             <Paper className={classes.paper}>
               <Grid item>
@@ -70,6 +75,7 @@ function ButtonAppBar(props) {
         <Grid container
           spacing={24}
           justify="center"
+          style={{margin: 0, width: '100%'}}
         >
           <Grid item xs={10}>
             <Paper className={classes.paper}>DONATION BAR!</Paper>
