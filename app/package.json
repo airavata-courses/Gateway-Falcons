@@ -10,6 +10,7 @@
     "google-maps-react": "^2.0.2",
     "material-ui-upload": "^1.2.1",
     "react": "^16.7.0",
+    "react-animated-slider": "^1.1.4",
     "react-dom": "^16.7.0",
     "react-flexbox-grid": "^2.1.2",
     "react-google-button": "^0.5.3",

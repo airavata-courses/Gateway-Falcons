@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import { SocialIcon } from 'react-social-icons';
+import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
     footer: {
@@ -19,9 +21,34 @@ class Footer extends Component {
                 <Typography variant="h6" align="center" gutterBottom>
                     GIVING A MAJOR SHOUT OUT TO MY CORPORATE PARTNERS:
                   </Typography>
-                <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-                    images
+                  <div>
+                
+            <Grid container
+              direction="row"
+              spacing={40}
+              justify="center"
+            >
+              <Grid item>
+              <Typography variant="subtitle1" align="start" color="textSecondary" component="p">
+                    SOCIAL MEDIA
                   </Typography>
+                <SocialIcon url="http://twitter.com/" />
+              <SocialIcon url="http://facebook.com/" />
+              <SocialIcon url="http://youtube.com/" />
+              <SocialIcon url="http://instagram.com/" />
+              </Grid>
+            <Grid item>
+            <Typography variant="subtitle1" align="end" color="textSecondary" component="p">
+                    SPONSORS
+                  </Typography>
+                <SocialIcon url="http://twitter.com/" />
+              <SocialIcon url="http://facebook.com/" />
+              <SocialIcon url="http://youtube.com/" />
+              <SocialIcon url="http://instagram.com/" />
+              </Grid>
+            </Grid>
+                  
+                  </div>
             </footer>
         );
     }
