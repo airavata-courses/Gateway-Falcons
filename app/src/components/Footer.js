@@ -29,7 +29,7 @@ class Footer extends Component {
               justify="center"
             >
               <Grid item>
-              <Typography variant="subtitle1" align="start" color="textSecondary" component="p">
+              <Typography variant="subtitle1" color="textSecondary" component="p">
                     SOCIAL MEDIA
                   </Typography>
                 <SocialIcon url="http://twitter.com/" />
@@ -38,7 +38,7 @@ class Footer extends Component {
               <SocialIcon url="http://instagram.com/" />
               </Grid>
             <Grid item>
-            <Typography variant="subtitle1" align="end" color="textSecondary" component="p">
+            <Typography variant="subtitle1" color="textSecondary" component="p">
                     SPONSORS
                   </Typography>
                 <SocialIcon url="http://twitter.com/" />
