@@ -96,11 +96,36 @@ function SimpleTable(props) {
       </Paper>
     );
   }
+  else if (data_set === 'location') {
+    return (
+      <Paper className={classes.root}>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell >Location!!!</TableCell>
+              <TableCell align="right">Some other location field entry</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.map(record => (
+              <TableRow key={record._id}>
+                <TableCell component="th" scope="row"> waiting for a moment </TableCell>
+                <TableCell align="right"> of a lifetime</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Paper>
+    );
+  }
   else {
     return (
       <Paper className={classes.root}>
         <Table className={classes.table}>
           <TableHead>
+          <TableRow>
+            <TableCell> Looks like your data hasn't finished loading yet!</TableCell>
+          </TableRow>
           </TableHead>
           <TableBody>
           </TableBody>
