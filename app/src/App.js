@@ -4,16 +4,19 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import muiTheme from './components/Theme';
-import HomePage from "./pages/HomePage";
-import LivePage from "./pages/LivePage";
-import MediaPage from "./pages/MediaPage";
-import DataPage from "./pages/DataPage";
-import LocationPage from "./pages/LocationPage";
-import ContactPage from "./pages/ContactPage";
 import Footer from "./components/Footer";
 import ButtonAppBar from './components/ButtonAppBar';
-import LoginPage from './pages/LoginPage';
-import LandingPage from './pages/LandingPage';
+import { 
+    AboutPage, 
+    ContactPage,
+    DataPage,
+    HomePage,
+    LandingPage,
+    LivePage,
+    LocationPage, 
+    LoginPage,
+    MediaPage
+   } from './pages/index';
 
 class App extends Component {
 
@@ -51,6 +54,7 @@ class App extends Component {
                   component={() => <DataPage data_set="diet" />}
                 />
                 <Route exact path="/location" component={LocationPage} />
+                <Route exact path="/about" component={AboutPage} />
                 <Route exact path="/contact" component={ContactPage} />
                 <Footer></Footer>
               </div>

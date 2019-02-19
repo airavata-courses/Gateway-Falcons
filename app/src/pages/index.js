@@ -1,0 +1,9 @@
+export { default as AboutPage } from './AboutPage';
+export { default as ContactPage } from './ContactPage';
+export { default as DataPage } from './DataPage';
+export { default as HomePage } from './HomePage';
+export { default as LandingPage } from './LandingPage';
+export { default as LivePage } from './LivePage';
+export { default as LocationPage } from './LocationPage';
+export { default as LoginPage } from './LoginPage';
+export { default as MediaPage } from './MediaPage';
