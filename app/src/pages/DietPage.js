@@ -85,11 +85,11 @@ const styles = theme => ({
     },
 });
 
-class DataPage extends Component {
+class DietPage extends Component {
 
     state = {
         open: true,
-        data_set: "",
+        data_set: "diet",
         loading: true,
         data: []
     };
@@ -103,13 +103,10 @@ class DataPage extends Component {
     };
 
     componentDidMount() {
-        console.log('mounted', this.props.data_set);
-        const data_set = this.props.data_set;
-        fetch(`${Constants.serverUrl}/${data_set}`)
+        fetch(`${Constants.serverUrl}/diet`)
             .then(res => res.json())
             .then(res => this.setState({
-                data: [].concat(res),
-                data_set: data_set
+                data: [].concat(res)
             }))
     }
 
@@ -142,8 +139,8 @@ class DataPage extends Component {
     }
 }
 
-DataPage.propTypes = {
+DietPage.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(DataPage);
+export default withStyles(styles)(DietPage);

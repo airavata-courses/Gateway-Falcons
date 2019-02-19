@@ -9,7 +9,8 @@ import ButtonAppBar from './components/ButtonAppBar';
 import { 
     AboutPage, 
     ContactPage,
-    DataPage,
+    DietPage,
+    FitnessPage,
     HomePage,
     LandingPage,
     LivePage,
@@ -47,12 +48,8 @@ class App extends Component {
                 <Route exact path="/" component={HomePage} />
                 <Route exact path="/live" component={LivePage} />
                 <Route exact path="/media" component={MediaPage} />
-                <Route exact path="/fitness"
-                  component={() => <DataPage data_set="fitness" />}
-                />
-                <Route exact path="/diet"
-                  component={() => <DataPage data_set="diet" />}
-                />
+                <Route exact path="/fitness" component={FitnessPage} />
+                <Route exact path="/diet" component={DietPage} />
                 <Route exact path="/location" component={LocationPage} />
                 <Route exact path="/about" component={AboutPage} />
                 <Route exact path="/contact" component={ContactPage} />

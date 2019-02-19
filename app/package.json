@@ -6,6 +6,8 @@
     "@material-ui/core": "^3.9.1",
     "@material-ui/icons": "^3.0.2",
     "axios": "^0.18.0",
+    "cx": "^19.1.4",
+    "cx-react": "^17.10.0",
     "form-data": "^2.3.3",
     "google-maps-react": "^2.0.2",
     "material-ui-upload": "^1.2.1",
