@@ -2,86 +2,22 @@ import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import SimpleTable from '../components/SimpleTable';
 import * as Constants from '../constants';
 
-const drawerWidth = 240;
-
 const styles = theme => ({
     root: {
-        display: 'flex',
-    },
-    toolbar: {
-        paddingRight: 24, // keep right padding when drawer closed
-    },
-    toolbarIcon: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: '0 8px',
-        ...theme.mixins.toolbar,
-    },
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarShift: {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    menuButton: {
-        marginLeft: 12,
-        marginRight: 36,
-    },
-    menuButtonHidden: {
-        display: 'none',
+        flexGrow: 1,
     },
     title: {
         flexGrow: 1,
     },
-    drawerPaper: {
-        position: 'relative',
-        whiteSpace: 'nowrap',
-        width: drawerWidth,
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    drawerPaperClose: {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing.unit * 7,
-        [theme.breakpoints.up('sm')]: {
-            width: theme.spacing.unit * 9,
-        },
-    },
-    appBarSpacer: theme.mixins.toolbar,
     content: {
-        flexGrow: 1,
         padding: theme.spacing.unit * 3,
-        height: '100vh',
         overflow: 'auto',
-    },
-    chartContainer: {
-        marginLeft: -22,
-    },
-    tableContainer: {
-        height: 320,
-    },
-    h5: {
-        marginBottom: theme.spacing.unit * 2,
     },
 });
 
@@ -89,25 +25,32 @@ class DietPage extends Component {
 
     state = {
         open: true,
-        data_set: "diet",
         loading: true,
         data: []
     };
 
-    handleDrawerOpen = () => {
-        this.setState({ open: true });
-    };
+    async setChart() {
 
-    handleDrawerClose = () => {
-        this.setState({ open: false });
-    };
+    }
+    
+    async setLastMeals() {
 
-    componentDidMount() {
+    }
+
+    getAndSetDietData() {
         fetch(`${Constants.serverUrl}/diet`)
             .then(res => res.json())
             .then(res => this.setState({
                 data: [].concat(res)
             }))
+            .then(() => {
+                this.setChart();
+                this.setLastMeals();
+            });
+    }
+
+    componentDidMount() {
+        this.getAndSetDietData();
     }
 
     render() {
@@ -116,23 +59,72 @@ class DietPage extends Component {
             <div className={classes.root}>
                 <CssBaseline />
                 <main className={classes.content}>
-                    <div className={classes.appBarSpacer} />
-                    <Typography variant="h4" gutterBottom component="h2">
-                        {
-                            this.state.data_set.charAt(0).toUpperCase() + 
-                            this.state.data_set.substr(1)
-                        }
-                    </Typography>
-                    {/* <Typography component="div" className={classes.chartContainer}>
-                        <SimpleLineChart />
-                    </Typography> */}
-                    <Typography variant="h4" gutterBottom component="h2">
-                        {this.state.selected}
-                    </Typography>
-                    <div className={classes.tableContainer}>
-                        <SimpleTable data={this.state.data} data_set={this.state.data_set} />
-                        {/* <SimpleTable dietData={this.state.dietData} /> */}
-                    </div>
+                    <Grid container
+                        spacing={32}
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                        style={{ margin: 0, width: '100%' }}
+                    >
+                        <Grid item xs={2}>
+                            <Paper className={classes.paper}>
+                                <Grid item>
+                                    <p> Buttons go here </p>
+                                    <p> Buttons go here </p>
+                                    <p> Buttons go here </p>
+                                    <p> Buttons go here </p>
+                                </Grid>
+                            </Paper>
+                        </Grid>
+                        <Grid container
+                            item
+                            xs={9}
+                            spacing={24}
+                            direction="column"
+                        >
+                            <Grid item xs={11}>
+                                <Paper className={classes.paper}>
+                                    TOp buttons here!
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={11}>
+                                <Paper className={classes.paper} style={{ height: 300 }}>
+                                    Chart Goes Here
+                            </Paper>
+                            </Grid>
+                            <Grid item xs={11}>
+                                <Paper className={classes.paper}>Bottom buttons here!</Paper>
+                            </Grid>
+                        </Grid>
+                        <Grid container
+                            item
+                            xs={12}
+                            spacing={24}
+                            direction="column"
+                        >
+                            <Grid item xs={12}>
+                                <div>
+                                    <Typography variant="h4" gutterBottom component="h2">
+                                        The last (5) supper(s)
+                                    </Typography>
+                                    <div className={classes.tableContainer}>
+                                        <SimpleTable data={this.state.meals} data_set="last_five" />
+                                    </div>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <div>
+                                    <Typography variant="h4" gutterBottom component="h2">
+                                        Some more details ... 
+                                    </Typography>
+                                    <div className={classes.tableContainer}>
+                                        <SimpleTable data={this.state.data} data_set="diet" />
+                                    </div>
+                                </div>
+
+                            </Grid>
+                        </Grid>
+                    </Grid>
                 </main>
             </div>
         );

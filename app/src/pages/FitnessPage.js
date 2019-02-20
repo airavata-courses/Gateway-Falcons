@@ -5,9 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import SimpleTable from '../components/SimpleTable';
 import * as Constants from '../constants';
-import { HtmlElement, Text, MonthField, Tab } from 'cx/widgets';
-import { Svg } from 'cx/svg';
-import { Chart, NumericAxis, LineGraph } from 'cx/charts';
 
 const drawerWidth = 240;
 
@@ -106,8 +103,6 @@ class FitnessPage extends Component {
     };
 
     componentDidMount() {
-        // console.log('mounted', this.props.data_set);
-        // const data_set = this.props.data_set;
         fetch(`${Constants.serverUrl}/fitness`)
             .then(res => res.json())
             .then(res => this.setState({
@@ -128,35 +123,10 @@ class FitnessPage extends Component {
                             this.state.data_set.substr(1)
                         }
                     </Typography>
-                    {/* <Typography component="div" className={classes.chartContainer}>
-                        <SimpleLineChart />
-                    </Typography> */}
-                    <Typography variant="h4" gutterBottom component="h2">
-                        {this.state.selected}
-                    </Typography>
                     <div className={classes.tableContainer}>
                         <SimpleTable data={this.state.data} data_set={this.state.data_set} />
-                        {/* <SimpleTable dietData={this.state.dietData} /> */}
                     </div>
                 </main>
-                {/* <div class="flex-row">
-                    <Tab value: bind="$page.selected.field" tab="sessions" mod="kpi">
-            <div class="cse-weba-kpi">
-                        <label>Sessions</label>
-                        <div class="cse-weba-kpi-value">
-                            <Text tpl="{$page.total.sessions:n;0}" />
-                        </div>
-                        <Svg class="cse-weba-kpi-trend">
-                            <Chart axes={{
-                                x: { type: NumericAxis, hidden: true, snapToTicks: 0 },
-                                y: { type: NumericAxis, vertical: true, hidden: true, snapToTicks: 0, min: 0 }
-                            }}>
-                                <LineGraph data: bind="$page.monthly" xField="month" yField="sessions"/>
-                    </Chart>
-                        </Svg>
-                    </div>
-        </Tab>
-            </div> */}
             </div >
         );
     }
