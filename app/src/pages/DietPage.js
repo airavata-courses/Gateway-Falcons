@@ -38,15 +38,16 @@ class DietPage extends Component {
     }
 
     getAndSetDietData() {
-        fetch(`${Constants.serverUrl}/diet`)
-            .then(res => res.json())
-            .then(res => this.setState({
-                data: [].concat(res)
-            }))
-            .then(() => {
-                this.setChart();
-                this.setLastMeals();
-            });
+        fetch(`${Constants.serverUrl}/fitness`)
+            .then(res => console.log(res))
+            // .then(res => res.json())
+            // .then(res => this.setState({
+            //     data: [].concat(res)
+            // }))
+            // .then(() => {
+            //     this.setChart();
+            //     this.setLastMeals();
+            // });
     }
 
     componentDidMount() {
