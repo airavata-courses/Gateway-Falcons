@@ -1,6 +1,7 @@
 export { default as AboutPage } from './AboutPage';
 export { default as ContactPage } from './ContactPage';
-export { default as DietPage } from './DietPage';
+// export { default as DietPage } from './DietPage';
+export { default as DietPage } from './DietPage/DietPage';
 export { default as FitnessPage } from './FitnessPage';
 export { default as HomePage } from './HomePage';
 export { default as LandingPage } from './LandingPage';
