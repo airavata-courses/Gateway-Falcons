@@ -43,6 +43,7 @@ public class GreetingControllerTests {
                 .andExpect(jsonPath("$.content").value("Hello, World!"));
     }
 
+
     @Test
     public void paramGreetingShouldReturnTailoredMessage() throws Exception {
 
