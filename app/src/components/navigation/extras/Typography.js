@@ -19,7 +19,7 @@ class Typography extends Component {
       <div>
         <PageTitle title="Typography" showSearch />
         {/* <Clearfix /> */}
-        <div> Clearfix... </div>
+        <div className="clearfix"> </div>
 
         <Row>
           <Col md={12} sm={12} xs={12}>
@@ -32,7 +32,7 @@ class Typography extends Component {
                 <Quotes />
                 <Headings />
                 {/* <Clearfix /> */}
-              <div> Clearfix... </div>
+                <div className="clearfix"> </div>
 
                 <LabelsAndBadges />
               </XPanel.Content>

@@ -7,7 +7,7 @@ class Left extends Component {
       <div className="col-md-3 left_col">
         <div className="left_col scroll-view">
           <div className="navbar nav_title" style={ { border: 0 } }>
-            <a href="index.html" className="site_title"><i className="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+            <a href="index.html" className="site_title"><i className="fa fa-paw"></i> <span>Schwenck Live</span></a>
           </div>
 
           <div className="clearfix"></div>
@@ -19,7 +19,7 @@ class Left extends Component {
             </div>
             <div className="profile_info">
               <span>Welcome,</span>
-              <h2>John Doe</h2>
+              <h2>New User</h2>
             </div>
           </div>
           { /* /menu profile quick info */ }

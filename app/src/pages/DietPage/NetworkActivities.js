@@ -77,7 +77,7 @@ class NetworkActivities extends Component {
         <TopCampaings performance={performance} />
 
         {/* <ClearFix /> */}
-        <div> ClearFix ... </div>
+        <div className="clearfix"> </div>
       </div>
     )
   }

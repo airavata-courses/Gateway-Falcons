@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Clearfix } from 'react-bootstrap'
 import { XPanel } from '../../widgets/XPanel'
 import { PageTitle } from '../'
 import iconsData from './icons-data.json'
@@ -23,7 +23,7 @@ class Icons extends Component {
       <div>
         <PageTitle showSearch title="Font Awesome Icons" smallTitle="try the search, it works!" onSearch={onSearch}/>
         {/* <Clearfix /> */}
-        <div> Clearfix... </div>
+        <div className="clearfix"> </div>
 
         <Row>
           <Col md={12} sm={12} xs={12}>
