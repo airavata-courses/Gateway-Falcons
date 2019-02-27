@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TopTileStats } from '../../components/widgets'
+import { TopTileStats } from './widgets'
 
 const stats = [
   {

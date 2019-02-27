@@ -3,9 +3,15 @@ import {Link} from "react-router-dom";
 import { MenuItem, SidebarNestedMenu } from 'react-gentelella';
 
 const ExtrasMenu = () => (
-    <SidebarNestedMenu icon={'windows'} label={'Extras'}>
+    <SidebarNestedMenu icon={'windows'} label={'Data'}>
         <MenuItem>
-            <Link to={"/extras/plain-page"}>Plain page</Link>
+            <Link to={"/data/diet"}>Diet</Link>
+        </MenuItem>
+        <MenuItem>
+            <Link to={"/data/fitness"}>Fitness</Link>
+        </MenuItem>
+        <MenuItem>
+            <Link to={"/data/media"}>Media</Link>
         </MenuItem>
     </SidebarNestedMenu>
 );

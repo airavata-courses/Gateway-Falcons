@@ -58,6 +58,9 @@ class App extends Component {
               <Route path="/ui-elements/typography" component={Typography} />
               <Route path="/ui-elements/icons" component={Icons} />
               <Route path="/ui-elements/glyphicons" component={Glyphicons} />
+              <Route path="/data/diet" component={DietPage} />
+              <Route path="/data/fitness" component={FitnessPage} />
+              <Route path="/data/media" component={MediaPage} />
               {/* <Route path="/multilevel-menu" component={MultiLevel} />
               <Route component={PlainPage} /> */}
             </Switch>
