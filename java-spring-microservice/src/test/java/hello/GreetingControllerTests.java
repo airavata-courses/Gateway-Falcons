@@ -27,14 +27,18 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class GreetingControllerTests {
-
+//    @Autowired
+//    private WebApplicationContext webApplicationContext;
+//
     @Autowired
-    private MockMvc mockMvc;
+    private MockMvc mockMvc;//= MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 
     @Test
     public void noParamGreetingShouldReturnDefaultMessage() throws Exception {
@@ -42,6 +46,12 @@ public class GreetingControllerTests {
         this.mockMvc.perform(get("/greeting")).andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.content").value("Hello, World!"));
     }
+//    @Test
+//    public void viewImage() throws Exception {
+//
+//        this.mockMvc.perform(get("/GetImages?username=my_folder")).andDo(print()).andExpect(status().isOk())
+//                .andExpect(jsonPath("$.backup").value("true"));
+//    }
 
 
     @Test

@@ -23,7 +23,6 @@ public class GreetingController {
     private static final String CLOUDINARY_API_KEY = "XX";
     private static final String CLOUDINARY_API_SECRET = "XX";
 
-
     @CrossOrigin(origins = "http://localhost:8081")
     @RequestMapping(value = "/upload", method = RequestMethod.POST,
             consumes = { "multipart/form-data"})
