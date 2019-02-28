@@ -1,20 +1,10 @@
 import React, { Component } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import ChartPanel from '../../components/ChartPanel'
-import AppVersions from './AppVersions'
-import DeviceUsage from './DeviceUsage'
-import QuickSettings from './QuickSettings'
-import RecentActivities from './RecentActivities'
-import VisitorsLocations from './VisitorsLocations'
-import TodoList from './TodoList'
-import Weather from './Weather'
 import TopTile from '../../components/TopTile'
-import { Page, PageTitle, Panel, PanelHeader, PanelBody } from 'react-gentelella';
-import GlobalSearch from '../../components/global-search'
-import GeneralPanelToolbox from '../../components/general-panel-toolbox'
-import CodeSample from '../../components/general-panel-toolbox'
-import { Badge } from 'react-bootstrap'
+import { Page, PageTitle } from 'react-gentelella';
 import DataTable from '../../components/DataTable';
+import SlicerPanel from '../../components/SlicerPanel';
 import * as Constants from '../../constants';
 
 const options = [
@@ -29,23 +19,24 @@ class DietPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        title: 'Diet',
-        data: []
+      title: 'Diet',
+      data: [],
+      kpi_data: []
     };
   }
 
   getAndSetDietData() {
     fetch(`${Constants.serverUrl}/diet`)
-        // .then(res => console.log(res))
-        .then(res => res.json())
-        .then(res => this.setState({
-            data: [].concat(res)
-        }))
-        // .then(() => {
-        //     this.setChart();
-        //     this.setLastMeals();
-        // });
-}
+      // .then(res => console.log(res))
+      .then(res => res.json())
+      .then(res => this.setState({
+        data: [].concat(res)
+      }))
+    // .then(() => {
+    //     this.setChart();
+    //     this.setLastMeals();
+    // });
+  }
 
   componentDidMount() {
     // TODO: GET FROM EXISTING DIET PAGE
@@ -54,39 +45,52 @@ class DietPage extends Component {
 
   render() {
 
-    const { data } = this.state;
+    const { data, kpi_data } = this.state;
     return (
       <Page>
         <PageTitle title={'Typography'}>
           {/* <GlobalSearch/> */}
         </PageTitle>
-        <TopTile />
 
-        {/* <Row>
-          <Col md={12} sm={12} xs={12}>
-            <NetworkActivities
-              title='Diet'
-              options={options}
-            />
-          </Col>
-        </Row> */}
+        <TopTile kpi_data={kpi_data} />
 
         <div>
-          <div className="col-md-12 col-sm-12 col-xs-12">
-            <ChartPanel
-              title='Diet'
-              options={options}
-              data={data}
-            />
-          </div>
+          <Row>
+            {/* Left Chart */}
+            <Col md={5} sm={12} xs={12}>
+              <ChartPanel
+                data_set='diet'
+                title='Diet'
+                options={options}
+                data={data}
+              />
+            </Col>
+
+            {/* Slicers */}
+            <Col md={2} sm={2} xs={2}>
+              <SlicerPanel 
+                options={options} 
+              />
+            </Col>
+
+            {/* Right Chart */}
+            <Col md={5} sm={12} xs={12}>
+              <ChartPanel
+                data_set='diet'
+                title='Diet'
+                options={options}
+                data={data}
+              />
+            </Col>
+
+          </Row>
+
           <div className="clearfix" />
-          {/* <div className="col-md-12 col-sm-12 col-xs-12">
-        <DataTable/>
-      </div> */}
+
           <Row>
             <Col md={12} sm={12} xs={12}>
               <DataTable
-                data={ data }
+                data={data}
                 data_set='diet'
               />
             </Col>
@@ -94,19 +98,8 @@ class DietPage extends Component {
         </div>
 
         <div className="clearfix"> </div>
-        {/*         
-        <Row>
-          <Col md={12} sm={12} xs={12}>
-            <DataTable
-              data='Diet'
-              data_set='diet'
-            />
-          </Col>
-        </Row> */}
-
 
         {/* VerticalTabsLeft */}
-
 
         {/* 
         <Panel>

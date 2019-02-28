@@ -2,10 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { fitnessData } from '../data/table-data'
 
@@ -25,7 +23,7 @@ class DataTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data_set: 'Diet',
+            data_set: props.data_set,
             data: props.data
         };
     }
@@ -135,8 +133,7 @@ class DataTable extends Component {
     }
 
     render() {
-        const { data_set, data } = this.props;
-        // const { data } = this.state;
+        const { data_set, data } = this.state;
         return (
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
