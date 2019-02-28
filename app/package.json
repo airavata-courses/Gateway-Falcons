@@ -12,6 +12,8 @@
     "form-data": "^2.3.3",
     "gentelella": "^1.4.0",
     "google-maps-react": "^2.0.2",
+    "highcharts": "^7.0.3",
+    "highcharts-react-official": "^2.0.0",
     "material-ui-upload": "^1.2.1",
     "react": "^16.7.0",
     "react-animated-slider": "^1.1.4",
