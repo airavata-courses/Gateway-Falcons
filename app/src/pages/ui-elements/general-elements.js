@@ -19,7 +19,7 @@ import ProgressBars from './general-elements/progress-bars'
 const GeneralElements = () => (
   <Page>
     <PageTitle title={'General Elements'}>
-      <GlobalSearch/>
+      {/* <GlobalSearch/> */}
     </PageTitle>
     <Notification type="info" addClass="dark" nonblock={{nonblock: true}} hide={ true } delay={10000} title="PNotify" text="Welcome. Try hovering over me. You can click things behind me, because I'm non-blocking."/>
     <div>

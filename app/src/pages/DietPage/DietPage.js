@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Row, Col } from 'react-bootstrap'
-import NetworkActivities from './NetworkActivities'
+import ChartPanel from '../../components/ChartPanel'
 import AppVersions from './AppVersions'
 import DeviceUsage from './DeviceUsage'
 import QuickSettings from './QuickSettings'
@@ -14,6 +14,8 @@ import GlobalSearch from '../../components/global-search'
 import GeneralPanelToolbox from '../../components/general-panel-toolbox'
 import CodeSample from '../../components/general-panel-toolbox'
 import { Badge } from 'react-bootstrap'
+import DataTable from '../../components/DataTable';
+import * as Constants from '../../constants';
 
 const options = [
   { title: 'Low Cal', value: 'calories' },
@@ -23,28 +25,90 @@ const options = [
 ]
 
 class DietPage extends Component {
-  render () {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+        title: 'Diet',
+        data: []
+    };
+  }
+
+  getAndSetDietData() {
+    fetch(`${Constants.serverUrl}/diet`)
+        // .then(res => console.log(res))
+        .then(res => res.json())
+        .then(res => this.setState({
+            data: [].concat(res)
+        }))
+        // .then(() => {
+        //     this.setChart();
+        //     this.setLastMeals();
+        // });
+}
+
+  componentDidMount() {
+    // TODO: GET FROM EXISTING DIET PAGE
+    this.getAndSetDietData();
+  }
+
+  render() {
+
+    const { data } = this.state;
     return (
       <Page>
         <PageTitle title={'Typography'}>
           {/* <GlobalSearch/> */}
         </PageTitle>
-       <TopTile />
+        <TopTile />
 
-       <Row>
+        {/* <Row>
+          <Col md={12} sm={12} xs={12}>
+            <NetworkActivities
+              title='Diet'
+              options={options}
+            />
+          </Col>
+        </Row> */}
+
+        <div>
+          <div className="col-md-12 col-sm-12 col-xs-12">
+            <ChartPanel
+              title='Diet'
+              options={options}
+              data={data}
+            />
+          </div>
+          <div className="clearfix" />
+          {/* <div className="col-md-12 col-sm-12 col-xs-12">
+        <DataTable/>
+      </div> */}
+          <Row>
             <Col md={12} sm={12} xs={12}>
-              <NetworkActivities 
-                title='Diet'
-                options={options}
+              <DataTable
+                data={ data }
+                data_set='diet'
               />
             </Col>
           </Row>
-    
-    {/* VerticalTabsLeft */}
+        </div>
+
+        <div className="clearfix"> </div>
+        {/*         
+        <Row>
+          <Col md={12} sm={12} xs={12}>
+            <DataTable
+              data='Diet'
+              data_set='diet'
+            />
+          </Col>
+        </Row> */}
 
 
-{/* 
+        {/* VerticalTabsLeft */}
+
+
+        {/* 
         <Panel>
           <PanelHeader>
             <h2>Typography <small>different design elements</small></h2>
@@ -93,7 +157,7 @@ class DietPage extends Component {
             </div>
           </PanelBody>
         </Panel> */}
-      </Page> 
+      </Page>
     )
   }
 }

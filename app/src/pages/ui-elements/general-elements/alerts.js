@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert } from 'react-bootstrap';
+import Alert from 'react-bootstrap/Alert';
 import { Panel, PanelHeader, PanelBody } from 'react-gentelella';
 import GeneralPanelToolbox from '../../../components/general-panel-toolbox';
 import CodeSample from '../../../components/code-sample'
