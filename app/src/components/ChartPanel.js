@@ -47,11 +47,11 @@ class ChartPanel extends Component {
     };
   }
 
-  sliceChart(option) {
-    this.setState({
-      title: option
-    })
-  }
+  // sliceChart(option) {
+  //   this.setState({
+  //     title: option
+  //   })
+  // }
 
   renderTitle(title, subtitle) {
     return (
@@ -69,7 +69,7 @@ class ChartPanel extends Component {
       data,
       subtitle,
       title,
-    } = this.state;
+    } = this.props;
     return (
       <Panel>
         {this.renderTitle(title, subtitle)}

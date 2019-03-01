@@ -22,8 +22,10 @@ class DataTable extends Component {
 
     constructor(props) {
         super(props);
-        const { data_set, data, title } = props;
+        const { button_box, search_box, data_set, data, title } = props;
         this.state = {
+            button_box: button_box,
+            search_box: search_box,
             data_set: data_set,
             data: data,
             title: title
@@ -126,7 +128,7 @@ class DataTable extends Component {
             );
         }
         // last_five
-        else if (data_set === 'last_five' ) {
+        else if (data_set === 'last_five') {
             return (
                 <TableBody>
                 </TableBody>
@@ -135,7 +137,7 @@ class DataTable extends Component {
     }
 
     render() {
-        const { data_set, data, title } = this.state;
+        const { button_box, search_box, data_set, data, title } = this.state;
         return (
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -144,17 +146,35 @@ class DataTable extends Component {
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <button> Copy </button>
-                        <button> Print </button>
-                        <button> Download </button>
-                        <button className="pull-right"> Search BOX </button>
+                        <div>
+                            {
+                                button_box ? (
+                                    <div>
+                                        <button> Copy </button>
+                                        <button> Print </button>
+                                        <button> Download </button>
+                                    </div>
+                                ) :
+                                    <div />
+                            }
+                        </div>
+                        <div>
+                            {
+                                search_box ? (
+                                    <div>
+                                        <button className="pull-right"> Search BOX </button>
+                                    </div>
+                                ) :
+                                    <div />
+                            }
+                        </div>
                         <table id="datatable-buttons"
                             class="table table-striped table-bordered"
                         >
                             <thead>
                                 {this.renderTableHead(data_set)}
                             </thead>
-                                {this.renderTableData(data_set, data)}
+                            {this.renderTableData(data_set, data)}
                         </table>
                     </div>
                 </div>

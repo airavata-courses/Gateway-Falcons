@@ -8,7 +8,7 @@ import SlicerPanel from '../../components/SlicerPanel';
 import * as Constants from '../../constants';
 
 const options = [
-  { title: 'Low Cal', value: 'calories' },
+  { title: 'Cal', value: 'calories' },
   { title: 'SO Cal', value: 'fat' },
   { title: 'Hydration', value: 'water' },
   { title: 'whatevaaa', value: 'somethig...' },
@@ -20,7 +20,10 @@ class DietPage extends Component {
     super(props);
     this.state = {
       title: 'Diet',
+      chart_title: '',
       data: [],
+      data_set: '',
+      chart_title: '',
       kpi_data: []
     };
   }
@@ -43,12 +46,24 @@ class DietPage extends Component {
     this.getAndSetDietData();
   }
 
+  sliceChart = (chart_title) => {
+    alert(chart_title)
+    this.setState({
+      chart_title
+    })
+  }
+
+  sliceDateRange(event, picker) {
+    console.log(picker.startDate._d);
+    console.log(picker.endDate._d);
+  }
+
   render() {
 
-    const { data, kpi_data } = this.state;
+    const { data, data_set, chart_title, kpi_data } = this.state;
     return (
       <Page>
-        <PageTitle title={'Typography'}>
+        <PageTitle title={'Diet Data'}>
           {/* <GlobalSearch/> */}
         </PageTitle>
 
@@ -60,7 +75,7 @@ class DietPage extends Component {
             <Col md={5} sm={12} xs={12}>
               <ChartPanel
                 data_set='diet'
-                title='Diet'
+                title={this.state.chart_title}
                 options={options}
                 data={data}
               />
@@ -70,6 +85,8 @@ class DietPage extends Component {
             <Col md={2} sm={2} xs={2}>
               <SlicerPanel
                 options={options}
+                sliceDateRange={this.sliceDateRange}
+                sliceChart={this.sliceChart}
               />
             </Col>
 
@@ -77,7 +94,7 @@ class DietPage extends Component {
             <Col md={5} sm={12} xs={12}>
               <ChartPanel
                 data_set='diet'
-                title='Diet'
+                title={chart_title}
                 options={options}
                 data={data}
               />
@@ -92,6 +109,8 @@ class DietPage extends Component {
               <DataTable
                 data={data}
                 data_set='last_five'
+                button_box={true}
+                search_box={false}
                 title='Last 5 Meals'
               />
             </Col>
@@ -103,6 +122,8 @@ class DietPage extends Component {
             <Col md={12} sm={12} xs={12}>
               <DataTable
                 data={data}
+                button_box={true}
+                search_box={true}
                 data_set='diet'
                 title='Diet'
               />
