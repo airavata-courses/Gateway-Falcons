@@ -18,3 +18,4 @@ stravalib==0.10.2
 units==0.7
 urllib3==1.24.1
 Werkzeug==0.14.1
+configparser==3.7.3
