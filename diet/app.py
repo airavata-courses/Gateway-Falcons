@@ -2,10 +2,19 @@ from flask import Flask
 from flask_pymongo import PyMongo
 import myfitnesspal
 import datetime
+from configparser import ConfigParser
+import os
 
+parser = ConfigParser()
 app = Flask(__name__)
-app.config['MONGO_DBNAME'] = 'countrycycle'
-app.config['MONGO_URI'] = 'mongodb://ppaithan:tylertyler12@ds243963.mlab.com:43963/countrycycle'
+if os.path.isfile('./dietconfig.ini'):
+    parser.read('./dietconfig.ini')
+else:
+    print("error: No configuration file present")
+    exit()
+
+app.config['MONGO_DBNAME'] = parser.get('DB','dbname')
+app.config['MONGO_URI'] = parser.get('DB', 'url')
 
 mongo = PyMongo(app)
 
@@ -81,4 +90,5 @@ def create_exercise(exercises):
 
 
 if __name__ == '__main__':
-    app.run()
+
+    app.run(host='0.0.0.0', port='5000')
