@@ -12,7 +12,7 @@ const options = [
   { title: 'SO Cal', value: 'fat' },
   { title: 'Hydration', value: 'water' },
   { title: 'whatevaaa', value: 'somethig...' },
-]
+];
 
 class DietPage extends Component {
 
@@ -68,8 +68,8 @@ class DietPage extends Component {
 
             {/* Slicers */}
             <Col md={2} sm={2} xs={2}>
-              <SlicerPanel 
-                options={options} 
+              <SlicerPanel
+                options={options}
               />
             </Col>
 
@@ -91,15 +91,26 @@ class DietPage extends Component {
             <Col md={12} sm={12} xs={12}>
               <DataTable
                 data={data}
+                data_set='last_five'
+                title='Last 5 Meals'
+              />
+            </Col>
+          </Row>
+
+          <div className="clearfix"> </div>
+
+          <Row>
+            <Col md={12} sm={12} xs={12}>
+              <DataTable
+                data={data}
                 data_set='diet'
+                title='Diet'
               />
             </Col>
           </Row>
         </div>
 
         <div className="clearfix"> </div>
-
-        {/* VerticalTabsLeft */}
 
         {/* 
         <Panel>
@@ -150,7 +161,7 @@ class DietPage extends Component {
             </div>
           </PanelBody>
         </Panel> */}
-      </Page>
+      </Page >
     )
   }
 }

@@ -22,9 +22,11 @@ class DataTable extends Component {
 
     constructor(props) {
         super(props);
+        const { data_set, data, title } = props;
         this.state = {
-            data_set: props.data_set,
-            data: props.data
+            data_set: data_set,
+            data: data,
+            title: title
         };
     }
 
@@ -124,7 +126,7 @@ class DataTable extends Component {
             );
         }
         // last_five
-        else {
+        else if (data_set === 'last_five' ) {
             return (
                 <TableBody>
                 </TableBody>
@@ -133,12 +135,12 @@ class DataTable extends Component {
     }
 
     render() {
-        const { data_set, data } = this.state;
+        const { data_set, data, title } = this.state;
         return (
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2> {data_set.toString().toUpperCase()} Data </h2>
+                        <h2> {title} Data </h2>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">

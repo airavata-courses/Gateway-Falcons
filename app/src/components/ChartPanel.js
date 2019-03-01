@@ -5,6 +5,20 @@ import { Tabs, Tab, Panel, PanelHeader, PanelBody } from 'react-gentelella';
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
+const ChartTypes = {
+  line: 2,
+  highstock: 1,
+  time_series: 3,
+  spline: 3,
+  area: 3,
+  areaspline: 3,
+  bar: 3,
+  column: 3,
+  pie: 3,
+  scatter: 3,
+  gauge: 3,
+  heat: 3,
+};
 
 const options = {
   title: {
@@ -17,10 +31,19 @@ const options = {
 
 class ChartPanel extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const {
+      chart_type,
+      data,
+      subtitle,
+      title,
+    } = props;
     this.state = {
-      title: ''
+      title: title,
+      chart_type: chart_type,
+      data: data,
+      subtitle: subtitle,
     };
   }
 
@@ -41,21 +64,21 @@ class ChartPanel extends Component {
   }
 
   render() {
-    const { 
+    const {
       chart_type,
       data,
       subtitle,
-      title, 
-     } = this.props;
+      title,
+    } = this.state;
     return (
       <Panel>
         {this.renderTitle(title, subtitle)}
         <PanelBody>
           <div className="col-md-12 col-sm-12 col-xs-12">
-          <HighchartsReact
-            highcharts={Highcharts}
-            options={options}
-          />
+            <HighchartsReact
+              highcharts={Highcharts}
+              options={options}
+            />
           </div>
         </PanelBody>
       </Panel>
