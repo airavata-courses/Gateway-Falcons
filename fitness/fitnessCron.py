@@ -2,6 +2,9 @@ from crontab import CronTab
 
 
 cron = CronTab(user=True)
+iter1=cron.find_comment("add fitness data")
+for job in iter1:
+    cron.remove(job)
 job = cron.new(command='curl -v http://127.0.0.1:5001/get',comment='add fitness data')
 
 job.setall('59 8-23/1 * * *')
