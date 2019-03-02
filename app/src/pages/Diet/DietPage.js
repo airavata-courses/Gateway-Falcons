@@ -63,9 +63,7 @@ class DietPage extends Component {
     const { data, data_set, chart_title, kpi_data } = this.state;
     return (
       <Page>
-        <PageTitle title={'Diet Data'}>
-          {/* <GlobalSearch/> */}
-        </PageTitle>
+        <PageTitle title={'Diet Data'} />
 
         <TopTile kpi_data={kpi_data} />
 
@@ -182,7 +180,7 @@ class DietPage extends Component {
             </div>
           </PanelBody>
         </Panel> */}
-      </Page >
+      </Page>
     )
   }
 }
