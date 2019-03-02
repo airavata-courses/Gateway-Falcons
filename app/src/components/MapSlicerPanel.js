@@ -33,19 +33,6 @@ function MapSlicerPanel(props) {
                     {/* TODO: split buttons */}
                     {/* TODO: Switch to date picker */}
                         <div id="reportrange" style={{ background: '#fff', cursor: 'pointer', padding: '5px 10px' }}>
-                            <DateRangePicker
-                                startDate="4/1/2019"
-                                endDate="8/1/2019"
-                                onEvent={sliceDateRange}
-                                ranges={ranges}
-                                showCustomRangeLabel={true}
-                                alwaysShowCalendars={false}
-                            >
-                                <button>
-                                    <i className="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                                    <span>April 1, 2019 - August 28, 2019</span> <b className="caret"></b>
-                                </button>
-                            </DateRangePicker>
                             <ButtonToolbar>
                                 {
                                     options.map((option, index) => (
@@ -58,6 +45,20 @@ function MapSlicerPanel(props) {
                                     )
                                 }
                             </ButtonToolbar>
+                            <DateRangePicker
+                                startDate="4/1/2019"
+                                endDate="8/1/2019"
+                                onEvent={sliceDateRange}
+                                ranges={ranges}
+                                showCustomRangeLabel={true}
+                                alwaysShowCalendars={false}
+                                singleDatePicker
+                            >
+                                <button>
+                                    <i className="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                    <span> { Date.now() } </span> <b className="caret"></b>
+                                </button>
+                            </DateRangePicker>
                         </div>
                     </Col>
                 </Row>
