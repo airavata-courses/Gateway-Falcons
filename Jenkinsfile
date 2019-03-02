@@ -6,7 +6,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'sudo apt-get install python3-pip -y'
+                //sh 'sudo apt-get install python3-pip -y'
+		sh 'python --version'
                 sh 'pip3 install -r ./diet/requirements.txt'             
             }
         }
