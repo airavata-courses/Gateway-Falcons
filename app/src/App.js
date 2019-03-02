@@ -33,7 +33,7 @@ import Glyphicons from './pages/ui-elements/glyphicons'
 class App extends Component {
 
   state = {
-    started: false
+    started: true
   }
 
   componentDidMount() {
@@ -49,22 +49,33 @@ class App extends Component {
         <BaseTheme />
         <BrowserRouter>
           <Gentelella fixedFooter={true} fixedSidebar={true} >
-            <Sidebar />
-            <HeadNav />
-            <Switch>
-              {/* <Route path="/extras/plain-page" component={PlainPage} />
-              <Route path="/forms/general-form" component={FormElements} /> */}
-              <Route path="/ui-elements/general-elements" component={GeneralElements} />
-              <Route path="/ui-elements/typography" component={Typography} />
-              <Route path="/ui-elements/icons" component={Icons} />
-              <Route path="/ui-elements/glyphicons" component={Glyphicons} />
-              <Route path="/data/diet" component={DietPage} />
-              <Route path="/data/fitness" component={FitnessPage} />
-              <Route path="/data/media" component={MediaPage} />
-              <Route path="/about" component={AboutPage} />
-              {/* <Route path="/multilevel-menu" component={MultiLevel} />
+            {/* {
+              (!this.state.started) ? */}
+                {/* <div>
+                  <Route path="/landing" component={LandingPage} />
+                </div> */}
+                {/* : */}
+                <div>
+                  <Sidebar />
+                  <HeadNav />
+                <Switch>
+                  {/* <Route path="/extras/plain-page" component={PlainPage} />
+                  <Route path="/forms/general-form" component={FormElements} /> */}
+                    <Route exac="true" path="/home" component={HomePage} />
+                    <Route exac="true" path="/ui-elements/general-elements" component={GeneralElements} />
+                    <Route path="/ui-elements/typography" component={Typography} />
+                    <Route path="/ui-elements/icons" component={Icons} />
+                    <Route path="/ui-elements/glyphicons" component={Glyphicons} />
+                    <Route path="/data/diet" component={DietPage} />
+                    <Route path="/data/fitness" component={FitnessPage} />
+                    <Route path="/data/media" component={MediaPage} />
+                    <Route path="/about" component={AboutPage} />
+                    <Route exac="true" path="/" component={HomePage} />
+                </Switch>
+                </div>
+                {/* } */}
+            {/* <Route path="/multilevel-menu" component={MultiLevel} />
               <Route component={PlainPage} /> */}
-            </Switch>
             <Footer>
               React-Gentelella * Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
             </Footer>

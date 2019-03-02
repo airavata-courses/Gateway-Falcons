@@ -72,23 +72,16 @@ class AboutPage extends Component {
                                     {/* <!-- end of skills --> */}
 
                                 </div>
-
                                 <div class="col-md-9 col-sm-9 col-xs-12">
-
                                     <AboutTabs />
-                                    
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                        {/* </div>
-                    </div > */}
             </Page >
-                );
-
+        );
     }
-
 }
 
 AboutPage.propTypes = {

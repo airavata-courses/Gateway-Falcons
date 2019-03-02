@@ -5,19 +5,11 @@ import Slider from 'react-animated-slider';
 import 'react-animated-slider/build/horizontal.css';
 import sliderData from '../data/slider-pages';
 import Paper from '@material-ui/core/Paper';
+import { Page, Panel, PanelHeader, PanelBody, PageTitle } from 'react-gentelella';
 
 const styles = () => ({
 
 });
-
-/*
-{
-                  <Timer
-                    nextTimeDetermined={this.state.nextTimeDetermined}
-                    nextTimeBoundary={this.state.nextTimeBoundary}
-                  />
-              }
-              */
 
 class HomePage extends Component {
 
@@ -39,24 +31,31 @@ class HomePage extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root}  style={{ width: "70%"}} >
-          <Slider>
-            {sliderData.map((item, index) => (
-              <div
-                key={index}
-                style={{ background: `url('${item.image}') no-repeat center center` }}
-              >
-                <div className="center" style={{ width: "50%" }}>
-                  <Paper>
-                    <h1>{item.title}</h1>
-                    <p>{item.description}</p>
-                    <button onClick={() => this.onNavigate(item.page)}>{item.button}</button>
-                  </Paper>
-                </div>
-              </div>
-            ))}
-          </Slider>
-      </div >
+      <Page>
+        <PageTitle title={'Diet Data'} />
+        <Panel>
+          <PanelBody>
+            <div className={classes.root} style={{ width: "100%" }} >
+              <Slider>
+                {sliderData.map((item, index) => (
+                  <div
+                    key={index}
+                    style={{ background: `url('${item.image}') no-repeat center center` }}
+                  >
+                    <div className="center" style={{ width: "70%" }}>
+                      <Paper>
+                        <h1>{item.title}</h1>
+                        <p>{item.description}</p>
+                        <button onClick={() => this.onNavigate(item.page)}>{item.button}</button>
+                      </Paper>
+                    </div>
+                  </div>
+                ))}
+              </Slider>
+            </div>
+          </PanelBody>
+        </Panel>
+      </Page>
     )
   }
 }
