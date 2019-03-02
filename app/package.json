@@ -25,6 +25,7 @@
     "react-bootstrap": "^1.0.0-beta.5",
     "react-bootstrap-daterangepicker": "^4.1.0",
     "react-coverflow": "^0.2.18",
+    "react-coverflow-themillhousegroup": "^0.3.3",
     "react-dom": "^16.7.0",
     "react-flexbox-grid": "^2.1.2",
     "react-gentelella": "^0.7.3",

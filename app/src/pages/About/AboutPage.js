@@ -4,6 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { Page, PageTitle } from 'react-gentelella';
 import AboutTabs from './AboutTabs';
+import john from '../../images/john-profile.jpg'
+
 
 class AboutPage extends Component {
 
@@ -21,7 +23,7 @@ class AboutPage extends Component {
                                     <div class="profile_img">
                                         <div id="crop-avatar">
                                             {/* <!-- Current avatar --> */}
-                                            <img class="img-responsive avatar-view" src="/images/img.jpg" alt="Avatar" title="Change the avatar" />
+                                            <img class="img-responsive avatar-view" src={john} alt="Avatar" title="Change the avatar" />
                                         </div>
                                     </div>
                                     <h3>Samuel Doe</h3>

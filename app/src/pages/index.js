@@ -5,6 +5,6 @@ export { default as FitnessPage } from './FitnessPage';
 export { default as HomePage } from './HomePage';
 export { default as LandingPage } from './LandingPage';
 export { default as LivePage } from './LivePage';
-export { default as LocationPage } from './LocationPage';
+export { default as LocationPage } from './Location/LocationPage';
 export { default as LoginPage } from './LoginPage';
 export { default as MediaPage } from './Media/MediaPage';

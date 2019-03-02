@@ -4,7 +4,7 @@ import ChartPanel from '../../components/ChartPanel'
 import TopTile from '../../components/TopTile'
 import { Page, PageTitle } from 'react-gentelella';
 import DataTable from '../../components/DataTable';
-import SlicerPanel from '../../components/SlicerPanel';
+import ChartSlicerPanel from '../../components/ChartSlicerPanel';
 import * as Constants from '../../constants';
 
 const options = [
@@ -81,7 +81,7 @@ class DietPage extends Component {
 
             {/* Slicers */}
             <Col md={2} sm={2} xs={2}>
-              <SlicerPanel
+              <ChartSlicerPanel
                 options={options}
                 sliceDateRange={this.sliceDateRange}
                 sliceChart={this.sliceChart}

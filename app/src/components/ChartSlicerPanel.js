@@ -15,8 +15,10 @@ const ranges = {
     'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
 };
 
-function SlicerPanel(props) {
+
+function ChartSlicerPanel(props) {
     
+    // TODO: orientation
     const { options, sliceDateRange, sliceChart } = props;
     return (
         <Panel>
@@ -70,4 +72,4 @@ function SlicerPanel(props) {
     );
 }
 
-export default SlicerPanel
+export default ChartSlicerPanel

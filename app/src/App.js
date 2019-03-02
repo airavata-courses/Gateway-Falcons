@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
-import { MuiThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import muiTheme from './components/Theme';
-import ButtonAppBar from './components/ButtonAppBar';
 import {
   AboutPage,
   ContactPage,
@@ -18,9 +14,6 @@ import {
   MediaPage
 } from './pages/index';
 // import Footer from "./components/Footer";
-import { Left, Top, Menu, PageContent } from './components/navigation';
-// import PageContent from './components/navigation';
-// import history from './history';
 
 import { Gentelella, BaseTheme, Footer } from 'react-gentelella';
 import Sidebar from "./layout/sidebar";
@@ -69,6 +62,7 @@ class App extends Component {
                     <Route path="/data/diet" component={DietPage} />
                     <Route path="/data/fitness" component={FitnessPage} />
                     <Route path="/data/media" component={MediaPage} />
+                    <Route exac="true" path="/location" component={LocationPage} />
                     <Route path="/about" component={AboutPage} />
                     {/* TODO: catch all redirect */}
                     <Route exac="true" path="/" component={HomePage} />
