@@ -19,18 +19,18 @@ mongoose
   .catch((err) => console.error('error connecting to mlab:', err))
 
 
-const whitelist = ["http://149.165.170.161:3000", "http://localhost:3000"];
+// const whitelist = ["http://149.165.170.161:3000", "http://localhost:3000"];
 
-function checkOriginAgainstWhitelist(ctx) {
-    const requestOrigin = ctx.accept.headers.origin;
-    if (!whitelist.includes(requestOrigin) {
-        return ctx.throw(`🙈 ${requestOrigin} is not a valid origin`);
-    }
-    return requestOrigin;
- }
-app.use(convert(cors({ origin: checkOriginAgainstWhitelist })));
+// function checkOriginAgainstWhitelist(ctx) {
+//     const requestOrigin = ctx.accept.headers.origin;
+//     if (!whitelist.includes(requestOrigin) {
+//         return ctx.throw('${requestOrigin} is not a valid origin');
+//     }
+//     return requestOrigin;
+//  }
+// app.use(convert(cors({ origin: checkOriginAgainstWhitelist })));
 
-//app.use(cors({ origin: "http://149.165.170.161:3000"}))
+app.use(cors({ origin: "http://149.165.170.161:3000"}))
 
 fs.readdirSync('./routes').forEach(file => {
     const fileName = file.substring(0, file.indexOf('.'));
