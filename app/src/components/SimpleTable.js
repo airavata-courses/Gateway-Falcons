@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { fitnessData } from '../data/table-data'
 
 const styles = {
   root: {
@@ -28,23 +29,22 @@ function SimpleTable(props) {
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Avg. Cadence</TableCell>
-              <TableCell align="right">Avg HR</TableCell>
-              <TableCell align="right">Max HR</TableCell>
-              <TableCell align="right">Avg Speed</TableCell>
-              <TableCell align="right">Max Speed</TableCell>
-              <TableCell align="right">Calories</TableCell>
-              <TableCell align="right">Timezone</TableCell>
-              <TableCell align="right">Starting Lat/Lon</TableCell>
-              <TableCell align="right">Ending Lat/Lon</TableCell>
-              <TableCell align="right">Description</TableCell>
+              {
+                Object.keys(fitnessData).map(key => (
+                  <TableCell align="right"> {fitnessData[key] } </TableCell>
+                ))
+              }
             </TableRow>
           </TableHead>
           <TableBody>
             {data.map(record => (
-              <TableRow key={record.activity_id}>
-                <TableCell component="th" scope="row"> {record.name} </TableCell>
+              <TableRow key={record.activity_id}> 
+              {
+                Object.keys(fitnessData).map(key => (
+                  <TableCell align="right"> { record[key] } </TableCell>
+                ))
+              }
+                {/* <TableCell component="th" scope="row"> {record.name} </TableCell>
                 <TableCell align="right">{record.average_cadence}</TableCell>
                 <TableCell align="right">{record.average_heartrate}</TableCell>
                 <TableCell align="right">{record.max_heartrate}</TableCell>
@@ -54,7 +54,7 @@ function SimpleTable(props) {
                 <TableCell align="right">{record.timezone}</TableCell>
                 <TableCell align="right">{record.start_latlng}</TableCell>
                 <TableCell align="right">{record.end_latlng}</TableCell>
-                <TableCell align="right">{record.description || 'none'}</TableCell>
+                <TableCell align="right">{record.description || 'none'}</TableCell> */}
               </TableRow>
             ))}
           </TableBody>
@@ -118,6 +118,7 @@ function SimpleTable(props) {
       </Paper>
     );
   }
+  // last_five
   else {
     return (
       <Paper className={classes.root}>

@@ -1,27 +1,32 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter, Route } from "react-router-dom";
-import { MuiThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import muiTheme from './components/Theme';
-import Footer from "./components/Footer";
-import ButtonAppBar from './components/ButtonAppBar';
-import { 
-    AboutPage, 
-    ContactPage,
-    DataPage,
-    HomePage,
-    LandingPage,
-    LivePage,
-    LocationPage, 
-    LoginPage,
-    MediaPage
-   } from './pages/index';
+import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
+import {
+  AboutPage,
+  ContactPage,
+  DietPage,
+  FitnessPage,
+  HomePage,
+  LandingPage,
+  LivePage,
+  LocationPage,
+  LoginPage,
+  MediaPage
+} from './pages/index';
+// import Footer from "./components/Footer";
+
+import { Gentelella, BaseTheme, Footer } from 'react-gentelella';
+import Sidebar from "./layout/sidebar";
+import HeadNav from "./layout/head-nav";
+import GeneralElements from "./pages/ui-elements/general-elements"
+import Typography from './pages/ui-elements/typography'
+import Icons from './pages/ui-elements/icons'
+import Glyphicons from './pages/ui-elements/glyphicons'
 
 class App extends Component {
 
   state = {
-    started: false
+    started: true
   }
 
   componentDidMount() {
@@ -33,37 +38,49 @@ class App extends Component {
 
   render() {
     return (
-      <MuiThemeProvider theme={muiTheme}>
-        <CssBaseline />
+      <div>
+        <BaseTheme />
         <BrowserRouter>
-          <div className="site-content">
-            {/* TODO: have conditional router to remove landing page at journey start */}
-            {/* {!this.state.started ? */}
-              <Route exact path="/landing" component={LandingPage} /> 
-              {/* : */}
-              <div>
-                <ButtonAppBar />
-                <Route exact path="/login" component={LoginPage} />
-                <Route exact path="/" component={HomePage} />
-                <Route exact path="/live" component={LivePage} />
-                <Route exact path="/media" component={MediaPage} />
-                <Route exact path="/fitness"
-                  component={() => <DataPage data_set="fitness" />}
-                />
-                <Route exact path="/diet"
-                  component={() => <DataPage data_set="diet" />}
-                />
-                <Route exact path="/location" component={LocationPage} />
-                <Route exact path="/about" component={AboutPage} />
-                <Route exact path="/contact" component={ContactPage} />
-                <Footer></Footer>
-              </div>
-            {/* } */}
-          </div>
+          <Gentelella fixedFooter={true} fixedSidebar={true} >
+            {/* {
+              (!this.state.started) ? */}
+                {/* <div>
+                  <Route path="/landing" component={LandingPage} />
+                </div> */}
+                {/* : */}
+                <div>
+                  <Sidebar />
+                  <HeadNav />
+                <Switch>
+                  {/* <Route path="/extras/plain-page" component={PlainPage} />
+                  <Route path="/forms/general-form" component={FormElements} /> */}
+                    <Route exac="true" path="/home" component={HomePage} />
+                    <Route exac="true" path="/ui-elements/general-elements" component={GeneralElements} />
+                    <Route path="/ui-elements/typography" component={Typography} />
+                    <Route path="/ui-elements/icons" component={Icons} />
+                    <Route path="/ui-elements/glyphicons" component={Glyphicons} />
+                    <Route path="/data/diet" component={DietPage} />
+                    <Route path="/data/fitness" component={FitnessPage} />
+                    <Route path="/data/media" component={MediaPage} />
+                    <Route exac="true" path="/location" component={LocationPage} />
+                    <Route path="/about" component={AboutPage} />
+                    {/* TODO: catch all redirect */}
+                    <Route exac="true" path="/" component={HomePage} />
+                </Switch>
+                </div>
+                {/* } */}
+            {/* <Route path="/multilevel-menu" component={MultiLevel} />
+              <Route component={PlainPage} /> */}
+            <Footer>
+              React-Gentelella * Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            </Footer>
+          </Gentelella>
         </BrowserRouter>
-      </MuiThemeProvider>
+      </div>
     );
   }
 }
 
 export default App;
+
+
