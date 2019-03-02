@@ -1,36 +1,28 @@
 import React, { Component } from 'react';
 import { Panel, PanelHeader, PanelBody, Tab, Tabs } from 'react-gentelella';
-import GeneralPanelToolbox from '../../../components/general-panel-toolbox';
 
-class VerticalTabsLeft extends Component {
-
-    state = {
-        showCode: false
-    };
+class AboutTabs extends Component {
 
     render() {
         return (
           <Panel>
-            <PanelHeader>
-              <h2>
-                <i className={'fa fa-bars'}/>
-                &nbsp;Vertical Tabs<small>Float left</small>
-              </h2>
-            </PanelHeader>
             <PanelBody>
-              <Tabs vertical>
-                <Tab title={'Home'} active>
+              <Tabs>
+                <Tab title={'About Me'} active>
                   <p className="lead">Home tab</p>
                   <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
                     synth. Cosby sweater eu banh mi, qui irure terr.</p>
                 </Tab>
-                <Tab title={'Profile'}>
+                <Tab title={'Story'}>
                   <p className="lead">Profile tab</p>
                 </Tab>
-                <Tab title={'Messages'}>
+                <Tab title={'Mission'}>
                   <p className="lead">Messages tab</p>
                 </Tab>
-                <Tab title={'Settings'}>
+                <Tab title={'Research'}>
+                  <p className="lead">Settings tab</p>
+                </Tab>
+                <Tab title={'GoFundMe'}>
                   <p className="lead">Settings tab</p>
                 </Tab>
               </Tabs>
@@ -40,4 +32,4 @@ class VerticalTabsLeft extends Component {
     }
 }
 
-export default VerticalTabsLeft;
+export default AboutTabs;

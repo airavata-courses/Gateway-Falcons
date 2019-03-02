@@ -12,7 +12,7 @@ const UserMenu = () => (
         </MenuItem>
         <MenuItem>
             <a href="/">
-                <Badge bsClass='badge bg-red pull-right'>50%</Badge>
+                <Badge className='badge bg-red pull-right'>50%</Badge>
                 <span>Settings</span>
             </a>
         </MenuItem>

@@ -61,6 +61,7 @@ class App extends Component {
               <Route path="/data/diet" component={DietPage} />
               <Route path="/data/fitness" component={FitnessPage} />
               <Route path="/data/media" component={MediaPage} />
+              <Route path="/about" component={AboutPage} />
               {/* <Route path="/multilevel-menu" component={MultiLevel} />
               <Route component={PlainPage} /> */}
             </Switch>

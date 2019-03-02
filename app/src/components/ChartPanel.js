@@ -7,7 +7,7 @@ import HighchartsReact from 'highcharts-react-official'
 
 const ChartTypes = {
   line: 2,
-  highstock: 1,
+  highstock: require('highcharts/highstock'),
   time_series: 3,
   spline: 3,
   area: 3,
@@ -15,18 +15,21 @@ const ChartTypes = {
   bar: 3,
   column: 3,
   pie: 3,
-  scatter: 3,
+  // scatter: require('highcharts/scatter'),
   gauge: 3,
   heat: 3,
 };
 
 const options = {
   title: {
-    text: 'My chart'
+    text: ''
   },
   series: [{
     data: [1, 2, 3]
-  }]
+  }],
+  // chart: {
+  //   type: 'line',
+  // },
 }
 
 class ChartPanel extends Component {
@@ -39,12 +42,12 @@ class ChartPanel extends Component {
       subtitle,
       title,
     } = props;
-    this.state = {
-      title: title,
-      chart_type: chart_type,
-      data: data,
-      subtitle: subtitle,
-    };
+    // this.state = {
+    //   title: title,
+    //   chart_type: chart_type,
+    //   data: data,
+    //   subtitle: subtitle,
+    // };
   }
 
   // sliceChart(option) {
@@ -70,6 +73,16 @@ class ChartPanel extends Component {
       subtitle,
       title,
     } = this.props;
+    console.log(chart_type);
+    console.log(options);
+    // if (chart_type === 'scatter') {
+    options['chart'] = {
+      type: chart_type,
+      // zoomType: 'xy'
+    };
+    // }
+    console.log(options);
+    // const updatedOptions = Object.assign(options, _chartType);
     return (
       <Panel>
         {this.renderTitle(title, subtitle)}

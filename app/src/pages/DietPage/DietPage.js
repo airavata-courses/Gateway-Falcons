@@ -75,8 +75,8 @@ class DietPage extends Component {
             <Col md={5} sm={12} xs={12}>
               <ChartPanel
                 data_set='diet'
-                title={this.state.chart_title}
-                options={options}
+                title={chart_title}
+                chart_type="scatter"
                 data={data}
               />
             </Col>
@@ -95,7 +95,7 @@ class DietPage extends Component {
               <ChartPanel
                 data_set='diet'
                 title={chart_title}
-                options={options}
+                chart_type="line"
                 data={data}
               />
             </Col>

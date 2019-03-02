@@ -139,13 +139,13 @@ class DataTable extends Component {
     render() {
         const { button_box, search_box, data_set, data, title } = this.state;
         return (
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
+            <div className="col-md-12 col-sm-12 col-xs-12">
+                <div className="x_panel">
+                    <div className="x_title">
                         <h2> {title} Data </h2>
-                        <div class="clearfix"></div>
+                        <div className="clearfix"></div>
                     </div>
-                    <div class="x_content">
+                    <div className="x_content">
                         <div>
                             {
                                 button_box ? (
@@ -169,7 +169,7 @@ class DataTable extends Component {
                             }
                         </div>
                         <table id="datatable-buttons"
-                            class="table table-striped table-bordered"
+                            className="table table-striped table-bordered"
                         >
                             <thead>
                                 {this.renderTableHead(data_set)}
@@ -185,7 +185,7 @@ class DataTable extends Component {
 
 
 DataTable.propTypes = {
-    // classes: PropTypes.object.isRequired,
+    // classNamees: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(DataTable);
