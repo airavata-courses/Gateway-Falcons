@@ -4,11 +4,11 @@ pipeline {
         LOCAL_DIET_IP = "${env.DIET_IP}"
     }
     stages {
-        stage('Build') {
-            steps {
+        //stage('Build') {
+          //  steps {
                 //sh 'pip3 install -r ./diet/requirements.txt'             
-            }
-        }
+            //}
+        //}
 		stage('Deploy') {
 			steps {
 				sh '''
