@@ -70,6 +70,7 @@ class App extends Component {
                     <Route path="/data/fitness" component={FitnessPage} />
                     <Route path="/data/media" component={MediaPage} />
                     <Route path="/about" component={AboutPage} />
+                    {/* TODO: catch all redirect */}
                     <Route exac="true" path="/" component={HomePage} />
                 </Switch>
                 </div>

@@ -13,6 +13,7 @@ import * as Constants from '../../constants';
 import { post } from 'axios';
 import { Page, PanelHeader, Panel, PanelTitle, PageTitle, PanelBody } from 'react-gentelella';
 import Coverflow from 'react-coverflow';
+import Lightbox from 'react-image-lightbox';
 
 const styles = theme => ({
     heroUnit: {
@@ -58,9 +59,18 @@ const styles = theme => ({
 
 class MediaPage extends Component {
 
-    state = {
-        selectedFile: null,
-        images: []
+    constructor() {
+        super();
+        this.state = {
+            selectedFile: null,
+            images: [],
+            index: 0,
+            isOpen: false,
+        };
+        this.openLightbox = this.openLightbox.bind(this);
+        this.closeLightbox = this.closeLightbox.bind(this);
+        this.moveNext = this.moveNext.bind(this);
+        this.movePrev = this.movePrev.bind(this);
     }
 
     fetchImages() {
@@ -85,12 +95,32 @@ class MediaPage extends Component {
         }
         this.setState({
             images
-        })
+        });
+    }
+
+    openLightbox() {
+        this.setState({ isOpen: true });
+    }
+
+    closeLightbox() {
+        this.setState({ isOpen: false });
     }
 
     componentDidMount() {
         console.log('mounted')
         this.fetchImages();
+    }
+
+    moveNext() {
+        this.setState(prevState => ({
+            index: (prevState.index + 1) % this.state.images.length,
+        }));
+    }
+
+    movePrev() {
+        this.setState(prevState => ({
+            index: (prevState.index + this.state.images.length - 1) % this.state.images.length,
+        }));
     }
 
     fileChangedHandler = (event) => {
@@ -127,10 +157,36 @@ class MediaPage extends Component {
     }
 
     fn = () => {
-    /* do you want */  
+        /* do you want */
     }
 
     render() {
+        const { images, index } = this.state;
+        let lightbox;
+        if (this.state.isOpen) {
+            lightbox = (
+                <Lightbox
+                    mainSrc={images[index].url}
+                    nextSrc={images[(index + 1) % images.length].url}
+                    prevSrc={
+                        images[(index + images.length - 1) % images.length].url
+                    }
+                    mainSrcThumbnail={images[index].url}
+                    nextSrcThumbnail={images[(index + 1) % images.length].url}
+                    prevSrcThumbnail={
+                        images[(index + images.length - 1) % images.length].url
+                    }
+                    onCloseRequest={this.closeLightbox}
+                    onMovePrevRequest={this.movePrev}
+                    onMoveNextRequest={this.moveNext}
+                    imageTitle={images[index].title}
+                    imageCaption={images[index].caption}
+                />
+            );
+        }
+        {/* onImageLoadError={App.onImageLoadError} */ }
+
+
         const { classes } = this.props;
         return (
             <Page>
@@ -152,28 +208,30 @@ class MediaPage extends Component {
                             navigation={true}
                             enableHeading={true}
                         >
-                            <div
-                                onClick={() => this.fn()}
-                                onKeyDown={() => this.fn()}
-                                role="menuitem"
-                                tabIndex="0"
-                            >
-                                <img
-                                    src='https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
-                                    alt='title or description'
-                                    style={{ display: 'block', width: '100%' }}
-                                />
-                            </div>
-                            <img 
-                                src='https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' 
-                                alt='title or description' 
-                                data-action="http://andyyou.github.io/react-coverflow/" 
-                            />
-                            <img 
-                                src='https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' 
-                                alt='title or description' 
-                                data-action="http://andyyou.github.io/react-coverflow/" 
-                            />
+                            {/* <div
+                            > */}
+                                {
+                                    images.map((image, index) => (
+                                        <div className="clearfix"
+                                            onClick={() => this.openLightbox()}
+                                            
+                                        >
+                                            <img
+                                                src={image.url}
+                                                onClick={() => this.openLightbox()}
+                                                alt={image.caption}
+                                                style={{ display: 'block', width: '100%' }}
+                                            />
+                                        </div>
+                                    ))
+                                }
+                            {/* </div> */}
+                            {/* 
+                            <img
+                                src='https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
+                                alt='title or description'
+                                data-action="http://andyyou.github.io/react-coverflow/"
+                            /> */}
                         </Coverflow>
                     </PanelBody>
                 </Panel>
@@ -190,6 +248,7 @@ class MediaPage extends Component {
                                         Make it short and sweet, but not too short so folks don&apos;t simply skip over it
                                         entirely.
                                     </Typography>
+                                    {lightbox}
                                     <div className={classes.heroButtons}>
                                         <Grid container spacing={16} justify="center">
                                             <Grid item>
@@ -206,11 +265,13 @@ class MediaPage extends Component {
                             </div>
                             <div className={classNames(classes.layout, classes.cardGrid)}>
                                 {/* End hero unit */}
+
                                 <Grid container spacing={40}>
-                                    {this.state.images.map(image => (
+                                    {this.state.images.map((image, index) => (
                                         <Grid item key={image.public_id} sm={6} md={4} lg={3}>
                                             <Card className={classes.card}>
                                                 <CardMedia
+                                                    onClick={() => this.openLightbox()}
                                                     className={classes.cardMedia}
                                                     image={image.url}
                                                     title={image.context.custom.caption}
