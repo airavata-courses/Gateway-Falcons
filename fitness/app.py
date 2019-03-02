@@ -20,7 +20,7 @@ app = Flask(__name__)
 client = Client()
 app.config['MONGO_DBNAME'] = parser.get('DB','dbname')
 app.config['MONGO_URI'] = parser.get('DB', 'url')
-client_id = parser.get('STRAVA', 'id')
+client_id = int(parser.get('STRAVA', 'id'))
 client_secret =  parser.get('STRAVA', 'secret')
 mongo = PyMongo(app)
 
