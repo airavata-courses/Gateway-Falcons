@@ -30,15 +30,11 @@ class DietPage extends Component {
 
   getAndSetDietData() {
     fetch(`${Constants.serverUrl}/diet`)
-      // .then(res => console.log(res))
-      .then(res => res.json())
+    .then(res => res.json())
+    // .then(res => console.log(res))
       .then(res => this.setState({
-        data: [].concat(res)
+        data: res
       }))
-    // .then(() => {
-    //     this.setChart();
-    //     this.setLastMeals();
-    // });
   }
 
   componentDidMount() {
