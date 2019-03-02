@@ -12,7 +12,7 @@ pipeline {
 		stage('Deploy') {
 			steps {
 				sh '''
-					ssh ubuntu@$LOCAL_DIET_IP sudo apt-get --assume-yes install expect
+					ssh -o StrictHostKeyChecking=no ubuntu@$LOCAL_DIET_IP sudo apt-get --assume-yes install expect
 					JENKINS_NODE_COOKIE=dontKillMe nohup ssh -f ubuntu@$LOCAL_DIET_IP sudo ./dietexpect.sh
           JENKINS_NODE_COOKIE=dontKillMe ssh ubuntu@$LOCAL_DIET_IP ./dietcron.sh      
 				'''
