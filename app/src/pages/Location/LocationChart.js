@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
-import { Row, Col } from 'react-bootstrap'
-import { ButtonToolbar, Button } from 'react-bootstrap';
-import { Tabs, Tab, Panel, PanelHeader, PanelBody } from 'react-gentelella';
-import { LineChart, Line, AreaChart, Area, Brush, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import React, { Component } from 'react';
+// import { Row, Col } from 'react-bootstrap'
+// import { ButtonToolbar, Button } from 'react-bootstrap';
+import { Panel, PanelBody } from 'react-gentelella';
+import { Area, AreaChart, Brush, CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
 
 class LocationChart extends Component {
 
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     // sliceChart(option) {
     //   this.setState({

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -29,9 +29,9 @@ class Timer extends Component {
             var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            var hours = (hours.toLocaleString(undefined, { minimumIntegerDigits: 2 }));
-            var minutes = (minutes.toLocaleString(undefined, { minimumIntegerDigits: 2 }));
-            var seconds = (seconds.toLocaleString(undefined, { minimumIntegerDigits: 2 }));
+            hours = (hours.toLocaleString(undefined, { minimumIntegerDigits: 2 }));
+            minutes = (minutes.toLocaleString(undefined, { minimumIntegerDigits: 2 }));
+            seconds = (seconds.toLocaleString(undefined, { minimumIntegerDigits: 2 }));
             this.setState({
                 days, hours, minutes, seconds
             })

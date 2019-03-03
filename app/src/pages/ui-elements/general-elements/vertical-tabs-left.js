@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Panel, PanelHeader, PanelBody, Tab, Tabs } from 'react-gentelella';
-import GeneralPanelToolbox from '../../../components/general-panel-toolbox';
 
 class VerticalTabsLeft extends Component {
 

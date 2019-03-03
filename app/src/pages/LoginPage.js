@@ -1,10 +1,9 @@
-import React, { Component } from "react";
-import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import GoogleButton from 'react-google-button'
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import GoogleButton from 'react-google-button';
 
 const styles = theme => ({
     root: {
@@ -48,9 +47,9 @@ class LoginPage extends Component {
                                 style={{ paddingTop: 10, paddingBottom: 10 }}
                             >
                                 Sign up as Viewer
-                                {/* // <GoogleButton
-                                //     onClick={() => { this.loginWithGoogle() }}
-                                // /> */}
+                                 <GoogleButton
+                                    onClick={() => { this.loginWithGoogle() }}
+                                />
                             </Paper>
                         </Grid>
                         <Grid key='viewer' item>

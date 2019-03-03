@@ -23,7 +23,6 @@ class DietPage extends Component {
       chart_title: '',
       data: [],
       data_set: '',
-      chart_title: '',
       kpi_data: []
     };
   }
@@ -72,7 +71,7 @@ class DietPage extends Component {
             {/* Left Chart */}
             <Col md={5} sm={12} xs={12}>
               <ChartPanel
-                data_set='diet'
+                data_set={data_set}
                 title={chart_title}
                 chart_type="scatter"
                 data={data}

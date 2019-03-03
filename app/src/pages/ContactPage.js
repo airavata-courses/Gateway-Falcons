@@ -9,7 +9,7 @@ const styles = theme => ({
 class ContactPage extends Component {
 
     render() {
-        const { classes } = this.props;
+        // const { classes } = this.props;
         return (
                     <Typography>
                         Contact us

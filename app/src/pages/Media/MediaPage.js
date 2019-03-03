@@ -9,11 +9,10 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
-import * as Constants from '../../constants';
+// import * as Constants from '../../constants';
 import { post } from 'axios';
-import { Page, PanelHeader, Panel, PanelTitle, PageTitle, PanelBody } from 'react-gentelella';
+import { Page, PanelHeader, Panel, PageTitle, PanelBody } from 'react-gentelella';
 import Coverflow from 'react-coverflow';
-// import Coverflow from 'react-coverflow-themillhousegroup';
 import Lightbox from 'react-image-lightbox';
 
 const styles = theme => ({
@@ -76,7 +75,7 @@ class MediaPage extends Component {
     }
 
     fetchImages() {
-        const username = `my_folder`;
+        // const username = `my_folder`;
         // fetch(`${Constants.serverUrl}/images/${username}`)
         //     .then(res => res.json())
         //     .then(images => this.setState({
@@ -154,7 +153,7 @@ class MediaPage extends Component {
             .then((res) => {
                 console.log(res)
                 alert(res.data);
-                if (res.data == "Upload Successful") {
+                if (res.data === "Upload Successful") {
                     this.fetchImages();
                 }
             })
@@ -219,6 +218,7 @@ class MediaPage extends Component {
                                 images.map((image, index) => (
                                     <div className="clearfix"
                                         id={index}
+                                        key={index}
                                         onClick={() => this.openLightbox(index)}
                                     >
                                         <img
@@ -267,7 +267,7 @@ class MediaPage extends Component {
 
                                 <Grid container spacing={40}>
                                     {this.state.images.map((image, index) => (
-                                        <Grid item key={image.public_id} sm={6} md={4} lg={3}>
+                                        <Grid item key={image.public_id || index} sm={6} md={4} lg={3}>
                                             <Card className={classes.card}>
                                                 <CardMedia
                                                     key={index}
