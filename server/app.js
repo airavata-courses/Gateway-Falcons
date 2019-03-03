@@ -31,6 +31,7 @@ mongoose
 // app.use(convert(cors({ origin: checkOriginAgainstWhitelist })));
 
 app.use(cors({ origin: "http://149.165.170.161:3000"}))
+// app.use(cors({ origin: "http://localhost:3000"}))
 
 fs.readdirSync('./routes').forEach(file => {
     const fileName = file.substring(0, file.indexOf('.'));
