@@ -1,4 +1,4 @@
-[![Build Status](http://149.165.170.222:8080/buildStatus/icon?job=Java Pipeline)](http://149.165.170.222:8080/job/Java%20Pipeline/)
+[![Build Status](http://149.165.170.222:8080/buildStatus/icon?job=ZookeeperPipeline)](http://149.165.170.222:8080/job/ZookeeperPipeline/)
 
 # Gateway-Falcons
 
