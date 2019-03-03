@@ -20,7 +20,7 @@ app = Flask(__name__)
 logging.basicConfig()
 
 
-@app.route('/register', methods=['POST'])
+@app.route('/register1', methods=['POST'])
 @cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
 def register_service():
     try:
@@ -38,7 +38,7 @@ def register_service():
     return jsonify({'message': 'Service is registered'}), 200
 
 
-@app.route('/getservice', methods=['POST'])
+@app.route('/getservice1', methods=['POST'])
 @cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
 def get_serviceIp():
     try:
