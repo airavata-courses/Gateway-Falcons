@@ -16,6 +16,17 @@ def register_service():
     print("The pastebin URL is:%s" % pastebin_url)
 
 
+def  delete_service():
+    data = {'servicePath': service_path}
+
+    # sending post request and saving response as response object
+    r = requests.post(url=deleteapi_endpoint, json=data)
+
+    # extracting response text
+    pastebin_url = r.text
+    print("The pastebin URL is:%s" % pastebin_url)
+
+
 if __name__ == '__main__':
 
     N = len(sys.argv)
@@ -25,12 +36,20 @@ if __name__ == '__main__':
     else:
         print("error: No configuration file present")
         exit()
-    api_endpoint = parser.get('ZookeeperServer', 'api')
+    registerapi_endpoint = parser.get('ZookeeperServer', 'registerapi')
+    deleteapi_endpoint = parser.get('ZookeeperServer', 'deleteapi')
     base_path = parser.get('Application', 'basePath')
     if N < 2:
-        print("Error: less parameter. Run: registerSerive.py hostIP hostPort serviceName")
+        print("Error: less parameter.")
+        print("Run: registerService.py  1 hostIP hostPort serviceName")
+        print("Run: registerService.py  2 serviceName")
         exit()
-    host_ip = sys.argv[1]
-    host_port = sys.argv[2]
-    service_path = base_path + sys.argv[3]
-    register_service()
+    if sys.argv[1] == "1":
+        host_ip = sys.argv[2]
+        host_port = sys.argv[3]
+        service_path = base_path + sys.argv[4]
+        register_service()
+    if sys.argv[1] == "2":
+        service_path = base_path + sys.argv[2]
+        delete_service()
+
