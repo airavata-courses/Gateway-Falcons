@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
-import { Row, Col, Container } from 'react-bootstrap'
-import ChartPanel from '../../components/ChartPanel'
-import TopTile from '../../components/TopTile'
+import React, { Component } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
 import { Page, PageTitle } from 'react-gentelella';
+import ChartPanel from '../../components/ChartPanel';
 import MapSlicerPanel from '../../components/MapSlicerPanel';
-import * as Constants from '../../constants';
+import TopTile from '../../components/TopTile';
 import LocationChart from './LocationChart';
 
 const options = [
@@ -42,27 +41,11 @@ class LocationPage extends Component {
             chart_title: '',
             data: [],
             data_set: '',
-            chart_title: '',
             kpi_data: []
         };
     }
 
-    getAndSetDietData() {
-        fetch(`${Constants.serverUrl}/diet`)
-            // .then(res => console.log(res))
-            .then(res => res.json())
-            .then(res => this.setState({
-                data: [].concat(res)
-            }))
-        // .then(() => {
-        //     this.setChart();
-        //     this.setLastMeals();
-        // });
-    }
-
     componentDidMount() {
-        // TODO: GET FROM EXISTING DIET PAGE
-        this.getAndSetDietData();
     }
 
     sliceChart = (chart_title) => {

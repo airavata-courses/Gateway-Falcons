@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -31,7 +31,7 @@ function SimpleTable(props) {
             <TableRow>
               {
                 Object.keys(fitnessData).map(key => (
-                  <TableCell align="right"> {fitnessData[key] } </TableCell>
+                  <TableCell align="right" key={key}> {fitnessData[key] } </TableCell>
                 ))
               }
             </TableRow>
@@ -41,7 +41,7 @@ function SimpleTable(props) {
               <TableRow key={record.activity_id}> 
               {
                 Object.keys(fitnessData).map(key => (
-                  <TableCell align="right"> { record[key] } </TableCell>
+                  <TableCell align="right" key={key}> { record[key] } </TableCell>
                 ))
               }
                 {/* <TableCell component="th" scope="row"> {record.name} </TableCell>

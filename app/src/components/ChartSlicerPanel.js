@@ -1,6 +1,6 @@
 import React from 'react'
 import { Row, Col } from 'react-bootstrap'
-import { ButtonToolbar, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { Panel, PanelHeader, PanelBody } from 'react-gentelella';
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import 'bootstrap-daterangepicker/daterangepicker.css'
@@ -52,10 +52,12 @@ function ChartSlicerPanel(props) {
                 <div>
                     {
                         options.map((option, index) => (
-                            <Row>
+                            <Row 
+                                key={index}
+                            >
                                     {/* bsStyle="default" */}
                                 <Button
-                                    key={option}
+                                    key={index}
                                     onClick={() => sliceChart(option.value)}
                                 >
                                     {/* TODO: onClick={this.....??? } */}

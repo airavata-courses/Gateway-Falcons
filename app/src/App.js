@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import {
   AboutPage,
-  ContactPage,
+  // ContactPage,
   DietPage,
   FitnessPage,
   HomePage,
-  LandingPage,
-  LivePage,
+  // LandingPage,
+  // LivePage,
   LocationPage,
-  LoginPage,
+  // LoginPage,
   MediaPage
 } from './pages/index';
 // import Footer from "./components/Footer";

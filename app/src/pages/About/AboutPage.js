@@ -1,16 +1,15 @@
-import React, { Component } from "react";
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+import React, { Component } from "react";
+// import Typography from '@material-ui/core/Typography';
 import { Page, PageTitle } from 'react-gentelella';
+import john from '../../images/john-profile.jpg';
 import AboutTabs from './AboutTabs';
-import john from '../../images/john-profile.jpg'
 
 
 class AboutPage extends Component {
 
     render() {
-        const { classes } = this.props;
+        // const { classes } = this.props;
         return (
             <Page>
                 <PageTitle title={'About Me'} />
@@ -37,10 +36,10 @@ class AboutPage extends Component {
                                         </li>
                                         <li class="m-top-xs">
                                             <i class="fa fa-external-link user-profile-icon"></i>
-                                            <a href="http://www.kimlabs.com/profile/" target="_blank">www.kimlabs.com</a>
+                                            <a href="http://www.kimlabs.com/profile/">www.kimlabs.com</a>
                                         </li>
                                     </ul>
-                                    <a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
+                                    <a href="edit" class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
                                     <br />
 
                                     {/* <!-- start skills --> */}

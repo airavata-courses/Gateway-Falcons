@@ -1,6 +1,5 @@
 import React from 'react';
 import { Page, PageTitle, Notification } from 'react-gentelella';
-import GlobalSearch from "../../components/global-search";
 import LeftTabs from './general-elements/left-tabs'
 import RightTabs from './general-elements/right-tabs'
 import VerticalTabsLeft from "./general-elements/vertical-tabs-left";

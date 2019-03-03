@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Panel, PanelHeader, PanelBody, Tab, Tabs } from 'react-gentelella';
+import { Panel, PanelBody, Tab, Tabs } from 'react-gentelella';
 import BeforeAfterSlider from 'react-before-after-slider'
 
 const before = 'https://unsplash.com/photos/yBqcajVQng4';

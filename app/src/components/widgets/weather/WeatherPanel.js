@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Row, Col } from 'react-bootstrap'
 // import Skycon from './Skycon'
 import WeatherWeek from './WeatherWeek'
-import Skycons from 'react-skycons'
+// import Skycons from 'react-skycons'
 
 export const WEATHER_ICONS = {
   'CLEAR_DAY': Skycons.CLEAR_DAY,

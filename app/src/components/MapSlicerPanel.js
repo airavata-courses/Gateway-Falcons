@@ -37,7 +37,7 @@ function MapSlicerPanel(props) {
                                 {
                                     options.map((option, index) => (
                                         <Button
-                                            key={option}
+                                            key={index}
                                             onClick={() => sliceChart(option.value)}
                                         >
                                             {option.title}

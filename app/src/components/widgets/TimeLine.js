@@ -24,7 +24,7 @@ export class TimeLineItem  extends Component {
   }
 }
 
-export const TimeLineTitle = ({children}) => (<h2 className="title"><a>{children}</a></h2>)
+export const TimeLineTitle = ({children}) => (<h2 className="title"><a href="#child">{children}</a></h2>)
 
 export const TimeLineByLine = ({children}) => (<div className="byline">{children}</div>)
 

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 import TableBody from '@material-ui/core/TableBody';
@@ -180,10 +179,5 @@ class DataTable extends Component {
         );
     }
 }
-
-
-DataTable.propTypes = {
-    // classNamees: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(DataTable);
