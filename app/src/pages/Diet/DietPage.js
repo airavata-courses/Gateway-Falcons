@@ -24,17 +24,47 @@ class DietPage extends Component {
       data: [],
       data_set: '',
       chart_title: '',
-      kpi_data: []
+      kpi_data: [],
+      backendURL: ''
     };
   }
 
   getAndSetDietData() {
-    fetch(`${Constants.serverUrl}/diet`)
+    const servicePath = {servicePath: `${Constants.basePath}/backendserver`}
+    console.log("servicePath:"+JSON.stringify(servicePath))
+    fetch(`${Constants.zookeeperurl}/getservice`, {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      // mode: "cors", // no-cors, cors, *same-origin
+      // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      
+      headers: {
+          "Content-Type": "application/json",
+          
+      },
+      body: JSON.stringify(servicePath), // body data type must match "Content-Type" header
+  })
     .then(res => res.json())
-    // .then(res => console.log(res))
-      .then(res => this.setState({
-        data: res
+    .then(res => {
+      console.log("IRL: "+res.data+"/diet")
+      fetch("http://"+res.data+"/diet")
+      .then(res2 => res2.json())
+    .then(res2 => console.log(res2))
+      .then(res2 => this.setState({
+        data: res2
       }))
+    })
+
+    // .then(res => (
+    //   console.log("this.state.backendURL"+res.data)
+    //   fetch(`${this.state.backendURL}/diet`)
+    //   // .then(res2 => res2.json())
+    // .then(res2 => console.log(res2))
+    //   .then(res2 => this.setState({
+    //     data: res2
+    //   }))
+    // ))
+    
+    
   }
 
   componentDidMount() {
