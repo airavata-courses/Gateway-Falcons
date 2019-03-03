@@ -150,15 +150,31 @@ class MediaPage extends Component {
                 'content-type': 'multipart/form-data;boundary=gc0p4Jq0M2Yt08jU534c0p'
             }
         }
-        post('http://localhost:8081/upload', formData, config)
-            .then((res) => {
-                console.log(res)
-                alert(res.data);
-                if (res.data == "Upload Successful") {
+        const servicePath = {servicePath: `${Constants.basePath}/media`}
+        fetch(`${Constants.zookeeperurl}/getservice`, {
+          method: "POST", // *GET, POST, PUT, DELETE, etc.
+          // mode: "cors", // no-cors, cors, *same-origin
+          // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+          
+          headers: {
+              "Content-Type": "application/json",
+              
+          },
+          body: JSON.stringify(servicePath), // body data type must match "Content-Type" header
+      })
+        .then(res => res.json())
+        .then(res => {
+            console.log('URL: '+'http://'+res.data+'/upload');
+            post('http://'+res.data+'/upload', formData, config)
+            .then((res2) => {
+                console.log(res2)
+                alert(res2.data);
+                if (res2.data == "Upload Successful") {
                     this.fetchImages();
                 }
             })
             .catch((err) => console.log(err));
+        })
     }
 
     fn = () => {
