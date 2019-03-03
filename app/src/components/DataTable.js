@@ -136,7 +136,7 @@ class DataTable extends Component {
     }
 
     render() {
-        const { button_box, search_box, data_set, data, title } = this.state;
+        const { button_box, search_box, data_set, data, title } = this.props;
         return (
             <div className="col-md-12 col-sm-12 col-xs-12">
                 <div className="x_panel">
@@ -160,9 +160,7 @@ class DataTable extends Component {
                         <div>
                             {
                                 search_box ? (
-                                    <div>
                                         <button className="pull-right"> Search BOX </button>
-                                    </div>
                                 ) :
                                     <div />
                             }
