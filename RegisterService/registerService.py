@@ -9,7 +9,7 @@ def register_service():
             }
 
     # sending post request and saving response as response object
-    r = requests.post(url=api_endpoint, json=data)
+    r = requests.post(url=registerapi_endpoint, json=data)
 
     # extracting response text
     pastebin_url = r.text
