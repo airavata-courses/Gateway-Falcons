@@ -9,7 +9,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
-// import * as Constants from '../../constants';
+import * as Constants from '../../constants';
 import { post } from 'axios';
 import { Page, PanelHeader, Panel, PageTitle, PanelBody } from 'react-gentelella';
 import Coverflow from 'react-coverflow';
