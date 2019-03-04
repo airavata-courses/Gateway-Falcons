@@ -24,7 +24,6 @@ client_id = int(parser.get('STRAVA', 'id'))
 client_secret =  parser.get('STRAVA', 'secret')
 mongo = PyMongo(app)
 
-
 @app.route('/')
 def home():
     authorize_url = client.authorization_url(client_id=client_id, redirect_uri='http://localhost:5001/authorized')
