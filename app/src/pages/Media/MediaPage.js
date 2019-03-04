@@ -14,6 +14,7 @@ import { post } from 'axios';
 import { Page, PanelHeader, Panel, PageTitle, PanelBody } from 'react-gentelella';
 import Coverflow from 'react-coverflow';
 import Lightbox from 'react-image-lightbox';
+import Swiper from 'react-id-swiper';
 
 const styles = theme => ({
     heroUnit: {
@@ -56,6 +57,30 @@ const styles = theme => ({
         padding: theme.spacing.unit * 6,
     },
 });
+
+const params = {
+    effect: 'coverflow',
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 'auto',
+    slidesPerView: 3,
+    coverflowEffect: {
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true
+    },
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true
+    },
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+    },
+    spaceBetween: 30
+};
 
 class MediaPage extends Component {
 
@@ -118,12 +143,14 @@ class MediaPage extends Component {
     moveNext() {
         this.setState(prevState => ({
             index: (prevState.index + 1) % this.state.images.length,
+            active: (prevState.index + 1) % this.state.images.length
         }));
     }
 
     movePrev() {
         this.setState(prevState => ({
             index: (prevState.index + this.state.images.length - 1) % this.state.images.length,
+            active: (prevState.index + 1) % this.state.images.length
         }));
     }
 
@@ -149,31 +176,31 @@ class MediaPage extends Component {
                 'content-type': 'multipart/form-data;boundary=gc0p4Jq0M2Yt08jU534c0p'
             }
         }
-        const servicePath = {servicePath: `${Constants.basePath}/media`}
+        const servicePath = { servicePath: `${Constants.basePath}/media` }
         fetch(`${Constants.zookeeperurl}/getservice`, {
-          method: "POST", // *GET, POST, PUT, DELETE, etc.
-          // mode: "cors", // no-cors, cors, *same-origin
-          // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-          
-          headers: {
-              "Content-Type": "application/json",
-              
-          },
-          body: JSON.stringify(servicePath), // body data type must match "Content-Type" header
-      })
-        .then(res => res.json())
-        .then(res => {
-            console.log('URL: '+'http://'+res.data+'/upload');
-            post('http://'+res.data+'/upload', formData, config)
-            .then((res2) => {
-                console.log(res2)
-                alert(res2.data);
-                if (res2.data == "Upload Successful") {
-                    this.fetchImages();
-                }
-            })
-            .catch((err) => console.log(err));
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            // mode: "cors", // no-cors, cors, *same-origin
+            // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+
+            headers: {
+                "Content-Type": "application/json",
+
+            },
+            body: JSON.stringify(servicePath), // body data type must match "Content-Type" header
         })
+            .then(res => res.json())
+            .then(res => {
+                console.log('URL: ' + 'http://' + res.data + '/upload');
+                post('http://' + res.data + '/upload', formData, config)
+                    .then((res2) => {
+                        console.log(res2)
+                        alert(res2.data);
+                        if (res2.data == "Upload Successful") {
+                            this.fetchImages();
+                        }
+                    })
+                    .catch((err) => console.log(err));
+            })
     }
 
     fn = () => {
@@ -181,7 +208,7 @@ class MediaPage extends Component {
     }
 
     render() {
-        const { images, index } = this.state;
+        const { images, index, active } = this.state;
         console.log(images);
         let lightbox;
         if (this.state.isOpen) {
@@ -219,22 +246,26 @@ class MediaPage extends Component {
                     <PanelHeader />
                     <h2> Last 5 Images </h2>
                     <PanelBody>
-                        <Coverflow
+                        {/* <Coverflow
                             width={960}
                             height={480}
                             displayQuantityOfSide={2}
                             clickable={true}
-                            navigation={true}
+                            navigation={false}
                             enableScroll={true}
                             enableHeading={true}
-                            active={images.length % 2}
+                            active={active}
+                        > */}
+                        <Swiper 
+                            {...params}
+                            activeSlideKey={active} 
+                            shouldSwiperUpdate
+                            rebuildOnUpdate={true}
                         >
 
                             {(images.length > 0) ?
                                 images.map((image, index) => (
-                                    <div className="clearfix"
-                                        id={index}
-                                        key={index}
+                                    <div 
                                         onClick={() => this.openLightbox(index)}
                                     >
                                         <img
@@ -247,7 +278,10 @@ class MediaPage extends Component {
                                 )) :
                                 <div />
                             }
-                        </Coverflow>
+
+                            {/* </Coverflow> */}
+                        </Swiper>
+
                     </PanelBody>
                 </Panel>
                 <Panel>
