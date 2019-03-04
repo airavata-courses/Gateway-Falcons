@@ -5,6 +5,7 @@ import ChartPanel from '../../components/ChartPanel';
 import MapSlicerPanel from '../../components/MapSlicerPanel';
 import TopTile from '../../components/TopTile';
 import LocationChart from './LocationChart';
+import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
 
 const options = [
     { title: 'Cal', value: 'calories' },

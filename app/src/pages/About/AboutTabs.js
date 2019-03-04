@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Panel, PanelBody, Tab, Tabs } from 'react-gentelella';
-import BeforeAfterSlider from 'react-before-after-slider'
+// import BeforeAfterSlider from 'react-before-after-slider'
 
-const before = 'https://unsplash.com/photos/yBqcajVQng4';
-const after = 'https://unsplash.com/photos/_RBcxo9AU-U';
+// const before = 'https://unsplash.com/photos/yBqcajVQng4';
+// const after = 'https://unsplash.com/photos/_RBcxo9AU-U';
 
 class AboutTabs extends Component {
 
@@ -22,12 +22,12 @@ class AboutTabs extends Component {
                         </Tab>
                         <Tab title={'Mission'}>
                             {/* TODO: */}
-                            <BeforeAfterSlider
+                            {/* <BeforeAfterSlider
                                 before={before}
                                 after={after}
                                 width={640}
                                 height={480}
-                            />
+                            /> */}
                         </Tab>
                         <Tab title={'Research'}>
                             <p className="lead">Settings tab</p>

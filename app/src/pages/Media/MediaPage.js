@@ -12,6 +12,7 @@ import 'react-id-swiper/src/styles/css/swiper.css';
 import Lightbox from 'react-image-lightbox';
 import Gallery from "react-photo-gallery";
 import * as Constants from '../../constants';
+import GoogleMap from '../../components/MapContainer'
 
 const styles = theme => ({
     heroUnit: {
@@ -85,16 +86,16 @@ const params = {
 };
 
 const photos = [
-    { src: 'https://source.unsplash.com/2ShvY8Lf6l0/800x599', width: 4, height: 3 },
-    { src: 'https://source.unsplash.com/Dm-qxdynoEc/800x799', width: 1, height: 1 },
-    { src: 'https://source.unsplash.com/qDkso9nvCg0/600x799', width: 3, height: 4 },
-    { src: 'https://source.unsplash.com/iecJiKe_RNg/600x799', width: 3, height: 4 },
-    { src: 'https://source.unsplash.com/epcsn8Ed8kY/600x799', width: 3, height: 4 },
-    { src: 'https://source.unsplash.com/NQSWvyVRIJk/800x599', width: 4, height: 3 },
-    { src: 'https://source.unsplash.com/zh7GEuORbUw/600x799', width: 3, height: 4 },
-    { src: 'https://source.unsplash.com/PpOHJezOalU/800x599', width: 4, height: 3 },
-    { src: 'https://source.unsplash.com/I1ASdgphUH4/800x599', width: 4, height: 3 }
-  ];
+    { key: 1, src: 'https://source.unsplash.com/2ShvY8Lf6l0/800x599', width: 4, height: 3 },
+    { key: 2, src: 'https://source.unsplash.com/Dm-qxdynoEc/800x799', width: 1, height: 1 },
+    { key: 3, src: 'https://source.unsplash.com/qDkso9nvCg0/600x799', width: 3, height: 4 },
+    { key: 4, src: 'https://source.unsplash.com/iecJiKe_RNg/600x799', width: 3, height: 4 },
+    { key: 5, src: 'https://source.unsplash.com/epcsn8Ed8kY/600x799', width: 3, height: 4 },
+    { key: 6, src: 'https://source.unsplash.com/NQSWvyVRIJk/800x599', width: 4, height: 3 },
+    { key: 7, src: 'https://source.unsplash.com/zh7GEuORbUw/600x799', width: 3, height: 4 },
+    { key: 8, src: 'https://source.unsplash.com/PpOHJezOalU/800x599', width: 4, height: 3 },
+    { key: 9, src: 'https://source.unsplash.com/I1ASdgphUH4/800x599', width: 4, height: 3 }
+];
 
 class MediaPage extends Component {
 
@@ -108,6 +109,7 @@ class MediaPage extends Component {
             isOpen: false,
             // mySwiper: new Swiper(params)
         };
+        this.renderLightBox = this.renderLightBox.bind(this);
         this.openLightbox = this.openLightbox.bind(this);
         this.closeLightbox = this.closeLightbox.bind(this);
         this.moveNext = this.moveNext.bind(this);
@@ -125,6 +127,7 @@ class MediaPage extends Component {
         const images = [];
         for (var i = 0; i < 10; i++) {
             const image = {
+                key: i,
                 src: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                 url: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                 title: `something cool: ${i}`,
@@ -220,47 +223,9 @@ class MediaPage extends Component {
             })
     }
 
-    render() {
-        const { images, index, active } = this.state;
-
-        console.log(images);
-        let lightbox;
-        if (this.state.isOpen) {
-            lightbox = (
-                <Lightbox
-                    mainSrc={images[index].url}
-                    nextSrc={images[(index + 1) % images.length].url}
-                    prevSrc={
-                        images[(index + images.length - 1) % images.length].url
-                    }
-                    mainSrcThumbnail={images[index].url}
-                    nextSrcThumbnail={images[(index + 1) % images.length].url}
-                    prevSrcThumbnail={
-                        images[(index + images.length - 1) % images.length].url
-                    }
-                    onCloseRequest={this.closeLightbox}
-                    onMovePrevRequest={this.movePrev}
-                    onMoveNextRequest={this.moveNext}
-                    imageTitle={images[index].title}
-                    imageCaption={images[index].caption}
-                />
-            );
-        }
-        const { classes } = this.props;
-        return (
-            <Page>
-                <PageTitle title={'Media'} />
-                <Panel>
-                    <PanelHeader />
-                    <h2> Map </h2>
-                    <PanelBody>
-                    </PanelBody>
-                </Panel>
-                <Panel>
-                    <PanelHeader />
-                    <h2> Last 5 Images </h2>
-                    <PanelBody>
-                        {/* <Coverflow
+    renderSwiper = () => {
+        const { images, active } = this.state;
+        {/* <Coverflow
                             width={960}
                             height={480}
                             displayQuantityOfSide={2}
@@ -270,38 +235,94 @@ class MediaPage extends Component {
                             enableHeading={true}
                             active={active}
                         > */}
-                        <Swiper
-                            {...params}
-                            activeSlideKey={active}
-                            shouldSwiperUpdate
+        return (
+            <Swiper
+                {...params}
+                activeSlideKey={active}
+                shouldSwiperUpdate
+            >
+
+                {(images.length > 0) ?
+                    images.map((image, index) => (
+                        <div
+                            key={index}
+                            onClick={() => this.openLightbox(index)}
                         >
+                            <img
+                                key={index}
+                                src={image.url}
+                                alt={image.caption}
+                                style={{ display: 'block', width: '100%' }}
+                            />
+                        </div>
+                    )) :
+                    <div />
+                }
 
-                            {(images.length > 0) ?
-                                images.map((image, index) => (
-                                    <div
-                                        onClick={() => this.openLightbox(index)}
-                                    >
-                                        <img
-                                            key={index}
-                                            src={image.url}
-                                            alt={image.caption}
-                                            style={{ display: 'block', width: '100%' }}
-                                        />
-                                    </div>
-                                )) :
-                                <div />
-                            }
+                {/* </Coverflow> */}
+            </Swiper >
 
-                            {/* </Coverflow> */}
-                        </Swiper>
+        );
+    }
 
+    renderLightBox = () => {
+        const { images, index } = this.state;
+        return (
+            <Lightbox
+                mainSrc={images[index].url}
+                nextSrc={images[(index + 1) % images.length].url}
+                prevSrc={
+                    images[(index + images.length - 1) % images.length].url
+                }
+                mainSrcThumbnail={images[index].url}
+                nextSrcThumbnail={images[(index + 1) % images.length].url}
+                prevSrcThumbnail={
+                    images[(index + images.length - 1) % images.length].url
+                }
+                onCloseRequest={this.closeLightbox}
+                onMovePrevRequest={this.movePrev}
+                onMoveNextRequest={this.moveNext}
+                imageTitle={images[index].title}
+                imageCaption={images[index].caption}
+            />
+        );
+    }
+    render() {
+        const { images, index, active } = this.state;
+        let lightbox;
+        if (this.state.isOpen) {
+            lightbox = this.renderLightBox();
+        }
+        const { classes } = this.props;
+        return (
+            <Page>
+
+                <PageTitle title={'Media'} />
+
+                {/* Map */}
+                <Panel>
+                    <PanelHeader />
+                    <h2> Map </h2>
+                    <PanelBody 
+                        style={{ height: '100%', width: '100%' }}
+                    >
+                        <GoogleMap style={{ height: '100%', width: '100%' }} />
+                    </PanelBody>
+                </Panel>
+
+                {/* Last 5 Images */}
+                <Panel>
+                    <PanelHeader />
+                    <h2> Last 5 Images </h2>
+                    <PanelBody>
+                        {this.renderSwiper()}
                     </PanelBody>
                 </Panel>
 
                 <Panel>
                     <PanelBody>
                         <main>
-                            <div className={classes.heroUnit}>
+                            {/* <div className={classes.heroUnit}>
                                 <div className={classes.heroContent}>
                                     <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
                                         My Media
@@ -325,15 +346,13 @@ class MediaPage extends Component {
                                         </Grid>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
 
-                            <div className={classNames(classes.layout, classes.cardGrid)}>
-                                {/* End hero unit */}
+                            {/* End hero unit */}
 
-                                <Grid container spacing={40}>
-                                    <Gallery photos={photos} onClick={this.openLightbox} />                                        
-                                </Grid>
-                            </div>
+                            <Grid container spacing={40}>
+                                <Gallery photos={photos} onClick={this.openLightbox} />
+                            </Grid>
                         </main>
                     </PanelBody>
                 </Panel>
