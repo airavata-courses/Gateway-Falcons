@@ -165,7 +165,6 @@ class MediaPage extends Component {
             index: (prevState.index + 1) % this.state.images.length,
             active: (prevState.index + 1) % this.state.images.length
         }));
-        // this.state.swiper.slideTo(this.state.active);
     }
 
     movePrev() {
