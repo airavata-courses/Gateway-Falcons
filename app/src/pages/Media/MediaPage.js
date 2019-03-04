@@ -1,20 +1,17 @@
-import React, { Component } from "react";
-import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
-import * as Constants from '../../constants';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import { post } from 'axios';
-import { Page, PanelHeader, Panel, PageTitle, PanelBody } from 'react-gentelella';
-import Coverflow from 'react-coverflow';
-import Lightbox from 'react-image-lightbox';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import { Page, PageTitle, Panel, PanelBody, PanelHeader } from 'react-gentelella';
 import Swiper from 'react-id-swiper';
+import 'react-id-swiper/src/styles/css/swiper.css';
+// import Coverflow from 'react-coverflow';
+import Lightbox from 'react-image-lightbox';
+import Gallery from "react-photo-gallery";
+import * as Constants from '../../constants';
 
 const styles = theme => ({
     heroUnit: {
@@ -79,8 +76,25 @@ const params = {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev'
     },
-    spaceBetween: 30
+    spaceBetween: 30,
+    runCallbacksOnInit: true,
+    slideToClickedSlide: true
+    // onInit: (swiper) => {
+    //     this.swiper = swiper
+    // }
 };
+
+const photos = [
+    { src: 'https://source.unsplash.com/2ShvY8Lf6l0/800x599', width: 4, height: 3 },
+    { src: 'https://source.unsplash.com/Dm-qxdynoEc/800x799', width: 1, height: 1 },
+    { src: 'https://source.unsplash.com/qDkso9nvCg0/600x799', width: 3, height: 4 },
+    { src: 'https://source.unsplash.com/iecJiKe_RNg/600x799', width: 3, height: 4 },
+    { src: 'https://source.unsplash.com/epcsn8Ed8kY/600x799', width: 3, height: 4 },
+    { src: 'https://source.unsplash.com/NQSWvyVRIJk/800x599', width: 4, height: 3 },
+    { src: 'https://source.unsplash.com/zh7GEuORbUw/600x799', width: 3, height: 4 },
+    { src: 'https://source.unsplash.com/PpOHJezOalU/800x599', width: 4, height: 3 },
+    { src: 'https://source.unsplash.com/I1ASdgphUH4/800x599', width: 4, height: 3 }
+  ];
 
 class MediaPage extends Component {
 
@@ -92,8 +106,9 @@ class MediaPage extends Component {
             index: 0,
             active: 0,
             isOpen: false,
+            // mySwiper: new Swiper(params)
         };
-        // this.openLightbox = this.openLightbox.bind(this);
+        this.openLightbox = this.openLightbox.bind(this);
         this.closeLightbox = this.closeLightbox.bind(this);
         this.moveNext = this.moveNext.bind(this);
         this.movePrev = this.movePrev.bind(this);
@@ -110,6 +125,7 @@ class MediaPage extends Component {
         const images = [];
         for (var i = 0; i < 10; i++) {
             const image = {
+                src: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                 url: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                 title: `something cool: ${i}`,
                 caption: `something even cooler: ${i}`,
@@ -145,6 +161,7 @@ class MediaPage extends Component {
             index: (prevState.index + 1) % this.state.images.length,
             active: (prevState.index + 1) % this.state.images.length
         }));
+        // this.state.swiper.slideTo(this.state.active);
     }
 
     movePrev() {
@@ -203,12 +220,9 @@ class MediaPage extends Component {
             })
     }
 
-    fn = () => {
-        /* do you want */
-    }
-
     render() {
         const { images, index, active } = this.state;
+
         console.log(images);
         let lightbox;
         if (this.state.isOpen) {
@@ -256,16 +270,15 @@ class MediaPage extends Component {
                             enableHeading={true}
                             active={active}
                         > */}
-                        <Swiper 
+                        <Swiper
                             {...params}
-                            activeSlideKey={active} 
+                            activeSlideKey={active}
                             shouldSwiperUpdate
-                            rebuildOnUpdate={true}
                         >
 
                             {(images.length > 0) ?
                                 images.map((image, index) => (
-                                    <div 
+                                    <div
                                         onClick={() => this.openLightbox(index)}
                                     >
                                         <img
@@ -284,6 +297,7 @@ class MediaPage extends Component {
 
                     </PanelBody>
                 </Panel>
+
                 <Panel>
                     <PanelBody>
                         <main>
@@ -312,39 +326,12 @@ class MediaPage extends Component {
                                     </div>
                                 </div>
                             </div>
+
                             <div className={classNames(classes.layout, classes.cardGrid)}>
                                 {/* End hero unit */}
 
                                 <Grid container spacing={40}>
-                                    {this.state.images.map((image, index) => (
-                                        <Grid item key={image.public_id || index} sm={6} md={4} lg={3}>
-                                            <Card className={classes.card}>
-                                                <CardMedia
-                                                    key={index}
-                                                    onClick={() => this.openLightbox()}
-                                                    className={classes.cardMedia}
-                                                    image={image.url}
-                                                    title={image.context.custom.caption}
-                                                />
-                                                <CardContent className={classes.cardContent}>
-                                                    <Typography gutterBottom variant="h5" component="h2">
-                                                        {image.context.custom.caption}
-                                                    </Typography>
-                                                    <Typography>
-                                                        {image.context.custom.alt}
-                                                    </Typography>
-                                                </CardContent>
-                                                <CardActions>
-                                                    <Button size="small" color="primary">
-                                                        View
-                                                    </Button>
-                                                    <Button size="small" color="primary">
-                                                        Edit
-                                                    </Button>
-                                                </CardActions>
-                                            </Card>
-                                        </Grid>
-                                    ))}
+                                    <Gallery photos={photos} onClick={this.openLightbox} />                                        
                                 </Grid>
                             </div>
                         </main>
