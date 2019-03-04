@@ -31,7 +31,6 @@ def home():
     print(authorize_url)
     return redirect(authorize_url)
 
-
 @app.route('/authorized')
 def authorized():
     code = request.args.get('code')
