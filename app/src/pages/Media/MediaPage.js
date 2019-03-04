@@ -12,7 +12,8 @@ import 'react-id-swiper/src/styles/css/swiper.css';
 import Lightbox from 'react-image-lightbox';
 import Gallery from "react-photo-gallery";
 import * as Constants from '../../constants';
-import GoogleMap from '../../components/MapContainer'
+// import GoogleMap from '../../components/map/MapContainer'
+import GoogleMapCluster from '../../components/map/ClusterMapContainer'
 
 const styles = theme => ({
     heroUnit: {
@@ -304,9 +305,9 @@ class MediaPage extends Component {
                     <PanelHeader />
                     <h2> Map </h2>
                     <PanelBody 
-                        style={{ height: '100%', width: '100%' }}
                     >
-                        <GoogleMap style={{ height: '100%', width: '100%' }} />
+                        <GoogleMapCluster />
+
                     </PanelBody>
                 </Panel>
 
@@ -349,6 +350,7 @@ class MediaPage extends Component {
                             </div> */}
 
                             {/* End hero unit */}
+                            {lightbox}
 
                             <Grid container spacing={40}>
                                 <Gallery photos={photos} onClick={this.openLightbox} />
