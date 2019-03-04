@@ -33,6 +33,39 @@ const s_data = [
     { name: '1/7/1', uv: 3490, pv: 1209 },
 ];
 
+const kpi_data = [
+    {
+        title: { icon: 'user', label: 'Total Distance' },
+        value: { label: '2500' },
+        bottom: { stat: '4%', label: 'From Last Week' }
+    },
+    {
+        title: { icon: 'clock-o', label: 'Elevation' },
+        value: { label: '123.50' },
+        bottom: { stat: '3%', label: 'From Last Week' }
+    },
+    {
+        title: { icon: 'user', label: 'Avg Wind Speed' },
+        value: { className: 'green', label: '2,500' },
+        bottom: { stat: '4%', label: 'From Last Week' }
+    },
+    {
+        title: { icon: 'user', label: 'Precip. Amount' },
+        value: { label: '4,567' },
+        bottom: { className: 'red', stat: '12%', label: 'From Last Week' }
+    },
+    {
+        title: { icon: 'user', label: 'Visibility' },
+        value: { label: '2,315' },
+        bottom: { stat: '34%', label: 'From Last Week' }
+    },
+    {
+        title: { icon: 'user', label: 'Avg Gradient' },
+        value: { label: '7,325' },
+        bottom: { stat: '34%', label: 'From Last Week' }
+    },
+]
+
 class LocationPage extends Component {
 
     constructor(props) {
@@ -42,7 +75,7 @@ class LocationPage extends Component {
             chart_title: '',
             data: [],
             data_set: '',
-            kpi_data: []
+            // kpi_data: []
         };
     }
 
@@ -63,7 +96,7 @@ class LocationPage extends Component {
 
     render() {
 
-        const { data, chart_title, kpi_data } = this.state;
+        const { data, chart_title } = this.state;
         return (
             <Page>
 
@@ -86,7 +119,7 @@ class LocationPage extends Component {
                             </Col>
 
                             {/* Slicers */}
-                            <Col md={{ span: 6, offset: 4 }} sm={{span: 6,  offset: 6}} xs={6}>
+                            <Col md={{ span: 6, offset: 4 }} sm={{ span: 6, offset: 6 }} xs={6}>
                                 <MapSlicerPanel
                                     options={options}
                                     sliceDateRange={this.sliceDateRange}

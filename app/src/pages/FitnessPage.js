@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import SimpleTable from '../components/SimpleTable';
 import * as Constants from '../constants';
+import TopTile from '../components/TopTile'
 
 const styles = theme => ({
     root: {
@@ -21,6 +22,40 @@ const styles = theme => ({
         marginBottom: theme.spacing.unit * 2,
     },
 });
+
+const kpi_data = [
+    {
+        title: { icon: 'user', label: 'Avg Active Time' },
+        value: { label: '2500' },
+        bottom: { stat: '4%', label: 'From Last Week' }
+    },
+    {
+        title: { icon: 'clock-o', label: 'Latest SP02' },
+        value: { label: '123.50' },
+        bottom: { stat: '3%', label: 'From Last Week' }
+    },
+    {
+        title: { icon: 'user', label: 'Relative Stress Index' },
+        value: { className: 'green', label: '2,500' },
+        bottom: { stat: '4%', label: 'From Last Week' }
+    },
+    {
+        title: { icon: 'user', label: 'Previous Hours slept' },
+        value: { label: '4,567' },
+        bottom: { className: 'red', stat: '12%', label: 'From Last Week' }
+    },
+    {
+        title: { icon: 'user', label: 'Avg Heart Rate' },
+        value: { label: '2,315' },
+        bottom: { stat: '34%', label: 'From Last Week' }
+    },
+    {
+        title: { icon: 'user', label: 'HRV Score' },
+        value: { label: '7,325' },
+        bottom: { stat: '34%', label: 'From Last Week' }
+    },
+]
+
 
 class FitnessPage extends Component {
 
@@ -44,6 +79,7 @@ class FitnessPage extends Component {
         return (
             <div className={classes.root}>
                 <CssBaseline />
+                <TopTile kpi_data={kpi_data} />
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
                     <Typography variant="h4" gutterBottom component="h2">

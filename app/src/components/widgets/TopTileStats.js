@@ -4,12 +4,12 @@ import cn from 'classnames'
 
 class TopTileStats extends Component {
   render () {
-    const {stats} = this.props
+    const {kpi_data} = this.props
 
     return (
       <Row className="tile_count">
         {
-          stats.map((s, index) => (
+          kpi_data.map((s, index) => (
             <Stat key={index.toString()} {...s} />
           ))
         }

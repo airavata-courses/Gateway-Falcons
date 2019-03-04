@@ -44,35 +44,35 @@ class App extends Component {
           <Gentelella fixedFooter={true} fixedSidebar={true} >
             {/* {
               (!this.state.started) ? */}
-                {/* <div>
+            {/* <div>
                   <Route path="/landing" component={LandingPage} />
                 </div> */}
-                {/* : */}
-                <div>
-                  <Sidebar />
-                  <HeadNav />
-                <Switch>
-                  {/* <Route path="/extras/plain-page" component={PlainPage} />
+            {/* : */}
+            <div>
+              <Sidebar />
+              <HeadNav />
+              <Switch>
+                {/* <Route path="/extras/plain-page" component={PlainPage} />
                   <Route path="/forms/general-form" component={FormElements} /> */}
-                    <Route exac="true" path="/home" component={HomePage} />
-                    <Route exac="true" path="/ui-elements/general-elements" component={GeneralElements} />
-                    <Route path="/ui-elements/typography" component={Typography} />
-                    <Route path="/ui-elements/icons" component={Icons} />
-                    <Route path="/ui-elements/glyphicons" component={Glyphicons} />
-                    <Route path="/data/diet" component={DietPage} />
-                    <Route path="/data/fitness" component={FitnessPage} />
-                    <Route path="/data/media" component={MediaPage} />
-                    <Route exac="true" path="/location" component={LocationPage} />
-                    <Route path="/about" component={AboutPage} />
-                    {/* TODO: catch all redirect */}
-                    <Route exac="true" path="/" component={HomePage} />
-                </Switch>
-                </div>
-                {/* } */}
+                <Route exac="true" path="/home" component={HomePage} />
+                <Route exac="true" path="/ui-elements/general-elements" component={GeneralElements} />
+                <Route path="/ui-elements/typography" component={Typography} />
+                <Route path="/ui-elements/icons" component={Icons} />
+                <Route path="/ui-elements/glyphicons" component={Glyphicons} />
+                <Route path="/data/diet" component={DietPage} />
+                <Route path="/data/fitness" component={FitnessPage} />
+                <Route path="/data/media" component={MediaPage} />
+                <Route exac="true" path="/data/location" component={LocationPage} />
+                <Route path="/about" component={AboutPage} />
+                {/* TODO: catch all redirect */}
+                <Route exac="true" path="/" component={HomePage} />
+              </Switch>
+            </div>
+            {/* } */}
             {/* <Route path="/multilevel-menu" component={MultiLevel} />
               <Route component={PlainPage} /> */}
             <Footer>
-              React-Gentelella * Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+              Tyler * Gentelella <a href="https://colorlib.com">Colorlib</a>
             </Footer>
           </Gentelella>
         </BrowserRouter>

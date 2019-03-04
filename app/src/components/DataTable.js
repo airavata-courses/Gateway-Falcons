@@ -149,9 +149,9 @@ class DataTable extends Component {
                             {
                                 button_box ? (
                                     <div>
-                                        <button> Copy </button>
+                                        <button> CSV </button>
+                                        <button> PDF </button>
                                         <button> Print </button>
-                                        <button> Download </button>
                                     </div>
                                 ) :
                                     <div />

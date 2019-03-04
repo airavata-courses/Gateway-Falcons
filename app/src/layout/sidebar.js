@@ -1,17 +1,10 @@
 import React from 'react';
-import {
-  Sidebar as GtSidebarTitle, SidebarFooter, SidebarFooterMenuItem, ProfileQuickInfo,
-  SidebarMenuSection, SidebarMenu
-} from 'react-gentelella';
-import MultilevelMenu from "./sidebar/multilevel-menu";
-import DataMenu from "./sidebar/data-menu";
+import { MenuItem, ProfileQuickInfo, Sidebar as GtSidebarTitle, SidebarFooter, SidebarFooterMenuItem, SidebarMenu, SidebarMenuSection } from 'react-gentelella';
+import { Link } from "react-router-dom";
+import Contribute from './sidebar/contribute-menu-item';
+import Experience from './sidebar/experience-menu-item';
+import SidebarTitle from './sidebar/sidebar-title';
 import UiElements from "./sidebar/ui-elements-menu";
-import FormsMenu from './sidebar/forms-menu'
-import JourneyMenu from './sidebar/journey-menu'
-import Experience from './sidebar/experience-menu-item'
-import Contribute from './sidebar/contribute-menu-item'
-import SidebarTitle from './sidebar/sidebar-title'
-import LiveMenu from './sidebar/live-menu'
 
 const elem = document.documentElement;
 
@@ -29,25 +22,51 @@ const openFullscreen = () => {
 
 const Sidebar = () => (
   <GtSidebarTitle>
+
     <SidebarTitle />
-    <ProfileQuickInfo name="Jane Doe" picture='https://randomuser.me/api/portraits/women/44.jpg' />
+    
+    {/* <ProfileQuickInfo name="Jane Doe" picture='https://randomuser.me/api/portraits/women/44.jpg' /> */}
+    
     <SidebarMenu>
 
       <SidebarMenuSection title={"Live"}>
-        <LiveMenu />
+        <MenuItem>
+          <Link to={"/login"}>Login</Link>
+        </MenuItem>
+        <MenuItem>
+          <Link to={"/signup"}>Sign up</Link>
+        </MenuItem>
       </SidebarMenuSection>
 
       <SidebarMenuSection title={"Journey"}>
-        <JourneyMenu />
+        <MenuItem>
+          <Link to={"/about"}>About</Link>
+        </MenuItem>
+        <MenuItem>
+          <Link to={"/story"}>Story</Link>
+        </MenuItem>
+        <MenuItem>
+          <Link to={"/mission"}>Mission</Link>
+        </MenuItem>
+        <MenuItem>
+          <Link to={"/research"}>Research</Link>
+        </MenuItem>
       </SidebarMenuSection>
 
       <SidebarMenuSection title={"Keep up"}>
-        <FormsMenu />
         <UiElements />
       </SidebarMenuSection>
 
-      <SidebarMenuSection title={"Catch up"}>
-        <DataMenu />
+      <SidebarMenuSection title={"Data"}>
+        <MenuItem>
+          <Link to={"/data/location"}>Location</Link>
+        </MenuItem>
+        <MenuItem>
+          <Link to={"/data/fitness"}>Fitness</Link>
+        </MenuItem>
+        <MenuItem>
+          <Link to={"/data/diet"}>Diet</Link>
+        </MenuItem>
       </SidebarMenuSection>
 
       <SidebarMenuSection title={"Experience"}>

@@ -32,7 +32,6 @@ class HomePage extends Component {
     const { classes } = this.props;
     return (
       <Page>
-        <PageTitle title={'Home'} />
         <Panel>
           <PanelBody>
             <div className={classes.root} style={{ width: "100%" }} >
