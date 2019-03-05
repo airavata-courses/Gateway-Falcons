@@ -6,6 +6,7 @@ import { Page, PageTitle } from 'react-gentelella';
 import DataTable from '../../components/DataTable';
 import ChartSlicerPanel from '../../components/ChartSlicerPanel';
 import * as Constants from '../../constants';
+import kpi_data from './diet-kpi_data';
 
 const options = [
   { title: 'Cal', value: 'calories' },
@@ -56,40 +57,6 @@ const left_chart_data = [
   { name: '39', uv: -66, pv: 154 },
   { name: '40', uv: -50, pv: 186 },
 ];
-
-
-const kpi_data = [
-  {
-    title: {icon: 'user', label: 'Total Calories Consumed'},
-    value: {label: '2500'},
-    bottom: {stat: '4%', label: 'From Last Week'}
-  },
-  {
-    title: {icon: 'clock-o', label: 'Carbs'},
-    value: {label: '123.50'},
-    bottom: {stat: '3%', label: 'From Last Week'}
-  },
-  {
-    title: {icon: 'user', label: 'Fats'},
-    value: {className: 'green', label: '2,500'},
-    bottom: {stat: '4%', label: 'From Last Week'}
-  },
-  {
-    title: {icon: 'user', label: 'Proteins'},
-    value: {label: '4,567'},
-    bottom: {className: 'red', stat: '12%', label: 'From Last Week'}
-  },
-  {
-    title: {icon: 'user', label: 'Sugars'},
-    value: {label: '2,315'},
-    bottom: {stat: '34%', label: 'From Last Week'}
-  },
-  {
-    title: {icon: 'user', label: 'Hydration Level'},
-    value: {label: '7,325'},
-    bottom: {stat: '34%', label: 'From Last Week'}
-  },
-]
 
 class DietPage extends Component {
 
@@ -210,6 +177,7 @@ class DietPage extends Component {
                 button_box={true}
                 search_box={false}
                 title='Last 5 Meals'
+                table_columns={Constants.diet_data_columns}
               />
             </Col>
           </Row>
@@ -224,6 +192,7 @@ class DietPage extends Component {
                 search_box={true}
                 data_set='diet'
                 title='Diet'
+                table_columns={Constants.diet_data_columns}
               />
             </Col>
           </Row>

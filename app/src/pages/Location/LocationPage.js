@@ -6,6 +6,7 @@ import MapSlicerPanel from '../../components/MapSlicerPanel';
 import TopTile from '../../components/TopTile';
 import LocationChart from './LocationChart';
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
+import kpi_data from './locationKPI';
 
 const options = [
     { title: 'Cal', value: 'calories' },
@@ -32,39 +33,6 @@ const s_data = [
     { name: '1/6/1', uv: 2390, pv: 2500 },
     { name: '1/7/1', uv: 3490, pv: 1209 },
 ];
-
-const kpi_data = [
-    {
-        title: { icon: 'user', label: 'Total Distance' },
-        value: { label: '2500' },
-        bottom: { stat: '4%', label: 'From Last Week' }
-    },
-    {
-        title: { icon: 'clock-o', label: 'Elevation' },
-        value: { label: '123.50' },
-        bottom: { stat: '3%', label: 'From Last Week' }
-    },
-    {
-        title: { icon: 'user', label: 'Avg Wind Speed' },
-        value: { className: 'green', label: '2,500' },
-        bottom: { stat: '4%', label: 'From Last Week' }
-    },
-    {
-        title: { icon: 'user', label: 'Precip. Amount' },
-        value: { label: '4,567' },
-        bottom: { className: 'red', stat: '12%', label: 'From Last Week' }
-    },
-    {
-        title: { icon: 'user', label: 'Visibility' },
-        value: { label: '2,315' },
-        bottom: { stat: '34%', label: 'From Last Week' }
-    },
-    {
-        title: { icon: 'user', label: 'Avg Gradient' },
-        value: { label: '7,325' },
-        bottom: { stat: '34%', label: 'From Last Week' }
-    },
-]
 
 class LocationPage extends Component {
 

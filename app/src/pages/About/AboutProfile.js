@@ -6,23 +6,23 @@ const AboutProfile = () => {
     return (
         <div>
 
-            <div class="profile_img">
+            <div className="profile_img">
                 <div id="crop-avatar">
                     {/* <!-- Current avatar --> */}
-                    <img class="img-responsive avatar-view" src={john} alt="Avatar" title="Change the avatar" />
+                    <img className="img-responsive avatar-view" src={john} alt="Avatar" title="Change the avatar" />
                 </div>
             </div>
             <h3>John Schwenck</h3>
 
-            <ul class="list-unstyled user_data">
+            <ul className="list-unstyled user_data">
                 <li>
-                    <i class="fa fa-map-marker"></i> ZIP CODE NOT YET IMPLEMENTED
+                    <i className="fa fa-map-marker"></i> ZIP CODE NOT YET IMPLEMENTED
                     </li>
                 <li>
-                    <i class="fa fa-bicycle"></i> Graduate Student
+                    <i className="fa fa-bicycle"></i> Graduate Student
                     </li>
-                <li class="m-top-xs">
-                    <i class="fa fa-envelope"></i>
+                <li className="m-top-xs">
+                    <i className="fa fa-envelope"></i>
                     <a href="schwenck.live@gmail.com”">schwenck.live@gmail.com</a>
                 </li>
             </ul>

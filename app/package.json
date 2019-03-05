@@ -16,6 +16,7 @@
     "jquery": "^3.3.1",
     "material-ui-upload": "^1.2.1",
     "moment": "^2.24.0",
+    "mui-datatables": "^2.0.0-beta.56",
     "points-cluster": "^0.1.4",
     "prop-types": "^15.7.2",
     "react": "^16.8.3",
@@ -33,7 +34,7 @@
     "react-image-lightbox": "^5.1.0",
     "react-photo-gallery": "^6.3.2",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.3",
+    "react-scripts": "^2.1.5",
     "react-skycons": "^0.7.0",
     "recharts": "^1.5.0",
     "styled-components": "^4.1.3"
