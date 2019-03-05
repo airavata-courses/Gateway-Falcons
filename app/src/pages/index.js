@@ -2,7 +2,7 @@ export { default as AboutPage } from './About/AboutPage';
 export { default as ContactPage } from './ContactPage';
 export { default as DietPage } from './Diet/DietPage';
 export { default as FitnessPage } from './FitnessPage';
-export { default as HomePage } from './HomePage';
+export { default as HomePage } from './HomePage/HomePage';
 export { default as LandingPage } from './LandingPage';
 export { default as LivePage } from './LivePage';
 export { default as LocationPage } from './Location/LocationPage';
