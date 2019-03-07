@@ -24,12 +24,15 @@ const Sidebar = () => (
   <GtSidebarTitle>
 
     <SidebarTitle />
-    
+
     {/* <ProfileQuickInfo name="Jane Doe" picture='https://randomuser.me/api/portraits/women/44.jpg' /> */}
-    
+
     <SidebarMenu>
 
       <SidebarMenuSection title={"Live"}>
+        <MenuItem>
+          <Link to={"/live"}>Guest</Link>
+        </MenuItem>
         <MenuItem>
           <Link to={"/login"}>Login</Link>
         </MenuItem>
@@ -53,9 +56,9 @@ const Sidebar = () => (
         </MenuItem>
       </SidebarMenuSection>
 
-      <SidebarMenuSection title={"Keep up"}>
+      {/* <SidebarMenuSection title={"Keep up"}>
         <UiElements />
-      </SidebarMenuSection>
+      </SidebarMenuSection> */}
 
       <SidebarMenuSection title={"Data"}>
         <MenuItem>

@@ -17,15 +17,15 @@
 //       activeMarker: {},
 //       selectedPlace: {}
 //     }
-   
+
 //   }
-  
+
 
 //   render() {
 //     const style = {
 //       width: '100%',
 //       height: '100%',
-      
+
 //     }
 
 //     return (
@@ -42,7 +42,7 @@
 //       </div>);
 
 
-    
+
 //   }
 // }
 
@@ -55,6 +55,7 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 // import Marker from './Marker';
+import { Panel, PanelBody } from 'react-gentelella';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -69,22 +70,26 @@ class SimpleMap extends Component {
 
   render() {
     return (
-      // Important! Always set the container height explicitly
-      <div style={{ height: '50vh', width: '100%' }}>
-        {/* TODO: GET NEW API KEY */}
-        {/* TODO: Set initial coords */}
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyD1KwG-BfsNZC-qjFRLgDKC-yc6x4s9f1A' }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-        >
-          <AnyReactComponent
-            lat={59.955413}
-            lng={30.337844}
-            text="My Marker"
-          />
-        </GoogleMapReact>
-      </div>
+      <Panel>
+        <PanelBody>
+          <div style={{ height: '50vh', width: '100%' }}>
+            {/* TODO: GET NEW API KEY */}
+            {/* TODO: Set initial coords */}
+            <GoogleMapReact
+              bootstrapURLKeys={{ key: 'AIzaSyD1KwG-BfsNZC-qjFRLgDKC-yc6x4s9f1A' }}
+              defaultCenter={this.props.center}
+              defaultZoom={this.props.zoom}
+            >
+              <AnyReactComponent
+                lat={59.955413}
+                lng={30.337844}
+                text="My Marker"
+              />
+            </GoogleMapReact>
+          </div>
+        </PanelBody>
+      </Panel>
+
     );
   }
 }

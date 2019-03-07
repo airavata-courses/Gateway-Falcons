@@ -7,6 +7,9 @@ import TopTile from '../../components/TopTile';
 import LocationChart from './LocationChart';
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
 import kpi_data from './locationKPI';
+import ChartSlicerPanel from '../../components/ChartSlicerPanel';
+import SimpleMap from '../../components/map/MapContainer';
+
 
 const options = [
     { title: 'Cal', value: 'calories' },
@@ -76,25 +79,34 @@ class LocationPage extends Component {
                     <Container>
 
                         <Row>
-                            {/* Left Chart */}
-                            <Col md={12} sm={12} xs={12}>
-                                <ChartPanel
-                                    data_set='diet'
-                                    title={chart_title}
-                                    chart_type="scatter"
-                                    data={data}
-                                />
-                            </Col>
 
-                            {/* Slicers */}
-                            <Col md={{ span: 6, offset: 4 }} sm={{ span: 6, offset: 6 }} xs={6}>
-                                <MapSlicerPanel
+                            {/* Chart Slicers */}
+                            <Col md={3} sm={3} xs={12}>
+                                <ChartSlicerPanel
                                     options={options}
                                     sliceDateRange={this.sliceDateRange}
                                     sliceChart={this.sliceChart}
                                 />
                             </Col>
 
+                            {/* Left Chart */}
+                            <Col md={9} sm={9} xs={12}>
+                                <SimpleMap />
+                            </Col>
+
+                            {/* Slicers */}
+                            {/* <Col md={{ span: 6, offset: 4 }} sm={{ span: 6, offset: 6 }} xs={6}>
+                                <MapSlicerPanel
+                                    options={options}
+                                    sliceDateRange={this.sliceDateRange}
+                                    sliceChart={this.sliceChart}
+                                />
+                            </Col> */}
+
+                            <div className="clearfix" />
+                        </Row>
+
+                        <Row>
                             {/* Sync Charts */}
                             <Col md={12} sm={12} xs={12}>
                                 <LocationChart

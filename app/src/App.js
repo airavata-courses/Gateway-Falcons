@@ -8,10 +8,10 @@ import {
   FitnessPage,
   HomePage,
   // LandingPage,
-  // LivePage,
+  LivePage,
   LocationPage,
   // LoginPage,
-  MediaPage
+  MediaPage,
 } from './pages/index';
 // import Footer from "./components/Footer";
 
@@ -55,6 +55,7 @@ class App extends Component {
                 {/* <Route path="/extras/plain-page" component={PlainPage} />
                   <Route path="/forms/general-form" component={FormElements} /> */}
                 <Route exac="true" path="/home" component={HomePage} />
+                <Route exac="true" path="/live" component={LivePage} />
                 <Route exac="true" path="/ui-elements/general-elements" component={GeneralElements} />
                 <Route path="/ui-elements/typography" component={Typography} />
                 <Route path="/ui-elements/icons" component={Icons} />
