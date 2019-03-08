@@ -12,10 +12,10 @@ import SimpleMap from '../../components/map/MapContainer';
 
 
 const options = [
-    { title: 'Cal', value: 'calories' },
-    { title: 'SO Cal', value: 'fat' },
-    { title: 'Hydration', value: 'water' },
-    { title: 'whatevaaa', value: 'somethig...' },
+    { title: 'Normal', value: 'normal' },
+    { title: 'Satellite', value: 'satellite' },
+    { title: 'Wind', value: 'wind' },
+    { title: 'Topo', value: 'topo' },
 ];
 
 const f_data = [
@@ -86,6 +86,7 @@ class LocationPage extends Component {
                                     options={options}
                                     sliceDateRange={this.sliceDateRange}
                                     sliceChart={this.sliceChart}
+                                    title={"Map Types"}
                                 />
                             </Col>
 
@@ -93,15 +94,6 @@ class LocationPage extends Component {
                             <Col md={9} sm={9} xs={12}>
                                 <SimpleMap />
                             </Col>
-
-                            {/* Slicers */}
-                            {/* <Col md={{ span: 6, offset: 4 }} sm={{ span: 6, offset: 6 }} xs={6}>
-                                <MapSlicerPanel
-                                    options={options}
-                                    sliceDateRange={this.sliceDateRange}
-                                    sliceChart={this.sliceChart}
-                                />
-                            </Col> */}
 
                             <div className="clearfix" />
                         </Row>

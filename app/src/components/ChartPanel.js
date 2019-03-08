@@ -6,22 +6,6 @@ import {
   BarChart, Bar, Brush, ReferenceLine, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
 
-// const ChartTypes = {
-//   line: 2,
-//   highstock: require('highcharts/highstock'),
-//   time_series: 3,
-//   spline: 3,
-//   area: 3,
-//   areaspline: 3,
-//   bar: 3,
-//   column: 3,
-//   pie: 3,
-//   // scatter: require('highcharts/scatter'),
-//   gauge: 3,
-//   heat: 3,
-// };
-
-
 class ChartPanel extends Component {
 
   // constructor(props) {
@@ -38,7 +22,11 @@ class ChartPanel extends Component {
     return (
       <PanelHeader>
         <Col md={6}>
-          <h3>{title} <small>{subtitle} or ... sub-title</small></h3>
+          <h3>{title}
+            <small>
+              {subtitle ? subtitle : ""}
+            </small>
+          </h3>
         </Col>
       </PanelHeader>
     );

@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { Page, PageTitle } from 'react-gentelella';
 import AboutTabs from './AboutTabs';
 import AboutProfile from './AboutProfile';
+import { Panel, PanelBody, Tab, Tabs } from 'react-gentelella';
+import { Col, Container, Row } from 'react-bootstrap';
 
 
 class AboutPage extends Component {
@@ -12,22 +14,25 @@ class AboutPage extends Component {
         return (
             <Page>
                 <PageTitle title={'The Journey'} />
-                <div className="clearfix"></div>
-                <div className="row">
-                    <div className="col-md-12 col-sm-12 col-xs-12">
-                        <div className="x_panel">
-                            <div className="x_content">
-                                <div className="col-md-3 col-sm-3 col-xs-12 profile_left">
+                <Container style={{ display: "flex", flexWrap: "wrap" }}>
+                    <Row>
+                        <Col md={3} sm={3} xs={12}>
+                            <Panel>
+                                <PanelBody>
                                     <AboutProfile />
-                                </div>
-                                <div className="col-md-9 col-sm-9 col-xs-12">
+                                </PanelBody>
+                            </Panel>
+                        </Col>
+                        <Col md={8} sm={8} xs={12}>
+                            <Panel>
+                                <PanelBody>
                                     <AboutTabs />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </Page>
+                                </PanelBody>
+                            </Panel>
+                        </Col>
+                    </Row>
+                </Container>
+            </Page >
         );
     }
 }

@@ -1,10 +1,10 @@
 export { default as AboutPage } from './About';
 export { default as ContactPage } from './ContactPage';
 export { default as DietPage } from './Diet';
-export { default as FitnessPage } from './FitnessPage';
+export { default as FitnessPage } from './Fitness'
 export { default as HomePage } from './HomePage';
 export { default as LandingPage } from './LandingPage';
-export { default as LivePage } from './Live/LivePage';
+export { default as LivePage } from './Live';
 export { default as LocationPage } from './Location';
 export { default as LoginPage } from './LoginPage';
 export { default as MediaPage } from './Media';

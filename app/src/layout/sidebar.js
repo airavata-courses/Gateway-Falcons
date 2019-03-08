@@ -45,7 +45,7 @@ const Sidebar = () => (
         <MenuItem>
           <Link to={"/about"}>About</Link>
         </MenuItem>
-        <MenuItem>
+        {/* <MenuItem>
           <Link to={"/story"}>Story</Link>
         </MenuItem>
         <MenuItem>
@@ -53,7 +53,7 @@ const Sidebar = () => (
         </MenuItem>
         <MenuItem>
           <Link to={"/research"}>Research</Link>
-        </MenuItem>
+        </MenuItem> */}
       </SidebarMenuSection>
 
       {/* <SidebarMenuSection title={"Keep up"}>

@@ -7,12 +7,13 @@ import DataTable from '../../components/DataTable';
 import ChartSlicerPanel from '../../components/ChartSlicerPanel';
 import * as Constants from '../../constants';
 import kpi_data from './diet-kpi_data';
+import LastMeals from './LastMeals'
 
 const options = [
-  { title: 'Cal', value: 'calories' },
-  { title: 'SO Cal', value: 'fat' },
-  { title: 'Hydration', value: 'water' },
-  { title: 'whatevaaa', value: 'somethig...' },
+  { title: 'Calories', value: 'calories' },
+  { title: 'Fat', value: 'fat' },
+  { title: 'Protein', value: 'water' },
+  { title: 'Carbs', value: 'somethig...' },
 ];
 
 
@@ -171,14 +172,7 @@ class DietPage extends Component {
 
           <Row>
             <Col md={12} sm={12} xs={12}>
-              <DataTable
-                data={data}
-                data_set='last_five'
-                button_box={true}
-                search_box={false}
-                title='Last 5 Meals'
-                table_columns={Constants.diet_data_columns}
-              />
+              <LastMeals />
             </Col>
           </Row>
 
@@ -200,55 +194,6 @@ class DietPage extends Component {
 
         <div className="clearfix"> </div>
 
-        {/* 
-        <Panel>
-          <PanelHeader>
-            <h2>Typography <small>different design elements</small></h2>
-            <GeneralPanelToolbox onCodeClick={ () => this.setState({showCode: !this.state.showCode})}/>
-          </PanelHeader>
-          <PanelBody>
-            <div className="col-md-8 col-lg-8 col-sm-7">
-              <blockquote>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante Lorem ipsum dolor
-                  sit amet, consectetur adipiscing elit. Integer posuere erat a ante Lorem ipsum dolor sit amet, consectetur
-                  adipiscing elit. Integer
-                  posuere erat a ante Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
-                  ante.</p>
-                <footer>Someone famous in <cite title="Source Title">Source Title</cite>
-                </footer>
-              </blockquote>
-
-              <blockquote className="blockquote-reverse">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante Lorem ipsum dolor
-                  sit amet, consectetur adipiscing elit. Integer posuere erat a ante Lorem ipsum dolor sit amet, consectetur
-                  adipiscing elit. Integer
-                  posuere erat a ante Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
-                  ante.</p>
-                <footer>Someone famous in <cite title="Source Title">Source Title</cite>
-                </footer>
-              </blockquote>
-            </div>
-            <div className="col-md-4 col-lg-4 col-sm-5">
-              <h1>h1. Bootstrap heading</h1>
-              <h2>h2. Bootstrap heading</h2>
-              <h3>h3. Bootstrap heading</h3>
-              <h4>h4. Bootstrap heading</h4>
-              <h5>h5. Bootstrap heading</h5>
-              <h6>h6. Bootstrap heading</h6>
-            </div>
-            <div className="clearfix"/>
-
-            <div className="col-md-12">
-              <h4>Labels and badges</h4>
-              <Badge bsStyle="default">Default</Badge>{' '}
-              <Badge bsStyle="primary">Primary</Badge>{' '}
-              <Badge bsStyle="success">Success</Badge> <Badge bsStyle="info">Info</Badge>{' '}
-              <Badge bsStyle="warning">Warning</Badge>{' '}
-              <Badge bsStyle="danger">Danger</Badge>{' '}
-              <Badge>42</Badge>
-            </div>
-          </PanelBody>
-        </Panel> */}
       </Page>
     )
   }
