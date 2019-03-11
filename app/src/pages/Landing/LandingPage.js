@@ -17,16 +17,16 @@ class LandingPage extends Component {
     return (
       <div className="App">
         <div className="App-header" style={{ height: "50%" }}>
-          <h1>Schwenk Live</h1>
+          <h1>Schwenck Live</h1>
           <img src={logo} style={{ height: "150px" }} />
-          <h3 className="title">Christmas Eve is coming soon ... </h3>
+          <h3 className="title">Website coming soon </h3>
             {/* date={`${year}-12-24T00:00:00`}  */}
           <Countdown 
             date={this.state.nextTimeBoundary}
           />
-          <a href="https://github.com/kristinbaumann/react-countdown" target="_blank">
+          {/* <a href="https://github.com/kristinbaumann/react-countdown" target="_blank">
             <span>View on Github</span>
-          </a>
+          </a> */}
         </div>
       </div>
     );
