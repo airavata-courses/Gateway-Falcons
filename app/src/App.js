@@ -7,14 +7,12 @@ import {
   DietPage,
   FitnessPage,
   HomePage,
-  // LandingPage,
+  LandingPage,
   LivePage,
   LocationPage,
   // LoginPage,
   MediaPage,
 } from './pages/index';
-// import Footer from "./components/Footer";
-
 import { Gentelella, BaseTheme, Footer } from 'react-gentelella';
 import Sidebar from "./layout/sidebar";
 import HeadNav from "./layout/head-nav";
@@ -41,19 +39,13 @@ class App extends Component {
       <div>
         <BaseTheme />
         <BrowserRouter>
-          <Gentelella fixedFooter={true} fixedSidebar={true} >
-            {/* {
-              (!this.state.started) ? */}
-            {/* <div>
-                  <Route path="/landing" component={LandingPage} />
-                </div> */}
-            {/* : */}
+        
+            <Route path="/" component={LandingPage} />
+          {/* <Gentelella fixedSidebar={true}  >
             <div>
               <Sidebar />
               <HeadNav />
               <Switch>
-                {/* <Route path="/extras/plain-page" component={PlainPage} />
-                  <Route path="/forms/general-form" component={FormElements} /> */}
                 <Route exac="true" path="/home" component={HomePage} />
                 <Route exac="true" path="/live" component={LivePage} />
                 <Route exac="true" path="/ui-elements/general-elements" component={GeneralElements} />
@@ -65,17 +57,13 @@ class App extends Component {
                 <Route path="/data/media" component={MediaPage} />
                 <Route exac="true" path="/data/location" component={LocationPage} />
                 <Route path="/about" component={AboutPage} />
-                {/* TODO: catch all redirect */}
                 <Route exac="true" path="/" component={HomePage} />
               </Switch>
-            </div>
-            {/* } */}
-            {/* <Route path="/multilevel-menu" component={MultiLevel} />
-              <Route component={PlainPage} /> */}
-            <Footer>
+            </div> */}
+            {/* <Footer>
               Tyler * Gentelella <a href="https://colorlib.com">Colorlib</a>
-            </Footer>
-          </Gentelella>
+            </Footer> */}
+          {/* </Gentelella> */}
         </BrowserRouter>
       </div>
     );
