@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import logo from '../../images/temp-background.jpg';
+import Background from '../../images/landing_page.jpeg';
+import logo from '../../images/logo.jpeg';
 import Countdown from './Countdown.js';
 import './index.css';
 
@@ -16,12 +17,19 @@ class LandingPage extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header" style={{ height: "50%" }}>
+        <div className="App-header"
+          style={{
+            height: "50%",
+            backgroundImage: `url(${Background})`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat'
+          }}
+        >
           <h1>Schwenck Live</h1>
           <img src={logo} style={{ height: "150px" }} />
           <h3 className="title">Website coming soon </h3>
-            {/* date={`${year}-12-24T00:00:00`}  */}
-          <Countdown 
+          <Countdown
             date={this.state.nextTimeBoundary}
           />
           {/* <a href="https://github.com/kristinbaumann/react-countdown" target="_blank">

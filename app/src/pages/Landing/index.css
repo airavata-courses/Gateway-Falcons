@@ -3,9 +3,9 @@
   }
   
   .App-header {
-    background-color: #222;
-    padding: 20px;
-    color: white;
+    /* background-color: #222; */
+    padding: 10px;
+    color:#f79002;
   }
   
   .App-header .title{
@@ -32,6 +32,7 @@
   .Countdown{
     margin: 10px auto;
     padding-bottom: 20px;
+    color: #d18010
   }
   
   .Countdown-col{
