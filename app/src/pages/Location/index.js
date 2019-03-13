@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Page, PageTitle } from 'react-gentelella';
-import ChartPanel from '../../components/ChartPanel';
 import MapSlicerPanel from '../../components/MapSlicerPanel';
 import TopTile from '../../components/TopTile';
 import LocationChart from './LocationChart';

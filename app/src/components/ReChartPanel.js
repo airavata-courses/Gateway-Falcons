@@ -1,5 +1,3 @@
-//TODO: combine with one main chart ... 
-
 import React, { Component } from 'react';
 import { Col } from 'react-bootstrap';
 import { Panel, PanelBody, PanelHeader } from 'react-gentelella';
@@ -11,6 +9,7 @@ import {
 // http://recharts.org/en-US/examples/LineChartWithReferenceLines
 
 class ReChartPanel extends Component {
+
 
     renderTitle(left, right, third) {
 
@@ -29,8 +28,31 @@ class ReChartPanel extends Component {
         );
     }
 
+    getMax(attr, data) {
+        if (data !== undefined && data.length > 0) {
+            console.log(attr)
+            console.log(data[0])
+            let max = data[0].totals[attr];
+            for (let i = 1; i < data.length; i++) {
+                const datum = data[i];
+                if (datum.totals[attr] > data[i-1].totals[attr]) {
+                    max = datum.totals[attr];
+                }
+            }
+            return max;
+        }
+    }
+
     renderChart(chart_type, first_attr, second_attr, third_attr, data) {
         if (chart_type == "Line") {
+
+            let first_max, second_max, third_max;
+            if (data !== undefined && data.length > 0) {
+                if (first_attr) first_max = this.getMax(first_attr, data);
+                if (second_attr) second_max = this.getMax(second_attr, data);
+                if (third_attr) third_max = this.getMax(third_attr, data);
+            }
+                
             return (<LineChart
                 width={500}
                 height={300}
@@ -43,8 +65,21 @@ class ReChartPanel extends Component {
                 <XAxis dataKey="date" />
                 <YAxis />
                 <Tooltip />
-                {/* <ReferenceLine x="Page C" stroke="red" label="Max PV PAGE" />
-                <ReferenceLine y={9800} label="Max" stroke="red" /> */}
+                {
+                    (first_max) 
+                        ? <ReferenceLine y={first_max} stroke="red" label={"max " + first_attr} />
+                        : <div />
+                }
+                {
+                    (second_max) 
+                        ? <ReferenceLine y={second_max} stroke="red" label={"max " + second_attr} />
+                        : <div />
+                }
+                {
+                    (third_max) 
+                        ? <ReferenceLine y={third_max} stroke="red" label={"max " + third_attr} />
+                        : <div />
+                }
                 <Line type="monotone"
                     dataKey={`totals.${first_attr}`}
                     name={(first_attr === "carbohydrates") ? "carbs" : first_attr}

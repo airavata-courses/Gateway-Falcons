@@ -1,12 +1,4 @@
-// TODO: KPI today or yesterday 
-// pluck last element 
-
-// % difference from yesterday   
-
-
 // TODO: Charts
-
-// maxes on right chart ...
 // add date styling / config ... PRANETA???
 
 // TODO: last minute stuff
@@ -16,7 +8,6 @@
 
 import React, { Component } from 'react'
 import { Row, Col } from 'react-bootstrap'
-import ChartPanel from '../../components/ChartPanel'
 import TopTile from '../../components/TopTile'
 import { Page, PageTitle } from 'react-gentelella';
 import DataTable from '../../components/DataTable';
@@ -112,26 +103,80 @@ class DietPage extends Component {
         }
       }
     );
-    // {
-    //   title: { icon: 'clock-o', label: 'Carbs' },
-    //   value: { label: '123.50' },
-    //   bottom: { stat: '3%', label: 'From Last Week' }
-    // },
-    // {
-    //   title: { icon: 'user', label: 'Fats' },
-    //   value: { className: 'green', label: '2,500' },
-    //   bottom: { stat: '4%', label: 'From Last Week' }
-    // },
-    // {
-    //   title: { icon: 'user', label: 'Proteins' },
-    //   value: { label: '4,567' },
-    //   bottom: { className: 'red', stat: '12%', label: 'From Last Week' }
-    // },
-    // {
-    //   title: { icon: 'user', label: 'Sugars' },
-    //   value: { label: '2,315' },
-    //   bottom: { stat: '34%', label: 'From Last Week' }
-    // },
+    const today_carbs = (today_totals ? today_totals.carbohydrates : "none today");
+    const today_carbs_diff = (today_totals
+      ? (today_totals.carbohydrates - yesterday_totals.carbohydrates) + ''
+      : "none today");
+    kpi_data.push(
+      {
+        title: { icon: 'clock-o', label: 'Carbs' },
+        value: { label: today_carbs },
+        bottom: {
+          stat: Math.abs(today_carbs_diff),
+          label: ((today_carbs_diff > 0) ? "More " : "Less ") + ' than yest.'
+        }
+      }
+    );
+    const today_fat = (today_totals ? today_totals.fat : "none today");
+    const today_fat_diff = (today_totals
+      ? (today_totals.fat - yesterday_totals.fat) + ''
+      : "none today");
+    kpi_data.push(
+      {
+        title: { icon: 'clock-o', label: 'Fats' },
+        value: { label: today_fat },
+        bottom: {
+          stat: Math.abs(today_fat_diff),
+          label: ((today_fat_diff > 0) ? "More " : "Less ") + ' than yest.'
+        }
+      }
+    );
+
+    const today_protein = (today_totals ? today_totals.protein : "none today");
+    const today_protein_diff = (today_totals
+      ? (today_totals.protein - yesterday_totals.protein) + ''
+      : "none today");
+    kpi_data.push(
+      {
+        title: { icon: 'clock-o', label: 'Protein' },
+        value: { label: today_protein },
+        bottom: {
+          stat: Math.abs(today_protein_diff),
+          label: ((today_protein_diff > 0) ? "More " : "Less ") + ' than yest.'
+        }
+      }
+    );
+
+    const today_sugar = (today_totals ? today_totals.sugar : "none today");
+    const today_sugar_diff = (today_totals
+      ? (today_totals.sugar - yesterday_totals.sugar) + ''
+      : "none today");
+    kpi_data.push(
+      {
+        title: { icon: 'clock-o', label: 'Sugar' },
+        value: { label: today_sugar },
+        bottom: {
+          stat: Math.abs(today_sugar_diff),
+          label: ((today_sugar_diff > 0) ? "More " : "Less ") + ' than yest.'
+        }
+      }
+    );
+
+    const today_water = (today_totals ? today.water : "none today");
+    const today_water_diff = (today
+      ? (today.water - yesterday.water) + ''
+      : "none today");
+    kpi_data.push(
+      {
+        title: { icon: 'clock-o', label: 'Hydration' },
+        value: { label: today_water },
+        bottom: {
+          stat: Math.abs(today_water_diff),
+          label: ((today_water_diff > 0) ? "More " : "Less ") + ' than yest.'
+        }
+      }
+    );
+
     // {
     //   title: { icon: 'user', label: 'Hydration Level' },
     //   value: { label: '7,325' },

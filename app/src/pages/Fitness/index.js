@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Row, Col } from 'react-bootstrap'
-import ChartPanel from '../../components/ChartPanel'
 import TopTile from '../../components/TopTile'
 import { Page, PageTitle } from 'react-gentelella';
 import DataTable from '../../components/DataTable';
@@ -64,12 +63,7 @@ class FitnessPage extends Component {
                     <Row>
                         {/* Left Chart */}
                         <Col md={5} sm={12} xs={12}>
-                            <ChartPanel
-                                data_set={data_set}
-                                title={"Left Chart"}
-                                chart_type="scatter"
-                            // data={left_chart_data}
-                            />
+                          
                         </Col>
 
                         {/* Slicers */}
@@ -83,12 +77,7 @@ class FitnessPage extends Component {
 
                         {/* Right Chart */}
                         <Col md={5} sm={12} xs={12}>
-                            <ChartPanel
-                                data_set='diet'
-                                title={"Right Chart"}
-                                chart_type="line"
-                            // data={left_chart_data}
-                            />
+                           
                         </Col>
 
                     </Row>
