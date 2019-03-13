@@ -39,9 +39,8 @@ class App extends Component {
       <div>
         <BaseTheme />
         <BrowserRouter>
-        
-            <Route path="/" component={LandingPage} />
-          {/* <Gentelella fixedSidebar={true}  >
+          {/* <Route path="/" component={LandingPage} /> */}
+          <Gentelella fixedSidebar={true}  >
             <div>
               <Sidebar />
               <HeadNav />
@@ -59,11 +58,11 @@ class App extends Component {
                 <Route path="/about" component={AboutPage} />
                 <Route exac="true" path="/" component={HomePage} />
               </Switch>
-            </div> */}
+            </div>
             {/* <Footer>
               Tyler * Gentelella <a href="https://colorlib.com">Colorlib</a>
             </Footer> */}
-          {/* </Gentelella> */}
+          </Gentelella>
         </BrowserRouter>
       </div>
     );

@@ -33,12 +33,12 @@ const Sidebar = () => (
         <MenuItem>
           <Link to={"/live"}>Guest</Link>
         </MenuItem>
-        <MenuItem>
+        {/* <MenuItem>
           <Link to={"/login"}>Login</Link>
         </MenuItem>
         <MenuItem>
           <Link to={"/signup"}>Sign up</Link>
-        </MenuItem>
+        </MenuItem> */}
       </SidebarMenuSection>
 
       <SidebarMenuSection title={"Journey"}>

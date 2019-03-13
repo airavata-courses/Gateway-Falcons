@@ -2,13 +2,7 @@ import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import sliderData from './slider-pages';
-import Paper from '@material-ui/core/Paper';
 import { Page, Panel, PanelHeader, PanelBody, PageTitle } from 'react-gentelella';
-// import Slider from 'react-animated-slider';
-// import 'react-animated-slider/build/horizontal.css';
-// import './homepage.slider-animations.css';
-// import './homepage.styles.css';
-// import 'normalize.css/normalize.css';
 import AnimSlider from './AnimSlider';
 
 const styles = () => ({
@@ -36,9 +30,9 @@ class HomePage extends Component {
     const { classes } = this.props;
     return (
       <Page>
-        <Panel  >
+        <Panel style={{ height: 500 }} >
           <PanelBody >
-            <div className={classes.root} style={{ width: "100%", height: 400 }}>
+            <div className={classes.root}>
               <AnimSlider></AnimSlider>
             </div>
           </PanelBody>
