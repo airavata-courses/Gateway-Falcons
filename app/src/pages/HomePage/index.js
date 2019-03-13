@@ -32,9 +32,9 @@ class HomePage extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <Page>
-        <Panel style={{ height: 500 }} >
-          <PanelBody >
+      <Page style={{ height: 450 }} >
+        <Panel style={{ height: 450 }} >
+          <PanelBody style={{ height: 450 }} >
             <div className={classes.root}>
               <AnimSlider></AnimSlider>
             </div>
