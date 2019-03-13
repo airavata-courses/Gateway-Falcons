@@ -1,20 +1,18 @@
-// TODO: Put mui on panel
-
 // TODO: KPI today or yesterday 
-  // pluck last element 
+// pluck last element 
 
-  // % difference from yesterday   
+// % difference from yesterday   
 
 
 // TODO: Charts
 
-  // maxes on right chart ...
-  // add date styling / config ... PRANETA???
+// maxes on right chart ...
+// add date styling / config ... PRANETA???
 
 // TODO: last minute stuff
 
-  // add slicers
-  // style mui table
+// add slicers
+// style mui table
 
 import React, { Component } from 'react'
 import { Row, Col } from 'react-bootstrap'
@@ -24,7 +22,7 @@ import { Page, PageTitle } from 'react-gentelella';
 import DataTable from '../../components/DataTable';
 import ChartSlicerPanel from '../../components/ChartSlicerPanel';
 import * as Constants from '../../constants';
-import kpi_data from './diet-kpi_data';
+// import kpi_data from './diet-kpi_data';
 // import LastMeals from './LastMeals'
 import ReChartPanel from '../../components/ReChartPanel';
 import temp_data from './temp-data';
@@ -47,7 +45,9 @@ class DietPage extends Component {
       data_set: '',
       chart_title: '',
       kpi_data: [],
-      backendURL: ''
+      backendURL: '',
+      today: {},
+      yesterday: {},
     };
   }
 
@@ -73,7 +73,11 @@ class DietPage extends Component {
           }))
       })
 
-    this.setState({ data: temp_data });
+    this.setState({
+      data: temp_data,
+      today: temp_data[temp_data.length - 1],
+      yesterday: temp_data[temp_data.length - 2]
+    });
     // .then(res => (
     //   console.log("this.state.backendURL"+res.data)
     //   fetch(`${this.state.backendURL}/diet`)
@@ -83,13 +87,57 @@ class DietPage extends Component {
     //     data: res2
     //   }))
     // ))
-
-
   }
 
   componentDidMount() {
     console.log('temp_data', temp_data);
     this.getAndSetDietData();
+  }
+
+  generateKPIData(today, yesterday) {
+    const today_totals = today.totals;
+    const yesterday_totals = yesterday.totals;
+    const kpi_data = [];
+    const today_cal = (today_totals ? today_totals.calories : "none today");
+    const today_cal_diff = (today_totals
+      ? (today_totals.calories - yesterday_totals.calories) + ''
+      : "none today");
+    kpi_data.push(
+      {
+        title: { icon: 'user', label: 'Total Cal Consumed' },
+        value: { label: today_cal },
+        bottom: {
+          stat: Math.abs(today_cal_diff),
+          label: ((today_cal_diff > 0) ? "More " : "Less ") + ' than yest.'
+        }
+      }
+    );
+    // {
+    //   title: { icon: 'clock-o', label: 'Carbs' },
+    //   value: { label: '123.50' },
+    //   bottom: { stat: '3%', label: 'From Last Week' }
+    // },
+    // {
+    //   title: { icon: 'user', label: 'Fats' },
+    //   value: { className: 'green', label: '2,500' },
+    //   bottom: { stat: '4%', label: 'From Last Week' }
+    // },
+    // {
+    //   title: { icon: 'user', label: 'Proteins' },
+    //   value: { label: '4,567' },
+    //   bottom: { className: 'red', stat: '12%', label: 'From Last Week' }
+    // },
+    // {
+    //   title: { icon: 'user', label: 'Sugars' },
+    //   value: { label: '2,315' },
+    //   bottom: { stat: '34%', label: 'From Last Week' }
+    // },
+    // {
+    //   title: { icon: 'user', label: 'Hydration Level' },
+    //   value: { label: '7,325' },
+    //   bottom: { stat: '34%', label: 'From Last Week' }
+    // },
+    return kpi_data;
   }
 
   sliceChart = (chart_title) => {
@@ -108,7 +156,11 @@ class DietPage extends Component {
 
   render() {
 
-    const { data, data_set, chart_title } = this.state;
+    const { data, today, yesterday } = this.state;
+    let kpi_data = [];
+    // if (today, yesterday) {
+    kpi_data = this.generateKPIData(today, yesterday);
+    // }
     return (
       <Page>
         <PageTitle title={'Diet'} />
@@ -119,12 +171,6 @@ class DietPage extends Component {
           <Row>
             {/* Left Chart */}
             <Col md={5} sm={12} xs={12}>
-              {/* <ChartPanel
-                data_set={data_set}
-                title={"CHange meee"}
-                chart_type="scatter"
-                data={left_chart_data}
-              /> */}
               <ReChartPanel
                 chart_type="Brush"
                 first_attr={"fat"}

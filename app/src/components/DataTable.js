@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import MUIDataTable from "mui-datatables";
+import { Panel, PanelBody, PanelHeader } from 'react-gentelella';
 
 const options = {
     filterType: 'checkbox',
@@ -16,7 +17,6 @@ class DataTable extends Component {
             let totals = [];
             totals.push(datum.date);
             totals = totals.concat(Object.keys(datum.totals).map(key => datum.totals[key]));
-            console.log(totals);
             ret.push(totals);
         })
         return ret;
@@ -29,19 +29,17 @@ class DataTable extends Component {
             _data = this.flattenData(data);
         }
         return (
-            <div >
-                <div >
-                    <div >
-                        <MUIDataTable
-                            title={title}
-                            data={_data}
-                            columns={table_columns}
-                            options={options}
-                            isRowSelectable={false}
-                        />
-                    </div>
-                </div>
-            </div>
+            <Panel>
+                <PanelBody>
+                    <MUIDataTable
+                        title={title}
+                        data={_data}
+                        columns={table_columns}
+                        options={options}
+                        isRowSelectable={false}
+                    />
+                </PanelBody>
+            </Panel>
         );
     }
 }

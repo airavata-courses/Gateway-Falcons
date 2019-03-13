@@ -1,3 +1,5 @@
+// https://reactjsexample.com/vertical-carousel-background-image-with-react-js/
+
 import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import './overrides.css';  // change this to the file path of your overrides

@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { TopTileStats } from './widgets'
 
 class TopTile extends Component {
-  render () {
+
+  render() {
     const { kpi_data } = this.props;
     return (
       <TopTileStats kpi_data={kpi_data} />
