@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+
+// TODO: use slider data
 import sliderData from './slider-pages';
-import { Page, Panel, PanelHeader, PanelBody, PageTitle } from 'react-gentelella';
+import { Page, Panel, PanelBody } from 'react-gentelella';
 import AnimSlider from './AnimSlider';
+
 
 const styles = () => ({
 

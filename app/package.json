@@ -23,7 +23,6 @@
     "react": "^16.8.3",
     "react-bootstrap": "^1.0.0-beta.5",
     "react-bootstrap-daterangepicker": "^4.1.0",
-    "react-carousel-slider": "^2.0.13",
     "react-compare-image": "^0.8.1",
     "react-coverflow": "^0.2.18",
     "react-dom": "^16.7.0",

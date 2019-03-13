@@ -29,9 +29,9 @@ const Sidebar = () => (
 
     <SidebarMenu>
 
-      <SidebarMenuSection title={"Live"}>
+      <SidebarMenuSection>
         <MenuItem>
-          <Link to={"/live"}>Guest</Link>
+          <Link to={"/live"}>Live</Link>
         </MenuItem>
         {/* <MenuItem>
           <Link to={"/login"}>Login</Link>

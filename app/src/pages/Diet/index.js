@@ -1,3 +1,5 @@
+// TODO: combine right and left chart
+
 import React, { Component } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import ChartPanel from '../../components/ChartPanel'
@@ -8,6 +10,8 @@ import ChartSlicerPanel from '../../components/ChartSlicerPanel';
 import * as Constants from '../../constants';
 import kpi_data from './diet-kpi_data';
 import LastMeals from './LastMeals'
+import RightChart from './RightChart';
+import temp_data from './temp-data';
 
 const options = [
   { title: 'Calories', value: 'calories' },
@@ -15,7 +19,6 @@ const options = [
   { title: 'Protein', value: 'water' },
   { title: 'Carbs', value: 'somethig...' },
 ];
-
 
 const left_chart_data = [
   { name: '1', uv: 300, pv: 456 },
@@ -75,27 +78,28 @@ class DietPage extends Component {
   }
 
   getAndSetDietData() {
-    const servicePath = {servicePath: `${Constants.basePath}/backendserver`}
+    const servicePath = { servicePath: `${Constants.basePath}/backendserver` }
     fetch(`${Constants.zookeeperurl}/getservice`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       // mode: "cors", // no-cors, cors, *same-origin
       // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      
+
       headers: {
-          "Content-Type": "application/json",
-          
+        "Content-Type": "application/json",
+
       },
       body: JSON.stringify(servicePath), // body data type must match "Content-Type" header
-  })
-    .then(res => res.json())
-    .then(res => {
-      fetch("http://"+res.data+"/diet")
-      .then(res2 => res2.json())
-      .then(res2 => this.setState({
-        data: res2
-      }))
     })
+      .then(res => res.json())
+      .then(res => {
+        fetch("http://" + res.data + "/diet")
+          .then(res2 => res2.json())
+          .then(res2 => this.setState({
+            data: res2
+          }))
+      })
 
+      this.setState({data: temp_data});
     // .then(res => (
     //   console.log("this.state.backendURL"+res.data)
     //   fetch(`${this.state.backendURL}/diet`)
@@ -105,12 +109,12 @@ class DietPage extends Component {
     //     data: res2
     //   }))
     // ))
-    
-    
+
+
   }
 
   componentDidMount() {
-    // TODO: GET FROM EXISTING DIET PAGE
+    console.log('temp_data', temp_data);
     this.getAndSetDietData();
   }
 
@@ -126,9 +130,11 @@ class DietPage extends Component {
     console.log(picker.endDate._d);
   }
 
+  // TODO: add slicer ... 
+
   render() {
 
-    const { data, data_set, chart_title  } = this.state;
+    const { data, data_set, chart_title } = this.state;
     return (
       <Page>
         <PageTitle title={'Diet Data'} />
@@ -141,40 +147,41 @@ class DietPage extends Component {
             <Col md={5} sm={12} xs={12}>
               <ChartPanel
                 data_set={data_set}
-                title={chart_title}
+                title={"CHange meee"}
                 chart_type="scatter"
                 data={left_chart_data}
               />
             </Col>
 
             {/* Slicers */}
-            <Col md={2} sm={2} xs={2}>
+            {/* <Col md={2} sm={2} xs={2}>
               <ChartSlicerPanel
                 options={options}
                 sliceDateRange={this.sliceDateRange}
                 sliceChart={this.sliceChart}
               />
-            </Col>
+            </Col> */}
 
             {/* Right Chart */}
             <Col md={5} sm={12} xs={12}>
-              <ChartPanel
-                data_set='diet'
-                title={chart_title}
-                chart_type="line"
-                data={left_chart_data}
-              />
+              <RightChart
+                data_set={data_set}
+                title={"CHange meee"}
+                first_attr={"sodium"}
+                second_attr={"sugar"}
+                chart_type="line_with_reference"
+                data={data} />
             </Col>
 
           </Row>
 
           <div className="clearfix" />
 
-          <Row>
+          {/* <Row>
             <Col md={12} sm={12} xs={12}>
               <LastMeals />
             </Col>
-          </Row>
+          </Row> */}
 
           <div className="clearfix"> </div>
 

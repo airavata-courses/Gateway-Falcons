@@ -1,7 +1,8 @@
 import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-// import CarouselSlider from "react-carousel-slider"
 import './overrides.css';  // change this to the file path of your overrides
+
+// TODO: use slider data
 
 var Carousel = require('react-responsive-carousel').Carousel;
 // https://github.com/leandrowd/react-responsive-carousel/issues/150
