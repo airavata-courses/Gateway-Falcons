@@ -1,4 +1,20 @@
-// TODO: combine right and left chart
+// TODO: Put mui on panel
+
+// TODO: KPI today or yesterday 
+  // pluck last element 
+
+  // % difference from yesterday   
+
+
+// TODO: Charts
+
+  // maxes on right chart ...
+  // add date styling / config ... PRANETA???
+
+// TODO: last minute stuff
+
+  // add slicers
+  // style mui table
 
 import React, { Component } from 'react'
 import { Row, Col } from 'react-bootstrap'
@@ -9,8 +25,8 @@ import DataTable from '../../components/DataTable';
 import ChartSlicerPanel from '../../components/ChartSlicerPanel';
 import * as Constants from '../../constants';
 import kpi_data from './diet-kpi_data';
-import LastMeals from './LastMeals'
-import RightChart from './RightChart';
+// import LastMeals from './LastMeals'
+import ReChartPanel from '../../components/ReChartPanel';
 import temp_data from './temp-data';
 
 const options = [
@@ -18,48 +34,6 @@ const options = [
   { title: 'Fat', value: 'fat' },
   { title: 'Protein', value: 'water' },
   { title: 'Carbs', value: 'somethig...' },
-];
-
-const left_chart_data = [
-  { name: '1', uv: 300, pv: 456 },
-  { name: '2', uv: -145, pv: 230 },
-  { name: '3', uv: -100, pv: 345 },
-  { name: '4', uv: -8, pv: 450 },
-  { name: '5', uv: 100, pv: 321 },
-  { name: '6', uv: 9, pv: 235 },
-  { name: '7', uv: 53, pv: 267 },
-  { name: '8', uv: 252, pv: -378 },
-  { name: '9', uv: 79, pv: -210 },
-  { name: '10', uv: 294, pv: -23 },
-  { name: '12', uv: 43, pv: 45 },
-  { name: '13', uv: -74, pv: 90 },
-  { name: '14', uv: -71, pv: 130 },
-  { name: '15', uv: -117, pv: 11 },
-  { name: '16', uv: -186, pv: 107 },
-  { name: '17', uv: -16, pv: 926 },
-  { name: '18', uv: -125, pv: 653 },
-  { name: '19', uv: 222, pv: 366 },
-  { name: '20', uv: 372, pv: 486 },
-  { name: '21', uv: 182, pv: 512 },
-  { name: '22', uv: 164, pv: 302 },
-  { name: '23', uv: 316, pv: 425 },
-  { name: '24', uv: 131, pv: 467 },
-  { name: '25', uv: 291, pv: -190 },
-  { name: '26', uv: -47, pv: 194 },
-  { name: '27', uv: -415, pv: 371 },
-  { name: '28', uv: -182, pv: 376 },
-  { name: '29', uv: -93, pv: 295 },
-  { name: '30', uv: -99, pv: 322 },
-  { name: '31', uv: -52, pv: 246 },
-  { name: '32', uv: 154, pv: 33 },
-  { name: '33', uv: 205, pv: 354 },
-  { name: '34', uv: 70, pv: 258 },
-  { name: '35', uv: -25, pv: 359 },
-  { name: '36', uv: -59, pv: 192 },
-  { name: '37', uv: -63, pv: 464 },
-  { name: '38', uv: -91, pv: -2 },
-  { name: '39', uv: -66, pv: 154 },
-  { name: '40', uv: -50, pv: 186 },
 ];
 
 class DietPage extends Component {
@@ -99,7 +73,7 @@ class DietPage extends Component {
           }))
       })
 
-      this.setState({data: temp_data});
+    this.setState({ data: temp_data });
     // .then(res => (
     //   console.log("this.state.backendURL"+res.data)
     //   fetch(`${this.state.backendURL}/diet`)
@@ -137,7 +111,7 @@ class DietPage extends Component {
     const { data, data_set, chart_title } = this.state;
     return (
       <Page>
-        <PageTitle title={'Diet Data'} />
+        <PageTitle title={'Diet'} />
 
         <TopTile kpi_data={kpi_data} />
 
@@ -145,11 +119,18 @@ class DietPage extends Component {
           <Row>
             {/* Left Chart */}
             <Col md={5} sm={12} xs={12}>
-              <ChartPanel
+              {/* <ChartPanel
                 data_set={data_set}
                 title={"CHange meee"}
                 chart_type="scatter"
                 data={left_chart_data}
+              /> */}
+              <ReChartPanel
+                chart_type="Brush"
+                first_attr={"fat"}
+                second_attr={"carbohydrates"}
+                third_attr={"protein"}
+                data={data}
               />
             </Col>
 
@@ -164,13 +145,12 @@ class DietPage extends Component {
 
             {/* Right Chart */}
             <Col md={5} sm={12} xs={12}>
-              <RightChart
-                data_set={data_set}
-                title={"CHange meee"}
+              <ReChartPanel
+                chart_type="Line"
                 first_attr={"sodium"}
                 second_attr={"sugar"}
-                chart_type="line_with_reference"
-                data={data} />
+                data={data}
+              />
             </Col>
 
           </Row>
@@ -192,7 +172,7 @@ class DietPage extends Component {
                 button_box={true}
                 search_box={true}
                 data_set='diet'
-                title='Diet'
+                title='Aggregate Data'
                 table_columns={Constants.diet_data_columns}
               />
             </Col>

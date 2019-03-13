@@ -1,15 +1,5 @@
 import React, { Component } from 'react'
 import MUIDataTable from "mui-datatables";
-import * as Constants from '../constants';
-
-const columns = ["Name", "Company", "City", "State"];
-
-const _data = [
-    ["Joe James", "Test Corp", "Yonkers", "NY"],
-    ["John Walsh", "Test Corp", "Hartford", "CT"],
-    ["Bob Herm", "Test Corp", "Tampa", "FL"],
-    ["James Houston", "Test Corp", "Dallas", "TX"],
-];
 
 const options = {
     filterType: 'checkbox',
@@ -20,35 +10,32 @@ const options = {
 
 class DataTable extends Component {
 
-    constructor(props) {
-        super(props);
-        const { data_set, data, title, table_columns } = props;
-        // const _table_columns = Object.keys(table_columns).map(key => table_columns[key]);
-        console.log(table_columns)
-        this.state = {
-            // button_box: button_box,
-            // search_box: search_box,
-            data_set: data_set,
-            data: data,
-            title: title,
-            table_columns: table_columns
-        };
+    flattenData(data) {
+        const ret = [];
+        data.map(datum => {
+            let totals = [];
+            totals.push(datum.date);
+            totals = totals.concat(Object.keys(datum.totals).map(key => datum.totals[key]));
+            console.log(totals);
+            ret.push(totals);
+        })
+        return ret;
     }
 
     render() {
-        const { data, title, table_columns } = this.state;
+        const { data, title, table_columns } = this.props;
+        let _data = [];
+        if (data) {
+            _data = this.flattenData(data);
+        }
         return (
-            <div className="col-md-12 col-sm-12 col-xs-12">
-                <div className="x_panel">
-                    <div className="x_title">
-                        <h2> {title} Data </h2>
-                        <div className="clearfix"></div>
-                    </div>
-                    <div className="x_content">
+            <div >
+                <div >
+                    <div >
                         <MUIDataTable
                             title={title}
                             data={_data}
-                            columns={columns}
+                            columns={table_columns}
                             options={options}
                             isRowSelectable={false}
                         />

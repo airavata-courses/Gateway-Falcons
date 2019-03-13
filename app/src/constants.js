@@ -6,16 +6,14 @@ const imageUrl = 'http://localhost:8081';
 const zookeeperurl = 'http://149.165.157.75:5000';
 const basePath = 'falcons/services';
 
-// const diet_data_columns = {
-//     meals_length:  '# of Meals' ,
-//     total_calories:  'Calories' ,
-//     calories: 'Calories',
-// };
-
 const diet_data_columns = [
-    '# of Meals' ,
-    'Calories' ,
-    'Calories'
+    'Date',
+    'Calories',
+    "Carbohydrates",
+    "Fat",
+    "Protein",
+    "Sodium",
+    "Sugar"
 ];
 
 const fitness_data_columns = {
@@ -31,8 +29,6 @@ const fitness_data_columns = {
     end_latlng: 'Start Lon',
     description: 'Description'
 };
-
-
 
 module.exports = {
     diet_data_columns,
