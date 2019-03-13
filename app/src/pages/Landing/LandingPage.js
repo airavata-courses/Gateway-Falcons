@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Background from '../../images/landing_page.jpeg';
-import logo from '../../images/logo.jpeg';
+import logo from '../../images/logo.png';
 import Countdown from './Countdown.js';
 import './index.css';
 
@@ -27,7 +27,7 @@ class LandingPage extends Component {
           }}
         >
           <h1>Schwenck Live</h1>
-          <img src={logo} style={{ height: "150px" }} />
+          <img src={logo} style={{ height: "120px" }} />
           <h3 className="title">Website coming soon </h3>
           <Countdown
             date={this.state.nextTimeBoundary}

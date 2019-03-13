@@ -4,12 +4,12 @@
   
   .App-header {
     /* background-color: #222; */
-    padding: 10px;
-    color:#f79002;
+    padding: 5px;
+    color:#9b1801;
   }
   
   .App-header .title{
-    margin-top: 40px;
+    margin-top: 20px;
   }
   
   .App-header a{
