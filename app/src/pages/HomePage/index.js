@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-// TODO: use slider data
-import sliderData from './slider-pages';
 import { Page, Panel, PanelBody } from 'react-gentelella';
 import AnimSlider from './AnimSlider';
 
@@ -23,6 +21,7 @@ class HomePage extends Component {
   }
 
   onNavigate(page) {
+    // navigate to (page)
     alert(page);
   }
 
@@ -35,9 +34,7 @@ class HomePage extends Component {
       <Page style={{ height: 450 }} >
         <Panel style={{ height: 450 }} >
           <PanelBody style={{ height: 450 }} >
-            <div className={classes.root}>
               <AnimSlider></AnimSlider>
-            </div>
           </PanelBody>
         </Panel>
       </Page>
@@ -49,4 +46,3 @@ HomePage.propTypes = {
 };
 
 export default withStyles(styles)(HomePage);
-

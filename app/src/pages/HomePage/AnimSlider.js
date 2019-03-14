@@ -6,9 +6,7 @@ import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 
 // TODO: use slider data
-
-var Carousel = require('react-responsive-carousel').Carousel;
-// https://github.com/leandrowd/react-responsive-carousel/issues/150
+import sliderData from './slider-pages';
 
 const images = [
     {
@@ -36,18 +34,18 @@ function makeDiv(imageObj, index) {
     )
 }
 
+//https://github.com/xiaolin/react-image-gallery/issues/57
 class AnimSlider extends Component {
 
     _onImageClick(event) {
-        var currentIndex = this._imageGallery.getCurrentIndex();
-        alert(currentIndex);
-
         /** 
          * TODO:
          * look up current image url by index
          * attach to light box || direct link
          * navigate
          */
+        var currentIndex = this._imageGallery.getCurrentIndex();
+        alert(currentIndex);
 
     }
 
@@ -70,6 +68,8 @@ export default AnimSlider;
 
 // import "react-responsive-carousel/lib/styles/carousel.min.css";
 // import './overrides.css';  // change this to the file path of your overrides
+// var Carousel = require('react-responsive-carousel').Carousel;
+// https://github.com/leandrowd/react-responsive-carousel/issues/150
 
 //  onChange={onChange} onClickItem={onClickItem} onClickThumb={onClickThumb}
 {/* <Carousel showArrows={true} style={{ width: "100%", height: 600 }}

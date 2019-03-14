@@ -60,15 +60,18 @@ class DietPage extends Component {
         fetch("http://" + res.data + "/diet")
           .then(res2 => res2.json())
           .then(res2 => this.setState({
-            data: res2
+            data: res2,
+            today: temp_data[temp_data.length - 1],
+            yesterday: temp_data[temp_data.length - 2]
           }))
       })
 
-    this.setState({
-      data: temp_data,
-      today: temp_data[temp_data.length - 1],
-      yesterday: temp_data[temp_data.length - 2]
-    });
+    // this.setState({
+    //   data: temp_data,
+    //   today: temp_data[temp_data.length - 1],
+    //   yesterday: temp_data[temp_data.length - 2]
+    // });
+    
     // .then(res => (
     //   console.log("this.state.backendURL"+res.data)
     //   fetch(`${this.state.backendURL}/diet`)
@@ -177,11 +180,6 @@ class DietPage extends Component {
       }
     );
 
-    // {
-    //   title: { icon: 'user', label: 'Hydration Level' },
-    //   value: { label: '7,325' },
-    //   bottom: { stat: '34%', label: 'From Last Week' }
-    // },
     return kpi_data;
   }
 

@@ -1,18 +1,15 @@
+import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import { post } from 'axios';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { Component } from "react";
 import { Page, PageTitle, Panel, PanelBody, PanelHeader } from 'react-gentelella';
 import Swiper from 'react-id-swiper';
 import 'react-id-swiper/src/styles/css/swiper.css';
-// import Coverflow from 'react-coverflow';
 import Lightbox from 'react-image-lightbox';
 import Gallery from "react-photo-gallery";
 import * as Constants from '../../constants';
-// import GoogleMap from '../../components/map/MapContainer'
 import GoogleMapCluster from '../../components/map/ClusterMapContainer'
 
 const styles = theme => ({
@@ -118,32 +115,57 @@ class MediaPage extends Component {
     }
 
     fetchImages() {
-        // const username = `my_folder`;
-        // fetch(`${Constants.serverUrl}/images/${username}`)
-        //     .then(res => res.json())
-        //     .then(images => this.setState({
-        //         images: images.filter(image => image.bytes > 0)
-        //     }))
-        //     .catch(err => console.error(err));
+        // fetch(`${Constants.smugugUrl}/user/johnschwenck!albums?APIKey=CgHshKMZrJWBrXCQGHrs4CsqbXVtcvnC`, { 
+            // fetch('https://api.smugmug.com/api/v2/album/28vd4S', {
+        fetch('http://localhost:3001/images/albums', {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            // mode: "no-cors",
+            responseType: 'json'
+        })
+            .then(res => res.json())
+            .then(res => console.log(res))
+            // .catch(err => console.error(err));
+                // .then(images => this.setState({
+                //     images: images.filter(image => image.bytes > 0)
+                // }))
         const images = [];
         for (var i = 0; i < 10; i++) {
+            // const image = {
+            //     key: i,
+            //     src: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+            //     url: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+            //     title: `something cool: ${i}`,
+            //     caption: `something even cooler: ${i}`,
+            //     context: {
+            //         custom: {
+            //             caption: "something cool"
+            //         }
+            //     }
+            // }
             const image = {
                 key: i,
-                src: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                url: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                title: `something cool: ${i}`,
-                caption: `something even cooler: ${i}`,
-                context: {
-                    custom: {
-                        caption: "something cool"
-                    }
-                }
-            }
+                "Title": "",
+                "Caption": "",
+                "Keywords": "AQ8C8366",
+                "Latitude": "0.00000000000000",
+                "Longitude": "0.00000000000000",
+                "Altitude": 0,
+                "ThumbnailUrl": "https://photos.smugmug.com/photos/i-jPPKD2c/1/Th/i-jPPKD2c-Th.jpg",
+                "FileName": "AQ8C8366-two-pups-one-hat.jpg",
+                "Processing": false,
+                "UploadKey": "1906611746",
+                "Date": "2012-06-15T02:35:22+00:00",
+                "Format": "JPG"
+            };
             images[i] = image;
         }
         this.setState({
             images
         });
+
     }
 
     openLightbox(index) {
@@ -260,7 +282,7 @@ class MediaPage extends Component {
                 }
 
                 {/* </Coverflow> */}
-            </Swiper >
+            </Swiper>
 
         );
     }
@@ -287,6 +309,7 @@ class MediaPage extends Component {
             />
         );
     }
+
     render() {
         const { images, index, active } = this.state;
         let lightbox;
@@ -303,10 +326,8 @@ class MediaPage extends Component {
                 <Panel>
                     <PanelHeader />
                     <h2> Map </h2>
-                    <PanelBody 
-                    >
+                    <PanelBody>
                         <GoogleMapCluster />
-
                     </PanelBody>
                 </Panel>
 

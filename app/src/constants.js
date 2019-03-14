@@ -5,6 +5,7 @@ const imageUrl = 'http://localhost:8081';
 // const imageUrl = 'http://localhost:8081';
 const zookeeperurl = 'http://149.165.157.75:5000';
 const basePath = 'falcons/services';
+const smugugUrl = 'https://api.smugmug.com/api/v2';
 
 const diet_data_columns = [
     'Date',
@@ -36,5 +37,6 @@ module.exports = {
     serverUrl,
     imageUrl,
     zookeeperurl,
-    basePath
+    basePath,
+    smugugUrl
 }
