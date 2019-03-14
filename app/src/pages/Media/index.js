@@ -1,3 +1,5 @@
+// https://github.com/Tim152/clustering-google-map-react/blob/master/src/style-constants.js
+
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';

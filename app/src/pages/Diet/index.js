@@ -43,17 +43,22 @@ class DietPage extends Component {
   }
 
   getAndSetDietData() {
-    const servicePath = { servicePath: `${Constants.basePath}/backendserver` }
-    fetch(`${Constants.zookeeperurl}/getservice`, {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      // mode: "cors", // no-cors, cors, *same-origin
-      // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-
+    // const servicePath = { servicePath: `${Constants.basePath}/backendserver` }
+    // fetch(`${Constants.zookeeperurl}/getservice`, {
+    //   method: "POST", // *GET, POST, PUT, DELETE, etc.
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Access-Control-Allow-Origin": "*",
+    //   },
+    //   credentials: 'same-origin',
+    //   body: JSON.stringify(servicePath), // body data type must match "Content-Type" header
+    // })
+    fetch(`${Constants.serverUrl}/diet`, {
       headers: {
         "Content-Type": "application/json",
-
+        "Access-Control-Allow-Origin": "*",
       },
-      body: JSON.stringify(servicePath), // body data type must match "Content-Type" header
+      credentials: 'same-origin',
     })
       .then(res => res.json())
       .then(res => {
@@ -71,7 +76,7 @@ class DietPage extends Component {
     //   today: temp_data[temp_data.length - 1],
     //   yesterday: temp_data[temp_data.length - 2]
     // });
-    
+
     // .then(res => (
     //   console.log("this.state.backendURL"+res.data)
     //   fetch(`${this.state.backendURL}/diet`)
