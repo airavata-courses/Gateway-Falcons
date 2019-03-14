@@ -53,6 +53,7 @@ class DietPage extends Component {
     //   credentials: 'same-origin',
     //   body: JSON.stringify(servicePath), // body data type must match "Content-Type" header
     // })
+    // fetch(`${Constants.serverUrl}/diet`, {
     fetch(`${Constants.serverUrl}/diet`, {
       headers: {
         "Content-Type": "application/json",
@@ -62,13 +63,11 @@ class DietPage extends Component {
     })
       .then(res => res.json())
       .then(res => {
-        fetch("http://" + res.data + "/diet")
-          .then(res2 => res2.json())
-          .then(res2 => this.setState({
-            data: res2,
+          this.setState({
+            data: res,
             today: temp_data[temp_data.length - 1],
             yesterday: temp_data[temp_data.length - 2]
-          }))
+          })
       })
 
     // this.setState({
