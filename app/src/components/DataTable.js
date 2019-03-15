@@ -30,16 +30,15 @@ class DataTable extends Component {
             _data = this.flattenData(data);
         } else {
             console.log('not diet', title, table_columns, data)
-            _data = data;
+            _data = data.map(item => {
+                return [
+                    item.id,
+                    item.date,
+                    item.latitude,
+                    item.longitude
+                ]
+            });
         }
-        _data = data.map(item => {
-            return [
-                item.id,
-                item.date,
-                item.latitude,
-                item.longitude
-            ]
-        });
         return (
             <Panel>
                 <PanelBody>
