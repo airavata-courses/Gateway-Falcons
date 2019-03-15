@@ -33,18 +33,18 @@ class LocationPage extends Component {
     }
 
     fetchMapMarkers() {
-        // fetch("https://api.harveyneeds.org/api/v1/shelters?limit=20")
+        // fetch("https://api.harveyneeds.org/api/v1/shelters?limit=10")
         //     .then(r => r.json())
-        //     .then(data => {
-        //         this.setState({ data: data.shelters })
-        //     })
-        const markers = [
-            { "id": 1, "date": '1/1/1', "latitude": 22.6274, "longitude": 120.3015 },
-            { id: 2, date: '1/2/1', latitude: 22.6277, longitude: 120.3017 },
-            { id: 3, date: '1/3/1', latitude: 22.6279, longitude: 120.3020 },
-        ];
-
-        this.setState({ data: markers });
+        Promise.resolve()
+            .then(() => {
+                // this.setState({ data: data.shelters })
+                const markers = [
+                    { "id": 1, "date": '1/1/1', "latitude": 22.6274, "longitude": 120.3015 },
+                    { id: 2, date: '1/2/1', latitude: 22.6277, longitude: 120.3017 },
+                    { id: 3, date: '1/3/1', latitude: 22.6279, longitude: 120.3020 },
+                ];
+                this.setState({ data: markers });
+            });
     }
 
     handleClick = (marker, event) => {
