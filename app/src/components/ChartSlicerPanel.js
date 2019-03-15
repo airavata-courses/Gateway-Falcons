@@ -24,7 +24,7 @@ function ChartSlicerPanel(props) {
     return (
         <Panel>
             <PanelHeader>
-                <Col md={6}>
+                <Col md={12}>
                     <h3> { title ? title : 'Chart Slicers' } </h3>
                 </Col>
             </PanelHeader>

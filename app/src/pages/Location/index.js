@@ -7,7 +7,7 @@ import LocationChart from './LocationChart';
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
 import kpi_data from './locationKPI';
 import ChartSlicerPanel from '../../components/ChartSlicerPanel';
-import SimpleMap from '../../components/map/MapContainer';
+import MapWithMarkers from '../../components/map/MapContainer';
 
 
 const options = [
@@ -17,23 +17,10 @@ const options = [
     { title: 'Topo', value: 'topo' },
 ];
 
-const f_data = [
-    { name: 'Page A', uv: 4000, pv: 9000 },
-    { name: 'Page B', uv: 3000, pv: 7222 },
-    { name: 'Page C', uv: 2000, pv: 6222 },
-    { name: 'Page D', uv: 1223, pv: 5400 },
-    { name: 'Page E', uv: 1890, pv: 3200 },
-    { name: 'Page F', uv: 2390, pv: 2500 },
-    { name: 'Page G', uv: 3490, pv: 1209 },
-];
-const s_data = [
-    { name: '1/1/1', uv: 4000, pv: 9000 },
-    { name: '1/2/1', uv: 3000, pv: 7222 },
-    { name: '1/3/1', uv: 2000, pv: 6222 },
-    { name: '1/4/1', uv: 1223, pv: 5400 },
-    { name: '1/5/1', uv: 1890, pv: 3200 },
-    { name: '1/6/1', uv: 2390, pv: 2500 },
-    { name: '1/7/1', uv: 3490, pv: 1209 },
+const markers = [
+    { id: 1, date: '1/1/1', latitude: 22.6274, longitude: 120.3015 },
+    { id: 2, date: '1/2/1', latitude: 22.6277, longitude: 120.3017 },
+    { id: 3, date: '1/3/1', latitude: 22.6279, longitude: 120.3020 },
 ];
 
 class LocationPage extends Component {
@@ -45,11 +32,30 @@ class LocationPage extends Component {
             chart_title: '',
             data: [],
             data_set: '',
-            // kpi_data: []
+            // kpi_data: [],
+            selectedMarker: false,
         };
     }
 
+    fetchMapMarkers() {
+        fetch("https://api.harveyneeds.org/api/v1/shelters?limit=20")
+            .then(r => r.json())
+            .then(data => {
+                this.setState({ data: data.shelters })
+            })
+    }
+
+    handleClick = (marker, event) => {
+        // console.log({ marker })
+        this.setState({ selectedMarker: marker })
+    }
+
+    componentWillMount() {
+        this.setState({ data: [] })
+    }
+
     componentDidMount() {
+        this.fetchMapMarkers();
     }
 
     sliceChart = (chart_title) => {
@@ -66,7 +72,7 @@ class LocationPage extends Component {
 
     render() {
 
-        const { data, chart_title } = this.state;
+        const { data, chart_title, } = this.state;
         return (
             <Page>
 
@@ -89,9 +95,17 @@ class LocationPage extends Component {
                                 />
                             </Col>
 
-                            {/* Left Chart */}
+                            {/* MapWithMarkers */}
                             <Col md={9} sm={9} xs={12}>
-                                <SimpleMap />
+                                <MapWithMarkers
+                                    selectedMarker={this.state.selectedMarker}
+                                    markers={this.state.data}
+                                    onClick={this.handleClick}
+                                    googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1KwG-BfsNZC-qjFRLgDKC-yc6x4s9f1A&v=3.exp&libraries=geometry,drawing,places"
+                                    loadingElement={<div style={{ height: `100%` }} />}
+                                    containerElement={<div style={{ height: `400px` }} />}
+                                    mapElement={<div style={{ height: `100%` }} />}
+                                />
                             </Col>
 
                             <div className="clearfix" />
@@ -100,10 +114,7 @@ class LocationPage extends Component {
                         <Row>
                             {/* Sync Charts */}
                             <Col md={12} sm={12} xs={12}>
-                                <LocationChart
-                                    f_data={f_data}
-                                    s_data={s_data}
-                                />
+
                             </Col>
 
                         </Row>
