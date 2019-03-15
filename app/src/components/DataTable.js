@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import MUIDataTable from "mui-datatables";
-import { Panel, PanelBody, PanelHeader } from 'react-gentelella';
+import { Panel, PanelBody } from 'react-gentelella';
 
 const options = {
     filterType: 'checkbox',
@@ -23,11 +23,23 @@ class DataTable extends Component {
     }
 
     render() {
-        const { data, title, table_columns } = this.props;
+        const { data, data_set, title, table_columns } = this.props;
         let _data = [];
-        if (data) {
+        if (data && data_set === 'diet') {
+            console.log(data_set, title, table_columns, data)
             _data = this.flattenData(data);
+        } else {
+            console.log('not diet', title, table_columns, data)
+            _data = data;
         }
+        _data = data.map(item => {
+            return [
+                item.id,
+                item.date,
+                item.latitude,
+                item.longitude
+            ]
+        });
         return (
             <Panel>
                 <PanelBody>

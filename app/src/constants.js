@@ -17,6 +17,13 @@ const diet_data_columns = [
     "Sugar"
 ];
 
+const location_data_columns = [
+    'Id',
+    'Date',
+    "Latitude",
+    "Longitude"
+];
+
 const fitness_data_columns = {
     name:  'Name' ,
     average_cadence:  'Avg. Cadence' ,
@@ -34,6 +41,7 @@ const fitness_data_columns = {
 module.exports = {
     diet_data_columns,
     fitness_data_columns,
+    location_data_columns,
     serverUrl,
     imageUrl,
     zookeeperurl,

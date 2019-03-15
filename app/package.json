@@ -16,7 +16,7 @@
     "jquery": "^3.3.1",
     "material-ui-upload": "^1.2.1",
     "moment": "^2.24.0",
-    "mui-datatables": "^2.0.0-beta.56",
+    "mui-datatables": "^2.0.0-beta.58",
     "points-cluster": "^0.1.4",
     "pondjs": "^0.8.10",
     "prop-types": "^15.7.2",

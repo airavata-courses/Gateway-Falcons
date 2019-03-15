@@ -33,7 +33,6 @@ class DietPage extends Component {
       title: 'Diet',
       chart_title: '',
       data: [],
-      data_set: '',
       chart_title: '',
       kpi_data: [],
       backendURL: '',
@@ -262,9 +261,7 @@ class DietPage extends Component {
             <Col md={12} sm={12} xs={12}>
               <DataTable
                 data={data}
-                button_box={true}
-                search_box={true}
-                data_set='diet'
+                data_set={"diet"}
                 title='Aggregate Data'
                 table_columns={Constants.diet_data_columns}
               />

@@ -3,24 +3,19 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { Page, PageTitle } from 'react-gentelella';
 import MapSlicerPanel from '../../components/MapSlicerPanel';
 import TopTile from '../../components/TopTile';
-import LocationChart from './LocationChart';
-import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
 import kpi_data from './locationKPI';
 import ChartSlicerPanel from '../../components/ChartSlicerPanel';
 import MapWithMarkers from '../../components/map/MapContainer';
+import DataTable from '../../components/DataTable';
+import * as Constants from '../../constants';
 
+// https://gist.github.com/jwo/43b382fc60eb09d3a415c9953f4057f8
 
 const options = [
     { title: 'Normal', value: 'normal' },
     { title: 'Satellite', value: 'satellite' },
     { title: 'Wind', value: 'wind' },
     { title: 'Topo', value: 'topo' },
-];
-
-const markers = [
-    { id: 1, date: '1/1/1', latitude: 22.6274, longitude: 120.3015 },
-    { id: 2, date: '1/2/1', latitude: 22.6277, longitude: 120.3017 },
-    { id: 3, date: '1/3/1', latitude: 22.6279, longitude: 120.3020 },
 ];
 
 class LocationPage extends Component {
@@ -30,7 +25,7 @@ class LocationPage extends Component {
         this.state = {
             title: 'Diet',
             chart_title: '',
-            data: [],
+            data: [''],
             data_set: '',
             // kpi_data: [],
             selectedMarker: false,
@@ -38,11 +33,18 @@ class LocationPage extends Component {
     }
 
     fetchMapMarkers() {
-        fetch("https://api.harveyneeds.org/api/v1/shelters?limit=20")
-            .then(r => r.json())
-            .then(data => {
-                this.setState({ data: data.shelters })
-            })
+        // fetch("https://api.harveyneeds.org/api/v1/shelters?limit=20")
+        //     .then(r => r.json())
+        //     .then(data => {
+        //         this.setState({ data: data.shelters })
+        //     })
+        const markers = [
+            { "id": 1, "date": '1/1/1', "latitude": 22.6274, "longitude": 120.3015 },
+            { id: 2, date: '1/2/1', latitude: 22.6277, longitude: 120.3017 },
+            { id: 3, date: '1/3/1', latitude: 22.6279, longitude: 120.3020 },
+        ];
+
+        this.setState({ data: markers });
     }
 
     handleClick = (marker, event) => {
@@ -72,7 +74,7 @@ class LocationPage extends Component {
 
     render() {
 
-        const { data, chart_title, } = this.state;
+        const { data } = this.state;
         return (
             <Page>
 
@@ -82,9 +84,7 @@ class LocationPage extends Component {
 
                 <div>
                     <Container>
-
                         <Row>
-
                             {/* Chart Slicers */}
                             <Col md={3} sm={3} xs={12}>
                                 <ChartSlicerPanel
@@ -99,7 +99,7 @@ class LocationPage extends Component {
                             <Col md={9} sm={9} xs={12}>
                                 <MapWithMarkers
                                     selectedMarker={this.state.selectedMarker}
-                                    markers={this.state.data}
+                                    markers={data}
                                     onClick={this.handleClick}
                                     googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1KwG-BfsNZC-qjFRLgDKC-yc6x4s9f1A&v=3.exp&libraries=geometry,drawing,places"
                                     loadingElement={<div style={{ height: `100%` }} />}
@@ -111,10 +111,15 @@ class LocationPage extends Component {
                             <div className="clearfix" />
                         </Row>
 
+                        {/* Data Table*/}
                         <Row>
-                            {/* Sync Charts */}
                             <Col md={12} sm={12} xs={12}>
-
+                                <DataTable
+                                    data={data}
+                                    data_set="location"
+                                    title='Location Data'
+                                    table_columns={Constants.location_data_columns}
+                                />
                             </Col>
 
                         </Row>
