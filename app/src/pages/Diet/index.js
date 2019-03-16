@@ -33,7 +33,6 @@ class DietPage extends Component {
       title: 'Diet',
       chart_title: '',
       data: [],
-      chart_title: '',
       kpi_data: [],
       backendURL: '',
       today: {},
@@ -59,8 +58,7 @@ class DietPage extends Component {
         "Access-Control-Allow-Origin": "*",
       },
       credentials: 'same-origin',
-    })
-      .then(res => res.json())
+    }).then(res => res.json())
       .then(res => {
           this.setState({
             data: res,

@@ -24,19 +24,41 @@ const location_data_columns = [
     "Longitude"
 ];
 
-const fitness_data_columns = {
-    name:  'Name' ,
-    average_cadence:  'Avg. Cadence' ,
-    average_heartrate: 'Avg. HR',
-    max_heartrate: 'Max HR',
-    average_speed: 'Avg Speed',
-    max_speed: 'Max Speed',
-    calories: 'Calories',
-    timezone: 'Timezone',
-    start_latlng: 'Start Lat.',
-    end_latlng: 'Start Lon',
-    description: 'Description'
-};
+// const fitness_data_columns = {
+//     name:  'Name' ,
+//     average_cadence:  'Avg. Cadence' ,
+//     average_heartrate: 'Avg. HR',
+//     max_heartrate: 'Max HR',
+//     average_speed: 'Avg Speed',
+//     max_speed: 'Max Speed',
+//     calories: 'Calories',
+//     timezone: 'Timezone',
+//     start_latlng: 'Start Lat.',
+//     end_latlng: 'Start Lon',
+//     description: 'Description'
+// };
+
+const fitness_data_columns = [
+    'Name',
+    'Avg. Cadence',
+    'Avg. HR',
+    'Max HR',
+    'Avg Speed',
+    'Max Speed',
+    'Calories',
+    'Timezone',
+    'Start Lat.',
+    'Start Lon',
+    'Description'
+];
+
+const eeg_data_columns = [
+    'date',
+    'heart-rate',
+    'something',
+    'something else'
+];
+
 
 module.exports = {
     diet_data_columns,
@@ -46,5 +68,6 @@ module.exports = {
     imageUrl,
     zookeeperurl,
     basePath,
-    smugugUrl
+    smugugUrl,
+    eeg_data_columns
 }

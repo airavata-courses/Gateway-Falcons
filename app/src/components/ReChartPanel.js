@@ -3,7 +3,8 @@ import { Col } from 'react-bootstrap';
 import { Panel, PanelBody, PanelHeader } from 'react-gentelella';
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine,
-    BarChart, Bar, Brush
+    BarChart, Bar, Brush, PieChart, Pie, Sector, ScatterChart, Scatter,
+    ComposedChart
 } from 'recharts';
 
 // http://recharts.org/en-US/examples/LineChartWithReferenceLines
@@ -35,7 +36,7 @@ class ReChartPanel extends Component {
             let max = data[0].totals[attr];
             for (let i = 1; i < data.length; i++) {
                 const datum = data[i];
-                if (datum.totals[attr] > data[i-1].totals[attr]) {
+                if (datum.totals[attr] > data[i - 1].totals[attr]) {
                     max = datum.totals[attr];
                 }
             }
@@ -44,6 +45,7 @@ class ReChartPanel extends Component {
     }
 
     renderChart(chart_type, first_attr, second_attr, third_attr, data) {
+
         if (chart_type == "Line") {
 
             let first_max, second_max, third_max;
@@ -52,7 +54,7 @@ class ReChartPanel extends Component {
                 if (second_attr) second_max = this.getMax(second_attr, data);
                 if (third_attr) third_max = this.getMax(third_attr, data);
             }
-                
+
             return (<LineChart
                 width={500}
                 height={300}
@@ -66,17 +68,17 @@ class ReChartPanel extends Component {
                 <YAxis />
                 <Tooltip />
                 {
-                    (first_max) 
+                    (first_max)
                         ? <ReferenceLine y={first_max} stroke="red" label={"max " + first_attr} />
                         : <div />
                 }
                 {
-                    (second_max) 
+                    (second_max)
                         ? <ReferenceLine y={second_max} stroke="red" label={"max " + second_attr} />
                         : <div />
                 }
                 {
-                    (third_max) 
+                    (third_max)
                         ? <ReferenceLine y={third_max} stroke="red" label={"max " + third_attr} />
                         : <div />
                 }
@@ -128,6 +130,49 @@ class ReChartPanel extends Component {
                     />
                 </BarChart>
             );
+        } else if (chart_type == "Scatter") {
+            return (
+                <ScatterChart
+                    width={700}
+                    height={400}
+                    margin={{
+                        top: 20, right: 20, bottom: 20, left: 20,
+                    }}
+                >
+                    <CartesianGrid />
+                    <XAxis type="number" dataKey="x" name="stature" unit="cm" />
+                    <YAxis type="number" dataKey="y" name="weight" unit="kg" />
+                    <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+                    <Scatter name="A school" data={data} fill="#8884d8" />
+                </ScatterChart>
+            );
+        } else if (chart_type == "Composed") {
+            return (
+                <ComposedChart layout="vertical" width={600} height={400} data={data}
+                    margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+                    <CartesianGrid stroke='#f5f5f5' />
+                    <XAxis type="number" />
+                    <YAxis dataKey="name" type="category" />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey='pv' barSize={20} fill='#413ea0' />
+                </ComposedChart>
+            );
+        } else if (chart_type == "Pie") {
+            return (
+                <PieChart width={400} height={400}>
+                    <Pie isAnimationActive={false}
+                        data={data}
+                        cx={200}
+                        cy={200}
+                        outerRadius={80}
+                        fill="#8884d8"
+                        label
+                    />
+                    <Tooltip />
+                </PieChart>
+
+            );
         }
     }
 
@@ -138,10 +183,11 @@ class ReChartPanel extends Component {
             second_attr,
             third_attr,
             data,
+            title
         } = this.props;
         return (
             <Panel>
-                {this.renderTitle(first_attr, second_attr, third_attr)}
+                {title && this.renderTitle(first_attr, second_attr, third_attr)}
                 <PanelBody>
                     {this.renderChart(chart_type, first_attr, second_attr, third_attr, data)}
                 </PanelBody>
