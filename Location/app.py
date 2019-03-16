@@ -2,7 +2,7 @@ from flask import Flask
 from configparser import ConfigParser
 from flask_pymongo import PyMongo
 import os
-
+from flask_cors import cross_origin
 
 from pyvirtualdisplay import Display
 
@@ -36,7 +36,8 @@ app.config['MONGO_URI'] = parser.get('DB', 'url')
 mongo = PyMongo(app)
 
 
-@app.route('/')
+@app.route('/getlocation'methods=['POST','GET'])
+@cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
 def hello_world():
     display = Display(visible=0, size=(800, 600))
     display.start()
@@ -127,4 +128,4 @@ def hello_world():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port='5000')
