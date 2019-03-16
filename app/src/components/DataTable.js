@@ -38,7 +38,10 @@ class DataTable extends Component {
                     item.longitude
                 ]
             });
+        } else {
+            _data = data;
         }
+        
         //  else if(data_set === "fitness") {
         //     _data = data.map(item => {
         //         return [

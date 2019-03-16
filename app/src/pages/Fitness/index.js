@@ -30,7 +30,7 @@ class FitnessPage extends Component {
         eeg_data: ['']
     };
 
-    componentDidMount() {
+    getAndSetFitnessData() {
         fetch(`${Constants.serverUrl}/fitness`, {
             headers: {
                 "Content-Type": "application/json",
@@ -40,8 +40,12 @@ class FitnessPage extends Component {
         })
             .then(res => res.json())
             .then(res => this.setState({
-                fitness_data: [].concat(res)
+                fitness_data: res
             }))
+    }
+
+    componentDidMount() {
+        this.getAndSetFitnessData();
     }
 
     render() {
