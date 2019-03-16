@@ -63,7 +63,7 @@ def hello_world():
         data_mb_url = x[0].attrs["data-mb-url"]
         status = soup.select('div[class="livetrack"]')
         # print("length= ", len(soup.select('span[class="workout-status"]')))
-        workout_status_arr = workout_status = soup.select('span[class="workout-status"]')
+        workout_status_arr = workout_status = soup.select('div[class="workout-status"]')
         if len(workout_status_arr) > 0:
             workout_status = workout_status_arr[0].text
         else:
