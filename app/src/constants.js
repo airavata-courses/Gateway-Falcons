@@ -39,7 +39,9 @@ const location_data_columns = [
 // };
 
 const fitness_data_columns = [
+    'Date',
     'Name',
+    'Distance',
     'Avg. Cadence',
     'Avg. HR',
     'Max HR',

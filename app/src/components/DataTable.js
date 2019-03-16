@@ -38,17 +38,25 @@ class DataTable extends Component {
                     item.longitude
                 ]
             });
-        } else {
-            _data = data;
+        } else if(data_set === "fitness") {
+            _data = data.map(item => {
+                return [
+                    item.date,
+                    item.name,
+                    item.distance,
+                    item.average_cadence,
+                    item.average_heartrate,
+                    item.max_heartrate,
+                    item.average_speed,
+                    item.max_speed,
+                    item.calories,
+                    item.timezone,
+                    item.start_latlng,
+                    item.end_latlng,
+                    item.description
+                ]
+            });
         }
-        
-        //  else if(data_set === "fitness") {
-        //     _data = data.map(item => {
-        //         return [
-        //             item.id,
-        //         ]
-        //     });
-        // }
 
         return (
             <Panel>
