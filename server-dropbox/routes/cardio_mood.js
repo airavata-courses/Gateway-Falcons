@@ -8,9 +8,9 @@ var JFile = require('jfile');
 require('dotenv').config()
 
 require('isomorphic-fetch'); // or another library of choice.
-var dbx = new Dropbox({ accessToken: process.env.DROPBOX_ACCESS_TOKEN });
+var dbx = new Dropbox({ accessToken: process.env.DROPBOX_ACCESS_TOKEN, fetch });
 
-/* GET eeg listing. */
+/* GET cardio-mood listing. */
 router.get('/', function (req, res, next) {
   dbx.filesListFolder({ path: '/apps/cardiomood' })
     .then(function (response) {
@@ -38,18 +38,18 @@ router.get('/', function (req, res, next) {
           var stream = fs.createWriteStream(file_path);
           stream.once('open', function () {
               stream.write(downloaded_file.fileBinary);
-              // stream.end();
               fs.readFile(file_path, "utf8", function (err, data) {
                 console.log('readFileSync');
                 if (err) throw err;
                 console.log(data);
                 // var array = fs.readFileSync(downloaded_file.fileBinary, {start: 50}).toString().split("\n");
                 // for (i in array) {
-                //   console.log(array[i]);
-                // }
-                // var myF = new JFile(downloaded_file.fileBinary);
-                // console.log(myF.lines)
-              });
+                  //   console.log(array[i]);
+                  // }
+                  // var myF = new JFile(downloaded_file.fileBinary);
+                  // console.log(myF.lines)
+                });
+                // stream.end();
           });
       
         })
