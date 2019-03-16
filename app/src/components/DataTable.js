@@ -28,7 +28,7 @@ class DataTable extends Component {
         if (data && data_set === 'diet') {
             // console.log(data_set, title, table_columns, data)
             _data = this.flattenData(data);
-        } else {
+        } else if(data_set === "location") {
             // console.log('not diet', title, table_columns, data)
             _data = data.map(item => {
                 return [
@@ -39,6 +39,14 @@ class DataTable extends Component {
                 ]
             });
         }
+        //  else if(data_set === "fitness") {
+        //     _data = data.map(item => {
+        //         return [
+        //             item.id,
+        //         ]
+        //     });
+        // }
+
         return (
             <Panel>
                 <PanelBody>
