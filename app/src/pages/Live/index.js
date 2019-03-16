@@ -1,51 +1,46 @@
+// TODO: SET MAP KEY IN ENV
+
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
-// import Button from '@material-ui/core/Button';
-// import Grid from '@material-ui/core/Grid';
-// import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Page, PageTitle } from 'react-gentelella';
-// import ChartPanel from '../../components/ChartPanel';
-// import MapSlicerPanel from '../../components/MapSlicerPanel';
 import TopTile from '../../components/TopTile';
 import kpi_data from './kpi_data';
-// import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
-// import ChartSlicerPanel from '../../components/ChartSlicerPanel';
-import SimpleMap from '../../components/map/MapContainer';
-import RealtimeChart from "../../components/RealtimeChart";
+// import RealtimeChart from "../../components/RealtimeChart";
 import LivePoll from "./LivePoll";
 import LivePanel from "./LivePanel";
+import MapWithMarkers from '../../components/map/MapContainer';
+import DataTable from '../../components/DataTable';
+import * as Constants from '../../constants';
 
-const styles = theme => ({
-    heroContent: {
-        maxWidth: 600,
-        margin: '0 auto',
-        padding: `${theme.spacing.unit * 8}px 0 ${theme.spacing.unit * 6}px`,
-    },
-    heroButtons: {
-        marginTop: theme.spacing.unit * 4,
-    },
-    layout: {
-        width: 'auto',
-        marginLeft: theme.spacing.unit * 3,
-        marginRight: theme.spacing.unit * 3,
-        [theme.breakpoints.up(1100 + theme.spacing.unit * 3 * 2)]: {
-            width: 1100,
-            marginLeft: 'auto',
-            marginRight: 'auto',
-        },
-    },
-});
+// TODO: SET MAP KEY IN ENV
+require('dotenv').config();
 
 class LivePage extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: 'Live',
+            data: [''],
+            selectedMarker: false,
+            // kpi_data: [],
+        };
+    }
+
+    handleClick = (marker, event) => {
+        // console.log({ marker })
+        this.setState({ selectedMarker: marker })
+    }
+
     render() {
-        const { classes } = this.props;
+        const { data } = this.state;
+        const apiKey = process.env.GOOGLE_API_KEY;
+        console.log(apiKey);
         return (
             <Page>
 
-                <PageTitle title={'Location'} />
+                <PageTitle title={'Live'} />
 
                 <TopTile kpi_data={kpi_data} />
 
@@ -56,12 +51,20 @@ class LivePage extends Component {
 
                             {/* Left Live Stream */}
                             <Col md={6} sm={6} xs={6}>
-                                <LivePanel />
+                                <LivePanel style={{ height: `100%` }} />
                             </Col>
 
-                            {/* Right Map */}
+                            {/* MapWithMarkers */}
                             <Col md={6} sm={6} xs={6}>
-                                <SimpleMap />
+                                <MapWithMarkers
+                                    selectedMarker={this.state.selectedMarker}
+                                    markers={data}
+                                    onClick={this.handleClick}
+                                    googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=3.exp&libraries=geometry,drawing,places`}
+                                    loadingElement={<div style={{ height: `100%` }} />}
+                                    containerElement={<div style={{ height: `400px` }} />}
+                                    mapElement={<div style={{ height: `100%` }} />}
+                                />
                             </Col>
 
                         </Row>
@@ -70,21 +73,23 @@ class LivePage extends Component {
 
                         <Row>
 
-                            {/* RealtimeChart */}
+                            {/* FB Live Poll */}
                             <Col md={12} sm={12} xs={12}>
                                 <LivePoll />
                             </Col>
 
                         </Row>
 
-
+                        {/* Data Table*/}
                         <Row>
-
-                            {/* RealtimeChart */}
                             <Col md={12} sm={12} xs={12}>
-                                <RealtimeChart />
+                                <DataTable
+                                    data={data}
+                                    data_set="live"
+                                    title='Live Data'
+                                    table_columns={Constants.location_data_columns}
+                                />
                             </Col>
-
                         </Row>
                     </Container>
                 </div>
@@ -97,9 +102,5 @@ class LivePage extends Component {
 
 }
 
-LivePage.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(LivePage);
+export default LivePage;
 

@@ -9,6 +9,9 @@ import MapWithMarkers from '../../components/map/MapContainer';
 import DataTable from '../../components/DataTable';
 import * as Constants from '../../constants';
 
+// TODO: SET MAP KEY IN ENV
+require('dotenv').config();
+
 // https://gist.github.com/jwo/43b382fc60eb09d3a415c9953f4057f8
 
 const options = [
@@ -24,11 +27,10 @@ class LocationPage extends Component {
         super(props);
         this.state = {
             title: 'Diet',
-            chart_title: '',
             data: [''],
             data_set: '',
-            // kpi_data: [],
             selectedMarker: false,
+            // kpi_data: [],
         };
     }
 
@@ -75,6 +77,9 @@ class LocationPage extends Component {
     render() {
 
         const { data } = this.state;
+        const apiKey = process.env.GOOGLE_API_KEY;
+        console.log(apiKey);
+
         return (
             <Page>
 
@@ -97,6 +102,7 @@ class LocationPage extends Component {
 
                             {/* MapWithMarkers */}
                             <Col md={9} sm={9} xs={12}>
+                            {/* googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=3.exp&libraries=geometry,drawing,places`} */}
                                 <MapWithMarkers
                                     selectedMarker={this.state.selectedMarker}
                                     markers={data}
@@ -121,7 +127,6 @@ class LocationPage extends Component {
                                     table_columns={Constants.location_data_columns}
                                 />
                             </Col>
-
                         </Row>
 
                         <div className="clearfix" />

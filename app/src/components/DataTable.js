@@ -26,10 +26,10 @@ class DataTable extends Component {
         const { data, data_set, title, table_columns } = this.props;
         let _data = [];
         if (data && data_set === 'diet') {
-            console.log(data_set, title, table_columns, data)
+            // console.log(data_set, title, table_columns, data)
             _data = this.flattenData(data);
         } else {
-            console.log('not diet', title, table_columns, data)
+            // console.log('not diet', title, table_columns, data)
             _data = data.map(item => {
                 return [
                     item.id,
