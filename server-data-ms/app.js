@@ -22,14 +22,12 @@ require('dotenv').config()
 // require('dotenv').config({path: ../../})
 
 const mongoose = require('mongoose');
-// const parseFile = require('../global-utils/json_fileparser');
-// const mlab_credentials = parseFile(__dirname, "server", process.env.MLAB_CREDENTIALS);
 const parseFile = require('./utils/json_fileparser');
 const mlab_credentials = parseFile(process.env.MLAB_CREDENTIALS);
 console.log(mlab_credentials)
 
 mongoose
-  .connect(mlab_credentials.mongoURI)
+  .connect(mlab_credentials.mongoURI, { useNewUrlParser: true })
   .then(() => console.log('mlab connected successfully'))
   .catch((err) => console.error('error connecting to mlab:', err))
 
@@ -37,19 +35,19 @@ fs.readdirSync('./routes').forEach(file => {
   const fileName = file.substring(0, file.indexOf('.'));
   const router = require(`./routes/${fileName}`);
   if (fileName !== 'index') {
-      app.use(`/${fileName}`, router);
+    app.use(`/${fileName}`, router);
   } else {
-      app.use(`/`, router);      
+    app.use(`/`, router);
   }
 })
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
