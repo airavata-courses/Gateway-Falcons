@@ -10,15 +10,37 @@ var cardio_MoodRouter = require('./routes/cardio_mood');
 
 var app = express();
 
+const MongoClient = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
+const mongodb = require('mongodb');
+const ObjectID = require('mongodb').ObjectID;
+
 const parseFile = require('./utils/json_fileparser');
 const mlab_credentials = parseFile(process.env.MLAB_CREDENTIALS);
 console.log(mlab_credentials)
 
-mongoose
-  .connect(mlab_credentials.mongoURI, { useNewUrlParser: true})
-  .then(() => console.log('mlab connected successfully'))
-  .catch((err) => console.error('error connecting to mlab:', err))
+/**
+ * Connect Mongo Driver to MongoDB.
+ */
+let db;
+MongoClient.connect(mlab_credentials.mongoURI, { useNewUrlParser: true }, (err, database) => {
+  if (err) {
+    console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
+    process.exit(1);
+  }
+  db = database;
+  app.locals.database = database;
+  console.log('mlab connected successfully');
+});
+
+// let bucket = new mongodb.GridFSBucket(db, {
+//   bucketName: 'tracks'
+// });
+
+// mongoose
+//   .connect(mlab_credentials.mongoURI, { useNewUrlParser: true })
+//   .then(() => console.log('mlab connected successfully'))
+//   .catch((err) => console.error('error connecting to mlab:', err))
 
 
 // view engine setup
@@ -36,13 +58,14 @@ app.use('/eeg', eegRouter);
 app.use('/cardio_mood', cardio_MoodRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
+  // req.locals.db = res.locals.db = db;
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 

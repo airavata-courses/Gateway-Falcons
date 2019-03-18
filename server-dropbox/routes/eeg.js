@@ -5,17 +5,22 @@ var Dropbox = require('dropbox').Dropbox;
 var fs = require('fs');
 var JFile = require('jfile');
 var AdmZip = require('adm-zip');
+const EEG = require("../models/EEG");
+// var Grid = require('gridfs-stream');
+// var GridFS = Grid(mongoose.connection.db, mongoose.mongo);
+const { Readable } = require('stream');
 
 require('dotenv').config()
 
 require('isomorphic-fetch'); // or another library of choice.
 var dbx = new Dropbox({ accessToken: process.env.DROPBOX_ACCESS_TOKEN, fetch });
 
+
 /* GET eeg listing. */
 router.get('/', function (req, res, next) {
   dbx.filesListFolder({ path: '/apps/muse' })
     .then(function (response) {
-      // console.log(response);  
+      // console.log(response);
       // TODO:
       const today = '2019-03-11' // moment().format('YYYY-MM-DD'); // 
       const files = [];
@@ -23,7 +28,7 @@ router.get('/', function (req, res, next) {
         const cur_file_date = file.name.substring(12, 22);
         if (cur_file_date === today) files.push(file);
       })
-      console.log(files);
+      // console.log(files);
 
       //   /** 
       //    * TODO:: iterate over each file
@@ -40,30 +45,62 @@ router.get('/', function (req, res, next) {
           var stream = fs.createWriteStream(file_path);
           stream.once('open', function () {
             stream.write(downloaded_file.fileBinary);
+            stream.close();
+          });
+          stream.on("close", function () {
+            // setTimeout(() => null, 1000);
             var zip = new AdmZip(file_path);
-            // const csv = downloaded_file.name.slice(0, -3) + "csv";
             var csvFile = zip.getEntries()[0]; // an array of ZipEntry records
+
             const inner_file_path = `./eeg/${csvFile.name}`; // TODO: PATH>JOIN
             zip.extractEntryTo(csvFile, `./eeg`);
-            // console.log(csvFile.toString());
             // var inner_stream = fs.createWriteStream(inner_file_path);
-            // inner_stream.write(csvFile);
-            fs.readFile(inner_file_path, "utf8", function (err, data) {
-              console.log('readFileSync');
-              if (err) throw err;
-              console.log(data);
+            // stream.once('open', function () {
+            //   inner_stream.write(csvFile);
+            // });
+
+            // for (i in array) {
+            //   console.log(array[i]);
+            // }
+            console.log(csvFile.toString());
+            
+            var file_buffer;
+            fs.readFileSync(inner_file_path, function (err, data) {
+              if (err) {
+                throw err;
+              }
+              file_buffer = data;
+              var myF = new JFile(inner_file_path);
+              console.log(myF)
+              // console.log(myF.lines[0])
+              // const data_array = myF.lines.slice(1);
+              console.log(file_buffer);
+
+              // Covert buffer to Readable Stream
+              const readableTrackStream = new Readable();
+              readableTrackStream.push(myF);
+              readableTrackStream.push(null);
+
+              // const EEGObj = {
+              //   name: csvFile.name,
+              //   records: data_array,
+              //   date: downloaded_file.client_modified
+              // }
+              const db = req.app.locals.database;
+              let bucket = new mongodb.GridFSBucket(db, {
+                bucketName: 'eeg'
+              });
+              let uploadStream = bucket.openUploadStream(csvFile.name);
+              let id = uploadStream.id;
+              readableTrackStream.pipe(uploadStream);
+              console.log("upload success")
             });
+            // EEG.collection.insertOne(EEGObj)
             // TODO: DELETE ZIP FILE 
             // stream.end();
-          });
+          })
         });
 
-      //       // var array = fs.readFileSync(downloaded_file.fileBinary, {start: 50}).toString().split("\n");
-      //       // for (i in array) {
-      //       //   console.log(array[i]);
-      //       // }
-      //       // var myF = new JFile(downloaded_file.fileBinary);
-      //       // console.log(myF.lines)
       //     })
       //     .catch(err => console.log(err))
     })
