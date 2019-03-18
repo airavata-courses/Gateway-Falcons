@@ -9,7 +9,6 @@ import kpi_data from './fitness-kpi_data';
 import ReChartPanel from '../../components/ReChartPanel';
 import DualReChartPanel from '../../components/DualReChartPanel';
 
-
 // const options = {
 //     CHART_TITLE: [
 //         { title: 'HR', value: 'calories' },
@@ -18,7 +17,6 @@ import DualReChartPanel from '../../components/DualReChartPanel';
 //         { title: 'MPH', value: 'somethig...' },
 //     ]
 // }
-
 
 class FitnessPage extends Component {
 
@@ -42,6 +40,18 @@ class FitnessPage extends Component {
             .then(res => this.setState({
                 fitness_data: res
             }))
+        fetch(`${Constants.serverUrl}/cardio_mood`, {
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+            credentials: 'same-origin',
+        })
+            .then(res => res.json())
+            .then(res => console.log(res))
+            // .then(res => this.setState({
+            //     fitness_data: res
+            // }))
     }
 
     componentDidMount() {
@@ -154,17 +164,6 @@ class FitnessPage extends Component {
                     </Row>
 
                     <div className="clearfix"> </div>
-
-                    <Row>
-                        <Col md={12} sm={12} xs={12}>
-                            <DataTable
-                                data={eeg_data}
-                                data_set={"eeg"}
-                                title='EEG Data'
-                                table_columns={Constants.eeg_data_columns}
-                            />
-                        </Col>
-                    </Row>
 
                     <Row>
                         <Col md={12} sm={12} xs={12}>
