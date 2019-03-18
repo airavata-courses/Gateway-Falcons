@@ -10,6 +10,17 @@ var cardio_MoodRouter = require('./routes/cardio_mood');
 
 var app = express();
 
+const mongoose = require('mongoose');
+const parseFile = require('./utils/json_fileparser');
+const mlab_credentials = parseFile(process.env.MLAB_CREDENTIALS);
+console.log(mlab_credentials)
+
+mongoose
+  .connect(mlab_credentials.mongoURI, { useNewUrlParser: true})
+  .then(() => console.log('mlab connected successfully'))
+  .catch((err) => console.error('error connecting to mlab:', err))
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

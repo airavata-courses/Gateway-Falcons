@@ -4,6 +4,7 @@ var router = express.Router();
 var Dropbox = require('dropbox').Dropbox;
 var fs = require('fs');
 var JFile = require('jfile');
+const CardioMood = require("../models/CardioMood");
 
 require('dotenv').config()
 
@@ -14,7 +15,7 @@ var dbx = new Dropbox({ accessToken: process.env.DROPBOX_ACCESS_TOKEN, fetch });
 router.get('/', function (req, res, next) {
   dbx.filesListFolder({ path: '/apps/cardiomood' })
     .then(function (response) {
-      const today = '2019-03-15' // moment().format('YYYY-MM-DD'); // 
+      const today = moment().format('YYYY-MM-DD');
       const files = [];
       response.entries.map(file => {
         const cur_file_date = file.name.substring(0, file.name.indexOf(" "));
@@ -23,37 +24,53 @@ router.get('/', function (req, res, next) {
       console.log(files);
 
       /** 
-       * TODO:: iterate over each file
-       * TODO: WRITE EACH FILE 
-       * TODO: read each file
-       * TODO: LOCATE THE LINES ...The numbers above were calculated using following data:
-       * TODO: STORE IN DB
-       * 
+       * TODO: CAREFUL WIT HASYNC ? AWAIT LATENCY FOR READ -> WRITE
        */
 
-      dbx.filesDownload({ path: files[0].path_lower })
-        .then(downloaded_file => {
-          console.log(downloaded_file)
-          const file_path = `./cardio_mood/${downloaded_file.name}`; // TODO: PATH>JOIN
-          var stream = fs.createWriteStream(file_path);
-          stream.once('open', function () {
+      for (let file of files) {
+        dbx.filesDownload({ path: file.path_lower })
+          .then(downloaded_file => {
+            // console.log(downloaded_file)
+            const file_path = `./cardio_mood/${downloaded_file.name}`; // TODO: PATH>JOIN
+            var stream = fs.createWriteStream(file_path);
+            stream.once('open', function () {
               stream.write(downloaded_file.fileBinary);
-              fs.readFile(file_path, "utf8", function (err, data) {
-                console.log('readFileSync');
-                if (err) throw err;
-                console.log(data);
-                // var array = fs.readFileSync(downloaded_file.fileBinary, {start: 50}).toString().split("\n");
-                // for (i in array) {
-                  //   console.log(array[i]);
-                  // }
-                  // var myF = new JFile(downloaded_file.fileBinary);
-                  // console.log(myF.lines)
-                });
-                // stream.end();
-          });
-      
-        })
-        .catch(err => console.log(err))
+              const data_array = [];
+              var myF = new JFile(file_path);
+              let bool = false;
+              for (let line of myF.lines) {
+                if (line === "The numbers above were calculated using following data:") {
+                  // console.log(line);
+                  bool = true;
+                }
+                if (bool) {
+                  line = line.trim();
+                  line = line.replace(/\s+/g, " ");
+                  const line_arr = line.split(" ");
+                  if (line_arr.length === 4 && !isNaN(parseInt(line_arr[0]))) {
+                    console.log(line_arr)
+                    let obj = {
+                      index: line_arr[0],
+                      timestamp: line_arr[1],
+                      rr: line_arr[2],
+                      bpm: line_arr[3]
+                    };
+                    data_array.push(obj)
+                  }
+                }
+              }
+              const file_name = file.name.substring(file.name.indexOf("_") + 1, file.name.indexOf("."))
+              // console.log(file_name);
+              const CardioMoodObj = {
+                name: file_name,
+                records: data_array
+              }
+              CardioMood.collection.insertOne(CardioMoodObj)
+              // stream.end();
+            });
+          })
+          .catch(err => console.log(err))
+      }
     })
     .catch(function (error) {
       console.log(error);
