@@ -1,22 +1,32 @@
 const express = require('express');
 const router = express.Router();
-// const validation = require("../../global-utils/validation-utils");
-// const dietValidation = require("../validation/diet");
-// const Diet = require("../models/Diet");
+const { Readable } = require('stream');
+const mongodb = require('mongodb');
 
 // TODO: Error handling
 
 /**
  * Get eeg data
  */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
     console.log('eeg route')
-    Eeg
-        .find()
-        .then(eegLogs => {
-            res.status(res.statusCode).send(eegLogs)
-        })
-        .catch((err) => res.status(res.statusCode).send(err));
+    let bucket = new mongodb.GridFSBucket(db, {
+        bucketName: 'eeg'
+    });
+
+    let downloadStream = bucket.find();
+
+    downloadStream.on('data', (chunk) => {
+        res.write(chunk);
+    });
+
+    downloadStream.on('error', () => {
+        res.sendStatus(404);
+    });
+
+    downloadStream.on('end', () => {
+        res.end();
+    });
 });
 
 module.exports = router;
