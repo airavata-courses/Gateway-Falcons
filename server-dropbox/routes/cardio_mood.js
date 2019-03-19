@@ -66,7 +66,7 @@ router.get('/', function (req, res, next) {
                 records: data_array
               }
               CardioMood.collection.insertOne(CardioMoodObj)
-              // stream.end();
+              stream.end();
             });
           })
           .catch(err => console.log(err))

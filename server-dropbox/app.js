@@ -22,14 +22,13 @@ console.log(mlab_credentials)
 /**
  * Connect Mongo Driver to MongoDB.
  */
-let db;
-MongoClient.connect(mlab_credentials.mongoURI, { useNewUrlParser: true }, (err, database) => {
+MongoClient.connect(mlab_credentials.mongoURI, { useNewUrlParser: true }, (err, client) => {
   if (err) {
     console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
     process.exit(1);
   }
-  db = database;
-  app.locals.database = database;
+  app.locals.database = client.db('countrycycle');
+  console.log(client.db('countrycycle'));
   console.log('mlab connected successfully');
 });
 
