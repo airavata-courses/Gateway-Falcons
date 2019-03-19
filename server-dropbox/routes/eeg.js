@@ -22,16 +22,16 @@ router.get('/', function (req, res, next) {
     .then(function (response) {
       // console.log(response);
       // TODO:
-      const today = '2019-03-03' //   moment().format('YYYY-MM-DD'); // '2019-03-03'
+      const today = moment().format('YYYY-MM-DD'); // '2019-03-03'
       const files = [];
       response.entries.map(file => {
         const cur_file_date = file.name.substring(12, 22);
         if (cur_file_date === today) files.push(file);
       })
       console.log("I received files")
-      
+
       for (let file of files) {
-        
+
         dbx.filesDownload({ path: file.path_lower })
           .then(downloaded_file => {
             console.log(downloaded_file)
@@ -58,12 +58,17 @@ router.get('/', function (req, res, next) {
               let uploadStream = bucket.openUploadStream(csvFile.name);
               let id = uploadStream.id;
               readableTrackStream.pipe(uploadStream);
-              console.log("upload success")
-              // TODO: DELETE ZIP FILE 
-              stream.end();
-              fs.unlink(file_path, function () {
-                console.log("zip file removed")
-              })
+              uploadStream.on('error', () => {
+                return res.status(500).json({ message: "Error uploading file" });
+              });
+
+              uploadStream.on('finish', () => {
+                console.log("upload success")
+                stream.end();
+                fs.unlink(file_path, function () {
+                  console.log("zip file removed")
+                })
+              });
             })
           });
       }
