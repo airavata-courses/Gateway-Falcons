@@ -37,16 +37,57 @@ class LocationPage extends Component {
     fetchMapMarkers() {
         // fetch("https://api.harveyneeds.org/api/v1/shelters?limit=10")
         //     .then(r => r.json())
-        Promise.resolve()
-            .then(() => {
-                // this.setState({ data: data.shelters })
-                const markers = [
-                    { "id": 1, "date": '1/1/1', "latitude": 22.6274, "longitude": 120.3015 },
-                    { id: 2, date: '1/2/1', latitude: 22.6277, longitude: 120.3017 },
-                    { id: 3, date: '1/3/1', latitude: 22.6279, longitude: 120.3020 },
-                ];
-                this.setState({ data: markers });
-            });
+        setInterval(() => 
+        // fetch(`http://localhost:3001/location`, {
+            fetch(`${Constants.serverUrl}/location`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+                credentials: 'same-origin',
+            })
+                .then(res => res.json())
+                // .then(res => console.log(res)),
+                .then(data => {
+                    // const lat = parseFloat(item.latitude);
+                    // const lon = parseFloat(item.longitude);
+                    const _data = data.map(datum => {
+                        
+                        const { 
+                            workout_date_time,
+                            data_lat,
+                            data_lon,
+                            total_distance,
+                            average_speed,
+                            max_speed,
+                            avg_cadence,
+                            max_cadence,
+                            max_elevation,
+                            total_climb,
+                            total_descent,
+                            max_grade
+                        } = datum;
+
+                        const newObj = {
+                            workout_date_time,
+                            latitude: parseFloat(data_lat),
+                            longitude: parseFloat(data_lon),
+                            total_distance,
+                            average_speed,
+                            max_speed,
+                            avg_cadence,
+                            max_cadence,
+                            max_elevation,
+                            total_climb,
+                            total_descent,
+                            max_grade
+                        };
+
+                        return newObj;
+                    });
+                    this.setState({ data: _data })
+                }),
+            10500);
     }
 
     handleClick = (marker, event) => {
@@ -77,8 +118,8 @@ class LocationPage extends Component {
     render() {
 
         const { data } = this.state;
-        const apiKey = process.env.GOOGLE_API_KEY;
-        console.log(apiKey);
+        // const apiKey = process.env.GOOGLE_API_KEY;
+        // console.log(apiKey);
 
         return (
             <Page>
@@ -102,7 +143,7 @@ class LocationPage extends Component {
 
                             {/* MapWithMarkers */}
                             <Col md={9} sm={9} xs={12}>
-                            {/* googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=3.exp&libraries=geometry,drawing,places`} */}
+                                {/* googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=3.exp&libraries=geometry,drawing,places`} */}
                                 <MapWithMarkers
                                     selectedMarker={this.state.selectedMarker}
                                     markers={data}
@@ -124,7 +165,7 @@ class LocationPage extends Component {
                                     data={data}
                                     data_set="location"
                                     title='Location Data'
-                                    table_columns={Constants.location_data_columns}
+                                    table_columns={Constants.wahoo_data_columns}
                                 />
                             </Col>
                         </Row>

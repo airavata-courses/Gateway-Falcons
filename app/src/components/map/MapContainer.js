@@ -14,7 +14,7 @@ import { InfoWindow } from 'react-google-maps';
 const MapWithMarkers = compose(withScriptjs, withGoogleMap)(props => {
 
   return (
-    <GoogleMap defaultZoom={8} defaultCenter={{ lat: 22.5, lng: 120 }}>
+    <GoogleMap defaultZoom={8} defaultCenter={{ lat: 39, lng: -74 }}>
       {props.markers.map(marker => {
         const onClick = props.onClick.bind(this, marker)
         return (
