@@ -28,14 +28,25 @@ class DataTable extends Component {
         if (data && data_set === 'diet') {
             // console.log(data_set, title, table_columns, data)
             _data = this.flattenData(data);
-        } else {
+        } else if (data && data_set === 'location') {
             // console.log('not diet', title, table_columns, data)
             _data = data.map(item => {
+                const lat = parseFloat(item.latitude);
+                const lon = parseFloat(item.longitude);
                 return [
-                    item.id,
-                    item.date,
-                    item.latitude,
-                    item.longitude
+                    // item.id,
+                    item.workout_date_time,
+                    lat,
+                    lon,
+                    item.total_distance,
+                    item.average_speed,
+                    item.max_speed,
+                    item.avg_cadence,
+                    item.max_cadence,
+                    item.max_elevation,
+                    item.total_climb,
+                    item.total_descent,
+                    item.max_grade,
                 ]
             });
         }

@@ -46,7 +46,7 @@ class ReChartPanel extends Component {
 
     renderChart(chart_type, first_attr, second_attr, third_attr, data) {
 
-        if (chart_type == "Line") {
+        if (chart_type === "Line") {
 
             let first_max, second_max, third_max;
             if (data !== undefined && data.length > 0) {
@@ -96,7 +96,7 @@ class ReChartPanel extends Component {
             </LineChart>
             )
         }
-        else if (chart_type == "Brush") {
+        else if (chart_type === "Brush") {
             return (
                 <BarChart
                     width={400}
@@ -130,7 +130,7 @@ class ReChartPanel extends Component {
                     />
                 </BarChart>
             );
-        } else if (chart_type == "Scatter") {
+        } else if (chart_type === "Scatter") {
             return (
                 <ScatterChart
                     width={700}
@@ -146,7 +146,7 @@ class ReChartPanel extends Component {
                     <Scatter name="A school" data={data} fill="#8884d8" />
                 </ScatterChart>
             );
-        } else if (chart_type == "Composed") {
+        } else if (chart_type === "Composed") {
             return (
                 <ComposedChart layout="vertical" width={600} height={400} data={data}
                     margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
@@ -158,7 +158,7 @@ class ReChartPanel extends Component {
                     <Bar dataKey='pv' barSize={20} fill='#413ea0' />
                 </ComposedChart>
             );
-        } else if (chart_type == "Pie") {
+        } else if (chart_type === "Pie") {
             return (
                 <PieChart width={400} height={400}>
                     <Pie isAnimationActive={false}

@@ -42,6 +42,25 @@ class FitnessPage extends Component {
             .then(res => this.setState({
                 fitness_data: [].concat(res)
             }))
+        fetch(`${Constants.serverUrl}/cardio_mood`, {
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+            credentials: 'same-origin',
+        })
+            .then(res => res.json())
+            .then(res => console.log(res))
+        // fetch(`${Constants.serverUrl}/eeg`, {
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         "Access-Control-Allow-Origin": "*",
+        //     },
+        //     credentials: 'same-origin',
+        // })
+        //     .then(res => res.json())
+        //     .then(res => console.log(res))
+
     }
 
     render() {
