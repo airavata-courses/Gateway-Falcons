@@ -1,0 +1,53 @@
+[33m[nodemon] 1.18.5[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching: *.*[39m
+[32m[nodemon] starting `node ./bin/www`[39m
+mlab connected successfully
+{ Options:
+   { Methods: [ 'GET' ],
+     ParameterDescription:
+      { Select:
+         'Select MIN_COUNT to MAX_COUNT options.  Options should pass only the "Value".  When passing more then one value, use an array.' },
+     Parameters: { GET: [Array] } },
+  Response:
+   { Uri: '/api/v2/user/johnschwenck!albums',
+     Locator: 'Album',
+     LocatorType: 'Objects',
+     Album: [ [Object], [Object], [Object] ],
+     UriDescription: 'All of user\'s albums',
+     EndpointType: 'UserAlbums',
+     Pages:
+      { Total: 3,
+        Start: 1,
+        Count: 3,
+        RequestedCount: 50,
+        FirstPage: '/api/v2/user/johnschwenck!albums?start=1&count=50',
+        LastPage: '/api/v2/user/johnschwenck!albums?start=1&count=50' } },
+  Code: 200,
+  Message: 'Ok' }
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./bin/www`[39m
+mlab connected successfully
+{ Options:
+   { Methods: [ 'GET' ],
+     ParameterDescription:
+      { Select:
+         'Select MIN_COUNT to MAX_COUNT options.  Options should pass only the "Value".  When passing more then one value, use an array.' },
+     Parameters: { GET: [Array] } },
+  Response:
+   { Uri: '/api/v2/user/johnschwenck!albums',
+     Locator: 'Album',
+     LocatorType: 'Objects',
+     Album: [ [Object], [Object], [Object] ],
+     UriDescription: 'All of user\'s albums',
+     EndpointType: 'UserAlbums',
+     Pages:
+      { Total: 3,
+        Start: 1,
+        Count: 3,
+        RequestedCount: 50,
+        FirstPage: '/api/v2/user/johnschwenck!albums?start=1&count=50',
+        LastPage: '/api/v2/user/johnschwenck!albums?start=1&count=50' } },
+  Code: 200,
+  Message: 'Ok' }
+[0mGET /images/albums [32m200 [0m423.476 ms - -[0m

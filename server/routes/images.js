@@ -8,16 +8,22 @@ const multer = require('multer');
 const FormData = require('form-data');
 const fs = require('fs');
 
-router.get('/:username', function (req, res, next) {
-    const username = req.params['username'];
-    console.log(username);
-    axios(`http://localhost:8081/GetImages?username=${username}`)
-        .then(res => res.data)
-        .then((images) => {
-            console.log(images);
-            res.status(res.statusCode).send(images)
+router.get('/albums', function (req, res, next) {
+    // axios(`https://api.smugmug.com/api/v2/user/johnschwenck!albums?_accept=application%2Fjson&APIKey=CgHshKMZrJWBrXCQGHrs4CsqbXVtcvnC`, {
+    axios(`http://api.smugmug.com/api/v2/user/johnschwenck!albums?_accept=application%2Fjson&APIKey=CgHshKMZrJWBrXCQGHrs4CsqbXVtcvnC`, {
+        // headers: {
+        //     'Content-Type': 'application/json;charset=UTF-8',
+        //     "Access-Control-Allow-Origin": "*",
+        // }
+    })
+        .then(result => result.data)
+        .then((response) => {
+            console.log(response.Response.Album);
+            res.status(res.statusCode).send(response.Response.Album)
+            // res.status(200).json({ res: "hello from space" })
         })
-        .catch((err) => res.status(res.statusCode).send(err));
+        .catch((err) => console.log(err));
+        // .catch((err) => res.status(res.statusCode).send(err));
 });
 
 

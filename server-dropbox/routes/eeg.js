@@ -30,6 +30,8 @@ router.get('/', function (req, res, next) {
       })
       console.log("I received files")
 
+      const db = req.app.locals.database;
+
       for (let file of files) {
 
         dbx.filesDownload({ path: file.path_lower })
@@ -51,7 +53,6 @@ router.get('/', function (req, res, next) {
               readableTrackStream.push(csvFile.getCompressedData());
               readableTrackStream.push(null);
 
-              const db = req.app.locals.database;
               let bucket = new mongodb.GridFSBucket(db, {
                 bucketName: 'eeg'
               });

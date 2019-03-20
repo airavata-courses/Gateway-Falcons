@@ -21,25 +21,32 @@ app.use(express.static(path.join(__dirname, 'public')));
 require('dotenv').config()
 // require('dotenv').config({path: ../../})
 const MongoClient = require('mongodb').MongoClient;
-const mongoose = require('mongoose');
-const mongodb = require('mongodb');
+// const mongoose = require('mongoose');
+// const mongodb = require('mongodb');
 
 const parseFile = require('./utils/json_fileparser');
 const mlab_credentials = parseFile(process.env.MLAB_CREDENTIALS);
 console.log(mlab_credentials)
+const mongoose = require('mongoose');
 
 /**
  * Connect Mongo Driver to MongoDB.
  */
-MongoClient.connect(mlab_credentials.mongoURI, { useNewUrlParser: true }, (err, client) => {
-  if (err) {
-    console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
-    process.exit(1);
-  }
-  app.locals.database = client.db('countrycycle');
-  console.log(client.db('countrycycle'));
-  console.log('mlab connected successfully');
-});
+// MongoClient.connect(mlab_credentials.mongoURI, { useNewUrlParser: true }, (err, client) => {
+//   if (err) {
+//     console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
+//     process.exit(1);
+//   }
+//   app.locals.database = client.db('countrycycle');
+//   console.log(client.db('countrycycle'));
+//   console.log('mlab connected successfully');
+// });
+
+mongoose
+  .connect(mlab_credentials.mongoURI, { useNewUrlParser: true })
+  .then(() => console.log('mlab connected successfully'))
+  .catch((err) => console.error('error connecting to mlab:', err))
+
 
 fs.readdirSync('./routes').forEach(file => {
   const fileName = file.substring(0, file.indexOf('.'));

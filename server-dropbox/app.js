@@ -11,9 +11,9 @@ var cardio_MoodRouter = require('./routes/cardio_mood');
 var app = express();
 
 const MongoClient = require('mongodb').MongoClient;
-const mongoose = require('mongoose');
-const mongodb = require('mongodb');
-const ObjectID = require('mongodb').ObjectID;
+// const mongoose = require('mongoose');
+// const mongodb = require('mongodb');
+// const ObjectID = require('mongodb').ObjectID;
 
 const parseFile = require('./utils/json_fileparser');
 const mlab_credentials = parseFile(process.env.MLAB_CREDENTIALS);
