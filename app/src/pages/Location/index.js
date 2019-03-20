@@ -151,17 +151,17 @@ class LocationPage extends Component {
                     <Container>
                         <Row>
                             {/* Chart Slicers */}
-                            <Col md={3} sm={3} xs={12}>
+                            {/* <Col md={3} sm={3} xs={12}>
                                 <ChartSlicerPanel
                                     options={options}
                                     sliceDateRange={this.sliceDateRange}
                                     sliceChart={this.sliceChart}
                                     title={"Map Types"}
                                 />
-                            </Col>
+                            </Col> */}
 
                             {/* MapWithMarkers */}
-                            <Col md={9} sm={9} xs={12}>
+                            <Col md={12} sm={12} xs={12}>
                                 {/* googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=3.exp&libraries=geometry,drawing,places`} */}
                                 <MapWithMarkers
                                     selectedMarker={this.state.selectedMarker}

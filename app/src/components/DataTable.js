@@ -58,6 +58,7 @@ class DataTable extends Component {
                     item.humidity
                 ]
             });
+            _data = _data.reverse();
         } else if(data_set === "fitness") {
             _data = data.map(item => {
                 return [
