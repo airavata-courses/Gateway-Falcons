@@ -19,7 +19,7 @@ const MapWithMarkers = compose(withScriptjs, withGoogleMap)(props => {
         const onClick = props.onClick.bind(this, marker)
         return (
           <Marker
-            key={marker.id}
+            key={marker._id}
             onClick={onClick}
             position={{ lat: marker.latitude, lng: marker.longitude }}
           >

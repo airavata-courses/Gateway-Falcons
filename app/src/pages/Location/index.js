@@ -87,7 +87,7 @@ class LocationPage extends Component {
                     });
                     this.setState({ data: _data })
                 }),
-            10500);
+            61000);
     }
 
     handleClick = (marker, event) => {
