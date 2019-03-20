@@ -37,8 +37,8 @@ class LocationPage extends Component {
     fetchMapMarkers() {
         // fetch("https://api.harveyneeds.org/api/v1/shelters?limit=10")
         //     .then(r => r.json())
-        setInterval(() => 
-        // fetch(`http://localhost:3001/location`, {
+        setInterval(() =>
+            // fetch(`http://localhost:3001/location`, {
             fetch(`${Constants.serverUrl}/location`, {
                 headers: {
                     "Content-Type": "application/json",
@@ -52,8 +52,8 @@ class LocationPage extends Component {
                     // const lat = parseFloat(item.latitude);
                     // const lon = parseFloat(item.longitude);
                     const _data = data.map(datum => {
-                        
-                        const { 
+
+                        const {
                             workout_date_time,
                             data_lat,
                             data_lon,
@@ -65,7 +65,16 @@ class LocationPage extends Component {
                             max_elevation,
                             total_climb,
                             total_descent,
-                            max_grade
+                            max_grade,
+
+                            wind_deg,
+                            wind_speed,
+                            pressure,
+                            visibility,
+                            temperature,
+                            weather,
+                            weather_desc,
+                            humidity
                         } = datum;
 
                         const newObj = {
@@ -80,14 +89,24 @@ class LocationPage extends Component {
                             max_elevation,
                             total_climb,
                             total_descent,
-                            max_grade
+                            max_grade,
+
+                            wind_deg,
+                            wind_speed,
+                            pressure,
+                            visibility,
+                            temperature,
+                            weather,
+                            weather_desc,
+                            humidity
+
                         };
 
                         return newObj;
                     });
                     this.setState({ data: _data })
                 }),
-            61000);
+            10500);
     }
 
     handleClick = (marker, event) => {

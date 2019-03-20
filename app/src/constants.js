@@ -100,12 +100,16 @@ const wahoo_data_columns = [
     "Total Ascent",
     "Total Descent",
     "Gradient",
-    // "Wind Speed",
-    // "Temperature",
-    // "Visibility",
-    // "Humidity",
+
+    "Wind Deg",
+    "Wind Speed",
+    "Atmospheric Pressure",
+    "Visibility",
+    "Temperature",
+    "Weather",
+    "Weather Desc.",
+    "Humidity",
     // "Precipitation (Last 24 Hrs)",
-    // "Atmospheric Pressure"
 ];
 
 

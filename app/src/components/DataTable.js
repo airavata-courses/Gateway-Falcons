@@ -47,6 +47,15 @@ class DataTable extends Component {
                     item.total_climb,
                     item.total_descent,
                     item.max_grade,
+
+                    item.wind_deg,
+                    item.wind_speed,
+                    item.pressure,
+                    item.visibility,
+                    item.temperature,
+                    item.weather,
+                    item.weather_desc,
+                    item.humidity
                 ]
             });
         } else if(data_set === "fitness") {
