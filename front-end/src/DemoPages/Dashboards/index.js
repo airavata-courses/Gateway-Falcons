@@ -20,6 +20,7 @@ import AppFooter from '../../Layout/AppFooter/';
 import ThemeOptions from '../../Layout/ThemeOptions/';
 import LivePage from './Live';
 import LocationPage from './Location';
+import DietDashboard from './Diet';
 
 const Dashboards = ({match}) => (
     <Fragment>
@@ -31,6 +32,7 @@ const Dashboards = ({match}) => (
                 <div className="app-main__inner">
                     <Route path={`${match.url}/live`} component={LivePage}/>
                     <Route path={`${match.url}/location`} component={LocationPage}/>
+                    <Route path={`${match.url}/diet`} component={DietDashboard}/>
                     <Route path={`${match.url}/analytics`} component={AnalyticsDashboard}/>
                     <Route path={`${match.url}/sales`} component={SalesDashboard}/>
                     <Route path={`${match.url}/commerce`} component={CommerceDashboard}/>

@@ -476,12 +476,12 @@ export const DataNav = [
     {
         icon: 'pe-7s-graph2',
         label: 'Fitness',
-        to: '#/data/fitness',
+        to: '#/dashboards/fitness',
     },
     {
         icon: 'pe-7s-graph2',
         label: 'Diet',
-        to: '#/data/diet',
+        to: '#/dashboards/diet',
     },
 ];
 
