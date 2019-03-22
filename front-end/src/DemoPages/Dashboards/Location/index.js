@@ -40,6 +40,7 @@ export default class LocationPage extends Component {
         this.state = {
             title: 'Live',
             map_data: [],
+            weather_data: [],
             selectedMarker: false,
             apiKey: apiKey
             // kpi_data: [],
@@ -47,14 +48,13 @@ export default class LocationPage extends Component {
     }
 
     handleClick = (marker, event) => {
-        // console.log({ marker })
         this.setState({ selectedMarker: marker })
     }
 
     fetchMapMarkers() {
         setInterval(() =>
-            // fetch(`http://localhost:3001/location`, {
-            fetch(`${Constants.serverUrl}/location`, {
+        // fetch(`${Constants.serverUrl}/location`, {
+            fetch(`http://localhost:3001/location`, {
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",
@@ -64,7 +64,9 @@ export default class LocationPage extends Component {
                 .then(res => res.json())
                 // .then(res => console.log(res)),
                 .then(data => {
-                    const _data = data.map((datum, index) => {
+                    const wahoo_data = [];
+                    const weather_data = [];
+                    data.map((datum, index) => {
 
                         const {
                             workout_date_time,
@@ -90,7 +92,7 @@ export default class LocationPage extends Component {
                             humidity
                         } = datum;
 
-                        const newObj = {
+                        const newWahooObj = {
                             workout_date_time,
                             latitude: parseFloat(data_lat),
                             longitude: parseFloat(data_lon),
@@ -104,6 +106,12 @@ export default class LocationPage extends Component {
                             total_descent,
                             max_grade,
 
+                            key: index
+
+                        };
+
+                        const newWeatherObj = {
+                            workout_date_time,
                             wind_deg,
                             wind_speed,
                             pressure,
@@ -116,23 +124,27 @@ export default class LocationPage extends Component {
                             key: index
 
                         };
+                        
+                        wahoo_data.push(newWahooObj);
+                        weather_data.push(newWeatherObj);
 
-                        return newObj;
                     });
                     console.log(_data)
-                    this.setState({ map_data: _data })
+                    this.setState({ 
+                        map_data: wahoo_data,
+                        weather_data: weather_data,
+                    })
                 }),
             10500);
     }
-
 
     componentDidMount() {
         this.fetchMapMarkers();
     }
 
     render() {
-        const radius = 107;
-        const { apiKey, data, map_data } = this.state;
+        // const radius = 107;
+        const { apiKey, data, map_data, weather_data } = this.state;
         console.log(apiKey)
         
         const wahoo_data_columns = Object.keys(Constants.wahoo_data_columns).map(key => {
@@ -140,6 +152,14 @@ export default class LocationPage extends Component {
             return {
                 Header: key,
                 accessor: Constants.wahoo_data_columns[key]
+            }
+        })
+
+        const weather_data_columns = Object.keys(Constants.weather_data_columns).map(key => {
+            console.log(key, Constants.weather_data_columns[key]);
+            return {
+                Header: key,
+                accessor: Constants.weather_data_columns[key]
             }
         })
 
@@ -174,7 +194,7 @@ export default class LocationPage extends Component {
                         </Col>
                     </Row>
 
-                    {/* Data Table */}
+                    {/* Wahoo Data Table */}
                     <Row>
                         <Col sm="12" lg="12">
                             <Card className="main-card mb-3">
@@ -192,6 +212,42 @@ export default class LocationPage extends Component {
                                 <ReactTable
                                     data={map_data}
                                     columns={wahoo_data_columns}
+                                    defaultPageSize={20}
+                                    style={{
+                                        height: "428px" // This will force the table body to overflow and scroll, since there is not enough room
+                                    }}
+                                    className="-striped -highlight -fixed"
+                                />
+                                <CardFooter className="d-block text-center">
+                                    <Button className="mr-2 btn-icon btn-icon-only" outline color="danger">
+                                        <i className="pe-7s-trash btn-icon-wrapper"> </i>
+                                    </Button>
+                                    <Button className="btn-wide" color="success">
+                                        Save
+                                    </Button>
+                                </CardFooter>
+                            </Card>
+                        </Col>
+                    </Row>
+
+                    {/* Weather Data Table */}
+                    <Row>
+                        <Col sm="12" lg="12">
+                            <Card className="main-card mb-3">
+                                <CardHeader>
+                                    Weather Data
+                                        <div className="btn-actions-pane-right">
+                                        <ButtonGroup size="sm">
+                                            <Button caret="true" color="focus"
+                                                className={"active"}>Last Week</Button>
+                                            <Button caret="true" color="focus">All Month</Button>
+                                        </ButtonGroup>
+                                    </div>
+                                </CardHeader>
+                                
+                                <ReactTable
+                                    data={weather_data}
+                                    columns={weather_data_columns}
                                     defaultPageSize={20}
                                     style={{
                                         height: "428px" // This will force the table body to overflow and scroll, since there is not enough room

@@ -118,7 +118,18 @@ const wahoo_data_columns = {
     "Total Ascent": "total_climb",
     "Total Descent": "total_descent",
     "Gradient": "max_grade",
+    // "Wind Deg": "wind_deg",
+    // "Wind Speed": "wind_speed",
+    // "Atmospheric Pressure": "pressure",
+    // "Visibility": "visibility",
+    // "Temperature": "temperature",
+    // "Weather": "weather",
+    // "Weather Desc.": "weather_desc",
+    // "Humidity": "humidity",
+};
 
+const weather_data_columns = {
+    'Date': "workout_date_time",
     "Wind Deg": "wind_deg",
     "Wind Speed": "wind_speed",
     "Atmospheric Pressure": "pressure",
@@ -132,6 +143,7 @@ const wahoo_data_columns = {
 
 
 module.exports = {
+    weather_data_columns,
     wahoo_data_columns, 
     diet_data_columns,
     // fitness_data_columns,
