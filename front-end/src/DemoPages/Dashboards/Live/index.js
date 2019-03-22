@@ -1,3 +1,6 @@
+// TODO: UNMOUNT REMOVE TIMER INTERVAL
+
+
 import React, { Component, Fragment } from 'react';
 import {
     Row, Col,
@@ -80,6 +83,7 @@ export default class LivePage extends Component {
                             total_climb,
                             total_descent,
                             max_grade,
+                            avg_heart_rate,
 
                             wind_deg,
                             wind_speed,
@@ -104,6 +108,7 @@ export default class LivePage extends Component {
                             total_climb,
                             total_descent,
                             max_grade,
+                            avg_heart_rate,
 
                             key: index
 

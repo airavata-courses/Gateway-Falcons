@@ -1,3 +1,5 @@
+// TODO: UNMOUNT REMOVE TIMER INTERVAL
+
 // TODO: Default setting of map center
 
 // TODO: ZOOM on last marker
@@ -89,6 +91,7 @@ export default class LocationPage extends Component {
                             total_climb,
                             total_descent,
                             max_grade,
+                            avg_heart_rate,
 
                             wind_deg,
                             wind_speed,
@@ -113,6 +116,7 @@ export default class LocationPage extends Component {
                             total_climb,
                             total_descent,
                             max_grade,
+                            avg_heart_rate,
 
                             key: index
 
