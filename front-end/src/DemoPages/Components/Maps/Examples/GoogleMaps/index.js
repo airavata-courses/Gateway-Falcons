@@ -36,7 +36,7 @@ class GoogleMapsExample extends React.Component {
                                     <CardTitle>
                                         Basic
                                     </CardTitle>
-                                    <div style={{ height: '100vh', width: '100%' }}>
+                                    <div style={{ height: '90vh', width: '100%' }}>
                                         <GoogleMapReact
                                             defaultCenter={this.props.center}
                                             defaultZoom={this.props.zoom}
