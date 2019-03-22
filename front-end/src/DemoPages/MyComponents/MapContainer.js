@@ -21,18 +21,18 @@ const MapWithMarkers = compose(withScriptjs, withGoogleMap)(props => {
 
     return (
         <GoogleMap defaultZoom={8} defaultCenter={{ lat: 39, lng: -74 }}>
-            {props.markers.map(marker => {
+            {props.markers.map((marker, index) => {
                 const onClick = props.onClick.bind(this, marker)
                 return (
                     <Marker
-                        key={marker._id}
+                        key={index}
                         onClick={onClick}
                         position={{ lat: marker.latitude, lng: marker.longitude }}
                     >
                         {props.selectedMarker === marker &&
                             <InfoWindow>
                                 <div key={marker.id}>
-                                    {marker.latitude} and {marker.longitude} on {marker.date}
+                                    {marker.latitude} and {marker.longitude} on {marker.workout_date_time}
                                 </div>
                             </InfoWindow>
                         }

@@ -63,30 +63,6 @@ const diet_data_columns = {
 //     'Description'
 // ];
 
-// const wahoo_fitness_data_columns = [
-//     'Date',
-//     'Name',
-//     'Distance',
-//     'Avg. HR',
-//     'Max HR',
-//     'Total Time',
-//     'Time Active',
-//     'Time Inactive',
-//     'Calories Burned',
-//     'Timezone',
-//     'Start Lat.',
-//     'Start Lon',
-//     'Total Hours Slept',
-//     'Time in Light Sleep',
-//     'Time in Deep Sleep',
-//     'Time in REM Sleep',
-//     'HRV Score',
-//     'Stress Index',
-//     'VO2 Max',
-//     'Resting HR',
-//     'Description'
-// ];
-
 const eeg_data_columns = [
     'date',
     'heart-rate',
@@ -95,36 +71,64 @@ const eeg_data_columns = [
 ];
 
 
-const wahoo_data_columns = [
+// const wahoo_data_columns = [
+//     // 'Id',
+//     'Date',
+//     // 'Start Time',
+//     // 'End Time',
+//     "Latitude",
+//     "Longitude",
+//     "Daily Distance",
+//     // "Total Distance",
+//     "Avg Speed",
+//     "Max Speed",
+//     "Avg Cadence",
+//     "Max Cadence",
+//     "Max Elevation",
+//     // "Min Elevation",
+//     "Total Ascent",
+//     "Total Descent",
+//     "Gradient",
+
+//     "Wind Deg",
+//     "Wind Speed",
+//     "Atmospheric Pressure",
+//     "Visibility",
+//     "Temperature",
+//     "Weather",
+//     "Weather Desc.",
+//     "Humidity",
+//     // "Precipitation (Last 24 Hrs)",
+// ];
+
+const wahoo_data_columns = {
     // 'Id',
-    'Date',
-    // 'Start Time',
-    // 'End Time',
-    "Latitude",
-    "Longitude",
-    "Daily Distance",
-    // "Total Distance",
-    "Avg Speed",
-    "Max Speed",
-    "Avg Cadence",
-    "Max Cadence",
-    "Max Elevation",
-    // "Min Elevation",
-    "Total Ascent",
-    "Total Descent",
-    "Gradient",
+    'Date': "workout_date_time",
+    // 'Start Time': "",
+    // 'End Time': "",
+    "Latitude": "latitude",
+    "Longitude": "longitude",
+    // "Daily Distance": "",
+    // "Total Distance": "",
+    "Avg Speed": "average_speed",
+    "Max Speed": "max_speed",
+    "Avg Cadence": "avg_cadence",
+    "Max Cadence": "max_cadence",
+    // "Max Elevation": "",
+    // "Min Elevation": "",
+    // "Total Ascent": "",
+    "Total Descent": "total_descent",
+    "Gradient": "max_grade",
 
-    "Wind Deg",
-    "Wind Speed",
-    "Atmospheric Pressure",
-    "Visibility",
-    "Temperature",
-    "Weather",
-    "Weather Desc.",
-    "Humidity",
-    // "Precipitation (Last 24 Hrs)",
-];
-
+    "Wind Deg": "wind_deg",
+    "Wind Speed": "wind_speed",
+    "Atmospheric Pressure": "pressure",
+    "Visibility": "visibility",
+    "Temperature": "temperature",
+    "Weather": "weather",
+    "Weather Desc.": "weather_desc",
+    "Humidity": "humidity",
+};
 
 
 

@@ -227,14 +227,7 @@ export default class DietDashboard extends Component {
             dots: true,
         };
 
-        // const data_columns = Constants.diet_data_columns.map(key => {
-        //     return {
-        //         Header: key,
-        //         accessor: 
-        //     }
-        // })
-
-        const data_columns = Object.keys(Constants.diet_data_columns).map((key, index) => {
+        const data_columns = Object.keys(Constants.diet_data_columns).map(key => {
             return {
                 Header: key,
                 accessor: Constants.diet_data_columns[key]
@@ -977,7 +970,7 @@ export default class DietDashboard extends Component {
                         </div>
 
 
-                            {/*  Data Table */}
+                        {/*  Data Table */}
                         <Card className="mb-3">
                             <CardHeader className="card-header-tab">
                                 <div
@@ -998,8 +991,8 @@ export default class DietDashboard extends Component {
                                 />
                             </CardBody>
                         </Card>
-                        
-                                            </div>
+
+                    </div>
                 </ReactCSSTransitionGroup>
             </Fragment>
         )

@@ -1,3 +1,11 @@
+// TODO: Default setting of map center
+
+// TODO: ZOOM on last marker
+
+// TODO: FORMAT PAGE WIDTH / Responsiveness
+
+// TODO: TRIm the lat / lon
+
 import React, { Component, Fragment } from 'react';
 import {
     Row, Col,
@@ -23,13 +31,15 @@ import MapWithMarkers from '../../MyComponents/MapContainer'
 
 import * as Constants from '../../../constants';
 
+import ReactTable from "react-table";
+
 export default class LocationPage extends Component {
     constructor() {
         super();
         const apiKey = process.env.GOOGLE_API_KEY;
         this.state = {
             title: 'Live',
-            data: [''],
+            map_data: [],
             selectedMarker: false,
             apiKey: apiKey
             // kpi_data: [],
@@ -41,11 +51,98 @@ export default class LocationPage extends Component {
         this.setState({ selectedMarker: marker })
     }
 
+    fetchMapMarkers() {
+        setInterval(() =>
+            fetch(`http://localhost:3001/location`, {
+            // fetch(`${Constants.serverUrl}/location`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+                credentials: 'same-origin',
+            })
+                .then(res => res.json())
+                // .then(res => console.log(res)),
+                .then(data => {
+                    const _data = data.map((datum, index) => {
+
+                        const {
+                            workout_date_time,
+                            data_lat,
+                            data_lon,
+                            total_distance,
+                            average_speed,
+                            max_speed,
+                            avg_cadence,
+                            max_cadence,
+                            max_elevation,
+                            total_climb,
+                            total_descent,
+                            max_grade,
+
+                            wind_deg,
+                            wind_speed,
+                            pressure,
+                            visibility,
+                            temperature,
+                            weather,
+                            weather_desc,
+                            humidity
+                        } = datum;
+
+                        const newObj = {
+                            workout_date_time,
+                            latitude: parseFloat(data_lat),
+                            longitude: parseFloat(data_lon),
+                            total_distance,
+                            average_speed,
+                            max_speed,
+                            avg_cadence,
+                            max_cadence,
+                            max_elevation,
+                            total_climb,
+                            total_descent,
+                            max_grade,
+
+                            wind_deg,
+                            wind_speed,
+                            pressure,
+                            visibility,
+                            temperature,
+                            weather,
+                            weather_desc,
+                            humidity,
+
+                            key: index
+
+                        };
+
+                        return newObj;
+                    });
+                    console.log(_data)
+                    this.setState({ map_data: _data })
+                }),
+            10500);
+    }
+
+
+    componentDidMount() {
+        this.fetchMapMarkers();
+    }
 
     render() {
         const radius = 107;
-        const { apiKey, data } = this.state;
+        const { apiKey, data, map_data } = this.state;
         console.log(apiKey)
+        
+        const wahoo_data_columns = Object.keys(Constants.wahoo_data_columns).map(key => {
+            console.log(key, Constants.wahoo_data_columns[key]);
+            return {
+                Header: key,
+                accessor: Constants.wahoo_data_columns[key]
+            }
+        })
+
         return (
             <Fragment>
                 <PageTitle
@@ -54,8 +151,10 @@ export default class LocationPage extends Component {
                     icon="pe-7s-graph icon-gradient bg-ripe-malin"
                 />
                 <div>
+
+                    {/* MAP */}
                     <Row>
-                        <Col lg="12" xl="12">
+                        <Col sm="12" lg="12">
                             <Card className="main-card mb-3">
                                 <CardBody>
                                     {/* <CardTitle>
@@ -63,7 +162,7 @@ export default class LocationPage extends Component {
                                     </CardTitle> */}
                                     <MapWithMarkers
                                         selectedMarker={this.state.selectedMarker}
-                                        markers={data}
+                                        markers={map_data}
                                         onClick={this.handleClick}
                                         googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyD1KwG-BfsNZC-qjFRLgDKC-yc6x4s9f1A&v=3.exp&libraries=geometry,drawing,places`}
                                         loadingElement={<div style={{ height: `100%` }} />}
@@ -74,9 +173,10 @@ export default class LocationPage extends Component {
                             </Card>
                         </Col>
                     </Row>
-                    
+
+                    {/* Data Table */}
                     <Row>
-                        <Col md="12">
+                        <Col sm="12" lg="12">
                             <Card className="main-card mb-3">
                                 <CardHeader>
                                     Location Data
@@ -88,19 +188,16 @@ export default class LocationPage extends Component {
                                         </ButtonGroup>
                                     </div>
                                 </CardHeader>
-                                <Table responsive hover striped borderless className="align-middle mb-0">
-                                    <thead>
-                                        <tr>
-                                            {
-                                                Constants.wahoo_data_columns.map(col =>
-                                                    <th key={col} className="text-center">{col} </th>
-                                                )
-                                            }
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </Table>
+                                
+                                <ReactTable
+                                    data={map_data}
+                                    columns={wahoo_data_columns}
+                                    defaultPageSize={20}
+                                    style={{
+                                        height: "428px" // This will force the table body to overflow and scroll, since there is not enough room
+                                    }}
+                                    className="-striped -highlight -fixed"
+                                />
                                 <CardFooter className="d-block text-center">
                                     <Button className="mr-2 btn-icon btn-icon-only" outline color="danger">
                                         <i className="pe-7s-trash btn-icon-wrapper"> </i>
