@@ -34,8 +34,11 @@ import {
     Progress,
     Card,
     CardBody,
-    CardFooter
+    CardFooter,
+    ListGroup,
+    ListGroupItem
 } from 'reactstrap';
+
 
 import {
     ResponsiveContainer,
@@ -168,7 +171,8 @@ export default class FitnessDashboard extends Component {
     }
 
     render() {
-        const wahoo_data_columns = Constants.wahoo_data_columns.map(key => {
+
+        const wahoo_data_columns = Object.keys(Constants.wahoo_data_columns).map(key => {
             return {
                 Header: key,
                 accessor: key
@@ -465,6 +469,7 @@ export default class FitnessDashboard extends Component {
                         </Col>
                     </Row>
 
+                    {/* Second 2 charts */}
                     <Row>
                         <Col sm="12" lg="6">
                             <Card className="mb-3">
@@ -574,73 +579,162 @@ export default class FitnessDashboard extends Component {
                             </Card>
                         </Col>
                     </Row>
+                    {/* End second 2 charts */}
 
-                    {/* FITBIT */}
+                    {/* Start KPI */}
+                    <div className="card no-shadow bg-transparent no-border rm-borders mb-3">
+                            <Card>
+                                <Row className="no-gutters">
+                                    <Col md="12" lg="4">
+                                        <ListGroup flush>
+                                            <ListGroupItem className="bg-transparent">
+                                                <div className="widget-content p-0">
+                                                    <div className="widget-content-outer">
+                                                        <div className="widget-content-wrapper">
+                                                            <div className="widget-content-left">
+                                                                <div className="widget-heading">
+                                                                    Total Orders
+                                                                </div>
+                                                                <div className="widget-subheading">
+                                                                    Last year expenses
+                                                                </div>
+                                                            </div>
+                                                            <div className="widget-content-right">
+                                                                <div className="widget-numbers text-success">
+                                                                    1896
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ListGroupItem>
+                                            <ListGroupItem className="bg-transparent">
+                                                <div className="widget-content p-0">
+                                                    <div className="widget-content-outer">
+                                                        <div className="widget-content-wrapper">
+                                                            <div className="widget-content-left">
+                                                                <div className="widget-heading">
+                                                                    Clients
+                                                                </div>
+                                                                <div className="widget-subheading">
+                                                                    Total Clients Profit
+                                                                </div>
+                                                            </div>
+                                                            <div className="widget-content-right">
+                                                                <div className="widget-numbers text-primary">
+                                                                    $12.6k
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ListGroupItem>
+                                        </ListGroup>
+                                    </Col>
+                                    <Col md="12" lg="4">
+                                        <ListGroup flush>
+                                            <ListGroupItem className="bg-transparent">
+                                                <div className="widget-content p-0">
+                                                    <div className="widget-content-outer">
+                                                        <div className="widget-content-wrapper">
+                                                            <div className="widget-content-left">
+                                                                <div className="widget-heading">
+                                                                    Followers
+                                                                </div>
+                                                                <div className="widget-subheading">
+                                                                    People Interested
+                                                                </div>
+                                                            </div>
+                                                            <div className="widget-content-right">
+                                                                <div className="widget-numbers text-danger">
+                                                                    45,9%
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ListGroupItem>
+                                            <ListGroupItem className="bg-transparent">
+                                                <div className="widget-content p-0">
+                                                    <div className="widget-content-outer">
+                                                        <div className="widget-content-wrapper">
+                                                            <div className="widget-content-left">
+                                                                <div className="widget-heading">
+                                                                    Products Sold
+                                                                </div>
+                                                                <div className="widget-subheading">
+                                                                    Total revenue streams
+                                                                </div>
+                                                            </div>
+                                                            <div className="widget-content-right">
+                                                                <div className="widget-numbers text-warning">
+                                                                    $3M
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ListGroupItem>
+                                        </ListGroup>
+                                    </Col>
+                                    <Col md="12" lg="4">
+                                        <ListGroup flush>
+                                            <ListGroupItem className="bg-transparent">
+                                                <div className="widget-content p-0">
+                                                    <div className="widget-content-outer">
+                                                        <div className="widget-content-wrapper">
+                                                            <div className="widget-content-left">
+                                                                <div className="widget-heading">
+                                                                    Total Orders
+                                                                </div>
+                                                                <div className="widget-subheading">
+                                                                    Last year expenses
+                                                                </div>
+                                                            </div>
+                                                            <div className="widget-content-right">
+                                                                <div className="widget-numbers text-success">
+                                                                    1896
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ListGroupItem>
+                                            <ListGroupItem className="bg-transparent">
+                                                <div className="widget-content p-0">
+                                                    <div className="widget-content-outer">
+                                                        <div className="widget-content-wrapper">
+                                                            <div className="widget-content-left">
+                                                                <div className="widget-heading">
+                                                                    Clients
+                                                                </div>
+                                                                <div className="widget-subheading">
+                                                                    Total Clients Profit
+                                                                </div>
+                                                            </div>
+                                                            <div className="widget-content-right">
+                                                                <div className="widget-numbers text-primary">
+                                                                    $12.6k
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ListGroupItem>
+                                        </ListGroup>
+                                    </Col>
+                                </Row>
+                            </Card>
+                        </div>
+                        {/* End KPI */}
+
+                    {/* FITBIT Table */}
                     <Card className="main-card mb-3">
                         <CardHeader>
                             <div className="card-header-title font-size-lg text-capitalize font-weight-normal">
                                 Fitbit Data
                             </div>
-
-                            {/* <div className="btn-actions-pane-right">
-                                <Button size="sm" outline className="btn-icon btn-wide btn-outline-2x" id={'PopoverCustomT-1'}
-                                    onClick={this.togglePop1} color="focus">
-                                    Actions Menu
-                                    <span className="pl-2 align-middle opacity-7">
-                                        <FontAwesomeIcon icon={faAngleDown} />
-                                    </span>
-                                </Button>
-                                <Popover className="popover-custom rm-pointers" placement="auto"
-                                    isOpen={this.state.popoverOpen1}
-                                    target={'PopoverCustomT-1'} toggle={this.togglePop1}>
-                                    <PopoverBody>
-                                        <div className="dropdown-menu-header">
-                                            <div className={classnames(
-                                                "dropdown-menu-header-inner bg-focus")}>
-                                                <div className="menu-header-image"
-                                                    style={{
-                                                        backgroundImage: 'url(' + bg1 + ')'
-                                                    }}
-                                                />
-                                                <div className="menu-header-content">
-                                                    <h5 className="menu-header-title">Settings</h5>
-                                                    <h6 className="menu-header-subtitle">Manage all of your
-                                                        options</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <Nav vertical>
-                                            <NavItem className="nav-item-header">
-                                                Activity
-                                            </NavItem>
-                                            <NavItem>
-                                                <NavLink href="javascript:void(0);">
-                                                    Chat
-                                                    <div className="ml-auto badge badge-pill badge-info">8</div>
-                                                </NavLink>
-                                            </NavItem>
-                                            <NavItem>
-                                                <NavLink href="javascript:void(0);">Recover Password</NavLink>
-                                            </NavItem>
-                                            <NavItem className="nav-item-divider" />
-                                            <NavItem className="nav-item-btn text-center">
-                                                <Button size="sm" className="btn-wide btn-shadow" color="danger">
-                                                    Cancel
-                                                </Button>
-                                            </NavItem>
-                                        </Nav>
-                                    </PopoverBody>
-                                </Popover>
-                            </div> */}
                         </CardHeader>
-                        {/* <Table responsive borderless hover className="align-middle text-truncate mb-0">
-                            <thead>
-                                <tr>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </Table> */}
                         <ReactTable
                             columns={wahoo_data_columns}
                             defaultPageSize={20}
@@ -667,66 +761,7 @@ export default class FitnessDashboard extends Component {
                             <div className="card-header-title font-size-lg text-capitalize font-weight-normal">
                                 Wahoo Data
                             </div>
-
-                            {/* <div className="btn-actions-pane-right">
-                                <Button size="sm" outline className="btn-icon btn-wide btn-outline-2x" id={'PopoverCustomT-1'}
-                                    onClick={this.togglePop1} color="focus">
-                                    Actions Menu
-                                    <span className="pl-2 align-middle opacity-7">
-                                        <FontAwesomeIcon icon={faAngleDown} />
-                                    </span>
-                                </Button>
-                                <Popover className="popover-custom rm-pointers" placement="auto"
-                                    isOpen={this.state.popoverOpen1}
-                                    target={'PopoverCustomT-1'} toggle={this.togglePop1}>
-                                    <PopoverBody>
-                                        <div className="dropdown-menu-header">
-                                            <div className={classnames(
-                                                "dropdown-menu-header-inner bg-focus")}>
-                                                <div className="menu-header-image"
-                                                    style={{
-                                                        backgroundImage: 'url(' + bg1 + ')'
-                                                    }}
-                                                />
-                                                <div className="menu-header-content">
-                                                    <h5 className="menu-header-title">Settings</h5>
-                                                    <h6 className="menu-header-subtitle">Manage all of your
-                                                        options</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <Nav vertical>
-                                            <NavItem className="nav-item-header">
-                                                Activity
-                                            </NavItem>
-                                            <NavItem>
-                                                <NavLink href="javascript:void(0);">
-                                                    Chat
-                                                    <div className="ml-auto badge badge-pill badge-info">8</div>
-                                                </NavLink>
-                                            </NavItem>
-                                            <NavItem>
-                                                <NavLink href="javascript:void(0);">Recover Password</NavLink>
-                                            </NavItem>
-                                            <NavItem className="nav-item-divider" />
-                                            <NavItem className="nav-item-btn text-center">
-                                                <Button size="sm" className="btn-wide btn-shadow" color="danger">
-                                                    Cancel
-                                                </Button>
-                                            </NavItem>
-                                        </Nav>
-                                    </PopoverBody>
-                                </Popover>
-                            </div> */}
                         </CardHeader>
-                        {/* <Table responsive borderless hover className="align-middle text-truncate mb-0">
-                            <thead>
-                                <tr>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </Table> */}
                         <ReactTable
                             columns={wahoo_data_columns}
                             defaultPageSize={20}

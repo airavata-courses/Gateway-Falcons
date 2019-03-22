@@ -22,6 +22,7 @@ import LivePage from './Live';
 import LocationPage from './Location';
 import DietDashboard from './Diet';
 import FitnessDashboard from './Fitness';
+import AboutPage from './About';
 
 const Dashboards = ({match}) => (
     <Fragment>
@@ -36,6 +37,7 @@ const Dashboards = ({match}) => (
                     <Route path={`${match.url}/fitness`} component={FitnessDashboard}/>
                     <Route path={`${match.url}/diet`} component={DietDashboard}/>
                     <Route path={`${match.url}/analytics`} component={AnalyticsDashboard}/>
+                    <Route path={`${match.url}/about`} component={AboutPage}/>
                     <Route path={`${match.url}/sales`} component={SalesDashboard}/>
                     <Route path={`${match.url}/commerce`} component={CommerceDashboard}/>
                     <Route path={`${match.url}/crm`} component={CRMDashboard}/>

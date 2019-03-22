@@ -462,7 +462,7 @@ export const JourneyNav = [
     {
         icon: 'pe-7s-graph2',
         label: 'About',
-        to: '#/about',
+        to: '#/dashboards/about',
     },
 ];
 

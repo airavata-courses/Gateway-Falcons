@@ -33,6 +33,14 @@ import * as Constants from '../../../constants';
 
 import ReactTable from "react-table";
 
+import {
+    faAngleUp,
+    faAngleDown,
+} from '@fortawesome/free-solid-svg-icons';
+
+
+// import KPI from './KPI'
+
 export default class LocationPage extends Component {
     constructor() {
         super();
@@ -53,7 +61,7 @@ export default class LocationPage extends Component {
 
     fetchMapMarkers() {
         setInterval(() =>
-        // fetch(`${Constants.serverUrl}/location`, {
+            // fetch(`${Constants.serverUrl}/location`, {
             fetch(`http://localhost:3001/location`, {
                 headers: {
                     "Content-Type": "application/json",
@@ -124,13 +132,13 @@ export default class LocationPage extends Component {
                             key: index
 
                         };
-                        
+
                         wahoo_data.push(newWahooObj);
                         weather_data.push(newWeatherObj);
 
                     });
-                    console.log(_data)
-                    this.setState({ 
+                    console.log(weather_data)
+                    this.setState({
                         map_data: wahoo_data,
                         weather_data: weather_data,
                     })
@@ -146,9 +154,9 @@ export default class LocationPage extends Component {
         // const radius = 107;
         const { apiKey, data, map_data, weather_data } = this.state;
         console.log(apiKey)
-        
+
         const wahoo_data_columns = Object.keys(Constants.wahoo_data_columns).map(key => {
-            console.log(key, Constants.wahoo_data_columns[key]);
+            // console.log(key, Constants.wahoo_data_columns[key]);
             return {
                 Header: key,
                 accessor: Constants.wahoo_data_columns[key]
@@ -171,6 +179,132 @@ export default class LocationPage extends Component {
                     icon="pe-7s-graph icon-gradient bg-ripe-malin"
                 />
                 <div>
+
+                    {/* KPI */}
+                    <Row>
+                        <Col md="6" lg="3">
+                            <Card className="card-shadow-primary mb-3 widget-chart widget-chart2 text-left">
+                                <div className="widget-chat-wrapper-outer">
+                                    <div className="widget-chart-content">
+                                        <h6 className="widget-subheading">
+                                            Income
+                                        </h6>
+                                        <div className="widget-chart-flex">
+                                            <div className="widget-numbers mb-0 w-100">
+                                                <div className="widget-chart-flex">
+                                                    <div className="fsize-4">
+                                                        <small className="opacity-5">$</small>
+                                                        5,456
+                                                    </div>
+                                                    <div className="ml-auto">
+                                                        <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">
+                                                            <span className="text-success pl-2">
+                                                                +14%
+                                                                </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Card>
+                        </Col>
+                        <Col md="6" lg="3">
+                            <Card className="card-shadow-primary mb-3 widget-chart widget-chart2 text-left">
+                                <div className="widget-chat-wrapper-outer">
+                                    <div className="widget-chart-content">
+                                        <h6 className="widget-subheading">
+                                            Expenses
+                                        </h6>
+                                        <div className="widget-chart-flex">
+                                            <div className="widget-numbers mb-0 w-100">
+                                                <div className="widget-chart-flex">
+                                                    <div className="fsize-4 text-danger">
+                                                        <small className="opacity-5 text-muted">$</small>
+                                                        4,764
+                                                    </div>
+                                                    <div className="ml-auto">
+                                                        <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">
+                                                            <span className="text-danger pl-2">
+                                                                <span className="pr-1">
+                                                                    <FontAwesomeIcon icon={faAngleUp} />
+                                                                </span>
+                                                                8%
+                                                                </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Card>
+                        </Col>
+                        <Col md="6" lg="3">
+                            <Card className="card-shadow-primary mb-3 widget-chart widget-chart2 text-left">
+                                <div className="widget-chat-wrapper-outer">
+                                    <div className="widget-chart-content">
+                                        <h6 className="widget-subheading">
+                                            Spendings
+                                        </h6>
+                                        <div className="widget-chart-flex">
+                                            <div className="widget-numbers mb-0 w-100">
+                                                <div className="widget-chart-flex">
+                                                    <div className="fsize-4">
+                                                        <span className="text-success pr-2">
+                                                            <FontAwesomeIcon icon={faAngleDown} />
+                                                        </span>
+                                                        <small className="opacity-5">$</small>
+                                                        1.5M
+                                                    </div>
+                                                    <div className="ml-auto">
+                                                        <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">
+                                                            <span className="text-success pl-2">
+                                                                <span className="pr-1">
+                                                                    <FontAwesomeIcon icon={faAngleDown} />
+                                                                </span>
+                                                                15%
+                                                                </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Card>
+                        </Col>
+                        <Col md="6" lg="3">
+                            <Card className="card-shadow-primary mb-3 widget-chart widget-chart2 text-left">
+                                <div className="widget-chat-wrapper-outer">
+                                    <div className="widget-chart-content">
+                                        <h6 className="widget-subheading">
+                                            Totals
+                                        </h6>
+                                        <div className="widget-chart-flex">
+                                            <div className="widget-numbers mb-0 w-100">
+                                                <div className="widget-chart-flex">
+                                                    <div className="fsize-4">
+                                                        <small className="opacity-5">$</small>
+                                                        31,564
+                                                    </div>
+                                                    <div className="ml-auto">
+                                                        <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">
+                                                            <span className="text-warning pl-2">
+                                                                +76%
+                                                                </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Card>
+                        </Col>
+                    </Row>
+                    {/* End KPI */}
 
                     {/* MAP */}
                     <Row>
@@ -208,7 +342,7 @@ export default class LocationPage extends Component {
                                         </ButtonGroup>
                                     </div>
                                 </CardHeader>
-                                
+
                                 <ReactTable
                                     data={map_data}
                                     columns={wahoo_data_columns}
@@ -244,7 +378,7 @@ export default class LocationPage extends Component {
                                         </ButtonGroup>
                                     </div>
                                 </CardHeader>
-                                
+
                                 <ReactTable
                                     data={weather_data}
                                     columns={weather_data_columns}
