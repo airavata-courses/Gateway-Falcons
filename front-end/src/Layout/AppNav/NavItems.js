@@ -454,7 +454,7 @@ export const LiveNav = [
     {
         icon: 'pe-7s-graph2',
         label: 'LIVE',
-        to: '#/live',
+        to: '#/dashboards/live',
     },
 ];
 
@@ -471,7 +471,7 @@ export const DataNav = [
     {
         icon: 'pe-7s-graph2',
         label: 'Location',
-        to: '#/data/location',
+        to: '#/dashboards/location',
     },
     {
         icon: 'pe-7s-graph2',

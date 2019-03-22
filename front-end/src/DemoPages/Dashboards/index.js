@@ -18,6 +18,8 @@ import AppFooter from '../../Layout/AppFooter/';
 
 // Theme Options
 import ThemeOptions from '../../Layout/ThemeOptions/';
+import LivePage from './Live';
+import LocationPage from './Location';
 
 const Dashboards = ({match}) => (
     <Fragment>
@@ -27,6 +29,8 @@ const Dashboards = ({match}) => (
             <AppSidebar/>
             <div className="app-main__outer">
                 <div className="app-main__inner">
+                    <Route path={`${match.url}/live`} component={LivePage}/>
+                    <Route path={`${match.url}/location`} component={LocationPage}/>
                     <Route path={`${match.url}/analytics`} component={AnalyticsDashboard}/>
                     <Route path={`${match.url}/sales`} component={SalesDashboard}/>
                     <Route path={`${match.url}/commerce`} component={CommerceDashboard}/>
