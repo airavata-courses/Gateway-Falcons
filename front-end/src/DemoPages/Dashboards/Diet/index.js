@@ -20,9 +20,6 @@ import CountUp from 'react-countup';
 
 import ReactTable from "react-table";
 
-// import avatar1 from '../../../../assets/utils/images/avatars/1.jpg';
-// import avatar2 from '../../../../assets/utils/images/avatars/2.jpg';
-
 import Ionicon from 'react-ionicons';
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -66,7 +63,6 @@ const options = [
     { value: '4', label: 'Last 3 Months' },
     { value: '5', label: 'Last Year' },
 ];
-
 
 const data55 = [
     { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
@@ -143,20 +139,69 @@ const sampleData2 = randomData(15);
 const sampleData3 = randomData(8);
 const sampleData4 = randomData(12);
 
-export default class AnalyticsDashboard1 extends Component {
+export default class DietDashboard extends Component {
     constructor() {
         super();
 
         this.state = {
             data: makeData(),
-            dropdownOpen: false
+            dropdownOpen: false,
+            selectedOption: null,
+
+            diet_data: [],
+            today: {},
+            yesterday: {},
         };
         this.toggle = this.toggle.bind(this);
 
     }
 
-    state = {
-        selectedOption: null,
+    getAndSetDietData() {
+        // fetch(`${Constants.serverUrl}/diet`, {
+        fetch('http://localhost:3001/diet', {
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+            credentials: 'same-origin',
+        })
+            .then(res => res.json())
+            .then(res => {
+                const _data = res.map(datum => {
+                    const {
+                        date,
+                        totals: {
+                            calories: calories,
+                            carbohydrates: carbohydrates,
+                            fat: fat,
+                            protein: protein,
+                            sodium: sodium,
+                            sugar: sugar,
+                        },
+                        water
+                    } = datum;
+                    return {
+                        date,
+                        calories,
+                        carbohydrates,
+                        fat,
+                        protein,
+                        sodium,
+                        sugar,
+                        water
+                    };
+                })
+                console.log(_data);
+                this.setState({
+                    diet_data: _data,
+                    today: _data[res.length - 1],
+                    yesterday: _data[res.length - 2]
+                })
+            })
+    }
+
+    componentDidMount() {
+        this.getAndSetDietData();
     }
 
     handleChange = (selectedOption) => {
@@ -171,7 +216,7 @@ export default class AnalyticsDashboard1 extends Component {
 
     render() {
         const { selectedOption } = this.state;
-        const { data } = this.state;
+        const { data, diet_data } = this.state;
 
         const settings = {
             className: "",
@@ -182,10 +227,17 @@ export default class AnalyticsDashboard1 extends Component {
             dots: true,
         };
 
-        const data_columns = Constants.diet_data_columns.map(key => {
+        // const data_columns = Constants.diet_data_columns.map(key => {
+        //     return {
+        //         Header: key,
+        //         accessor: 
+        //     }
+        // })
+
+        const data_columns = Object.keys(Constants.diet_data_columns).map((key, index) => {
             return {
                 Header: key,
-                accessor: key
+                accessor: Constants.diet_data_columns[key]
             }
         })
 
@@ -204,6 +256,9 @@ export default class AnalyticsDashboard1 extends Component {
                     transitionEnter={false}
                     transitionLeave={false}>
                     <div>
+
+                        {/* Top KPI */}
+
                         <Card className="mb-3">
                             <CardHeader className="card-header-tab z-index-6">
                                 <div
@@ -321,7 +376,11 @@ export default class AnalyticsDashboard1 extends Component {
                                 </Button>
                             </CardFooter>
                         </Card>
+
+                        {/* Middle Row */}
                         <Row>
+
+                            {/* Left col */}
                             <Col sm="12" lg="6">
                                 <Card className="mb-3">
                                     <CardHeader className="card-header-tab">
@@ -557,6 +616,8 @@ export default class AnalyticsDashboard1 extends Component {
                                     </CardBody>
                                 </Card>
                             </Col>
+
+                            {/* Right Col */}
                             <Col sm="12" lg="6">
                                 <Card className="card-hover-shadow-2x mb-3">
                                     <CardHeader className="card-header-tab">
@@ -768,224 +829,8 @@ export default class AnalyticsDashboard1 extends Component {
                                 </Card>
                             </Col>
                         </Row>
-                        <Row>
-                            <Col md="6" xl="3">
-                                <div className="card mb-3 widget-chart widget-chart2 text-left card-btm-border card-shadow-success border-success">
-                                    <div className="widget-chat-wrapper-outer">
-                                        <div className="widget-chart-content pt-3 pl-3 pb-1">
-                                            <div className="widget-chart-flex">
-                                                <div className="widget-numbers">
-                                                    <div className="widget-chart-flex">
-                                                        <div className="fsize-4">
-                                                            <small className="opacity-5">$</small>
-                                                            <CountUp start={0}
-                                                                end={874}
-                                                                separator=""
-                                                                decimals={0}
-                                                                decimal=""
-                                                                prefix=""
-                                                                duration="10" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <h6 className="widget-subheading mb-0 opacity-5">
-                                                sales last month
-                                            </h6>
-                                        </div>
-                                        <Row className="no-gutters widget-chart-wrapper mt-3 mb-3 pl-2 he-auto">
-                                            <Col md="9">
-                                                <Sparklines data={sampleData}>
-                                                    <SparklinesCurve
-                                                        style={{
-                                                            strokeWidth: 3,
-                                                            stroke: 'var(--success)',
-                                                            fill: 'none',
-                                                        }} />
-                                                </Sparklines>
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                </div>
-                            </Col>
-                            <Col md="6" xl="3">
-                                <div className="card mb-3 widget-chart widget-chart2 text-left card-btm-border card-shadow-primary border-primary">
-                                    <div className="widget-chat-wrapper-outer">
-                                        <div className="widget-chart-content pt-3 pl-3 pb-1">
-                                            <div className="widget-chart-flex">
-                                                <div className="widget-numbers">
-                                                    <div className="widget-chart-flex">
-                                                        <div className="fsize-4">
-                                                            <small className="opacity-5">$</small>
-                                                            <CountUp start={0}
-                                                                end={1283}
-                                                                separator=""
-                                                                decimals={0}
-                                                                decimal=""
-                                                                prefix=""
-                                                                duration="10" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <h6 className="widget-subheading mb-0 opacity-5">
-                                                sales Income
-                                            </h6>
-                                        </div>
-                                        <Row className="no-gutters widget-chart-wrapper mt-3 mb-3 pl-2 he-auto">
-                                            <Col md="9">
-                                                <Sparklines data={sampleData2}>
-                                                    <SparklinesCurve
-                                                        style={{
-                                                            strokeWidth: 3,
-                                                            stroke: 'var(--primary)',
-                                                            fill: 'none',
-                                                        }} />
-                                                </Sparklines>
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                </div>
-                            </Col>
-                            <Col md="6" xl="3">
-                                <div className="card mb-3 widget-chart widget-chart2 text-left card-btm-border card-shadow-warning border-warning">
-                                    <div className="widget-chat-wrapper-outer">
-                                        <div className="widget-chart-content pt-3 pl-3 pb-1">
-                                            <div className="widget-chart-flex">
-                                                <div className="widget-numbers">
-                                                    <div className="widget-chart-flex">
-                                                        <div className="fsize-4">
-                                                            <small className="opacity-5">$</small>
-                                                            <CountUp start={0}
-                                                                end={1286}
-                                                                separator=""
-                                                                decimals={0}
-                                                                decimal=""
-                                                                prefix=""
-                                                                duration="10" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <h6 className="widget-subheading mb-0 opacity-5">
-                                                last month sales
-                                            </h6>
-                                        </div>
-                                        <Row className="no-gutters widget-chart-wrapper mt-3 mb-3 pl-2 he-auto">
-                                            <Col md="9">
-                                                <Sparklines data={sampleData3}>
-                                                    <SparklinesCurve
-                                                        style={{
-                                                            strokeWidth: 3,
-                                                            stroke: 'var(--warning)',
-                                                            fill: 'none',
-                                                        }} />
-                                                </Sparklines>
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                </div>
-                            </Col>
-                            <Col md="6" xl="3">
-                                <div className="card mb-3 widget-chart widget-chart2 text-left card-btm-border card-shadow-danger border-danger">
-                                    <div className="widget-chat-wrapper-outer">
-                                        <div className="widget-chart-content pt-3 pl-3 pb-1">
-                                            <div className="widget-chart-flex">
-                                                <div className="widget-numbers">
-                                                    <div className="widget-chart-flex">
-                                                        <div className="fsize-4">
-                                                            <small className="opacity-5">$</small>
-                                                            <CountUp start={0}
-                                                                end={564}
-                                                                separator=""
-                                                                decimals={0}
-                                                                decimal=""
-                                                                prefix=""
-                                                                duration="10" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <h6 className="widget-subheading mb-0 opacity-5">
-                                                total revenue
-                                            </h6>
-                                        </div>
-                                        <Row className="no-gutters widget-chart-wrapper mt-3 mb-3 pl-2 he-auto">
-                                            <Col md="9">
-                                                <Sparklines data={sampleData4}>
-                                                    <SparklinesCurve
-                                                        style={{
-                                                            strokeWidth: 3,
-                                                            stroke: 'var(--danger)',
-                                                            fill: 'none',
-                                                        }} />
-                                                </Sparklines>
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                </div>
-                            </Col>
-                        </Row>
-                        <Card className="mb-3">
-                            <CardHeader className="card-header-tab">
-                                <div
-                                    className="card-header-title font-size-lg text-capitalize font-weight-normal">
-                                    <i className="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>
-                                    Easy Dynamic Tables
-                                </div>
-                                <div className="btn-actions-pane-right actions-icon-btn">
-                                    <UncontrolledButtonDropdown>
-                                        <DropdownToggle className="btn-icon btn-icon-only" color="link">
-                                            <i className="pe-7s-menu btn-icon-wrapper" />
-                                        </DropdownToggle>
-                                        <DropdownMenu className="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link">
-                                            <DropdownItem header>Header</DropdownItem>
-                                            <DropdownItem>
-                                                <i className="dropdown-icon lnr-inbox"> </i>
-                                                <span>Menus</span>
-                                            </DropdownItem>
-                                            <DropdownItem>
-                                                <i className="dropdown-icon lnr-file-empty"> </i>
-                                                <span>Settings</span>
-                                            </DropdownItem>
-                                            <DropdownItem>
-                                                <i className="dropdown-icon lnr-book"> </i>
-                                                <span>Actions</span>
-                                            </DropdownItem>
-                                            <DropdownItem divider />
-                                            <div className="p-3 text-right">
-                                                <Button className="mr-2 btn-shadow btn-sm" color="link">View
-                                                    Details</Button>
-                                                <Button className="mr-2 btn-shadow btn-sm"
-                                                    color="primary">Action</Button>
-                                            </div>
-                                        </DropdownMenu>
-                                    </UncontrolledButtonDropdown>
-                                </div>
-                            </CardHeader>
-                            <CardBody>
-                                {/* [
-                                    {
-                                        Header: "First Name",
-                                        accessor: "firstName"
-                                    },
-                                    {
-                                        Header: "Last Name",
-                                        id: "lastName",
-                                        accessor: d => d.lastName
-                                    }
-                                ] */}
-                                <ReactTable
-                                    data={data}
-                                    columns={data_columns}
-                                    defaultPageSize={20}
-                                    style={{
-                                        height: "428px" // This will force the table body to overflow and scroll, since there is not enough room
-                                    }}
-                                    className="-striped -highlight -fixed"
-                                />
-                            </CardBody>
-                        </Card>
+
+                        {/* Middle KPI */}
                         <div className="card no-shadow bg-transparent no-border rm-borders mb-3">
                             <Card>
                                 <Row className="no-gutters">
@@ -1130,7 +975,31 @@ export default class AnalyticsDashboard1 extends Component {
                                 </Row>
                             </Card>
                         </div>
-                    </div>
+
+
+                            {/*  Data Table */}
+                        <Card className="mb-3">
+                            <CardHeader className="card-header-tab">
+                                <div
+                                    className="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                    <i className="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>
+                                    Aggregate Diet Data
+                                </div>
+                            </CardHeader>
+                            <CardBody>
+                                <ReactTable
+                                    data={diet_data}
+                                    columns={data_columns}
+                                    defaultPageSize={20}
+                                    style={{
+                                        height: "428px" // This will force the table body to overflow and scroll, since there is not enough room
+                                    }}
+                                    className="-striped -highlight -fixed"
+                                />
+                            </CardBody>
+                        </Card>
+                        
+                                            </div>
                 </ReactCSSTransitionGroup>
             </Fragment>
         )

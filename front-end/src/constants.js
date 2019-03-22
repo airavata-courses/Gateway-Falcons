@@ -7,15 +7,28 @@ const zookeeperurl = 'http://149.165.157.75:5000';
 const basePath = 'falcons/services';
 const smugugUrl = 'https://api.smugmug.com/api/v2';
 
-const diet_data_columns = [
-    'Date',
-    'Calories',
-    "Carbohydrates",
-    "Fat",
-    "Protein",
-    "Sodium",
-    "Sugar"
-];
+// const diet_data_columns = [
+//     'Date',
+//     'Calories',
+//     "Carbohydrates",
+//     "Fat",
+//     "Protein",
+//     "Sodium",
+//     "Sugar"
+// ];
+
+const diet_data_columns = {
+    'Date': 'date',
+    'Calories': 'calories',
+    "Carbs": "carbohydrates",
+    "Fat": "fat",
+    "Protein": "protein",
+    "Sodium": "sodium",
+    "Sugar": "sugar",
+    "Water": 'water'
+};
+
+
 // const diet_data_columns = [
 //     'Date',
 //     'Calories',
