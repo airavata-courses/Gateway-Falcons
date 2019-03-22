@@ -1,0 +1,45 @@
+
+> architectui-react-pro@1.1.1 start C:\Users\tylercitrin\Desktop\b649\architect\front-end
+> cross-env NODE_PATH=./src node scripts/start.js
+
+The `setup` option is deprecated and will be removed in v3. Please update your config to use `before`
+Starting the development server...
+
+Compiled successfully!
+
+You can now view architectui-react-pro in the browser.
+
+  Local:            http://localhost:3000/
+  On Your Network:  http://10.0.75.1:3000/
+
+Note that the development build is not optimized.
+To create a production build, use yarn build.
+
+Compiling...
+Failed to compile.
+
+./src/Layout/AppNav/NavItems.js
+Syntax error: C:/Users/tylercitrin/Desktop/b649/architect/front-end/src/Layout/AppNav/NavItems.js: `MediaNav` has already been exported. Exported identifiers must be unique. (480:13)
+
+  478 | ];
+  479 | 
+> 480 | export const MediaNav = [
+      |              ^
+  481 |     {
+  482 |         icon: 'pe-7s-graph2',
+  483 |         label: 'Media',
+Compiling...
+Compiled successfully!
+Compiling...
+Compiled successfully!
+Compiling...
+Compiled successfully!
+Compiling...
+Compiled successfully!
+Compiling...
+Compiled successfully!
+Compiling...
+Compiled successfully!
+Compiling...
+Compiled successfully!
+Compiling...
