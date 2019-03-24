@@ -36,9 +36,9 @@ app.config['MONGO_URI'] = parser.get('DB', 'url')
 mongo = PyMongo(app)
 
 
-@app.route('/getlocation'methods=['POST','GET'])
+@app.route('/getlocation', methods=['POST','GET'])
 @cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
-def hello_world():
+def get_location():
     display = Display(visible=0, size=(800, 600))
     display.start()
     baseurl = 'https://www.wahooligan.com/users/live/Am0zG9KkP9S7qnhA6IU8eQ'
