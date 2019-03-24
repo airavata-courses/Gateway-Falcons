@@ -43,7 +43,7 @@ def add_diet():
     diet_db.insert_one({
         "date": date.strftime('%Y-%m-%d'),
         "totals": day.totals,
-        "water": day.water,
+        "water": round(day.water * 0.033814,2),
         "meals": meals
     })
 
