@@ -37,6 +37,9 @@ import MapWithMarkers from '../../MyComponents/MapContainer'
 import * as Constants from '../../../constants';
 
 import ReactTable from "react-table";
+import HeartRateChart from './HeartRateChart';
+import ElevationChart from './ElevationChart';
+import WindSpeedChart from './WindSpeedChart';
 
 export default class LivePage extends Component {
 
@@ -133,7 +136,7 @@ export default class LivePage extends Component {
                         weather_data.push(newWeatherObj);
 
                     });
-                    console.log(weather_data)
+                    // console.log(weather_data)
                     this.setState({
                         map_data: wahoo_data,
                         weather_data: weather_data,
@@ -163,7 +166,7 @@ export default class LivePage extends Component {
         })
 
         const weather_data_columns = Object.keys(Constants.weather_data_columns).map(key => {
-            console.log(key, Constants.weather_data_columns[key]);
+            // console.log(key, Constants.weather_data_columns[key]);
             return {
                 Header: key,
                 accessor: Constants.weather_data_columns[key]
@@ -311,7 +314,7 @@ export default class LivePage extends Component {
                             <Card className="main-card mb-3">
                                 <CardBody>
                                     <CardTitle>
-                                        Live Stream
+                                        Heartrate
                                     </CardTitle>
                                     <LiveStream />
                                 </CardBody>
@@ -383,9 +386,12 @@ export default class LivePage extends Component {
                             <Card className="main-card mb-3">
                                 <CardBody>
                                     <CardTitle>
-                                        Live Stream
+                                        Heart Rate
                                     </CardTitle>
-                                    <LiveStream />
+                                    <HeartRateChart
+                                        data={map_data}
+                                        attribute={"avg_heart_rate"}
+                                    />
                                 </CardBody>
                             </Card>
                         </Col>
@@ -393,9 +399,12 @@ export default class LivePage extends Component {
                             <Card className="main-card mb-3">
                                 <CardBody>
                                     <CardTitle>
-                                        Live Stream
+                                        Elevation
                                     </CardTitle>
-                                    <LiveStream />
+                                    <ElevationChart
+                                        data={map_data}
+                                        attribute={"total_climb"}
+                                    />
                                 </CardBody>
                             </Card>
                         </Col>
@@ -403,15 +412,18 @@ export default class LivePage extends Component {
                             <Card className="main-card mb-3">
                                 <CardBody>
                                     <CardTitle>
-                                        Live Stream
+                                        Wind Speed
                                     </CardTitle>
-                                    <LiveStream />
+                                    <WindSpeedChart
+                                        data={map_data}
+                                        attribute={"wind_speed"}
+                                    />
                                 </CardBody>
                             </Card>
                         </Col>
                     </Row>
 
-                {/* Table Data */}
+                    {/* Table Data */}
 
                     {/* Location Data Table */}
                     <Row>

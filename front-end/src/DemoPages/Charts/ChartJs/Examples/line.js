@@ -1,5 +1,8 @@
-import React from 'react';
-import {Line} from 'react-chartjs-2';
+import React, { Component, Fragment } from 'react';
+import { Line } from 'react-chartjs-2';
+import {
+  ResponsiveContainer,
+} from 'recharts';
 
 const data = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -31,13 +34,19 @@ const data = {
 
 class LineExample extends React.Component {
 
-    render() {
-        return (
+  render() {
+    return (
+      <Fragment>
+        <div className="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
+          <ResponsiveContainer width="100%" height={240}>
             <div>
               <Line data={data} />
             </div>
-        )
-    }
+          </ResponsiveContainer>
+        </div>
+      </Fragment>
+    )
+  }
 }
 
 export default LineExample;

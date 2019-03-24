@@ -164,7 +164,7 @@
     "react-widgets-simple-number": "^4.1.19",
     "reactour": "^1.9.1",
     "reactstrap": "^6.5.0",
-    "recharts": "^1.3.2",
+    "recharts": "^1.5.0",
     "redux": "^4.0.1",
     "redux-form": "^8.0.4",
     "redux-logger": "^3.0.6",
