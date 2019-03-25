@@ -30,12 +30,9 @@ class ReChartPanel extends Component {
 
     getMax(attr, data) {
         if (data !== undefined && data.length > 0) {
-            console.log(attr)
-            console.log(data[0])
             let max = data[0][attr];
             for (let i = 1; i < data.length; i++) {
                 const datum = data[i];
-                // console.log(datum[attr], max)
                 if (datum[attr] > max) {
                     max = datum[attr];
                 }

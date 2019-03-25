@@ -52,8 +52,13 @@ export default class LocationPage extends Component {
             map_data: [],
             weather_data: [],
             selectedMarker: false,
-            apiKey: apiKey
-            // kpi_data: [],
+            apiKey: apiKey,
+            kpi: {
+                average_speed: 0,
+                total_climb: 0,
+                wind_speed: 0,
+                avg_heart_rate: 0
+            }
         };
     }
 
@@ -141,10 +146,46 @@ export default class LocationPage extends Component {
                         weather_data.push(newWeatherObj);
 
                     });
+                    // const len = wahoo_data.length;
+                    // let agg_average_speed = 0,
+                    //     agg_total_climb = 0,
+                    //     agg_wind_speed = 0,
+                    //     agg_avg_heart_rate = 0;
+                    
+                    // for (let i = len - 8; i < len; i++) {
+                    //     const { average_speed,
+                    //         total_climb,
+                    //         wind_speed,
+                    //         avg_heart_rate
+                    //     } = wahoo_data[i];
+                    //     agg_average_speed += average_speed;
+                    //     agg_total_climb += total_climb;
+                    //     agg_wind_speed += wind_speed;
+                    //     agg_avg_heart_rate += avg_heart_rate;
+                    // }
+
+                    const { average_speed,
+                        total_climb,
+                        wind_speed,
+                        avg_heart_rate
+                    } = wahoo_data[wahoo_data.length - 1];
+
                     console.log(weather_data)
                     this.setState({
                         map_data: wahoo_data,
                         weather_data: weather_data,
+                        // kpi: {
+                        //     average_speed: (agg_average_speed / 7),
+                        //     total_climb: (agg_total_climb / 7),
+                        //     wind_speed: (agg_wind_speed / 7),
+                        //     avg_heart_rate: (agg_avg_heart_rate / 7),
+                        // }
+                        kpi: {
+                            average_speed,
+                            total_climb,
+                            wind_speed,
+                            avg_heart_rate
+                        }
                     })
                 }),
             61000);
@@ -160,7 +201,7 @@ export default class LocationPage extends Component {
 
     render() {
         // const radius = 107;
-        const { apiKey, data, map_data, weather_data } = this.state;
+        const { apiKey, data, map_data, weather_data, kpi } = this.state;
         console.log(apiKey)
 
         const wahoo_data_columns = Object.keys(Constants.wahoo_data_columns).map(key => {
@@ -195,14 +236,14 @@ export default class LocationPage extends Component {
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading">
-                                            Income
+                                            Current Speed
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
                                                         <small className="opacity-5">$</small>
-                                                        5,456
+                                                        {kpi.average_speed} mph
                                                     </div>
                                                     <div className="ml-auto">
                                                         <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">
@@ -223,14 +264,14 @@ export default class LocationPage extends Component {
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading">
-                                            Expenses
+                                            Current Elevation
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4 text-danger">
                                                         <small className="opacity-5 text-muted">$</small>
-                                                        4,764
+                                                        {kpi.total_climb} feet
                                                     </div>
                                                     <div className="ml-auto">
                                                         <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">
@@ -254,7 +295,7 @@ export default class LocationPage extends Component {
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading">
-                                            Spendings
+                                            Current Wind
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
@@ -264,7 +305,7 @@ export default class LocationPage extends Component {
                                                             <FontAwesomeIcon icon={faAngleDown} />
                                                         </span>
                                                         <small className="opacity-5">$</small>
-                                                        1.5M
+                                                        {kpi.wind_speed} mph
                                                     </div>
                                                     <div className="ml-auto">
                                                         <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">
@@ -288,14 +329,14 @@ export default class LocationPage extends Component {
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading">
-                                            Totals
+                                            Current Heart Rate
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
                                                         <small className="opacity-5">$</small>
-                                                        31,564
+                                                        {kpi.avg_heart_rate} bpm
                                                     </div>
                                                     <div className="ml-auto">
                                                         <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">

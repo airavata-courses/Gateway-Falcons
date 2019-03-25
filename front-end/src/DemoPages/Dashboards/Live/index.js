@@ -1,4 +1,4 @@
-// TODO: UNMOUNT REMOVE TIMER INTERVAL
+// TODO: MAKE FIRST INTERVAL CALL 
 
 
 import React, { Component, Fragment } from 'react';
@@ -37,9 +37,9 @@ import MapWithMarkers from '../../MyComponents/MapContainer'
 import * as Constants from '../../../constants';
 
 import ReactTable from "react-table";
-import HeartRateChart from './HeartRateChart';
-import ElevationChart from './ElevationChart';
-import WindSpeedChart from './WindSpeedChart';
+
+import ReChartPanel from '../../Components/ReChartPanel';
+
 
 export default class LivePage extends Component {
 
@@ -51,8 +51,13 @@ export default class LivePage extends Component {
             map_data: [],
             weather_data: [],
             selectedMarker: false,
-            apiKey: apiKey
-            // kpi_data: [],
+            apiKey: apiKey,
+            kpi: {
+                average_speed: 0,
+                total_climb: 0,
+                wind_speed: 0,
+                avg_heart_rate: 0
+            }
         };
     }
 
@@ -136,13 +141,24 @@ export default class LivePage extends Component {
                         weather_data.push(newWeatherObj);
 
                     });
-                    console.log(weather_data)
+                    // console.log(weather_data)
+                    const { average_speed,
+                        total_climb,
+                        wind_speed,
+                        avg_heart_rate
+                    } = wahoo_data[wahoo_data.length - 1];
                     this.setState({
                         map_data: wahoo_data,
                         weather_data: weather_data,
+                        kpi: {
+                            average_speed,
+                            total_climb,
+                            wind_speed,
+                            avg_heart_rate
+                        }
                     })
                 }),
-            61000);
+            11000);
     }
 
     componentDidMount() {
@@ -160,8 +176,8 @@ export default class LivePage extends Component {
 
 
     render() {
-        const radius = 107;
-        const { apiKey, map_data, weather_data } = this.state;
+        // const radius = 107;
+        const { apiKey, map_data, weather_data, kpi } = this.state;
         const wahoo_data_columns = Object.keys(Constants.wahoo_data_columns).map(key => {
             return {
                 Header: key,
@@ -193,14 +209,14 @@ export default class LivePage extends Component {
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading">
-                                            Income
+                                            Current Speed
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
                                                         <small className="opacity-5">$</small>
-                                                        5,456
+                                                        {kpi.average_speed} mph
                                                     </div>
                                                     <div className="ml-auto">
                                                         <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">
@@ -221,14 +237,14 @@ export default class LivePage extends Component {
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading">
-                                            Expenses
+                                            Current Elevation
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4 text-danger">
                                                         <small className="opacity-5 text-muted">$</small>
-                                                        4,764
+                                                        {kpi.total_climb} feet
                                                     </div>
                                                     <div className="ml-auto">
                                                         <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">
@@ -252,7 +268,7 @@ export default class LivePage extends Component {
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading">
-                                            Spendings
+                                            Current Wind
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
@@ -262,7 +278,7 @@ export default class LivePage extends Component {
                                                             <FontAwesomeIcon icon={faAngleDown} />
                                                         </span>
                                                         <small className="opacity-5">$</small>
-                                                        1.5M
+                                                        {kpi.wind_speed} mph
                                                     </div>
                                                     <div className="ml-auto">
                                                         <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">
@@ -286,14 +302,14 @@ export default class LivePage extends Component {
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading">
-                                            Totals
+                                            Current Heart Rate
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
                                                         <small className="opacity-5">$</small>
-                                                        31,564
+                                                        {kpi.avg_heart_rate} bpm
                                                     </div>
                                                     <div className="ml-auto">
                                                         <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">
@@ -392,9 +408,11 @@ export default class LivePage extends Component {
                                     <CardTitle>
                                         Heart Rate
                                     </CardTitle>
-                                    <HeartRateChart
+                                    <ReChartPanel
                                         data={map_data}
-                                        attribute={"avg_heart_rate"}
+                                        chart_type={"Line"}
+                                        brush={false}
+                                        first_attr={"avg_heart_rate"}
                                     />
                                 </CardBody>
                             </Card>
@@ -405,9 +423,11 @@ export default class LivePage extends Component {
                                     <CardTitle>
                                         Elevation
                                     </CardTitle>
-                                    <ElevationChart
+                                    <ReChartPanel
                                         data={map_data}
-                                        attribute={"total_climb"}
+                                        chart_type={"Line"}
+                                        brush={false}
+                                        first_attr={"total_climb"}
                                     />
                                 </CardBody>
                             </Card>
@@ -418,9 +438,11 @@ export default class LivePage extends Component {
                                     <CardTitle>
                                         Wind Speed
                                     </CardTitle>
-                                    <WindSpeedChart
+                                    <ReChartPanel
                                         data={map_data}
-                                        attribute={"wind_speed"}
+                                        chart_type={"Line"}
+                                        brush={false}
+                                        first_attr={"wind_speed"}
                                     />
                                 </CardBody>
                             </Card>
