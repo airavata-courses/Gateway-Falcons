@@ -120,7 +120,7 @@ export default class AboutPage extends Component {
                                                 </div>
                                             </div>
                                             <div>
-                                                <h5 className="menu-header-title">John Rosenberg</h5>
+                                                <h5 className="menu-header-title">John Schwenck</h5>
                                                 <h6 className="menu-header-subtitle">Short profile description</h6>
                                             </div>
                                             <div className="menu-header-btn-pane pt-2">
@@ -131,19 +131,33 @@ export default class AboutPage extends Component {
                                                             onClick={() => {
                                                                 this.toggle('1');
                                                             }}
-                                                        >Tab 1</Button>
+                                                        >
+                                                        About
+                                                        </Button>
                                                         <Button color="dark"
                                                             className={classnames({ active: this.state.activeTab === '2' })}
                                                             onClick={() => {
                                                                 this.toggle('2');
                                                             }}
-                                                        >Tab 2</Button>
+                                                        >
+                                                        Story
+                                                        </Button>
                                                         <Button color="dark"
                                                             className={"" + classnames({ active: this.state.activeTab === '3' })}
                                                             onClick={() => {
                                                                 this.toggle('3');
                                                             }}
-                                                        >Tab 3</Button>
+                                                        >
+                                                        Mission
+                                                        </Button>
+                                                        <Button color="dark"
+                                                            className={"" + classnames({ active: this.state.activeTab === '3' })}
+                                                            onClick={() => {
+                                                                this.toggle('4');
+                                                            }}
+                                                        >
+                                                        Research
+                                                        </Button>
                                                     </ButtonGroup>
                                                 </div>
                                             </div>
@@ -271,6 +285,8 @@ export default class AboutPage extends Component {
                                                     and
                                                         scrambled.</p>
                                             </div>
+                                        </TabPane>
+                                        <TabPane tabId="4">
                                         </TabPane>
                                     </TabContent>
 
