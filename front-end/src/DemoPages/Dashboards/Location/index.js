@@ -68,8 +68,8 @@ export default class LocationPage extends Component {
 
     fetchMapMarkers() {
         this.intervalId = setInterval(() =>
-            // fetch(`${Constants.serverUrl}/location`, {
-            fetch(`http://localhost:3001/location`, {
+            fetch(`${Constants.serverUrl}/location`, {
+            // fetch(`http://localhost:3001/location`, {
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",
