@@ -62,7 +62,7 @@ export default class LocationPage extends Component {
     }
 
     fetchMapMarkers() {
-        setInterval(() =>
+        this.intervalId = setInterval(() =>
             // fetch(`${Constants.serverUrl}/location`, {
             fetch(`http://localhost:3001/location`, {
                 headers: {
@@ -147,11 +147,15 @@ export default class LocationPage extends Component {
                         weather_data: weather_data,
                     })
                 }),
-            10500);
+            61000);
     }
 
     componentDidMount() {
         this.fetchMapMarkers();
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.intervalId);
     }
 
     render() {

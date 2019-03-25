@@ -57,7 +57,7 @@ export default class LivePage extends Component {
     }
 
     fetchMapMarkers() {
-        setInterval(() =>
+        this.intervalId = setInterval(() =>
             // fetch(`${Constants.serverUrl}/location`, {
             fetch(`http://localhost:3001/location`, {
                 headers: {
@@ -136,17 +136,21 @@ export default class LivePage extends Component {
                         weather_data.push(newWeatherObj);
 
                     });
-                    // console.log(weather_data)
+                    console.log(weather_data)
                     this.setState({
                         map_data: wahoo_data,
                         weather_data: weather_data,
                     })
                 }),
-            10500);
+            61000);
     }
 
     componentDidMount() {
         this.fetchMapMarkers();
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.intervalId);
     }
 
     handleClick = (marker, event) => {

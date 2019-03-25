@@ -56,6 +56,9 @@ import PageTitle from '../../../Layout/AppMain/PageTitle';
 
 import Select from 'react-select';
 
+// import BrushChart from './BrushChart';
+import ReChartPanel from '../../Components/ReChartPanel'
+
 const options = [
     { value: '1', label: 'Today' },
     { value: '2', label: 'Last Week' },
@@ -147,10 +150,10 @@ export default class DietDashboard extends Component {
             data: makeData(),
             dropdownOpen: false,
             selectedOption: null,
-
             diet_data: [],
             today: {},
-            yesterday: {},
+            // yesterday: {},
+            last_meals: []
         };
         this.toggle = this.toggle.bind(this);
 
@@ -192,10 +195,12 @@ export default class DietDashboard extends Component {
                     };
                 })
                 console.log(_data);
+                const len = res.length;
                 this.setState({
                     diet_data: _data,
-                    today: _data[res.length - 1],
-                    yesterday: _data[res.length - 2]
+                    today: _data[len - 1],
+                    yesterday: _data[len - 2],
+                    last_meals: _data.slice(len - 10, len - 1)
                 })
             })
     }
@@ -216,8 +221,22 @@ export default class DietDashboard extends Component {
 
     render() {
         const { selectedOption } = this.state;
-        const { data, diet_data } = this.state;
-
+        const { data, diet_data,
+            today: {
+                calories,
+                carbohydrates,
+                fat,
+                protein,
+                sodium,
+                sugar
+            }
+        } = this.state;
+        console.log(calories,
+            carbohydrates,
+            fat,
+            protein,
+            sodium,
+            sugar);
         const settings = {
             className: "",
             centerMode: false,
@@ -281,15 +300,15 @@ export default class DietDashboard extends Component {
                                                 Fats
                                             </div>
                                             <div className="widget-numbers">
-                                                1,7M
+                                                {fat}
                                             </div>
-                                            <div className="widget-description opacity-8 text-focus">
+                                            {/* <div className="widget-description opacity-8 text-focus">
                                                 <div className="d-inline text-danger pr-1">
                                                     <FontAwesomeIcon icon={faAngleDown} />
                                                     <span className="pl-1">54.1%</span>
                                                 </div>
                                                 less earnings
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                     <div className="divider m-0 d-md-none d-sm-block" />
@@ -305,23 +324,24 @@ export default class DietDashboard extends Component {
                                                 Carbs
                                             </div>
                                             <div className="widget-numbers">
-                                                <CountUp start={0}
-                                                    end={8.7}
+                                                {carbohydrates}
+                                                {/* <CountUp start={0}
+                                                    end={carbohydrates}
                                                     separator=""
                                                     decimals={0}
                                                     decimal=","
                                                     prefix=""
                                                     useEasing={false}
                                                     suffix="M"
-                                                    duration="5" />
+                                                    duration="5" /> */}
                                             </div>
-                                            <div className="widget-description opacity-8 text-focus">
+                                            {/* <div className="widget-description opacity-8 text-focus">
                                                 Grow Rate:
                                                 <span className="text-info pl-1">
                                                     <FontAwesomeIcon icon={faAngleDown} />
                                                     <span className="pl-1">14.1%</span>
                                                 </span>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                     <div className="divider m-0 d-md-none d-sm-block" />
@@ -337,7 +357,7 @@ export default class DietDashboard extends Component {
                                                 Protein
                                             </div>
                                             <div className="widget-numbers text-success">
-                                                <CountUp start={0}
+                                                {/* <CountUp start={0}
                                                     end={563}
                                                     separator=""
                                                     decimals={0}
@@ -345,15 +365,16 @@ export default class DietDashboard extends Component {
                                                     prefix="$"
                                                     useEasing={false}
                                                     suffix=""
-                                                    duration="7" />
+                                                    duration="7" /> */}
+                                                {protein}
                                             </div>
-                                            <div className="widget-description text-focus">
+                                            {/* <div className="widget-description text-focus">
                                                 Increased by
                                                 <span className="text-warning pl-1">
                                                     <FontAwesomeIcon icon={faAngleUp} />
                                                     <span className="pl-1">7.35%</span>
                                                 </span>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                 </Col>
@@ -380,10 +401,10 @@ export default class DietDashboard extends Component {
                                         <div
                                             className="card-header-title font-size-lg text-capitalize font-weight-normal">
                                             <i className="header-icon lnr-cloud-download icon-gradient bg-happy-itmeo"> </i>
-                                            Technical Support
+                                            Charts
                                         </div>
 
-                                        <div className="btn-actions-pane-right text-capitalize actions-icon-btn">
+                                        {/* <div className="btn-actions-pane-right text-capitalize actions-icon-btn">
                                             <UncontrolledButtonDropdown>
                                                 <DropdownToggle className="btn-icon btn-icon-only" color="link">
                                                     <i className="pe-7s-menu btn-icon-wrapper" />
@@ -411,14 +432,14 @@ export default class DietDashboard extends Component {
                                                     </div>
                                                 </DropdownMenu>
                                             </UncontrolledButtonDropdown>
-                                        </div>
+                                        </div> */}
                                     </CardHeader>
                                     <CardBody className="p-0">
                                         <div className="p-1 slick-slider-sm mx-auto">
                                             <Slider {...settings}>
                                                 <div>
                                                     <div className="widget-chart widget-chart2 text-left p-0">
-                                                        <div className="widget-chat-wrapper-outer">
+                                                        {/* <div className="widget-chat-wrapper-outer">
                                                             <div className="widget-chart-content widget-chart-content-lg">
                                                                 <div className="widget-chart-flex">
                                                                     <div
@@ -468,55 +489,22 @@ export default class DietDashboard extends Component {
                                                                     </AreaChart>
                                                                 </ResponsiveContainer>
                                                             </div>
-                                                        </div>
+                                                        </div> */}
+                                                        <ReChartPanel
+                                                            data={diet_data}
+                                                            chart_type={"Brush"}
+                                                            first_attr={"protein"}
+                                                            second_attr={"carbohydrates"}
+                                                            third_attr={"fat"}
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <div className="widget-chart widget-chart2 text-left p-0">
-                                                        <div className="widget-chat-wrapper-outer">
-                                                            <div className="widget-chart-content widget-chart-content-lg">
-                                                                <div className="widget-chart-flex">
-                                                                    <div
-                                                                        className="widget-title opacity-5 text-muted text-uppercase">
-                                                                        Helpdesk Tickets
-                                                                    </div>
-                                                                </div>
-                                                                <div className="widget-numbers">
-                                                                    <div className="widget-chart-flex">
-                                                                        <div>
-                                                                            <span className="text-warning">
-                                                                                34
-                                                                        </span>
-                                                                        </div>
-                                                                        <div className="widget-title ml-2 font-size-lg font-weight-normal text-dark">
-                                                                            <span className="opacity-5 text-muted pl-2 pr-1">
-                                                                                5%
-                                                                        </span>
-                                                                            increase
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                className="widget-chart-wrapper he-auto opacity-10 m-0">
-                                                                <ResponsiveContainer height={140} width='100%'>
-                                                                    <AreaChart data={data552}
-                                                                        margin={{
-                                                                            top: -15,
-                                                                            right: 0,
-                                                                            left: 0,
-                                                                            bottom: 0
-                                                                        }}>
-                                                                        <Area type='monotoneX' dataKey='uv'
-                                                                            stroke='var(--warning)'
-                                                                            strokeWidth='4'
-                                                                            fill='var(--warning)'
-                                                                            fillOpacity='.2' />
-                                                                    </AreaChart>
-                                                                </ResponsiveContainer>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <ReChartPanel
+                                                        data={diet_data}
+                                                        chart_type={"Line"}
+                                                        first_attr={"calories"}
+                                                    />
                                                 </div>
                                                 <div>
                                                     <div className="widget-chart widget-chart2 text-left p-0">
@@ -566,7 +554,7 @@ export default class DietDashboard extends Component {
                                             </Slider>
                                         </div>
                                         <h6 className="text-muted text-uppercase font-size-md opacity-5 pl-3 pr-3 pb-1 font-weight-normal">
-                                            Sales Progress
+                                            What the heck goes here
                                         </h6>
                                         <ListGroup flush>
                                             <ListGroupItem className="p-3 bg-transparent">
@@ -575,16 +563,16 @@ export default class DietDashboard extends Component {
                                                         <div className="widget-content-wrapper">
                                                             <div className="widget-content-left">
                                                                 <div className="widget-heading">
-                                                                    Total Orders
+                                                                    Total Calories
                                                                 </div>
                                                                 <div className="widget-subheading">
-                                                                    Last year expenses
+                                                                    consumed today
                                                                 </div>
                                                             </div>
                                                             <div className="widget-content-right">
                                                                 <div className="widget-numbers text-success">
-                                                                    <small>$</small>
-                                                                    1896
+                                                                    {/* <small>$</small> */}
+                                                                    {calories}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -592,13 +580,13 @@ export default class DietDashboard extends Component {
                                                             <Progress
                                                                 className="progress-bar-sm progress-bar-animated-alt"
                                                                 color="primary"
-                                                                value="43" />
+                                                                value={(calories / 3000) * 100} />
                                                             <div className="progress-sub-label">
                                                                 <div className="sub-label-left">
-                                                                    YoY Growth
+                                                                    Current calories out of 3000
                                                                 </div>
                                                                 <div className="sub-label-right">
-                                                                    100%
+                                                                    {(calories / 3000) * 100}%
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -619,7 +607,7 @@ export default class DietDashboard extends Component {
                                             <i className="header-icon lnr-lighter icon-gradient bg-amy-crisp"> </i>
                                             Timeline Example
                                         </div>
-                                        <div className="btn-actions-pane-right text-capitalize actions-icon-btn">
+                                        {/* <div className="btn-actions-pane-right text-capitalize actions-icon-btn">
                                             <UncontrolledButtonDropdown>
                                                 <DropdownToggle className="btn-icon btn-icon-only" color="link">
                                                     <i className="pe-7s-menu btn-icon-wrapper" />
@@ -647,7 +635,7 @@ export default class DietDashboard extends Component {
                                                     </div>
                                                 </DropdownMenu>
                                             </UncontrolledButtonDropdown>
-                                        </div>
+                                        </div> */}
                                     </CardHeader>
                                     <div className="scroll-area-lg">
                                         <PerfectScrollbar>
@@ -835,22 +823,22 @@ export default class DietDashboard extends Component {
                                                         <div className="widget-content-wrapper">
                                                             <div className="widget-content-left">
                                                                 <div className="widget-heading">
-                                                                    Total Orders
+                                                                    Calories
                                                                 </div>
                                                                 <div className="widget-subheading">
-                                                                    Last year expenses
+                                                                    Calories
                                                                 </div>
                                                             </div>
                                                             <div className="widget-content-right">
                                                                 <div className="widget-numbers text-success">
-                                                                    1896
+                                                                    {calories}
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </ListGroupItem>
-                                            <ListGroupItem className="bg-transparent">
+                                            {/* <ListGroupItem className="bg-transparent">
                                                 <div className="widget-content p-0">
                                                     <div className="widget-content-outer">
                                                         <div className="widget-content-wrapper">
@@ -870,7 +858,7 @@ export default class DietDashboard extends Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </ListGroupItem>
+                                            </ListGroupItem> */}
                                         </ListGroup>
                                     </Col>
                                     <Col md="12" lg="4">
@@ -881,22 +869,22 @@ export default class DietDashboard extends Component {
                                                         <div className="widget-content-wrapper">
                                                             <div className="widget-content-left">
                                                                 <div className="widget-heading">
-                                                                    Followers
+                                                                    Sugar
                                                                 </div>
                                                                 <div className="widget-subheading">
-                                                                    People Interested
+                                                                    gimme some suga
                                                                 </div>
                                                             </div>
                                                             <div className="widget-content-right">
                                                                 <div className="widget-numbers text-danger">
-                                                                    45,9%
+                                                                    {sugar}
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </ListGroupItem>
-                                            <ListGroupItem className="bg-transparent">
+                                            {/* <ListGroupItem className="bg-transparent">
                                                 <div className="widget-content p-0">
                                                     <div className="widget-content-outer">
                                                         <div className="widget-content-wrapper">
@@ -916,7 +904,7 @@ export default class DietDashboard extends Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </ListGroupItem>
+                                            </ListGroupItem> */}
                                         </ListGroup>
                                     </Col>
                                     <Col md="12" lg="4">
@@ -927,22 +915,22 @@ export default class DietDashboard extends Component {
                                                         <div className="widget-content-wrapper">
                                                             <div className="widget-content-left">
                                                                 <div className="widget-heading">
-                                                                    Total Orders
+                                                                    Sodium
                                                                 </div>
                                                                 <div className="widget-subheading">
-                                                                    Last year expenses
+                                                                    i like it salty
                                                                 </div>
                                                             </div>
                                                             <div className="widget-content-right">
                                                                 <div className="widget-numbers text-success">
-                                                                    1896
+                                                                    {sodium}
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </ListGroupItem>
-                                            <ListGroupItem className="bg-transparent">
+                                            {/* <ListGroupItem className="bg-transparent">
                                                 <div className="widget-content p-0">
                                                     <div className="widget-content-outer">
                                                         <div className="widget-content-wrapper">
@@ -962,7 +950,7 @@ export default class DietDashboard extends Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </ListGroupItem>
+                                            </ListGroupItem> */}
                                         </ListGroup>
                                     </Col>
                                 </Row>
