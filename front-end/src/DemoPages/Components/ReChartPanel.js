@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine,
     BarChart, Bar, Brush, PieChart, Pie, Sector, ScatterChart, Scatter,
-    ComposedChart, ResponsiveContainer
+    ComposedChart, ResponsiveContainer, AreaChart, Area
 } from 'recharts';
 
 // http://recharts.org/en-US/examples/LineChartWithReferenceLines
@@ -44,11 +44,7 @@ class ReChartPanel extends Component {
         }
     }
 
-    renderChart(chart_type, first_attr, second_attr, third_attr, data) {
-
-        let ret = (
-            <div />
-        );
+    renderChart(chart_type, first_attr, second_attr, third_attr, data, brush) {
 
         if (chart_type === "Line") {
 
@@ -92,14 +88,14 @@ class ReChartPanel extends Component {
                     stroke="#8884d8"
                 />
                 {
-                    second_attr ? 
-                    <Line type="monotone"
-                        dataKey={`${second_attr}`}
-                        name={(second_attr === "carbohydrates") ? "carbs" : second_attr}
-                        stroke="#82ca9d"
-                    />
-                    :
-                    <div />
+                    second_attr ?
+                        <Line type="monotone"
+                            dataKey={`${second_attr}`}
+                            name={(second_attr === "carbohydrates") ? "carbs" : second_attr}
+                            stroke="#82ca9d"
+                        />
+                        :
+                        <div />
                 }
                 <Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px' }} />
             </LineChart>
@@ -121,7 +117,11 @@ class ReChartPanel extends Component {
                     <Tooltip />
                     <Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px' }} />
                     <ReferenceLine y={0} stroke="#000" />
-                    <Brush dataKey="date" height={30} stroke="#8884d8" />
+                    {/* {
+                        (brush)
+                            ? <Brush dataKey="date" height={30} stroke="#8884d8" />
+                            : <div />
+                    } */}
                     <Bar
                         dataKey={`${first_attr}`}
                         fill="#8884d8"
@@ -181,11 +181,29 @@ class ReChartPanel extends Component {
                     <Tooltip />
                 </PieChart>
             );
+        } else if (chart_type === "Area") {
+            return (
+                <AreaChart
+                    width={500}
+                    height={400}
+                    data={data}
+                    margin={{
+                        top: 10, right: 30, left: 0, bottom: 0,
+                    }}
+                >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="date" />
+                    <YAxis />
+                    <Tooltip />
+                    <Area type="monotone" dataKey={first_attr} stroke="#8884d8" fill="#8884d8" />
+                </AreaChart>
+            );
         }
     }
 
     render() {
         const {
+            brush,
             chart_type,
             first_attr,
             second_attr,
@@ -195,7 +213,7 @@ class ReChartPanel extends Component {
         } = this.props;
         return (
             <ResponsiveContainer width='100%' aspect={4.0 / 3.0}>
-                {this.renderChart(chart_type, first_attr, second_attr, third_attr, data)}
+                {this.renderChart(chart_type, first_attr, second_attr, third_attr, data, brush)}
             </ResponsiveContainer>
         );
 

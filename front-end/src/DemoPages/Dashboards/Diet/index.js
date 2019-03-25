@@ -160,8 +160,8 @@ export default class DietDashboard extends Component {
     }
 
     getAndSetDietData() {
-        fetch(`${Constants.serverUrl}/diet`, {
-        // fetch('http://localhost:3001/diet', {
+        // fetch(`${Constants.serverUrl}/diet`, {
+        fetch('http://localhost:3001/diet', {
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",
@@ -197,7 +197,7 @@ export default class DietDashboard extends Component {
                 console.log(_data);
                 const len = res.length;
                 this.setState({
-                    diet_data: _data,
+                    diet_data: _data.reverse(),
                     today: _data[len - 1],
                     yesterday: _data[len - 2],
                     last_meals: _data.slice(len - 10, len - 1)
@@ -368,13 +368,6 @@ export default class DietDashboard extends Component {
                                                     duration="7" /> */}
                                                 {protein}
                                             </div>
-                                            {/* <div className="widget-description text-focus">
-                                                Increased by
-                                                <span className="text-warning pl-1">
-                                                    <FontAwesomeIcon icon={faAngleUp} />
-                                                    <span className="pl-1">7.35%</span>
-                                                </span>
-                                            </div> */}
                                         </div>
                                     </div>
                                 </Col>
@@ -404,95 +397,16 @@ export default class DietDashboard extends Component {
                                             Charts
                                         </div>
 
-                                        {/* <div className="btn-actions-pane-right text-capitalize actions-icon-btn">
-                                            <UncontrolledButtonDropdown>
-                                                <DropdownToggle className="btn-icon btn-icon-only" color="link">
-                                                    <i className="pe-7s-menu btn-icon-wrapper" />
-                                                </DropdownToggle>
-                                                <DropdownMenu className="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link">
-                                                    <DropdownItem header>Header</DropdownItem>
-                                                    <DropdownItem>
-                                                        <i className="dropdown-icon lnr-inbox"> </i>
-                                                        <span>Menus</span>
-                                                    </DropdownItem>
-                                                    <DropdownItem>
-                                                        <i className="dropdown-icon lnr-file-empty"> </i>
-                                                        <span>Settings</span>
-                                                    </DropdownItem>
-                                                    <DropdownItem>
-                                                        <i className="dropdown-icon lnr-book"> </i>
-                                                        <span>Actions</span>
-                                                    </DropdownItem>
-                                                    <DropdownItem divider />
-                                                    <div className="p-3 text-right">
-                                                        <Button className="mr-2 btn-shadow btn-sm" color="link">View
-                                                            Details</Button>
-                                                        <Button className="mr-2 btn-shadow btn-sm"
-                                                            color="primary">Action</Button>
-                                                    </div>
-                                                </DropdownMenu>
-                                            </UncontrolledButtonDropdown>
-                                        </div> */}
                                     </CardHeader>
                                     <CardBody className="p-0">
                                         <div className="p-1 slick-slider-sm mx-auto">
                                             <Slider {...settings}>
                                                 <div>
                                                     <div className="widget-chart widget-chart2 text-left p-0">
-                                                        {/* <div className="widget-chat-wrapper-outer">
-                                                            <div className="widget-chart-content widget-chart-content-lg">
-                                                                <div className="widget-chart-flex">
-                                                                    <div
-                                                                        className="widget-title opacity-5 text-muted text-uppercase">
-                                                                        New accounts since 2018
-                                                                    </div>
-                                                                </div>
-                                                                <div className="widget-numbers">
-                                                                    <div className="widget-chart-flex">
-                                                                        <div>
-                                                                            <span className="opacity-10 text-success pr-2">
-                                                                                <FontAwesomeIcon icon={faAngleUp} />
-                                                                            </span>
-                                                                            <CountUp start={0}
-                                                                                end={78}
-                                                                                separator=""
-                                                                                decimals={0}
-                                                                                decimal=""
-                                                                                prefix=""
-                                                                                duration="15" />
-                                                                            <small className="opacity-5 pl-1">%</small>
-                                                                        </div>
-                                                                        <div
-                                                                            className="widget-title ml-2 font-size-lg font-weight-normal text-muted">
-                                                                            <span className="text-success pl-2">
-                                                                                +14
-                                                                        </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                className="widget-chart-wrapper he-auto opacity-10 m-0">
-                                                                <ResponsiveContainer height={140} width='100%'>
-                                                                    <AreaChart data={data55}
-                                                                        margin={{
-                                                                            top: -15,
-                                                                            right: 0,
-                                                                            left: 0,
-                                                                            bottom: 0
-                                                                        }}>
-                                                                        <Area type='monotoneX' dataKey='uv'
-                                                                            stroke='var(--success)'
-                                                                            strokeWidth='4'
-                                                                            fill='var(--success)'
-                                                                            fillOpacity='.2' />
-                                                                    </AreaChart>
-                                                                </ResponsiveContainer>
-                                                            </div>
-                                                        </div> */}
                                                         <ReChartPanel
                                                             data={diet_data}
                                                             chart_type={"Brush"}
+                                                            brush={false}
                                                             first_attr={"protein"}
                                                             second_attr={"carbohydrates"}
                                                             third_attr={"fat"}
@@ -507,49 +421,11 @@ export default class DietDashboard extends Component {
                                                     />
                                                 </div>
                                                 <div>
-                                                    <div className="widget-chart widget-chart2 text-left p-0">
-                                                        <div className="widget-chat-wrapper-outer">
-                                                            <div className="widget-chart-content widget-chart-content-lg">
-                                                                <div className="widget-chart-flex">
-                                                                    <div
-                                                                        className="widget-title opacity-5 text-muted text-uppercase">
-                                                                        Last Year Total Sales
-                                                                    </div>
-                                                                </div>
-                                                                <div className="widget-numbers">
-                                                                    <div className="widget-chart-flex">
-                                                                        <div>
-                                                                            <small className="opacity-3 pr-1">$</small>
-                                                                            <span>
-                                                                                629
-                                                                            </span>
-                                                                            <span className="text-primary pl-3">
-                                                                                <FontAwesomeIcon icon={faAngleDown} />
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                className="widget-chart-wrapper he-auto opacity-10 m-0">
-                                                                <ResponsiveContainer height={140} width='100%'>
-                                                                    <AreaChart data={data553}
-                                                                        margin={{
-                                                                            top: -15,
-                                                                            right: 0,
-                                                                            left: 0,
-                                                                            bottom: 0
-                                                                        }}>
-                                                                        <Area type='monotoneX' dataKey='uv'
-                                                                            stroke='var(--primary)'
-                                                                            strokeWidth='4'
-                                                                            fill='var(--primary)'
-                                                                            fillOpacity='.2' />
-                                                                    </AreaChart>
-                                                                </ResponsiveContainer>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                        <ReChartPanel
+                                                            data={diet_data}
+                                                            chart_type={"Area"}
+                                                            first_attr={"water"}
+                                                        />
                                                 </div>
                                             </Slider>
                                         </div>
@@ -607,35 +483,6 @@ export default class DietDashboard extends Component {
                                             <i className="header-icon lnr-lighter icon-gradient bg-amy-crisp"> </i>
                                             Timeline Example
                                         </div>
-                                        {/* <div className="btn-actions-pane-right text-capitalize actions-icon-btn">
-                                            <UncontrolledButtonDropdown>
-                                                <DropdownToggle className="btn-icon btn-icon-only" color="link">
-                                                    <i className="pe-7s-menu btn-icon-wrapper" />
-                                                </DropdownToggle>
-                                                <DropdownMenu className="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link">
-                                                    <DropdownItem header>Header</DropdownItem>
-                                                    <DropdownItem>
-                                                        <i className="dropdown-icon lnr-inbox"> </i>
-                                                        <span>Menus</span>
-                                                    </DropdownItem>
-                                                    <DropdownItem>
-                                                        <i className="dropdown-icon lnr-file-empty"> </i>
-                                                        <span>Settings</span>
-                                                    </DropdownItem>
-                                                    <DropdownItem>
-                                                        <i className="dropdown-icon lnr-book"> </i>
-                                                        <span>Actions</span>
-                                                    </DropdownItem>
-                                                    <DropdownItem divider />
-                                                    <div className="p-3 text-right">
-                                                        <Button className="mr-2 btn-shadow btn-sm" color="link">View
-                                                            Details</Button>
-                                                        <Button className="mr-2 btn-shadow btn-sm"
-                                                            color="primary">Action</Button>
-                                                    </div>
-                                                </DropdownMenu>
-                                            </UncontrolledButtonDropdown>
-                                        </div> */}
                                     </CardHeader>
                                     <div className="scroll-area-lg">
                                         <PerfectScrollbar>
