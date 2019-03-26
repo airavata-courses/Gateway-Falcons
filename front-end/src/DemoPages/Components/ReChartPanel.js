@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { Col } from 'react-bootstrap';
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine,
     BarChart, Bar, Brush, PieChart, Pie, Sector, ScatterChart, Scatter,

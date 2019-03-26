@@ -8,40 +8,14 @@
 
 // TODO: TRIm the lat / lon
 
-import React, { Component, Fragment } from 'react';
-import {
-    Row, Col,
-    Button,
-    Nav,
-    NavItem,
-    Card, CardBody, CardTitle,
-    NavLink,
-    Table,
-    CardHeader,
-    CardFooter,
-    ButtonGroup,
-    Popover, PopoverBody,
-    ListGroupItem,
-    ListGroup,
-} from 'reactstrap';
-
-import PageTitle from '../../../Layout/AppMain/PageTitle';
-
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import MapWithMarkers from '../../MyComponents/MapContainer'
-
-import * as Constants from '../../../constants';
-
+import React, { Component, Fragment } from 'react';
 import ReactTable from "react-table";
-
-import {
-    faAngleUp,
-    faAngleDown,
-} from '@fortawesome/free-solid-svg-icons';
-
-
-// import KPI from './KPI'
+import { Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader, Col, Row } from 'reactstrap';
+import * as Constants from '../../../constants';
+import PageTitle from '../../../Layout/AppMain/PageTitle';
+import MapWithMarkers from '../../MyComponents/MapContainer';
 
 export default class LocationPage extends Component {
     constructor() {

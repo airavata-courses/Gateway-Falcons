@@ -1,65 +1,16 @@
+import { faAngleUp, faCog, faCommentDots } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classnames from 'classnames';
 import React, { Component, Fragment } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-
-import PageTitleAlt3 from '../../../Layout/AppMain/PageTitleAlt3';
-
-import Chart from 'react-apexcharts'
-import ReactTable from "react-table";
-
-import IncomeReport from '../Commerce/Examples/Components/IncomeReport';
-import IncomeReport2 from '../Commerce/Examples/Components/IncomeReport2';
-
-import bg1 from '../../../assets/utils/images/dropdown-header/abstract1.jpg';
-
-import Column from './Column';
-import Bar2 from './Bar';
-
-import classnames from 'classnames';
-
-import {
-    Row, Col,
-    Button,
-    CardHeader,
-    Table,
-    ButtonGroup,
-    Nav,
-    NavItem,
-    NavLink,
-    TabContent,
-    TabPane,
-    Popover,
-    PopoverBody,
-    Progress,
-    Card,
-    CardBody,
-    CardFooter,
-    ListGroup,
-    ListGroupItem
-} from 'reactstrap';
-
-import * as Constants from '../../../constants';
-
-
-import {
-    ResponsiveContainer,
-    BarChart,
-    Bar
-} from 'recharts';
-
 import CountUp from 'react-countup';
-
-import {
-    faAngleUp,
-    faAngleDown,
-    faCommentDots,
-    faBullhorn,
-    faBusinessTime,
-    faCog
-} from '@fortawesome/free-solid-svg-icons';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import ReChartPanel from '../../Components/ReChartPanel'
+import ReactTable from "react-table";
+import { Button, Card, CardBody, CardFooter, CardHeader, Col, Nav, NavItem, NavLink, Row, TabContent, TabPane } from 'reactstrap';
+import * as Constants from '../../../constants';
+import PageTitleAlt3 from '../../../Layout/AppMain/PageTitleAlt3';
+import ReChartPanel from '../../Components/ReChartPanel';
+import IncomeReport from '../Commerce/Examples/Components/IncomeReport';
+import moment from 'moment'
 
 export default class FitnessDashboard extends Component {
 
@@ -122,18 +73,18 @@ export default class FitnessDashboard extends Component {
                 // console.log(sleep[0].efficiency, totalMinutesAsleep, totalTimeInBed, stages)
                 const sleep_table_data = [];
                 let sleep_chart_data = records.map(record => {
-                    const { dateOfSleep, data, minutesAsleep, minutesToFallAsleep, startTime, endTime, summary } = record;
+                    const { dateOfSleep, minutesAsleep, startTime, endTime, summary } = record;
                     const { totalTimeInBed, stages } = summary;
                     const { deep, light, rem, wake } = stages;
-                    // console.log(dateOfSleep, totalTimeInBed, deep, light, rem, wake)
+
+                    console.log(startTime, endTime)
                     sleep_table_data.push({
                         dateOfSleep,
-                        startTime,
-                        endTime,
+                        startTime: moment(startTime).format('hh:mm:ss'),
+                        endTime: moment(endTime).format('hh:mm:ss'),
                         efficiency,
                         totalTimeInBed,
                         minutesAsleep,
-                        minutesToFallAsleep,
                         light,
                         deep,
                         rem,
@@ -243,7 +194,7 @@ export default class FitnessDashboard extends Component {
                 //     wind_speed,
                 //     avg_heart_rate
                 // } = wahoo_data[wahoo_data.length - 1];
-                console.log('wahoo_data', wahoo_data)
+                // console.log('wahoo_data', wahoo_data)
                 this.setState({
                     wahoo_data,
                     // kpi: {
@@ -277,7 +228,7 @@ export default class FitnessDashboard extends Component {
             }
         })
 
-        console.log('wahoo_data_columns', wahoo_data_columns)
+        // console.log('wahoo_data_columns', wahoo_data_columns)
 
         const fitbit_data_columns = Object.keys(Constants.fitbit_data_columns).map(key => {
             return {

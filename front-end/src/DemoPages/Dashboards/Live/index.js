@@ -1,45 +1,15 @@
 // TODO: MAKE FIRST INTERVAL CALL 
 
-
-import React, { Component, Fragment } from 'react';
-import {
-    Row, Col,
-    Button,
-    Nav,
-    NavItem,
-    Card, CardBody, CardTitle,
-    NavLink,
-    Table,
-    CardHeader,
-    CardFooter,
-    ButtonGroup,
-    Popover, PopoverBody,
-    ListGroupItem,
-    ListGroup,
-} from 'reactstrap';
-
-import PageTitle from '../../../Layout/AppMain/PageTitle';
-
-/** TODO: DELETE
- * 
- */
-import LiveStream from './LiveStream';
-
-import {
-    faAngleUp,
-    faAngleDown,
-} from '@fortawesome/free-solid-svg-icons';
-
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import MapWithMarkers from '../../MyComponents/MapContainer'
-
-import * as Constants from '../../../constants';
-
+import React, { Component, Fragment } from 'react';
 import ReactTable from "react-table";
-
+import { Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader, CardTitle, Col, Row, Table } from 'reactstrap';
+import * as Constants from '../../../constants';
+import PageTitle from '../../../Layout/AppMain/PageTitle';
 import ReChartPanel from '../../Components/ReChartPanel';
-
+import MapWithMarkers from '../../MyComponents/MapContainer';
+import LiveStream from './LiveStream';
 
 export default class LivePage extends Component {
 
@@ -64,7 +34,7 @@ export default class LivePage extends Component {
     fetchMapMarkers() {
         this.intervalId = setInterval(() =>
             fetch(`${Constants.serverUrl}/location`, {
-            // fetch(`http://localhost:3001/location`, {
+                // fetch(`http://localhost:3001/location`, {
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",

@@ -2,20 +2,9 @@
 const serverUrl = 'http://149.165.170.57:3001';
 const _devServerUrl = 'http://localhost:3001';
 const imageUrl = 'http://localhost:8081';
-// const imageUrl = 'http://localhost:8081';
 const zookeeperurl = 'http://149.165.157.75:5000';
 const basePath = 'falcons/services';
 const smugugUrl = 'https://api.smugmug.com/api/v2';
-
-// const diet_data_columns = [
-//     'Date',
-//     'Calories',
-//     "Carbohydrates",
-//     "Fat",
-//     "Protein",
-//     "Sodium",
-//     "Sugar"
-// ];
 
 const diet_data_columns = {
     'Date': 'date',
@@ -63,46 +52,7 @@ const diet_data_columns = {
 //     'Description'
 // ];
 
-const eeg_data_columns = [
-    'date',
-    'heart-rate',
-    'something',
-    'something else'
-];
-
-
-// const wahoo_data_columns = [
-//     // 'Id',
-//     'Date',
-//     // 'Start Time',
-//     // 'End Time',
-//     "Latitude",
-//     "Longitude",
-//     "Daily Distance",
-//     // "Total Distance",
-//     "Avg Speed",
-//     "Max Speed",
-//     "Avg Cadence",
-//     "Max Cadence",
-//     "Max Elevation",
-//     // "Min Elevation",
-//     "Total Ascent",
-//     "Total Descent",
-//     "Gradient",
-
-//     "Wind Deg",
-//     "Wind Speed",
-//     "Atmospheric Pressure",
-//     "Visibility",
-//     "Temperature",
-//     "Weather",
-//     "Weather Desc.",
-//     "Humidity",
-//     // "Precipitation (Last 24 Hrs)",
-// ];
-
 const wahoo_data_columns = {
-    // 'Id',
     'Date': "workout_date_time",
     "Latitude": "latitude",
     "Longitude": "longitude",
@@ -116,14 +66,6 @@ const wahoo_data_columns = {
     "Total Ascent": "total_climb",
     "Total Descent": "total_descent",
     "Gradient": "max_grade",
-    // "Wind Deg": "wind_deg",
-    // "Wind Speed": "wind_speed",
-    // "Atmospheric Pressure": "pressure",
-    // "Visibility": "visibility",
-    // "Temperature": "temperature",
-    // "Weather": "weather",
-    // "Weather Desc.": "weather_desc",
-    // "Humidity": "humidity",
 };
 
 const fitbit_data_columns = {
@@ -133,7 +75,6 @@ const fitbit_data_columns = {
     "Sleep Score": "efficiency",
     "Total Time in Bed": "totalTimeInBed",
     "Total Time Asleep": "minutesAsleep",
-    "Minutes to Fall Asleep": "minutesToFallAsleep",
     "Light": "light",
     "Deep": "deep",
     "REM": "rem",
@@ -152,7 +93,6 @@ const weather_data_columns = {
     "Humidity": "humidity",
 };
 
-
 module.exports = {
     weather_data_columns,
     wahoo_data_columns, 
@@ -164,6 +104,4 @@ module.exports = {
     basePath,
     smugugUrl,
     _devServerUrl
-    // fitness_data_columns,
-    // location_data_columns,
 }
