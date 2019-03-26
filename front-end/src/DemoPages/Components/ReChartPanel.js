@@ -41,7 +41,7 @@ class ReChartPanel extends Component {
         }
     }
 
-    renderChart(chart_type, first_attr, second_attr, third_attr, data, brush) {
+    renderChart(chart_type, first_attr, second_attr, third_attr, fourth_attr, composed_line_attr, data, brush) {
 
         if (chart_type === "Line") {
 
@@ -154,14 +154,24 @@ class ReChartPanel extends Component {
             );
         } else if (chart_type === "Composed") {
             return (
-                <ComposedChart layout="vertical" width={600} height={400} data={data}
-                    margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+                <ComposedChart width={400} height={400} data={data}
+                >
                     <CartesianGrid stroke='#f5f5f5' />
-                    <XAxis type="number" />
-                    <YAxis dataKey="name" type="category" />
+                    <XAxis dataKey="date" />
+                    <YAxis yAxisId="left" />
+                    <YAxis yAxisId="right" orientation="right" />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey='pv' barSize={20} fill='#413ea0' />
+                    <Line type="monotone"
+                        dataKey={`${composed_line_attr}`}
+                        stroke="#8884d8"
+                        yAxisId="right"
+                    />
+                    <Bar yAxisId="left" dataKey={first_attr} barSize={20} fill='#413ea0' />
+                    <Bar yAxisId="left" dataKey={second_attr} barSize={20} fill='#413ea0' />
+                    <Bar yAxisId="left" dataKey={third_attr} barSize={20} fill='#413ea0' />
+                    <Bar yAxisId="left" dataKey={fourth_attr} barSize={20} fill='#413ea0' />
+
                 </ComposedChart>
             );
         } else if (chart_type === "Pie") {
@@ -195,6 +205,27 @@ class ReChartPanel extends Component {
                     <Area type="monotone" dataKey={first_attr} stroke="#8884d8" fill="#8884d8" />
                 </AreaChart>
             );
+        } else if (chart_type === "Bi-Line") {
+
+            return (
+                <LineChart
+                    width={500}
+                    height={400}
+                    data={data}
+                    margin={{
+                        top: 5, right: 30, left: 20, bottom: 5,
+                    }}
+                >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="timestamp" />
+                    <YAxis yAxisId="left" />
+                    <YAxis yAxisId="right" orientation="right" />
+                    <Tooltip />
+                    <Legend />
+                    <Line yAxisId="left" type="monotone" dataKey={first_attr} stroke="#8884d8"  />
+                    <Line yAxisId="right" type="monotone" dataKey={second_attr} stroke="#82ca9d" />
+                </LineChart>
+            )
         }
     }
 
@@ -205,12 +236,14 @@ class ReChartPanel extends Component {
             first_attr,
             second_attr,
             third_attr,
+            fourth_attr,
+            composed_line_attr,
             data,
             title
         } = this.props;
         return (
             <ResponsiveContainer width='100%' aspect={4.0 / 3.0}>
-                {this.renderChart(chart_type, first_attr, second_attr, third_attr, data, brush)}
+                {this.renderChart(chart_type, first_attr, second_attr, third_attr, fourth_attr, composed_line_attr, data, brush)}
             </ResponsiveContainer>
         );
 

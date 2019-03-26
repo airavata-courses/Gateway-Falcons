@@ -14,8 +14,6 @@ import bg1 from '../../../assets/utils/images/dropdown-header/abstract1.jpg';
 import Column from './Column';
 import Bar2 from './Bar';
 
-import * as Constants from '../../../constants';
-
 import classnames from 'classnames';
 
 import {
@@ -39,6 +37,8 @@ import {
     ListGroupItem
 } from 'reactstrap';
 
+import * as Constants from '../../../constants';
+
 
 import {
     ResponsiveContainer,
@@ -58,6 +58,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import ReChartPanel from '../../Components/ReChartPanel'
 
 const data222 = [
     { name: 'Jan', Sales: 4000, Downloads: 2400, amt: 2400 },
@@ -153,6 +155,19 @@ export default class FitnessDashboard extends Component {
                 type: 'line',
                 data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39]
             }],
+            fitbit_data: [],
+            fitbit_kpi: {
+                totalMinutesAsleep: 0,
+                totalTimeInBed: 0,
+                efficiency: 0,
+                deep: 0,
+                light: 0,
+                rem: 0,
+                wake: 0
+            },
+            wahoo_data: [],
+            cardio_mood_data: [],
+            sleep_chart_data: []
         }
     }
 
@@ -170,7 +185,83 @@ export default class FitnessDashboard extends Component {
         }
     }
 
+    getAndSetFitnessData() {
+        fetch(`${Constants.serverUrl}/fitbit`, {
+        // fetch('http://localhost:3001/fitbit', {
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+            credentials: 'same-origin',
+        })
+            .then(res => res.json())
+            .then(records => {
+                console.log(records)
+                const last_record = records[records.length - 1];
+                const { sleep, summary } = last_record;
+                const { totalMinutesAsleep, totalTimeInBed, stages } = summary;
+                const { deep, light, rem, wake } = stages;
+                // console.log(sleep[0].efficiency, totalMinutesAsleep, totalTimeInBed, stages)
+                let sleep_chart_data = records.map(record => {
+                    const { sleep, summary } = record;
+                    const { dateOfSleep } = sleep[0];
+                    const { totalTimeInBed, stages } = summary;
+                    const { deep, light, rem, wake } = stages;
+                    // console.log(dateOfSleep, totalTimeInBed, deep, light, rem, wake)
+                    return {
+                        date: dateOfSleep,
+                        totalTimeInBed,
+                        deep,
+                        light,
+                        rem,
+                        wake
+                    };
+                });
+                console.log(sleep_chart_data);
+                this.setState({
+                    fitbit_kpi: {
+                        deep,
+                        light,
+                        rem,
+                        wake,
+                        efficiency: sleep[0].efficiency,
+                        totalMinutesAsleep,
+                        totalTimeInBed
+                    },
+                    fitbit_data: records,
+                    sleep_chart_data
+                })
+            })
+
+        fetch(`${Constants.serverUrl}/cardio_mood`, {
+        // fetch('http://localhost:3001/cardio_mood', {
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+            credentials: 'same-origin',
+        })
+            .then(res => res.json())
+            .then(records => {
+                console.log(records)
+                this.setState({
+                    cardio_mood_data: records
+                })
+            })
+    }
+
+    componentDidMount() {
+        this.getAndSetFitnessData();
+    }
+
     render() {
+
+        const { fitbit_kpi, fitbit_data, sleep_chart_data, cardio_mood_data } = this.state;
+        let _cardio_mood_data,  last_cardio_rr; 
+        if (cardio_mood_data.length > 0) {
+            _cardio_mood_data = cardio_mood_data[0].records;
+            last_cardio_rr = cardio_mood_data[0].records[cardio_mood_data[0].records.length - 1].rr;
+        } 
 
         const wahoo_data_columns = Object.keys(Constants.wahoo_data_columns).map(key => {
             return {
@@ -196,7 +287,7 @@ export default class FitnessDashboard extends Component {
                     transitionEnter={false}
                     transitionLeave={false}>
                     <PageTitleAlt3
-                        heading="Container Dashboard"
+                        heading="Fitness Dashboard"
                         subheading="This is an example dashboard created using build-in elements and components."
                         icon="lnr-apartment icon-gradient bg-mean-fruit"
                     />
@@ -239,17 +330,10 @@ export default class FitnessDashboard extends Component {
                                             <span className="pr-2 text-success">
                                                 <FontAwesomeIcon icon={faAngleUp} />
                                             </span>
-                                            <CountUp start={0}
-                                                end={4531}
-                                                separator=""
-                                                decimals={0}
-                                                decimal=""
-                                                delay={2}
-                                                prefix=""
-                                                duration="10" />
+                                            {fitbit_kpi.efficiency}
                                         </div>
                                         <div className="tab-subheading">
-                                            Products
+                                            Sleep
                                         </div>
                                     </NavLink>
                                 </NavItem>
@@ -261,20 +345,21 @@ export default class FitnessDashboard extends Component {
                                         }}
                                     >
                                         <div className="widget-number text-danger">
-                                            <CountUp start={0}
+                                            {/* <CountUp start={0}
                                                 end={6784}
                                                 separator=","
                                                 decimals={1}
                                                 decimal="."
                                                 delay={2}
                                                 prefix="$"
-                                                duration="10" />
+                                                duration="10" /> */}
+                                                { last_cardio_rr }
                                         </div>
                                         <div className="tab-subheading">
                                             <span className="pr-2 opacity-6">
                                                 <FontAwesomeIcon icon={faBullhorn} />
                                             </span>
-                                            Income
+                                            Last RR
                                         </div>
                                     </NavLink>
                                 </NavItem>
@@ -287,11 +372,27 @@ export default class FitnessDashboard extends Component {
                                 </CardBody>
                             </TabPane>
                             <TabPane tabId="2">
-                                <Chart options={this.state.optionsMixedChart} series={this.state.seriesMixedChart} type="line" width="100%" height="330px" />
+                                {/* <Chart options={this.state.optionsMixedChart} series={this.state.seriesMixedChart} type="line" width="100%" height="330px" /> */}
+                                {/* brush={true} */}
+                                <ReChartPanel
+                                    data={sleep_chart_data}
+                                    chart_type={"Composed"}
+                                    first_attr={"wake"}
+                                    second_attr={"light"}
+                                    third_attr={"deep"}
+                                    fourth_attr={"rem"}
+                                    composed_line_attr={"totalTimeInBed"}
+                                />
                             </TabPane>
                             <TabPane tabId="3">
                                 <CardBody>
-                                    <IncomeReport />
+                                    {/* <IncomeReport /> */}
+                                    <ReChartPanel
+                                        data={_cardio_mood_data}
+                                        chart_type={"Bi-Line"}
+                                        first_attr={"bpm"}
+                                        second_attr={"rr"}
+                                    />
                                 </CardBody>
                             </TabPane>
                         </TabContent>
@@ -583,150 +684,150 @@ export default class FitnessDashboard extends Component {
 
                     {/* Start KPI */}
                     <div className="card no-shadow bg-transparent no-border rm-borders mb-3">
-                            <Card>
-                                <Row className="no-gutters">
-                                    <Col md="12" lg="4">
-                                        <ListGroup flush>
-                                            <ListGroupItem className="bg-transparent">
-                                                <div className="widget-content p-0">
-                                                    <div className="widget-content-outer">
-                                                        <div className="widget-content-wrapper">
-                                                            <div className="widget-content-left">
-                                                                <div className="widget-heading">
-                                                                    Total Orders
+                        <Card>
+                            <Row className="no-gutters">
+                                <Col md="12" lg="4">
+                                    <ListGroup flush>
+                                        <ListGroupItem className="bg-transparent">
+                                            <div className="widget-content p-0">
+                                                <div className="widget-content-outer">
+                                                    <div className="widget-content-wrapper">
+                                                        <div className="widget-content-left">
+                                                            <div className="widget-heading">
+                                                                Total Orders
                                                                 </div>
-                                                                <div className="widget-subheading">
-                                                                    Last year expenses
+                                                            <div className="widget-subheading">
+                                                                Last year expenses
                                                                 </div>
-                                                            </div>
-                                                            <div className="widget-content-right">
-                                                                <div className="widget-numbers text-success">
-                                                                    1896
+                                                        </div>
+                                                        <div className="widget-content-right">
+                                                            <div className="widget-numbers text-success">
+                                                                1896
                                                                 </div>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </ListGroupItem>
-                                            <ListGroupItem className="bg-transparent">
-                                                <div className="widget-content p-0">
-                                                    <div className="widget-content-outer">
-                                                        <div className="widget-content-wrapper">
-                                                            <div className="widget-content-left">
-                                                                <div className="widget-heading">
-                                                                    Clients
+                                            </div>
+                                        </ListGroupItem>
+                                        <ListGroupItem className="bg-transparent">
+                                            <div className="widget-content p-0">
+                                                <div className="widget-content-outer">
+                                                    <div className="widget-content-wrapper">
+                                                        <div className="widget-content-left">
+                                                            <div className="widget-heading">
+                                                                Clients
                                                                 </div>
-                                                                <div className="widget-subheading">
-                                                                    Total Clients Profit
+                                                            <div className="widget-subheading">
+                                                                Total Clients Profit
                                                                 </div>
-                                                            </div>
-                                                            <div className="widget-content-right">
-                                                                <div className="widget-numbers text-primary">
-                                                                    $12.6k
+                                                        </div>
+                                                        <div className="widget-content-right">
+                                                            <div className="widget-numbers text-primary">
+                                                                $12.6k
                                                                 </div>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </ListGroupItem>
-                                        </ListGroup>
-                                    </Col>
-                                    <Col md="12" lg="4">
-                                        <ListGroup flush>
-                                            <ListGroupItem className="bg-transparent">
-                                                <div className="widget-content p-0">
-                                                    <div className="widget-content-outer">
-                                                        <div className="widget-content-wrapper">
-                                                            <div className="widget-content-left">
-                                                                <div className="widget-heading">
-                                                                    Followers
+                                            </div>
+                                        </ListGroupItem>
+                                    </ListGroup>
+                                </Col>
+                                <Col md="12" lg="4">
+                                    <ListGroup flush>
+                                        <ListGroupItem className="bg-transparent">
+                                            <div className="widget-content p-0">
+                                                <div className="widget-content-outer">
+                                                    <div className="widget-content-wrapper">
+                                                        <div className="widget-content-left">
+                                                            <div className="widget-heading">
+                                                                Followers
                                                                 </div>
-                                                                <div className="widget-subheading">
-                                                                    People Interested
+                                                            <div className="widget-subheading">
+                                                                People Interested
                                                                 </div>
-                                                            </div>
-                                                            <div className="widget-content-right">
-                                                                <div className="widget-numbers text-danger">
-                                                                    45,9%
+                                                        </div>
+                                                        <div className="widget-content-right">
+                                                            <div className="widget-numbers text-danger">
+                                                                45,9%
                                                                 </div>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </ListGroupItem>
-                                            <ListGroupItem className="bg-transparent">
-                                                <div className="widget-content p-0">
-                                                    <div className="widget-content-outer">
-                                                        <div className="widget-content-wrapper">
-                                                            <div className="widget-content-left">
-                                                                <div className="widget-heading">
-                                                                    Products Sold
+                                            </div>
+                                        </ListGroupItem>
+                                        <ListGroupItem className="bg-transparent">
+                                            <div className="widget-content p-0">
+                                                <div className="widget-content-outer">
+                                                    <div className="widget-content-wrapper">
+                                                        <div className="widget-content-left">
+                                                            <div className="widget-heading">
+                                                                Products Sold
                                                                 </div>
-                                                                <div className="widget-subheading">
-                                                                    Total revenue streams
+                                                            <div className="widget-subheading">
+                                                                Total revenue streams
                                                                 </div>
-                                                            </div>
-                                                            <div className="widget-content-right">
-                                                                <div className="widget-numbers text-warning">
-                                                                    $3M
+                                                        </div>
+                                                        <div className="widget-content-right">
+                                                            <div className="widget-numbers text-warning">
+                                                                $3M
                                                                 </div>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </ListGroupItem>
-                                        </ListGroup>
-                                    </Col>
-                                    <Col md="12" lg="4">
-                                        <ListGroup flush>
-                                            <ListGroupItem className="bg-transparent">
-                                                <div className="widget-content p-0">
-                                                    <div className="widget-content-outer">
-                                                        <div className="widget-content-wrapper">
-                                                            <div className="widget-content-left">
-                                                                <div className="widget-heading">
-                                                                    Total Orders
+                                            </div>
+                                        </ListGroupItem>
+                                    </ListGroup>
+                                </Col>
+                                <Col md="12" lg="4">
+                                    <ListGroup flush>
+                                        <ListGroupItem className="bg-transparent">
+                                            <div className="widget-content p-0">
+                                                <div className="widget-content-outer">
+                                                    <div className="widget-content-wrapper">
+                                                        <div className="widget-content-left">
+                                                            <div className="widget-heading">
+                                                                Total Orders
                                                                 </div>
-                                                                <div className="widget-subheading">
-                                                                    Last year expenses
+                                                            <div className="widget-subheading">
+                                                                Last year expenses
                                                                 </div>
-                                                            </div>
-                                                            <div className="widget-content-right">
-                                                                <div className="widget-numbers text-success">
-                                                                    1896
+                                                        </div>
+                                                        <div className="widget-content-right">
+                                                            <div className="widget-numbers text-success">
+                                                                1896
                                                                 </div>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </ListGroupItem>
-                                            <ListGroupItem className="bg-transparent">
-                                                <div className="widget-content p-0">
-                                                    <div className="widget-content-outer">
-                                                        <div className="widget-content-wrapper">
-                                                            <div className="widget-content-left">
-                                                                <div className="widget-heading">
-                                                                    Clients
+                                            </div>
+                                        </ListGroupItem>
+                                        <ListGroupItem className="bg-transparent">
+                                            <div className="widget-content p-0">
+                                                <div className="widget-content-outer">
+                                                    <div className="widget-content-wrapper">
+                                                        <div className="widget-content-left">
+                                                            <div className="widget-heading">
+                                                                Clients
                                                                 </div>
-                                                                <div className="widget-subheading">
-                                                                    Total Clients Profit
+                                                            <div className="widget-subheading">
+                                                                Total Clients Profit
                                                                 </div>
-                                                            </div>
-                                                            <div className="widget-content-right">
-                                                                <div className="widget-numbers text-primary">
-                                                                    $12.6k
+                                                        </div>
+                                                        <div className="widget-content-right">
+                                                            <div className="widget-numbers text-primary">
+                                                                $12.6k
                                                                 </div>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </ListGroupItem>
-                                        </ListGroup>
-                                    </Col>
-                                </Row>
-                            </Card>
-                        </div>
-                        {/* End KPI */}
+                                            </div>
+                                        </ListGroupItem>
+                                    </ListGroup>
+                                </Col>
+                            </Row>
+                        </Card>
+                    </div>
+                    {/* End KPI */}
 
                     {/* FITBIT Table */}
                     <Card className="main-card mb-3">
