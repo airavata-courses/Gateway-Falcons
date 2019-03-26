@@ -198,13 +198,12 @@ export default class FitnessDashboard extends Component {
             .then(records => {
                 console.log(records)
                 const last_record = records[records.length - 1];
-                const { sleep, summary } = last_record;
+                const { efficiency, sleep, summary } = last_record;
                 const { totalMinutesAsleep, totalTimeInBed, stages } = summary;
                 const { deep, light, rem, wake } = stages;
                 // console.log(sleep[0].efficiency, totalMinutesAsleep, totalTimeInBed, stages)
                 let sleep_chart_data = records.map(record => {
-                    const { sleep, summary } = record;
-                    const { dateOfSleep } = sleep[0];
+                    const { dateOfSleep, data, summary } = record;
                     const { totalTimeInBed, stages } = summary;
                     const { deep, light, rem, wake } = stages;
                     // console.log(dateOfSleep, totalTimeInBed, deep, light, rem, wake)
@@ -224,7 +223,7 @@ export default class FitnessDashboard extends Component {
                         light,
                         rem,
                         wake,
-                        efficiency: sleep[0].efficiency,
+                        efficiency,
                         totalMinutesAsleep,
                         totalTimeInBed
                     },
