@@ -160,8 +160,8 @@ export default class DietDashboard extends Component {
     }
 
     getAndSetDietData() {
-        // fetch(`${Constants.serverUrl}/diet`, {
-        fetch('http://localhost:3001/diet', {
+        fetch(`${Constants.serverUrl}/diet`, {
+        // fetch('http://localhost:3001/diet', {
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",

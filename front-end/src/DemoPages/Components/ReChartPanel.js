@@ -10,7 +10,6 @@ import {
 
 class ReChartPanel extends Component {
 
-
     // renderTitle(left, right, third) {
 
     //     left = (left === "carbohydrates") ? "carbs" : left;
@@ -206,7 +205,6 @@ class ReChartPanel extends Component {
                 </AreaChart>
             );
         } else if (chart_type === "Bi-Line") {
-
             return (
                 <LineChart
                     width={500}
@@ -226,6 +224,23 @@ class ReChartPanel extends Component {
                     <Line yAxisId="right" type="monotone" dataKey={second_attr} stroke="#82ca9d" />
                 </LineChart>
             )
+        } else if (chart_type === "BF-Scatter") {
+                    {/* margin={{
+                        top: 20, right: 20, bottom: 20, left: 20,
+                    }} */}
+            return (
+                <ScatterChart
+                    width={400}
+                    height={400}
+                >
+                    <CartesianGrid />
+                    <XAxis type="number" dataKey={first_attr} name="Avg Speed" />
+                    <YAxis type="number" dataKey={second_attr} name="Avg Heart Rate" domain={[40, 250]} />
+                    <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+                    <Legend />
+                    <Scatter data={data} name="Best Fit" fill="#8884d8" line={{stroke: 'red', strokeWidth: 2, lineType: 'fitting'}}  />
+                </ScatterChart>
+            );
         }
     }
 
