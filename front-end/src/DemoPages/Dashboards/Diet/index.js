@@ -160,8 +160,8 @@ export default class DietDashboard extends Component {
     }
 
     getAndSetDietData() {
-        fetch(`${Constants.serverUrl}/diet`, {
-        // fetch('http://localhost:3001/diet', {
+        // fetch(`${Constants.serverUrl}/diet`, {
+        fetch('http://localhost:3001/diet', {
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",
@@ -170,6 +170,8 @@ export default class DietDashboard extends Component {
         })
             .then(res => res.json())
             .then(res => {
+                let meals_arr = [];
+                // TODO: change to for loop and if > n - 7 then add to meals array 
                 const _data = res.map(datum => {
                     const {
                         date,
@@ -181,8 +183,14 @@ export default class DietDashboard extends Component {
                             sodium: sodium,
                             sugar: sugar,
                         },
-                        water
+                        meals,
+                        water,
                     } = datum;
+
+                    meals_arr.push({
+                        date,
+                        meals
+                    });
                     return {
                         date,
                         calories,
@@ -194,13 +202,24 @@ export default class DietDashboard extends Component {
                         water
                     };
                 })
-                console.log(_data);
                 const len = res.length;
+                meals_arr = meals_arr.slice(len - 8, len - 1);
+                // console.log(meals_arr);
+                const _meals_arr = [];
+                meals_arr.map(meal_log => {
+                    for (let i = 0; i < meal_log.meals.length; i++) {
+                        _meals_arr.push({
+                            date: meal_log.date,
+                            meal: meal_log.meals[i],
+                        });
+                    }
+                });
+                // console.log(_meals_arr);
                 this.setState({
                     diet_data: _data.reverse(),
                     today: _data[len - 1],
                     yesterday: _data[len - 2],
-                    last_meals: _data.slice(len - 10, len - 1)
+                    last_meals: _meals_arr.reverse()
                 })
             })
     }
@@ -229,7 +248,8 @@ export default class DietDashboard extends Component {
                 protein,
                 sodium,
                 sugar
-            }
+            },
+            last_meals
         } = this.state;
         console.log(calories,
             carbohydrates,
@@ -237,6 +257,7 @@ export default class DietDashboard extends Component {
             protein,
             sodium,
             sugar);
+        console.log(last_meals);
         const settings = {
             className: "",
             centerMode: false,
@@ -421,11 +442,11 @@ export default class DietDashboard extends Component {
                                                     />
                                                 </div>
                                                 <div>
-                                                        <ReChartPanel
-                                                            data={diet_data}
-                                                            chart_type={"Area"}
-                                                            first_attr={"water"}
-                                                        />
+                                                    <ReChartPanel
+                                                        data={diet_data}
+                                                        chart_type={"Area"}
+                                                        first_attr={"water"}
+                                                    />
                                                 </div>
                                             </Slider>
                                         </div>
@@ -481,169 +502,40 @@ export default class DietDashboard extends Component {
                                         <div
                                             className="card-header-title font-size-lg text-capitalize font-weight-normal">
                                             <i className="header-icon lnr-lighter icon-gradient bg-amy-crisp"> </i>
-                                            Timeline Example
+                                            My most recent meals
                                         </div>
                                     </CardHeader>
                                     <div className="scroll-area-lg">
                                         <PerfectScrollbar>
                                             <div className="p-4">
                                                 <VerticalTimeline layout="1-column">
-                                                    <VerticalTimelineElement
-                                                        className="vertical-timeline-item"
-                                                        icon={<i
-                                                            className="badge badge-dot badge-dot-xl badge-success"> </i>}
-                                                        date="10:30 PM"
-                                                    >
-                                                        <h4 className="timeline-title">All Hands Meeting</h4>
-                                                        <p>
-                                                            Lorem ipsum dolor sic amet, today at <a href="javascript:void(0);">12:00 PM</a>
-                                                        </p>
-                                                    </VerticalTimelineElement>
-                                                    <VerticalTimelineElement
-                                                        className="vertical-timeline-item"
-                                                        icon={<i
-                                                            className="badge badge-dot badge-dot-xl badge-warning"> </i>}
-                                                        date="12:25 PM"
-                                                    >
-                                                        <p>
-                                                            Another meeting today, at <b className="text-danger">12:00
-                                                            PM</b>
-                                                        </p>
-                                                        <p>
-                                                            Yet another one, at <span
-                                                                className="text-success">15:00 PM</span>
-                                                        </p>
-                                                    </VerticalTimelineElement>
-                                                    <VerticalTimelineElement
-                                                        className="vertical-timeline-item"
-                                                        icon={<i
-                                                            className="badge badge-dot badge-dot-xl badge-danger"> </i>}
-                                                        date="15:00 PM"
-                                                    >
-                                                        <h4 className="timeline-title">Build the production release</h4>
-                                                        <p>
-                                                            Lorem ipsum dolor sit amit,consectetur eiusmdd tempor
-                                                            incididunt ut labore et dolore magna elit enim at minim
-                                                            veniam quis nostrud
-                                                        </p>
-                                                    </VerticalTimelineElement>
-                                                    <VerticalTimelineElement
-                                                        className="vertical-timeline-item"
-                                                        icon={<i
-                                                            className="badge badge-dot badge-dot-xl badge-primary"> </i>}
-                                                        date="15:00 PM"
-                                                    >
-                                                        <h4 className="timeline-title text-success">Something not
-                                                            important</h4>
-                                                        <p>
-                                                            Lorem ipsum dolor sit amit,consectetur elit enim at minim
-                                                            veniam quis nostrud
-                                                        </p>
-                                                    </VerticalTimelineElement>
-                                                    <VerticalTimelineElement
-                                                        className="vertical-timeline-item"
-                                                        icon={<i
-                                                            className="badge badge-dot badge-dot-xl badge-success"> </i>}
-                                                        date="10:30 PM"
-                                                    >
-                                                        <h4 className="timeline-title">All Hands Meeting</h4>
-                                                        <p>
-                                                            Lorem ipsum dolor sic amet, today at <a href="javascript:void(0);">12:00 PM</a>
-                                                        </p>
-                                                    </VerticalTimelineElement>
-                                                    <VerticalTimelineElement
-                                                        className="vertical-timeline-item"
-                                                        icon={<i
-                                                            className="badge badge-dot badge-dot-xl badge-warning"> </i>}
-                                                        date="12:25 PM"
-                                                    >
-                                                        <p>
-                                                            Another meeting today, at <b className="text-danger">12:00
-                                                            PM</b>
-                                                        </p>
-                                                        <p>
-                                                            Yet another one, at <span
-                                                                className="text-success">15:00 PM</span>
-                                                        </p>
-                                                    </VerticalTimelineElement>
-                                                    <VerticalTimelineElement
-                                                        className="vertical-timeline-item"
-                                                        icon={<i
-                                                            className="badge badge-dot badge-dot-xl badge-danger"> </i>}
-                                                        date="15:00 PM"
-                                                    >
-                                                        <h4 className="timeline-title">Build the production release</h4>
-                                                        <p>
-                                                            Lorem ipsum dolor sit amit,consectetur eiusmdd tempor
-                                                            incididunt ut labore et dolore magna elit enim at minim
-                                                            veniam quis nostrud
-                                                        </p>
-                                                    </VerticalTimelineElement>
-                                                    <VerticalTimelineElement
-                                                        className="vertical-timeline-item"
-                                                        icon={<i
-                                                            className="badge badge-dot badge-dot-xl badge-primary"> </i>}
-                                                        date="15:00 PM"
-                                                    >
-                                                        <h4 className="timeline-title text-success">Something not
-                                                            important</h4>
-                                                        <p>
-                                                            Lorem ipsum dolor sit amit,consectetur elit enim at minim
-                                                            veniam quis nostrud
-                                                        </p>
-                                                    </VerticalTimelineElement>
-                                                    <VerticalTimelineElement
-                                                        className="vertical-timeline-item"
-                                                        icon={<i
-                                                            className="badge badge-dot badge-dot-xl badge-success"> </i>}
-                                                        date="10:30 PM"
-                                                    >
-                                                        <h4 className="timeline-title">All Hands Meeting</h4>
-                                                        <p>
-                                                            Lorem ipsum dolor sic amet, today at <a href="javascript:void(0);">12:00 PM</a>
-                                                        </p>
-                                                    </VerticalTimelineElement>
-                                                    <VerticalTimelineElement
-                                                        className="vertical-timeline-item"
-                                                        icon={<i
-                                                            className="badge badge-dot badge-dot-xl badge-warning"> </i>}
-                                                        date="12:25 PM"
-                                                    >
-                                                        <p>
-                                                            Another meeting today, at <b className="text-danger">12:00
-                                                            PM</b>
-                                                        </p>
-                                                        <p>
-                                                            Yet another one, at <span
-                                                                className="text-success">15:00 PM</span>
-                                                        </p>
-                                                    </VerticalTimelineElement>
-                                                    <VerticalTimelineElement
-                                                        className="vertical-timeline-item"
-                                                        icon={<i
-                                                            className="badge badge-dot badge-dot-xl badge-danger"> </i>}
-                                                        date="15:00 PM"
-                                                    >
-                                                        <h4 className="timeline-title">Build the production release</h4>
-                                                        <p>
-                                                            Lorem ipsum dolor sit amit,consectetur eiusmdd tempor
-                                                            incididunt ut labore et dolore magna elit enim at minim
-                                                            veniam quis nostrud
-                                                        </p>
-                                                    </VerticalTimelineElement>
-                                                    <VerticalTimelineElement
-                                                        className="vertical-timeline-item"
-                                                        icon={<i
-                                                            className="badge badge-dot badge-dot-xl badge-primary"> </i>}
-                                                        date="15:00 PM"
-                                                    >
-                                                        <h4 className="timeline-title text-success">Something not
-                                                            important</h4>
-                                                        <p>
-                                                            Lorem ipsum dolor sit amit,consectetur elit enim at minim
-                                                            veniam quis nostrud
-                                                        </p>
-                                                    </VerticalTimelineElement>
+                                                    {
+                                                        last_meals.map((last_meal, index) => {
+                                                            const {
+                                                                date,
+                                                                meal: {
+                                                                    items,
+                                                                    name,
+                                                                    totals
+                                                                }
+                                                            } = last_meal;
+                                                            const _items = items.map(item => item.name);
+                                                            return (
+                                                                <VerticalTimelineElement
+                                                                    className="vertical-timeline-item"
+                                                                    icon={<i
+                                                                        className="badge badge-dot badge-dot-xs badge-success"> </i>}
+                                                                    date={date}
+                                                                    key={index}
+                                                                >
+                                                                    <h4 className="timeline-title">{name}</h4>
+                                                                    <p>
+                                                                        Items: { _items.join(",") }
+                                                                    </p>
+                                                                </VerticalTimelineElement>
+                                                            )
+                                                        })
+                                                    }
                                                 </VerticalTimeline>
                                             </div>
                                         </PerfectScrollbar>
