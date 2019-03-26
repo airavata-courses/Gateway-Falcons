@@ -75,7 +75,7 @@ export default class FitnessDashboard extends Component {
             activeTab: '2',
             fitbit_data: [],
             fitbit_kpi: {
-                totalMinutesAsleep: 0,
+                minutesAsleep: 0,
                 totalTimeInBed: 0,
                 efficiency: 0,
                 deep: 0,
@@ -105,8 +105,8 @@ export default class FitnessDashboard extends Component {
     }
 
     getAndSetFitnessData() {
-        // fetch(`${Constants.serverUrl}/fitbit`, {
-        fetch('http://localhost:3001/fitbit', {
+        fetch(`${Constants.serverUrl}/fitbit`, {
+        // fetch('http://localhost:3001/fitbit', {
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",
@@ -115,17 +115,31 @@ export default class FitnessDashboard extends Component {
         })
             .then(res => res.json())
             .then(records => {
-                // console.log(records)
                 const last_record = records[records.length - 1];
-                const { efficiency, sleep, summary } = last_record;
-                const { totalMinutesAsleep, totalTimeInBed, stages } = summary;
+                const { efficiency, summary, minutesAsleep } = last_record;
+                const { totalTimeInBed, stages } = summary;
                 const { deep, light, rem, wake } = stages;
                 // console.log(sleep[0].efficiency, totalMinutesAsleep, totalTimeInBed, stages)
+                const sleep_table_data = [];
                 let sleep_chart_data = records.map(record => {
-                    const { dateOfSleep, data, summary } = record;
+                    const { dateOfSleep, data, minutesAsleep, minutesToFallAsleep, startTime, endTime, summary } = record;
                     const { totalTimeInBed, stages } = summary;
                     const { deep, light, rem, wake } = stages;
                     // console.log(dateOfSleep, totalTimeInBed, deep, light, rem, wake)
+                    sleep_table_data.push({
+                        dateOfSleep,
+                        startTime,
+                        endTime,
+                        efficiency,
+                        totalTimeInBed,
+                        minutesAsleep,
+                        minutesToFallAsleep,
+                        light,
+                        deep,
+                        rem,
+                        wake
+                    });
+
                     return {
                         date: dateOfSleep,
                         totalTimeInBed,
@@ -143,16 +157,16 @@ export default class FitnessDashboard extends Component {
                         rem,
                         wake,
                         efficiency,
-                        totalMinutesAsleep,
+                        minutesAsleep,
                         totalTimeInBed
                     },
-                    fitbit_data: records,
+                    fitbit_data: sleep_table_data,
                     sleep_chart_data
                 })
             })
 
-        // fetch(`${Constants.serverUrl}/cardio_mood`, {
-        fetch('http://localhost:3001/cardio_mood', {
+        fetch(`${Constants.serverUrl}/cardio_mood`, {
+        // fetch('http://localhost:3001/cardio_mood', {
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",
@@ -174,8 +188,8 @@ export default class FitnessDashboard extends Component {
                 })
             })
 
-        // fetch(`${Constants.serverUrl}/location`, {
-        fetch(`http://localhost:3001/location`, {
+        fetch(`${Constants.serverUrl}/location`, {
+        // fetch(`http://localhost:3001/location`, {
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",
@@ -205,8 +219,8 @@ export default class FitnessDashboard extends Component {
 
                     const newWahooObj = {
                         workout_date_time,
-                        latitude: parseFloat(data_lat),
-                        longitude: parseFloat(data_lon),
+                        latitude: parseFloat(data_lat).toFixed(5),
+                        longitude: parseFloat(data_lon).toFixed(5),
                         total_distance,
                         average_speed: average_speed.split(" ")[0],
                         max_speed,
@@ -229,9 +243,9 @@ export default class FitnessDashboard extends Component {
                 //     wind_speed,
                 //     avg_heart_rate
                 // } = wahoo_data[wahoo_data.length - 1];
-
+                console.log('wahoo_data', wahoo_data)
                 this.setState({
-                    wahoo_data: wahoo_data,
+                    wahoo_data,
                     // kpi: {
                     //     average_speed,
                     //     total_climb,
@@ -259,16 +273,18 @@ export default class FitnessDashboard extends Component {
         const wahoo_data_columns = Object.keys(Constants.wahoo_data_columns).map(key => {
             return {
                 Header: key,
-                accessor: key
+                accessor: Constants.wahoo_data_columns[key]
             }
         })
 
-        // const fitness_data_columns = Constants.fitness_data_columns.map(key => {
-        //     return {
-        //         Header: key,
-        //         accessor: key
-        //     }
-        // })
+        console.log('wahoo_data_columns', wahoo_data_columns)
+
+        const fitbit_data_columns = Object.keys(Constants.fitbit_data_columns).map(key => {
+            return {
+                Header: key,
+                accessor: Constants.fitbit_data_columns[key]
+            }
+        });
 
         return (
             <Fragment>
@@ -392,10 +408,11 @@ export default class FitnessDashboard extends Component {
                         </TabContent>
                     </Card>
 
+                    {/* KPI ROW */}
                     <Row>
-                        <Col sm="12" md="6">
+                        <Col sm="12" md="12" lg="12">
                             <Row>
-                                <Col sm="12" md="12">
+                                <Col sm="12" md="3">
                                     <Card className="card-shadow-primary mb-3 widget-chart widget-chart2 text-left">
                                         <div className="widget-chat-wrapper-outer">
                                             <div className="widget-chart-content">
@@ -416,9 +433,7 @@ export default class FitnessDashboard extends Component {
                                         </div>
                                     </Card>
                                 </Col>
-                            </Row>
-                            <Row>
-                                <Col sm="12" md="12">
+                                <Col sm="12" md="3">
                                     <Card className="card-shadow-primary mb-3 widget-chart widget-chart2 text-left">
                                         <div className="widget-chat-wrapper-outer">
                                             <div className="widget-chart-content">
@@ -439,10 +454,7 @@ export default class FitnessDashboard extends Component {
                                         </div>
                                     </Card>
                                 </Col>
-                            </Row>
-
-                            <Row>
-                                <Col sm="12" md="12">
+                                <Col sm="12" md="3">
                                     <Card className="card-shadow-primary mb-3 widget-chart widget-chart2 text-left">
                                         <div className="widget-chat-wrapper-outer">
                                             <div className="widget-chart-content">
@@ -463,15 +475,12 @@ export default class FitnessDashboard extends Component {
                                         </div>
                                     </Card>
                                 </Col>
-                            </Row>
-
-                            <Row>
-                                <Col sm="12" md="12">
+                                <Col sm="12" md="3">
                                     <Card className="card-shadow-primary mb-3 widget-chart widget-chart2 text-left">
                                         <div className="widget-chat-wrapper-outer">
                                             <div className="widget-chart-content">
                                                 <h6 className="widget-subheading">
-                                                    SOME HEART RATE FIELD SHOULD GO HERE
+                                                    SOME HEART RATE FIELD ...
                                                 </h6>
                                                 <div className="widget-chart-flex">
                                                     <div className="widget-numbers mb-0 w-100">
@@ -496,6 +505,10 @@ export default class FitnessDashboard extends Component {
                                 </Col>
                             </Row>
                         </Col>
+                    </Row>
+
+                    {/* Second 2 charts */}
+                    <Row>
                         <Col sm="12" md="6">
                             <Card className="mb-3">
                                 <CardBody>
@@ -508,115 +521,16 @@ export default class FitnessDashboard extends Component {
                                 </CardBody>
                             </Card>
                         </Col>
-                    </Row>
-
-                    {/* Second 2 charts */}
-                    <Row>
                         <Col sm="12" lg="6">
                             <Card className="mb-3">
-                                <CardHeader className="card-header-tab">
-                                    <div className="card-header-title font-size-lg text-capitalize font-weight-normal">
-                                        Daily Sales
-                                    </div>
-
-                                    <div className="btn-actions-pane-right text-capitalize">
-                                        <Button size="sm" outline className="btn-wide btn-outline-2x" color="focus">View All</Button>
-                                    </div>
-                                </CardHeader>
                                 <CardBody>
-                                    <Column />
+                                    <ReChartPanel
+                                        data={wahoo_data}
+                                        chart_type={"BF-Scatter"}
+                                        first_attr={"average_speed"}
+                                        second_attr={"avg_heart_rate"}
+                                    />
                                 </CardBody>
-                                <CardFooter className="p-0 d-block">
-                                    <div className="grid-menu grid-menu-2col">
-                                        <Row className="no-gutters">
-                                            <Col sm="6" className="p-2">
-                                                <Button
-                                                    className="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2"
-                                                    outline color="dark">
-                                                    <i className="lnr-apartment text-dark opacity-7 btn-icon-wrapper mb-2"> </i>
-                                                    Overview
-                                                </Button>
-                                            </Col>
-                                            <Col sm="6" className="p-2">
-                                                <Button
-                                                    className="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2"
-                                                    outline color="dark">
-                                                    <i className="lnr-database text-dark opacity-7 btn-icon-wrapper mb-2"> </i>
-                                                    Support
-                                                </Button>
-                                            </Col>
-                                            <Col sm="6" className="p-2">
-                                                <Button
-                                                    className="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2"
-                                                    outline color="dark">
-                                                    <i className="lnr-printer text-dark opacity-7 btn-icon-wrapper mb-2"> </i>
-                                                    Activities
-                                                </Button>
-                                            </Col>
-                                            <Col sm="6" className="p-2">
-                                                <Button
-                                                    className="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2"
-                                                    outline color="dark">
-                                                    <i className="lnr-store text-dark opacity-7 btn-icon-wrapper mb-2"> </i>
-                                                    Marketing
-                                                </Button>
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                </CardFooter>
-                            </Card>
-                        </Col>
-                        <Col sm="12" lg="6">
-                            <Card className="mb-3">
-                                <CardHeader className="card-header-tab">
-                                    <div className="card-header-title font-size-lg text-capitalize font-weight-normal">
-                                        Total Expenses
-                                    </div>
-                                    <div className="btn-actions-pane-right text-capitalize">
-                                        <Button size="sm" outline className="btn-wide btn-outline-2x" color="primary">View All</Button>
-                                    </div>
-                                </CardHeader>
-                                <CardBody>
-                                    <Bar2 />
-                                </CardBody>
-                                <CardFooter className="p-0 d-block">
-                                    <div className="grid-menu grid-menu-2col">
-                                        <Row className="no-gutters">
-                                            <Col sm="6" className="p-2">
-                                                <Button
-                                                    className="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2"
-                                                    outline color="success">
-                                                    <i className="lnr-lighter text-success opacity-7 btn-icon-wrapper mb-2"> </i>
-                                                    Accounts
-                                                </Button>
-                                            </Col>
-                                            <Col sm="6" className="p-2">
-                                                <Button
-                                                    className="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2"
-                                                    outline color="warning">
-                                                    <i className="lnr-construction text-warning opacity-7 btn-icon-wrapper mb-2"> </i>
-                                                    Contacts
-                                                </Button>
-                                            </Col>
-                                            <Col sm="6" className="p-2">
-                                                <Button
-                                                    className="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2"
-                                                    outline color="info">
-                                                    <i className="lnr-bus text-info opacity-7 btn-icon-wrapper mb-2"> </i>
-                                                    Products
-                                                </Button>
-                                            </Col>
-                                            <Col sm="6" className="p-2">
-                                                <Button
-                                                    className="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2"
-                                                    outline color="alternate">
-                                                    <i className="lnr-gift text-alternate opacity-7 btn-icon-wrapper mb-2"> </i>
-                                                    Services
-                                                </Button>
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                </CardFooter>
                             </Card>
                         </Col>
                     </Row>
@@ -630,7 +544,8 @@ export default class FitnessDashboard extends Component {
                             </div>
                         </CardHeader>
                         <ReactTable
-                            columns={wahoo_data_columns}
+                            columns={fitbit_data_columns}
+                            data={fitbit_data}
                             defaultPageSize={20}
                             style={{
                                 height: "428px" // This will force the table body to overflow and scroll, since there is not enough room

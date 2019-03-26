@@ -126,19 +126,19 @@ const wahoo_data_columns = {
     // "Humidity": "humidity",
 };
 
-// const fitbit_data_columns = {
-//     "Date": "dateOfSleep",
-//     "Time Asleep": "startTime",
-//     "Sleep Score": "efficiency",
-//     "Minutes Asleep": "minutesAsleep",
-//     "Minutes Awake": "minutesAwake",
-//     "Time to Fall Asleep": "minutesToFallAsleep",
-//     "Awake": "wake",
-//     "Light": "light",
-//     "Deep": "deep",
-//     "Time to Wake Up": "minutesAfterWakeup",
-//     "REM": "rem",
-//  }
+const fitbit_data_columns = {
+    "Date": "dateOfSleep",
+    "Fall Asleep": "startTime",
+    "Wake Up": "endTime",
+    "Sleep Score": "efficiency",
+    "Total Time in Bed": "totalTimeInBed",
+    "Total Time Asleep": "minutesAsleep",
+    "Minutes to Fall Asleep": "minutesToFallAsleep",
+    "Light": "light",
+    "Deep": "deep",
+    "REM": "rem",
+    "Awake": "wake",
+}
 
 const weather_data_columns = {
     'Date': "workout_date_time",
@@ -157,12 +157,13 @@ module.exports = {
     weather_data_columns,
     wahoo_data_columns, 
     diet_data_columns,
-    // fitness_data_columns,
-    // location_data_columns,
+    fitbit_data_columns,
     serverUrl,
     imageUrl,
     zookeeperurl,
     basePath,
     smugugUrl,
     _devServerUrl
+    // fitness_data_columns,
+    // location_data_columns,
 }

@@ -235,7 +235,7 @@ class ReChartPanel extends Component {
                 >
                     <CartesianGrid />
                     <XAxis type="number" dataKey={first_attr} name="Avg Speed" />
-                    <YAxis type="number" dataKey={second_attr} name="Avg Heart Rate" domain={[40, 250]} />
+                    <YAxis type="number" dataKey={second_attr} name="Avg Heart Rate" domain={[40, 200]} />
                     <Tooltip cursor={{ strokeDasharray: '3 3' }} />
                     <Legend />
                     <Scatter data={data} name="Best Fit" fill="#8884d8" line={{stroke: 'red', strokeWidth: 2, lineType: 'fitting'}}  />
