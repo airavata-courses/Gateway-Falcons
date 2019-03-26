@@ -4,6 +4,9 @@ import myfitnesspal
 import datetime
 from configparser import ConfigParser
 import os
+import requests
+
+
 
 parser = ConfigParser()
 app = Flask(__name__)
@@ -15,7 +18,6 @@ else:
 
 app.config['MONGO_DBNAME'] = parser.get('DB','dbname')
 app.config['MONGO_URI'] = parser.get('DB', 'url')
-
 mongo = PyMongo(app)
 
 
@@ -60,6 +62,48 @@ def add_diet():
         )
 
     return "Added data"
+
+
+@app.route('/getsleep')
+def add_sleep():
+    date = datetime.datetime.now()
+    auth_token = parser.get("sleep","token")
+    head = {'Authorization': 'Bearer ' + auth_token}
+    data = {'app': 'aaaaa'}
+
+    url = parser.get("sleep","url") + date.strftime('%Y-%m-%d') +".json"
+    response = requests.get(url, json=data, headers=head)
+
+    sleep_db = mongo.db.sleep
+    r_dict = response.json()
+    sleep_dict = r_dict['sleep'][0]
+
+    sleep_db.delete_many({
+        "dateOfSleep": sleep_dict["dateOfSleep"],
+    })
+    record = {
+        "dateOfSleep": sleep_dict["dateOfSleep"],
+        "duration": sleep_dict["duration"],
+        "efficiency":sleep_dict["efficiency"],
+        "endTime": sleep_dict["endTime"],
+        "infoCode": sleep_dict["infoCode"],
+        "isMainSleep": sleep_dict["isMainSleep"],
+        "data": sleep_dict["levels"]["data"],
+        "shortData": sleep_dict["levels"]["shortData"],
+        "detailedSummary": sleep_dict["levels"]["summary"],
+        "minutesAfterWakeup": sleep_dict["minutesAfterWakeup"],
+        "minutesAsleep": sleep_dict["minutesAsleep"],
+        "minutesAwake": sleep_dict["minutesAwake"],
+        "minutesToFallAsleep": sleep_dict["minutesToFallAsleep"],
+        "startTime": sleep_dict["startTime"],
+        "timeInBed": sleep_dict["timeInBed"],
+        "type": sleep_dict["type"],
+        "summary": r_dict["summary"]
+    }
+
+    sleep_db.insert_one(record)
+
+    return "Sleep data added"
 
 
 def create_meal(meals):
