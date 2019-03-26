@@ -11,13 +11,24 @@ const CardioMood = require("../models/CardioMood");
  */
 router.get('/', function(req, res, next) {
     console.log('cardio route')
-    CardioMood
-        .find()
-        .then(cardioLogs => {
-            console.log(cardioLogs)
-            res.status(res.statusCode).send(cardioLogs)
-        })
-        .catch((err) => res.status(res.statusCode).send(err));
+    // CardioMood
+    //     .find()
+    //     .then(cardioLogs => {
+    //         console.log(cardioLogs)
+    //         res.status(res.statusCode).send(cardioLogs)
+    //     })
+    //     .catch((err) => res.status(res.statusCode).send(err));
+    const db = req.app.locals.database;
+
+    const collection = db.collection('cardio_mood');
+
+    collection.find("").toArray(function (err, docs) {
+        if (err) {
+            res.status(res.statusCode).send(err)
+        }
+        res.status(res.statusCode).send(docs)
+    });
+
 });
 
 module.exports = router;

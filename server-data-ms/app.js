@@ -32,20 +32,20 @@ const mongoose = require('mongoose');
 /**
  * Connect Mongo Driver to MongoDB.
  */
-// MongoClient.connect(mlab_credentials.mongoURI, { useNewUrlParser: true }, (err, client) => {
-//   if (err) {
-//     console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
-//     process.exit(1);
-//   }
-//   app.locals.database = client.db('countrycycle');
-//   console.log(client.db('countrycycle'));
-//   console.log('mlab connected successfully');
-// });
+MongoClient.connect(mlab_credentials.mongoURI, { useNewUrlParser: true }, (err, client) => {
+  if (err) {
+    console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
+    process.exit(1);
+  }
+  app.locals.database = client.db('countrycycle');
+  console.log(client.db('countrycycle'));
+  console.log('mlab connected successfully');
+});
 
-mongoose
-  .connect(mlab_credentials.mongoURI, { useNewUrlParser: true })
-  .then(() => console.log('mlab connected successfully'))
-  .catch((err) => console.error('error connecting to mlab:', err))
+// mongoose
+//   .connect(mlab_credentials.mongoURI, { useNewUrlParser: true })
+//   .then(() => console.log('mlab connected successfully'))
+//   .catch((err) => console.error('error connecting to mlab:', err))
 
 
 fs.readdirSync('./routes').forEach(file => {
