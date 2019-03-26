@@ -80,8 +80,8 @@ export default class FitnessDashboard extends Component {
                     console.log(startTime, endTime)
                     sleep_table_data.push({
                         dateOfSleep,
-                        startTime: moment(startTime).format('hh:mm:ss'),
-                        endTime: moment(endTime).format('hh:mm:ss'),
+                        startTime: moment(startTime).format('hh:mm'),
+                        endTime: moment(endTime).format('hh:mm'),
                         efficiency,
                         totalTimeInBed,
                         minutesAsleep,
@@ -134,7 +134,7 @@ export default class FitnessDashboard extends Component {
                         .toFixed(5);
                 // let cardio_mood_average = 0;
                 this.setState({
-                    cardio_mood_data: records,
+                    cardio_mood_data: records.reverse(),
                     cardio_mood_average
                 })
             })
@@ -196,7 +196,7 @@ export default class FitnessDashboard extends Component {
                 // } = wahoo_data[wahoo_data.length - 1];
                 // console.log('wahoo_data', wahoo_data)
                 this.setState({
-                    wahoo_data,
+                    wahoo_data: wahoo_data.reverse(),
                     // kpi: {
                     //     average_speed,
                     //     total_climb,
