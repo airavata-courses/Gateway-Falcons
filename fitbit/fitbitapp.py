@@ -66,19 +66,23 @@ def add_sleep():
 def add_heart_rate():
     date = datetime.datetime.now()
     url = parser.get("fitbit", "hr_url") + date.strftime('%Y-%m-%d') + "/1d.json"
+    print (url)
+
     response = requests.get(url, headers=head)
 
     hr_db = mongo.db.fitbit_heartrate
     r_dict = response.json()
     if len(r_dict['activities-heart']) > 0:
         hr_dict = r_dict["activities-heart"][0]
-        hr_db.delete_many({
-            "date": hr_dict["dateTime"]})
-        hr_db.insert_one({
-            "date":hr_dict["dateTime"],
-            "restingHeartRate":hr_dict["value"]["restingHeartRate"]
-        })
-    return "Heart rate added"
+        if "restingHeartRate" in hr_dict["value"]:
+            hr_db.delete_many({
+                "date": hr_dict["dateTime"]})
+            hr_db.insert_one({
+                "date":hr_dict["dateTime"],
+                "restingHeartRate":hr_dict["value"]["restingHeartRate"]
+            })
+            return "Heart rate added"
+        return "No data found"
 
 @app.route('/getstat')
 @cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
@@ -91,18 +95,19 @@ def add_heart_rate_time_series():
     r_dict = response.json()
     if len(r_dict["activities-heart-intraday"]["dataset"])>0:
         timelist = r_dict["activities-heart-intraday"]["dataset"]
-        series = timelist[len(timelist)-1]
-        hr_db.delete_many({
-            "time":series["time"],
-            "date":date.strftime('%Y-%m-%d')
-        })
-        hr_db.insert_one({
-            "date": date.strftime('%Y-%m-%d'),
-            "time": series["time"],
-            "value": series["value"]
-        })
-
-    return "Series data added"
+        if len(timelist)>1:
+            series = timelist[len(timelist)-1]
+            hr_db.delete_many({
+                "time":series["time"],
+                "date":date.strftime('%Y-%m-%d')
+            })
+            hr_db.insert_one({
+                "date": date.strftime('%Y-%m-%d'),
+                "time": series["time"],
+                "value": series["value"]
+            })
+            return "Series data added"
+        return "No data found"
 
 
 if __name__ == '__main__':
