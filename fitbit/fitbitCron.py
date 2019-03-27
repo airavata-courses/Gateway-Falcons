@@ -15,7 +15,7 @@ for job in iter1:
     cron.remove(job)
 
 job = cron.new(command='curl -v http://127.0.0.1:5004/getheartrate',comment='get heart rate')
-job.setall('69 11 * * *')
+job.setall('59 11 * * *')
 cron.write()
 
 iter1=cron.find_comment("get heart rate time series")
