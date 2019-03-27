@@ -63,51 +63,6 @@ def add_diet():
 
     return "Added data"
 
-
-@app.route('/getsleep')
-def add_sleep():
-
-    auth_token = parser.get("sleep","token")
-    head = {'Authorization': 'Bearer ' + auth_token}
-    date = datetime.datetime.now()
-
-    url = parser.get("sleep","url") + date.strftime('%Y-%m-%d') +".json"
-    response = requests.get(url, headers=head)
-
-    sleep_db = mongo.db.sleep
-    r_dict = response.json()
-    if len(r_dict['sleep'])>0:
-
-        sleep_dict = r_dict['sleep'][0]
-
-        sleep_db.delete_many({
-            "dateOfSleep": sleep_dict["dateOfSleep"],
-        })
-        record = {
-            "dateOfSleep": sleep_dict["dateOfSleep"],
-            "duration": sleep_dict["duration"],
-            "efficiency":sleep_dict["efficiency"],
-            "endTime": sleep_dict["endTime"],
-            "infoCode": sleep_dict["infoCode"],
-            "isMainSleep": sleep_dict["isMainSleep"],
-            "data": sleep_dict["levels"]["data"],
-            "shortData": sleep_dict["levels"]["shortData"],
-            "detailedSummary": sleep_dict["levels"]["summary"],
-            "minutesAfterWakeup": sleep_dict["minutesAfterWakeup"],
-            "minutesAsleep": sleep_dict["minutesAsleep"],
-            "minutesAwake": sleep_dict["minutesAwake"],
-            "minutesToFallAsleep": sleep_dict["minutesToFallAsleep"],
-            "startTime": sleep_dict["startTime"],
-            "timeInBed": sleep_dict["timeInBed"],
-            "type": sleep_dict["type"],
-            "summary": r_dict["summary"]
-        }
-
-        sleep_db.insert_one(record)
-
-    return "Sleep data added"
-
-
 def create_meal(meals):
     meals_list = []
     for meal in meals:
