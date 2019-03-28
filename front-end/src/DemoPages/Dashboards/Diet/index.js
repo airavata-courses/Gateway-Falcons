@@ -203,12 +203,12 @@ export default class DietDashboard extends Component {
 
                         <Card className="mb-3">
                             <CardHeader className="card-header-tab z-index-6">
-                                <div
+                                {/* <div
                                     className="card-header-title font-size-lg text-capitalize font-weight-normal">
                                     <i className="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
                                     Portfolio Performance
-                                </div>
-                                <div className="btn-actions-pane-right text-capitalize">
+                                </div> */}
+                                {/* <div className="btn-actions-pane-right text-capitalize">
                                     <span className="d-inline-block ml-2" style={{ width: 200 }}>
                                         <Select
                                             value={selectedOption}
@@ -216,7 +216,7 @@ export default class DietDashboard extends Component {
                                             options={options}
                                         />
                                     </span>
-                                </div>
+                                </div> */}
                             </CardHeader>
                             <Row className="no-gutters">
                                 <Col sm="6" md="4" xl="4">
