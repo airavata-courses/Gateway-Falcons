@@ -88,12 +88,12 @@ const weather_data_columns = {
     'Date': "workout_date_time",
     "Wind Deg": "wind_deg",
     "Wind Speed": "wind_speed",
-    "Atmospheric Pressure": "pressure",
+    "Atm Pres (hPa)": "pressure",
     "Visibility": "visibility",
     "Temperature": "temperature",
     "Weather": "weather",
     "Weather Desc.": "weather_desc",
-    "Humidity": "humidity",
+    "Humidity (%)": "humidity",
 };
 
 module.exports = {

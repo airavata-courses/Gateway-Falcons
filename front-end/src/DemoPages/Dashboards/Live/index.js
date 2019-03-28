@@ -34,7 +34,7 @@ export default class LivePage extends Component {
     fetchMapMarkers() {
         this.intervalId = setInterval(() =>
             fetch(`${Constants.serverUrl}/location`, {
-            // fetch(`http://localhost:3001/location`, {
+                // fetch(`http://localhost:3001/location`, {
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",
@@ -122,10 +122,10 @@ export default class LivePage extends Component {
                     const { average_speed,
                         total_climb,
                         avg_heart_rate
-                    } = wahoo_data[wahoo_data.length - 1 ];
+                    } = wahoo_data[wahoo_data.length - 1];
                     const { wind_speed } = weather_data[weather_data.length - 1];
                     // console.log(wahoo_data[0]);
-                    
+
                     this.setState({
                         map_data: wahoo_data.reverse(),
                         weather_data: weather_data.reverse(),
@@ -188,7 +188,7 @@ export default class LivePage extends Component {
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading">
-                                            Current Speed
+                                            Speed
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
@@ -209,7 +209,7 @@ export default class LivePage extends Component {
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading">
-                                            Current Elevation
+                                            Elevation
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
@@ -229,7 +229,7 @@ export default class LivePage extends Component {
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading">
-                                            Current Wind
+                                            Wint Speed
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
@@ -249,7 +249,7 @@ export default class LivePage extends Component {
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading">
-                                            Current Heart Rate
+                                            Heart Rate
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
@@ -345,7 +345,7 @@ export default class LivePage extends Component {
                             <Card className="main-card mb-3">
                                 <CardBody>
                                     <CardTitle>
-                                        Heart Rate
+                                        Avg HR
                                     </CardTitle>
                                     <ReChartPanel
                                         data={map_data}
@@ -360,7 +360,7 @@ export default class LivePage extends Component {
                             <Card className="main-card mb-3">
                                 <CardBody>
                                     <CardTitle>
-                                        Elevation
+                                        Elevation (ft)
                                     </CardTitle>
                                     <ReChartPanel
                                         data={map_data}
@@ -375,7 +375,7 @@ export default class LivePage extends Component {
                             <Card className="main-card mb-3">
                                 <CardBody>
                                     <CardTitle>
-                                        Wind Speed
+                                        Wind Speed (mph)
                                     </CardTitle>
                                     <ReChartPanel
                                         data={map_data}

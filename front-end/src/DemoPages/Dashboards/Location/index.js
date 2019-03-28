@@ -50,8 +50,8 @@ export default class LocationPage extends Component {
 
     fetchMapMarkers() {
         this.intervalId = setInterval(() =>
-            fetch(`${Constants.serverUrl}/location`, {
-            // fetch(`http://localhost:3001/location`, {
+            // fetch(`${Constants.serverUrl}/location`, {
+            fetch(`http://localhost:3001/location`, {
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",
@@ -104,7 +104,7 @@ export default class LocationPage extends Component {
                             avg_cadence,
                             max_cadence,
                             max_elevation,
-                            total_climb,
+                            total_climb: parseFloat(total_climb.split(" ")[0]),
                             total_descent,
                             max_grade,
                             avg_heart_rate,
@@ -163,12 +163,6 @@ export default class LocationPage extends Component {
                     this.setState({
                         map_data: wahoo_data.reverse(),
                         weather_data: weather_data.reverse(),
-                        // kpi: {
-                        //     average_speed: (agg_average_speed / 7),
-                        //     total_climb: (agg_total_climb / 7),
-                        //     wind_speed: (agg_wind_speed / 7),
-                        //     avg_heart_rate: (agg_avg_heart_rate / 7),
-                        // }
                         kpi: {
                             average_speed,
                             total_climb,
@@ -177,7 +171,7 @@ export default class LocationPage extends Component {
                         }
                     })
                 }),
-            11000);
+            61000);
     }
 
     componentDidMount() {
@@ -371,7 +365,7 @@ export default class LocationPage extends Component {
                             <Card className="main-card mb-3">
                                 <CardBody>
                                     <CardTitle>
-                                        Total Climb
+                                        Elevation
                                     </CardTitle>
                                     <ResponsiveContainer width='100%' height={400}>
                                         <LineChart width={600} height={200} data={map_data.reverse()} syncId="anyId"

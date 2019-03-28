@@ -359,10 +359,10 @@ export default class DietDashboard extends Component {
                                                 </div>
                                             </Slider>
                                         </div>
-                                        <h6 className="text-muted text-uppercase font-size-md opacity-5 pl-3 pr-3 pb-1 font-weight-normal">
+                                        {/* <h6 className="text-muted text-uppercase font-size-md opacity-5 pl-3 pr-3 pb-1 font-weight-normal">
                                             What the heck goes here
-                                        </h6>
-                                        <ListGroup flush>
+                                        </h6> */}
+                                        {/* <ListGroup flush>
                                             <ListGroupItem className="p-3 bg-transparent">
                                                 <div className="widget-content p-0">
                                                     <div className="widget-content-outer">
@@ -377,7 +377,6 @@ export default class DietDashboard extends Component {
                                                             </div>
                                                             <div className="widget-content-right">
                                                                 <div className="widget-numbers text-success">
-                                                                    {/* <small>$</small> */}
                                                                     {calories}
                                                                 </div>
                                                             </div>
@@ -399,8 +398,8 @@ export default class DietDashboard extends Component {
                                                     </div>
                                                 </div>
                                             </ListGroupItem>
-                                        </ListGroup>
-                                    </CardBody>
+                                        </ListGroup> */}
+                                    </CardBody> 
                                 </Card>
                             </Col>
 
@@ -411,7 +410,7 @@ export default class DietDashboard extends Component {
                                         <div
                                             className="card-header-title font-size-lg text-capitalize font-weight-normal">
                                             <i className="header-icon lnr-lighter icon-gradient bg-amy-crisp"> </i>
-                                            My most recent meals
+                                            Most Recent Meals
                                         </div>
                                     </CardHeader>
                                     <div className="scroll-area-lg">
@@ -449,12 +448,12 @@ export default class DietDashboard extends Component {
                                             </div>
                                         </PerfectScrollbar>
                                     </div>
-                                    <CardFooter className="d-block text-center">
+                                    {/* <CardFooter className="d-block text-center">
                                         <Button className="btn-shadow btn-wide btn-pill" color="focus">
                                             <div className="badge badge-dot badge-dot-lg badge-warning badge-pulse">Badge</div>
                                             View All Messages
                                         </Button>
-                                    </CardFooter>
+                                    </CardFooter> */}
                                 </Card>
                             </Col>
                         </Row>
