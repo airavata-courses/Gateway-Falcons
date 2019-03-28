@@ -335,6 +335,7 @@ export default class FitnessDashboard extends Component {
                             </TabPane>
                             <TabPane tabId="2">
                                 {/* brush={true} */}
+                                <CardBody>
                                 <ReChartPanel
                                     data={sleep_chart_data}
                                     chart_type={"Composed"}
@@ -344,6 +345,7 @@ export default class FitnessDashboard extends Component {
                                     fourth_attr={"rem"}
                                     composed_line_attr={"totalTimeInBed"}
                                 />
+                                </CardBody>
                             </TabPane>
                             <TabPane tabId="3">
                                 <CardBody>

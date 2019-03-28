@@ -12,10 +12,18 @@ import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Component, Fragment } from 'react';
 import ReactTable from "react-table";
-import { Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader, Col, Row } from 'reactstrap';
+// import { Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader, Col, Row } from 'reactstrap';
 import * as Constants from '../../../constants';
 import PageTitle from '../../../Layout/AppMain/PageTitle';
 import MapWithMarkers from '../../MyComponents/MapContainer';
+import ReChartPanel from '../../Components/ReChartPanel';
+import { Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader, CardTitle, Col, Row, Table } from 'reactstrap';
+import {
+    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine,
+    BarChart, Bar, Brush, PieChart, Pie, Sector, ScatterChart, Scatter,
+    ComposedChart, ResponsiveContainer, AreaChart, Area
+} from 'recharts';
+
 
 export default class LocationPage extends Component {
     constructor() {
@@ -71,6 +79,8 @@ export default class LocationPage extends Component {
                             total_descent,
                             max_grade,
                             avg_heart_rate,
+                            max_heart_rate,
+                            elapsed_time,
 
                             wind_deg,
                             wind_speed,
@@ -84,10 +94,12 @@ export default class LocationPage extends Component {
 
                         const newWahooObj = {
                             workout_date_time,
+                            // latitude: parseInt(parseFloat(data_lat).toPrecision(5)),
+                            // longitude: parseInt(parseFloat(data_lon).toPrecision(5)),
                             latitude: parseFloat(data_lat),
                             longitude: parseFloat(data_lon),
                             total_distance,
-                            average_speed,
+                            average_speed: parseFloat(average_speed),
                             max_speed,
                             avg_cadence,
                             max_cadence,
@@ -96,6 +108,8 @@ export default class LocationPage extends Component {
                             total_descent,
                             max_grade,
                             avg_heart_rate,
+                            max_heart_rate,
+                            elapsed_time,
 
                             key: index
 
@@ -125,7 +139,7 @@ export default class LocationPage extends Component {
                     //     agg_total_climb = 0,
                     //     agg_wind_speed = 0,
                     //     agg_avg_heart_rate = 0;
-                    
+
                     // for (let i = len - 8; i < len; i++) {
                     //     const { average_speed,
                     //         total_climb,
@@ -140,14 +154,15 @@ export default class LocationPage extends Component {
 
                     const { average_speed,
                         total_climb,
-                        wind_speed,
                         avg_heart_rate
                     } = wahoo_data[wahoo_data.length - 1];
 
-                    console.log(weather_data)
+                    // console.log(weather_data)
+                    const { wind_speed } = weather_data[weather_data.length - 1];
+
                     this.setState({
-                        map_data: wahoo_data,
-                        weather_data: weather_data,
+                        map_data: wahoo_data.reverse(),
+                        weather_data: weather_data.reverse(),
                         // kpi: {
                         //     average_speed: (agg_average_speed / 7),
                         //     total_climb: (agg_total_climb / 7),
@@ -162,7 +177,7 @@ export default class LocationPage extends Component {
                         }
                     })
                 }),
-            61000);
+            11000);
     }
 
     componentDidMount() {
@@ -187,7 +202,7 @@ export default class LocationPage extends Component {
         })
 
         const weather_data_columns = Object.keys(Constants.weather_data_columns).map(key => {
-            console.log(key, Constants.weather_data_columns[key]);
+            // console.log(key, Constants.weather_data_columns[key]);
             return {
                 Header: key,
                 accessor: Constants.weather_data_columns[key]
@@ -216,15 +231,7 @@ export default class LocationPage extends Component {
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                        <small className="opacity-5">$</small>
                                                         {kpi.average_speed} mph
-                                                    </div>
-                                                    <div className="ml-auto">
-                                                        <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">
-                                                            <span className="text-success pl-2">
-                                                                +14%
-                                                                </span>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -244,18 +251,7 @@ export default class LocationPage extends Component {
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4 text-danger">
-                                                        <small className="opacity-5 text-muted">$</small>
                                                         {kpi.total_climb} feet
-                                                    </div>
-                                                    <div className="ml-auto">
-                                                        <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">
-                                                            <span className="text-danger pl-2">
-                                                                <span className="pr-1">
-                                                                    <FontAwesomeIcon icon={faAngleUp} />
-                                                                </span>
-                                                                8%
-                                                                </span>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -275,21 +271,7 @@ export default class LocationPage extends Component {
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                        <span className="text-success pr-2">
-                                                            <FontAwesomeIcon icon={faAngleDown} />
-                                                        </span>
-                                                        <small className="opacity-5">$</small>
                                                         {kpi.wind_speed} mph
-                                                    </div>
-                                                    <div className="ml-auto">
-                                                        <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">
-                                                            <span className="text-success pl-2">
-                                                                <span className="pr-1">
-                                                                    <FontAwesomeIcon icon={faAngleDown} />
-                                                                </span>
-                                                                15%
-                                                                </span>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -309,15 +291,7 @@ export default class LocationPage extends Component {
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                        <small className="opacity-5">$</small>
                                                         {kpi.avg_heart_rate} bpm
-                                                    </div>
-                                                    <div className="ml-auto">
-                                                        <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">
-                                                            <span className="text-warning pl-2">
-                                                                +76%
-                                                                </span>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -350,6 +324,72 @@ export default class LocationPage extends Component {
                             </Card>
                         </Col>
                     </Row>
+
+                    {/* Synchronized charts */}
+                    <Row>
+                        <Col lg="12" xl="4">
+                            <Card className="main-card mb-3">
+                                <CardBody>
+                                    <CardTitle>
+                                        Average Speed
+                                    </CardTitle>
+                                    <ResponsiveContainer width='100%' height={400}>
+                                        <LineChart width={600} height={200} data={map_data} syncId="anyId"
+                                            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                                            <CartesianGrid strokeDasharray="3 3" />
+                                            <XAxis dataKey="workout_date_time" />
+                                            <YAxis />
+                                            <Tooltip />
+                                            <Brush />
+                                            <Line type='monotone' dataKey='average_speed' stroke='#8884d8' fill='#8884d8' />
+                                        </LineChart>
+                                    </ResponsiveContainer >
+                                </CardBody>
+                            </Card>
+                        </Col>
+                        <Col lg="12" xl="4">
+                            <Card className="main-card mb-3">
+                                <CardBody>
+                                    <CardTitle>
+                                        Wind Speed
+                                    </CardTitle>
+                                    <ResponsiveContainer width='100%' height={400}>
+                                        <LineChart width={600} height={200} data={weather_data.reverse()} syncId="anyId"
+                                            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                                            <CartesianGrid strokeDasharray="3 3" />
+                                            <XAxis dataKey="workout_date_time" />
+                                            <YAxis />
+                                            <Tooltip />
+                                            <Brush />
+                                            <Line type='monotone' dataKey='wind_speed' stroke='#8884d8' fill='#8884d8' />
+                                        </LineChart>
+                                    </ResponsiveContainer >
+                                </CardBody>
+                            </Card>
+                        </Col>
+                        <Col lg="12" xl="4">
+                            <Card className="main-card mb-3">
+                                <CardBody>
+                                    <CardTitle>
+                                        Total Climb
+                                    </CardTitle>
+                                    <ResponsiveContainer width='100%' height={400}>
+                                        <LineChart width={600} height={200} data={map_data.reverse()} syncId="anyId"
+                                            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                                            <CartesianGrid strokeDasharray="3 3" />
+                                            <XAxis dataKey="workout_date_time" />
+                                            <YAxis />
+                                            <Tooltip />
+                                            <Brush />
+                                            <Line type='monotone' dataKey='total_climb' stroke='#8884d8' fill='#8884d8' />
+                                        </LineChart>
+                                    </ResponsiveContainer >
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </Row>
+
+
 
                     {/* Wahoo Data Table */}
                     <Row>

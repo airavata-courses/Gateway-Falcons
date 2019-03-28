@@ -34,7 +34,7 @@ export default class LivePage extends Component {
     fetchMapMarkers() {
         this.intervalId = setInterval(() =>
             fetch(`${Constants.serverUrl}/location`, {
-                // fetch(`http://localhost:3001/location`, {
+            // fetch(`http://localhost:3001/location`, {
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",
@@ -62,6 +62,8 @@ export default class LivePage extends Component {
                             total_descent,
                             max_grade,
                             avg_heart_rate,
+                            max_heart_rate,
+                            elapsed_time,
 
                             wind_deg,
                             wind_speed,
@@ -73,8 +75,11 @@ export default class LivePage extends Component {
                             humidity
                         } = datum;
 
+
                         const newWahooObj = {
                             workout_date_time,
+                            // latitude: parseInt(parseFloat(data_lat).toPrecision(5)),
+                            // longitude: parseInt(parseFloat(data_lon).toPrecision(5)),
                             latitude: parseFloat(data_lat),
                             longitude: parseFloat(data_lon),
                             total_distance,
@@ -87,6 +92,8 @@ export default class LivePage extends Component {
                             total_descent,
                             max_grade,
                             avg_heart_rate,
+                            max_heart_rate,
+                            elapsed_time,
 
                             key: index
 
@@ -114,12 +121,14 @@ export default class LivePage extends Component {
                     // console.log(weather_data)
                     const { average_speed,
                         total_climb,
-                        wind_speed,
                         avg_heart_rate
-                    } = wahoo_data[wahoo_data.length - 1];
+                    } = wahoo_data[wahoo_data.length - 1 ];
+                    const { wind_speed } = weather_data[weather_data.length - 1];
+                    // console.log(wahoo_data[0]);
+                    
                     this.setState({
-                        map_data: wahoo_data,
-                        weather_data: weather_data,
+                        map_data: wahoo_data.reverse(),
+                        weather_data: weather_data.reverse(),
                         kpi: {
                             average_speed,
                             total_climb,
@@ -185,15 +194,8 @@ export default class LivePage extends Component {
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                        <small className="opacity-5">$</small>
+                                                        <small className="opacity-5"></small>
                                                         {kpi.average_speed} mph
-                                                    </div>
-                                                    <div className="ml-auto">
-                                                        <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">
-                                                            <span className="text-success pl-2">
-                                                                +14%
-                                                                </span>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -213,18 +215,7 @@ export default class LivePage extends Component {
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4 text-danger">
-                                                        <small className="opacity-5 text-muted">$</small>
                                                         {kpi.total_climb} feet
-                                                    </div>
-                                                    <div className="ml-auto">
-                                                        <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">
-                                                            <span className="text-danger pl-2">
-                                                                <span className="pr-1">
-                                                                    <FontAwesomeIcon icon={faAngleUp} />
-                                                                </span>
-                                                                8%
-                                                                </span>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -244,21 +235,7 @@ export default class LivePage extends Component {
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                        <span className="text-success pr-2">
-                                                            <FontAwesomeIcon icon={faAngleDown} />
-                                                        </span>
-                                                        <small className="opacity-5">$</small>
                                                         {kpi.wind_speed} mph
-                                                    </div>
-                                                    <div className="ml-auto">
-                                                        <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">
-                                                            <span className="text-success pl-2">
-                                                                <span className="pr-1">
-                                                                    <FontAwesomeIcon icon={faAngleDown} />
-                                                                </span>
-                                                                15%
-                                                                </span>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -278,15 +255,7 @@ export default class LivePage extends Component {
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                        <small className="opacity-5">$</small>
                                                         {kpi.avg_heart_rate} bpm
-                                                    </div>
-                                                    <div className="ml-auto">
-                                                        <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">
-                                                            <span className="text-warning pl-2">
-                                                                +76%
-                                                                </span>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -372,7 +341,7 @@ export default class LivePage extends Component {
 
                     {/* CHART SECTion */}
                     <Row>
-                        <Col lg="12" xl="4">
+                        <Col lg="4" >
                             <Card className="main-card mb-3">
                                 <CardBody>
                                     <CardTitle>
@@ -387,7 +356,7 @@ export default class LivePage extends Component {
                                 </CardBody>
                             </Card>
                         </Col>
-                        <Col lg="12" xl="4">
+                        <Col lg="4">
                             <Card className="main-card mb-3">
                                 <CardBody>
                                     <CardTitle>

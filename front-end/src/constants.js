@@ -66,6 +66,9 @@ const wahoo_data_columns = {
     "Total Ascent": "total_climb",
     "Total Descent": "total_descent",
     "Gradient": "max_grade",
+    'Max HR': 'max_heart_rate',
+    'Active Time': 'elapsed_time',
+    'Max HR': 'max_heart_rate',
 };
 
 const fitbit_data_columns = {

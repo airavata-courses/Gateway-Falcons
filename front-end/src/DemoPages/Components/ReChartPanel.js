@@ -4,6 +4,7 @@ import {
     BarChart, Bar, Brush, PieChart, Pie, Sector, ScatterChart, Scatter,
     ComposedChart, ResponsiveContainer, AreaChart, Area
 } from 'recharts';
+import { Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader, CardTitle, Col, Row, Table } from 'reactstrap';
 
 // http://recharts.org/en-US/examples/LineChartWithReferenceLines
 
@@ -152,7 +153,7 @@ class ReChartPanel extends Component {
             );
         } else if (chart_type === "Composed") {
             return (
-                <ComposedChart width={400} height={400} data={data}
+                <ComposedChart width={400} data={data}
                 >
                     <CartesianGrid stroke='#f5f5f5' />
                     <XAxis dataKey="date" />
@@ -219,12 +220,12 @@ class ReChartPanel extends Component {
                     <YAxis yAxisId="right" orientation="right" />
                     <Tooltip />
                     <Legend />
-                    <Line yAxisId="left" type="monotone" dataKey={first_attr} stroke="#8884d8"  />
+                    <Line yAxisId="left" type="monotone" dataKey={first_attr} stroke="#8884d8" />
                     <Line yAxisId="right" type="monotone" dataKey={second_attr} stroke="#82ca9d" />
                 </LineChart>
             )
         } else if (chart_type === "BF-Scatter") {
-                    {/* margin={{
+            {/* margin={{
                         top: 20, right: 20, bottom: 20, left: 20,
                     }} */}
             return (
@@ -237,8 +238,59 @@ class ReChartPanel extends Component {
                     <YAxis type="number" dataKey={second_attr} name="Avg Heart Rate" domain={[40, 200]} />
                     <Tooltip cursor={{ strokeDasharray: '3 3' }} />
                     <Legend />
-                    <Scatter data={data} name="Best Fit" fill="#8884d8" line={{stroke: 'red', strokeWidth: 2, lineType: 'fitting'}}  />
+                    <Scatter data={data} name="Best Fit" fill="#8884d8" line={{ stroke: 'red', strokeWidth: 2, lineType: 'fitting' }} />
                 </ScatterChart>
+            );
+        } else if (chart_type === "Synchronized") {
+            return (
+                <div>
+
+                    <Col lg="12" xl="4">
+                        <Card className="main-card mb-3">
+                            <CardBody>
+                                <CardTitle>
+                                    Heart Rate
+                                    </CardTitle>
+                                <ReChartPanel
+                                    data={data}
+                                    chart_type={"Line"}
+                                    brush={false}
+                                    first_attr={"avg_heart_rate"}
+                                />
+                            </CardBody>
+                        </Card>
+                    </Col>
+                    <Col lg="12" xl="4">
+                        <Card className="main-card mb-3">
+                            <CardBody>
+                                <CardTitle>
+                                    Elevation
+                                    </CardTitle>
+                                <ReChartPanel
+                                    data={data}
+                                    chart_type={"Line"}
+                                    brush={false}
+                                    first_attr={"total_climb"}
+                                />
+                            </CardBody>
+                        </Card>
+                    </Col>
+                    <Col lg="12" xl="4">
+                        <Card className="main-card mb-3">
+                            <CardBody>
+                                <CardTitle>
+                                    Wind Speed
+                                    </CardTitle>
+                                <ReChartPanel
+                                    data={data}
+                                    chart_type={"Line"}
+                                    brush={false}
+                                    first_attr={"wind_speed"}
+                                />
+                            </CardBody>
+                        </Card>
+                    </Col>
+                </div>
             );
         }
     }
@@ -255,11 +307,19 @@ class ReChartPanel extends Component {
             data,
             title
         } = this.props;
-        return (
-            <ResponsiveContainer width='100%' aspect={4.0 / 3.0}>
-                {this.renderChart(chart_type, first_attr, second_attr, third_attr, fourth_attr, composed_line_attr, data, brush)}
-            </ResponsiveContainer>
-        );
+        if (chart_type !== "Synchronized") {
+            return (
+                <ResponsiveContainer width='100%' height={400}>
+                    {this.renderChart(chart_type, first_attr, second_attr, third_attr, fourth_attr, composed_line_attr, data, brush)}
+                </ResponsiveContainer>
+            );
+        } else {
+            return (
+                <div>
+                    {this.renderChart(chart_type, first_attr, second_attr, third_attr, fourth_attr, composed_line_attr, data, brush)}
+                </div>
+            )
+        }
 
     }
 }
