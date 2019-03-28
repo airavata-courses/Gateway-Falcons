@@ -85,7 +85,7 @@ class HeaderDots extends React.Component {
         return (
             <Fragment>
                 <div className="header-dots">
-                    <UncontrolledDropdown>
+                    {/* <UncontrolledDropdown>
                         <DropdownToggle className="p-0 mr-2" color="link">
                             <div className="icon-wrapper icon-wrapper-alt rounded-circle">
                                 <div className="icon-wrapper-bg bg-primary"/>
@@ -333,7 +333,7 @@ class HeaderDots extends React.Component {
                                 </NavItem>
                             </Nav>
                         </DropdownMenu>
-                    </UncontrolledDropdown>
+                    </UncontrolledDropdown> */}
                 </div>
             </Fragment>
         )
