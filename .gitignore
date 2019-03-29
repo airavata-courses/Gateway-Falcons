@@ -1,5 +1,7 @@
 .DS_Store
 
-.env
-
-config/
+server/.env
+server-data-ms/.env
+server/config/
+server-data-ms/config/
+node_modules/
