@@ -6,6 +6,7 @@ from flask import request
 from datetime import datetime, timedelta
 from configparser import ConfigParser
 import os
+from flask_cors import cross_origin
 
 parser = ConfigParser()
 app = Flask(__name__)
@@ -25,12 +26,14 @@ client_secret =  parser.get('STRAVA', 'secret')
 mongo = PyMongo(app)
 
 @app.route('/')
+@cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
 def home():
     authorize_url = client.authorization_url(client_id=client_id, redirect_uri='http://localhost:5001/authorized')
     print(authorize_url)
     return redirect(authorize_url)
 
 @app.route('/authorized')
+@cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
 def authorized():
     code = request.args.get('code')
     token_response = client.exchange_code_for_token(client_id=client_id, client_secret=client_secret, code=code)
@@ -57,6 +60,7 @@ def authorized():
 
 
 @app.route('/get')
+@cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
 def get_athelete():
     global client_secret
     strava_db = mongo.db.strava
