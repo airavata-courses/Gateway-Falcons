@@ -8,22 +8,13 @@
 
 // TODO: TRIm the lat / lon
 
-import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Component, Fragment } from 'react';
 import ReactTable from "react-table";
-// import { Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader, Col, Row } from 'reactstrap';
+import { Button, ButtonGroup, Card, CardBody, CardHeader, CardTitle, Col, Row } from 'reactstrap';
+import { Brush, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import * as Constants from '../../../constants';
 import PageTitle from '../../../Layout/AppMain/PageTitle';
 import MapWithMarkers from '../../MyComponents/MapContainer';
-import ReChartPanel from '../../Components/ReChartPanel';
-import { Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader, CardTitle, Col, Row, Table } from 'reactstrap';
-import {
-    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine,
-    BarChart, Bar, Brush, PieChart, Pie, Sector, ScatterChart, Scatter,
-    ComposedChart, ResponsiveContainer, AreaChart, Area
-} from 'recharts';
-
 
 export default class LocationPage extends Component {
     constructor() {
@@ -50,8 +41,8 @@ export default class LocationPage extends Component {
 
     fetchMapMarkers() {
         this.intervalId = setInterval(() =>
-            // fetch(`${Constants.serverUrl}/location`, {
-            fetch(`http://localhost:3001/location`, {
+            fetch(`${Constants.serverUrl}/location`, {
+            // fetch(`http://localhost:3001/location`, {
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",
@@ -207,7 +198,7 @@ export default class LocationPage extends Component {
             <Fragment>
                 <PageTitle
                     heading="Location Page"
-                    subheading="This dashboard was created as an example of the flexibility that ArchitectUI offers."
+                    subheading="Follow the journey and discover which factors impact its progress"
                     icon="pe-7s-graph icon-gradient bg-ripe-malin"
                 />
                 <div>
@@ -409,14 +400,14 @@ export default class LocationPage extends Component {
                                     }}
                                     className="-striped -highlight -fixed"
                                 />
-                                <CardFooter className="d-block text-center">
+                                {/* <CardFooter className="d-block text-center">
                                     <Button className="mr-2 btn-icon btn-icon-only" outline color="danger">
                                         <i className="pe-7s-trash btn-icon-wrapper"> </i>
                                     </Button>
                                     <Button className="btn-wide" color="success">
                                         Save
                                     </Button>
-                                </CardFooter>
+                                </CardFooter> */}
                             </Card>
                         </Col>
                     </Row>
@@ -445,14 +436,14 @@ export default class LocationPage extends Component {
                                     }}
                                     className="-striped -highlight -fixed"
                                 />
-                                <CardFooter className="d-block text-center">
+                                {/* <CardFooter className="d-block text-center">
                                     <Button className="mr-2 btn-icon btn-icon-only" outline color="danger">
                                         <i className="pe-7s-trash btn-icon-wrapper"> </i>
                                     </Button>
                                     <Button className="btn-wide" color="success">
                                         Save
                                     </Button>
-                                </CardFooter>
+                                </CardFooter> */}
                             </Card>
                         </Col>
                     </Row>

@@ -65,23 +65,24 @@ class ReChartPanel extends Component {
                 <Tooltip />
                 {
                     (first_max)
-                        ? <ReferenceLine y={first_max} stroke="red" label={"max " + first_attr} />
+                        ? <ReferenceLine y={first_max} stroke="red" label={"max"} />
                         : <div />
                 }
                 {
                     (second_max)
-                        ? <ReferenceLine y={second_max} stroke="red" label={"max " + second_attr} />
+                        ? <ReferenceLine y={second_max} stroke="red" label={"max"} />
                         : <div />
                 }
                 {
                     (third_max)
-                        ? <ReferenceLine y={third_max} stroke="red" label={"max " + third_attr} />
+                        ? <ReferenceLine y={third_max} stroke="red" label={"max"} />
                         : <div />
                 }
                 <Line type="monotone"
                     dataKey={`${first_attr}`}
                     name={(first_attr === "carbohydrates") ? "carbs" : first_attr}
                     stroke="#8884d8"
+                    dot={false}
                 />
                 {
                     second_attr ?
@@ -89,6 +90,7 @@ class ReChartPanel extends Component {
                             dataKey={`${second_attr}`}
                             name={(second_attr === "carbohydrates") ? "carbs" : second_attr}
                             stroke="#82ca9d"
+                            dot={false}
                         />
                         :
                         <div />
@@ -121,16 +123,19 @@ class ReChartPanel extends Component {
                     <Bar
                         dataKey={`${first_attr}`}
                         fill="#8884d8"
+                        dot={false}
                         name={(first_attr === "carbohydrates") ? "carbs" : first_attr}
                     />
                     <Bar
                         dataKey={`${second_attr}`}
                         fill="#82ca9d"
+                        dot={false}
                         name={(second_attr === "carbohydrates") ? "carbs" : second_attr}
                     />
                     <Bar
                         dataKey={`${third_attr}`}
                         fill="#ffa500"
+                        dot={false}
                         name={(third_attr === "carbohydrates") ? "carbs" : third_attr}
                     />
                 </BarChart>

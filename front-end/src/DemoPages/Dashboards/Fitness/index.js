@@ -1,16 +1,16 @@
-import { faAngleUp, faCog, faCommentDots } from '@fortawesome/free-solid-svg-icons';
+import { faAngleUp, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
+import moment from 'moment';
 import React, { Component, Fragment } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import CountUp from 'react-countup';
 import ReactTable from "react-table";
-import { Button, Card, CardBody, CardFooter, CardHeader, Col, Nav, NavItem, NavLink, Row, TabContent, TabPane } from 'reactstrap';
+import { Card, CardBody, CardHeader, Col, Nav, NavItem, NavLink, Row, TabContent, TabPane } from 'reactstrap';
 import * as Constants from '../../../constants';
-import PageTitleAlt3 from '../../../Layout/AppMain/PageTitleAlt3';
+import PageTitle from '../../../Layout/AppMain/PageTitle';
 import ReChartPanel from '../../Components/ReChartPanel';
 import IncomeReport from '../Commerce/Examples/Components/IncomeReport';
-import moment from 'moment'
 
 export default class FitnessDashboard extends Component {
 
@@ -246,9 +246,9 @@ export default class FitnessDashboard extends Component {
                     transitionAppearTimeout={0}
                     transitionEnter={false}
                     transitionLeave={false}>
-                    <PageTitleAlt3
+                    <PageTitle
                         heading="Fitness Dashboard"
-                        subheading="This is an example dashboard created using build-in elements and components."
+                        subheading="Discover relationships between long-term exercise and cardiac performance"
                         icon="lnr-apartment icon-gradient bg-mean-fruit"
                     />
                     <Card tabs="true" className="mb-3">
@@ -505,7 +505,7 @@ export default class FitnessDashboard extends Component {
                             }}
                             className="-striped -highlight -fixed"
                         />
-                        <CardFooter className="d-block p-4 text-center">
+                        {/* <CardFooter className="d-block p-4 text-center">
                             <Button color="dark" className="btn-pill btn-shadow btn-wide fsize-1" size="lg">
                                 <span className="mr-2 opacity-7">
                                     <FontAwesomeIcon spin fixedWidth={false} icon={faCog} />
@@ -514,7 +514,7 @@ export default class FitnessDashboard extends Component {
                                     View Complete Report
                                     </span>
                             </Button>
-                        </CardFooter>
+                        </CardFooter> */}
                     </Card>
 
                     {/* Wahoo */}
@@ -533,7 +533,7 @@ export default class FitnessDashboard extends Component {
                             }}
                             className="-striped -highlight -fixed"
                         />
-                        <CardFooter className="d-block p-4 text-center">
+                        {/* <CardFooter className="d-block p-4 text-center">
                             <Button color="dark" className="btn-pill btn-shadow btn-wide fsize-1" size="lg">
                                 <span className="mr-2 opacity-7">
                                     <FontAwesomeIcon spin fixedWidth={false} icon={faCog} />
@@ -542,7 +542,7 @@ export default class FitnessDashboard extends Component {
                                     View Complete Report
                                     </span>
                             </Button>
-                        </CardFooter>
+                        </CardFooter> */}
                     </Card>
 
                 </ReactCSSTransitionGroup>

@@ -1,15 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import Ionicon from 'react-ionicons';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import Select from 'react-select';
 import Slider from "react-slick";
 import ReactTable from "react-table";
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
-import { Button, Card, CardBody, CardFooter, CardHeader, Col, ListGroup, ListGroupItem, Progress, Row } from 'reactstrap';
+import { Card, CardBody, CardHeader, Col, ListGroup, ListGroupItem, Row } from 'reactstrap';
 import * as Constants from '../../../constants';
 import PageTitle from '../../../Layout/AppMain/PageTitle';
-// import BrushChart from './BrushChart';
 import ReChartPanel from '../../Components/ReChartPanel';
 import { makeData } from "../../Tables/DataTables/Examples/utils";
 
@@ -20,36 +17,6 @@ const options = [
     { value: '4', label: 'Last 3 Months' },
     { value: '5', label: 'Last Year' },
 ];
-
-// function boxMullerRandom() {
-//     let phase = false,
-//         x1, x2, w, z;
-
-//     return (function () {
-
-//         if (phase = !phase) {
-//             do {
-//                 x1 = 2.0 * Math.random() - 1.0;
-//                 x2 = 2.0 * Math.random() - 1.0;
-//                 w = x1 * x1 + x2 * x2;
-//             } while (w >= 1.0);
-
-//             w = Math.sqrt((-2.0 * Math.log(w)) / w);
-//             return x1 * w;
-//         } else {
-//             return x2 * w;
-//         }
-//     })();
-// }
-
-// function randomData(n = 30) {
-//     return Array.apply(0, Array(n)).map(boxMullerRandom);
-// }
-
-// const sampleData = randomData(10);
-// const sampleData2 = randomData(15);
-// const sampleData3 = randomData(8);
-// const sampleData4 = randomData(12);
 
 export default class DietDashboard extends Component {
     constructor() {
@@ -113,7 +80,6 @@ export default class DietDashboard extends Component {
                 })
                 const len = res.length;
                 meals_arr = meals_arr.slice(len - 8, len - 1);
-                // console.log(meals_arr);
                 const _meals_arr = [];
                 meals_arr.map(meal_log => {
                     for (let i = 0; i < meal_log.meals.length; i++) {
@@ -123,7 +89,6 @@ export default class DietDashboard extends Component {
                         });
                     }
                 });
-                // console.log(_meals_arr);
                 this.setState({
                     diet_data: _data.reverse(),
                     today: _data[len - 1],
@@ -160,13 +125,6 @@ export default class DietDashboard extends Component {
             },
             last_meals
         } = this.state;
-        console.log(calories,
-            carbohydrates,
-            fat,
-            protein,
-            sodium,
-            sugar);
-        console.log(last_meals);
         const settings = {
             className: "",
             centerMode: false,
@@ -183,11 +141,13 @@ export default class DietDashboard extends Component {
             }
         })
 
+        const _diet_data = diet_data.reverse().slice(diet_data.length - 14, diet_data.length);
+
         return (
             <Fragment>
                 <PageTitle
                     heading="Diet Page"
-                    subheading="This dashboard was created as an example of the flexibility that ArchitectUI offers."
+                    subheading="Analyze nutritional and caloric trends over time"
                     icon="pe-7s-graph icon-gradient bg-ripe-malin"
                 />
                 <ReactCSSTransitionGroup
@@ -302,7 +262,7 @@ export default class DietDashboard extends Component {
                                     </div>
                                 </Col>
                             </Row>
-                            <CardFooter className="text-center d-block p-3">
+                            {/* <CardFooter className="text-center d-block p-3">
                                 <Button color="primary" className="btn-pill btn-shadow btn-wide fsize-1" size="lg">
                                     <span className="mr-2 opacity-7">
                                         <Ionicon color="#ffffff" icon="ios-analytics-outline" beat={true} />
@@ -311,7 +271,7 @@ export default class DietDashboard extends Component {
                                         View Complete Report
                                     </span>
                                 </Button>
-                            </CardFooter>
+                            </CardFooter> */}
                         </Card>
 
                         {/* Middle Row */}
@@ -334,7 +294,7 @@ export default class DietDashboard extends Component {
                                                 <div>
                                                     <div className="widget-chart widget-chart2 text-left p-0">
                                                         <ReChartPanel
-                                                            data={diet_data}
+                                                            data={_diet_data}
                                                             chart_type={"Brush"}
                                                             brush={false}
                                                             first_attr={"protein"}
@@ -345,14 +305,14 @@ export default class DietDashboard extends Component {
                                                 </div>
                                                 <div>
                                                     <ReChartPanel
-                                                        data={diet_data}
+                                                        data={_diet_data}
                                                         chart_type={"Line"}
                                                         first_attr={"calories"}
                                                     />
                                                 </div>
                                                 <div>
                                                     <ReChartPanel
-                                                        data={diet_data}
+                                                        data={_diet_data}
                                                         chart_type={"Area"}
                                                         first_attr={"water"}
                                                     />
@@ -399,7 +359,7 @@ export default class DietDashboard extends Component {
                                                 </div>
                                             </ListGroupItem>
                                         </ListGroup> */}
-                                    </CardBody> 
+                                    </CardBody>
                                 </Card>
                             </Col>
 
@@ -438,7 +398,7 @@ export default class DietDashboard extends Component {
                                                                 >
                                                                     <h4 className="timeline-title">{name}</h4>
                                                                     <p>
-                                                                        Items: { _items.join(",") }
+                                                                        Items: {_items.join(",")}
                                                                     </p>
                                                                 </VerticalTimelineElement>
                                                             )
@@ -473,11 +433,11 @@ export default class DietDashboard extends Component {
                                                                     Calories
                                                                 </div>
                                                                 <div className="widget-subheading">
-                                                                    Calories
+                                                                    Target Goal: 3000
                                                                 </div>
                                                             </div>
                                                             <div className="widget-content-right">
-                                                                <div className="widget-numbers text-success">
+                                                                <div className="widget-numbers">
                                                                     {calories}
                                                                 </div>
                                                             </div>
@@ -519,7 +479,7 @@ export default class DietDashboard extends Component {
                                                                     Sugar
                                                                 </div>
                                                                 <div className="widget-subheading">
-                                                                    gimme some suga
+                                                                    Target Goal: 55 g
                                                                 </div>
                                                             </div>
                                                             <div className="widget-content-right">
@@ -565,7 +525,7 @@ export default class DietDashboard extends Component {
                                                                     Sodium
                                                                 </div>
                                                                 <div className="widget-subheading">
-                                                                    i like it salty
+                                                                    Target Goal: 1,500 mg
                                                                 </div>
                                                             </div>
                                                             <div className="widget-content-right">
