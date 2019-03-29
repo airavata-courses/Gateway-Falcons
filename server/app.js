@@ -30,7 +30,17 @@ mongoose
 //  }
 // app.use(convert(cors({ origin: checkOriginAgainstWhitelist })));
 
-app.use(cors({ origin: "http://149.165.168.185:30042/" }))
+// app.use(cors({ origin: "http://149.165.168.185:30042/" }))
+
+
+// let allowedOrigins = ["http://149.165.168.185:30042","http://149.165.170.161:3000", "http://localhost:3000", "http://localhost:30042"]
+// let originItem = req.headers.origin;
+// if (allowedOrigins.includes(originItem)) {
+//     res.header("Access-Control-Allow-Origin", origin); // restrict it to the required domain
+// }
+app.use(cors())
+
+// app.use(cors({ origin: "http://149.165.170.161:3000" }))
 // app.use(cors({ origin: "http://localhost:3000"}))
 
 fs.readdirSync('./routes').forEach(file => {
