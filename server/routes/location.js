@@ -9,7 +9,7 @@ const axios = require('axios');
 router.get('/',  (req, res) => {
     console.log('node server location data')
     axios({
-            url: `http://localhost:3002/location`, 
+            url: `http://149.165.168.185:30072/location`, 
             // headers: {
             //     'Content-Type': 'application/json'
             // }

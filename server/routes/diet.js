@@ -12,7 +12,8 @@ const axios = require('axios');
 router.get('/',  (req, res) => {
     console.log('node server diet data')
     axios({
-            url: `http://localhost:3002/diet`, 
+            url: 'http://149.165.168.185:30072/diet',
+            // url: `http://localhost:3002/diet`, 
             // headers: {
             //     'Content-Type': 'application/json'
             // }

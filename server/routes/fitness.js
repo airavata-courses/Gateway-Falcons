@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
     // const userID = req.params['userID'];
     console.log('node server fitness data')
     axios({
-        url: `http://localhost:3002/fitness`,
+        url: `http://149.165.168.185:30072/fitness`,
         // headers: {
         //     'Content-Type': 'application/json'
         // }
