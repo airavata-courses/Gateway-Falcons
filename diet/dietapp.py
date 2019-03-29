@@ -5,7 +5,7 @@ import datetime
 from configparser import ConfigParser
 import os
 import requests
-
+from flask_cors import cross_origin
 
 
 parser = ConfigParser()
@@ -19,18 +19,24 @@ else:
 app.config['MONGO_DBNAME'] = parser.get('DB','dbname')
 app.config['MONGO_URI'] = parser.get('DB', 'url')
 mongo = PyMongo(app)
-
+client = myfitnesspal.Client(parser.get('myfitnesspal', 'email'))
 
 @app.route('/add')
+@cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
 def add_diet():
-    client = myfitnesspal.Client(parser.get('myfitnesspal','email'))
+    for i in range(20,-1,-1):
+        date = datetime.datetime.now()- datetime.timedelta(days=i)
+        if date.time().hour <=10:
+            yesterday = date - datetime.timedelta(days=1)
+            add_diet_data(yesterday)
+        add_diet_data(date)
+    return "Added data"
 
-    date = datetime.datetime.now()
+
+def add_diet_data(date):
     day = client.get_date(date.year, date.month, date.day)
-
     if not day.totals:
         return 'No data is added in fitnesspal today.'
-
     diet_db = mongo.db.diet
     meals = create_meal(day.meals)
 
@@ -45,7 +51,7 @@ def add_diet():
     diet_db.insert_one({
         "date": date.strftime('%Y-%m-%d'),
         "totals": day.totals,
-        "water": round(day.water * 0.033814,2),
+        "water": round(day.water * 0.033814, 2),
         "meals": meals
     })
 
@@ -61,7 +67,6 @@ def add_diet():
             }
         )
 
-    return "Added data"
 
 def create_meal(meals):
     meals_list = []
@@ -91,5 +96,4 @@ def create_exercise(exercises):
 
 
 if __name__ == '__main__':
-
     app.run(host='0.0.0.0', port='5000')
