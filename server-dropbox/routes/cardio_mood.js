@@ -16,6 +16,9 @@ router.get('/', function (req, res, next) {
   dbx.filesListFolder({ path: '/apps/cardiomood' })
     .then(function (response) {
       const today = moment().format('YYYY-MM-DD');
+      // const today = moment().subtract(1, 'days').format('YYYY-MM-DD');
+      console.log(today);
+
       const files = [];
       response.entries.map(file => {
         const cur_file_date = file.name.substring(0, file.name.indexOf(" "));
@@ -30,7 +33,6 @@ router.get('/', function (req, res, next) {
       for (let file of files) {
         dbx.filesDownload({ path: file.path_lower })
           .then(downloaded_file => {
-            // console.log(downloaded_file)
             const file_path = `./cardio_mood/${downloaded_file.name}`; // TODO: PATH>JOIN
             var stream = fs.createWriteStream(file_path);
             stream.once('open', function () {
@@ -48,7 +50,7 @@ router.get('/', function (req, res, next) {
                   line = line.replace(/\s+/g, " ");
                   const line_arr = line.split(" ");
                   if (line_arr.length === 4 && !isNaN(parseInt(line_arr[0]))) {
-                    console.log(line_arr)
+                    // console.log(line_arr)
                     let obj = {
                       index: line_arr[0],
                       timestamp: line_arr[1],
@@ -60,13 +62,20 @@ router.get('/', function (req, res, next) {
                 }
               }
               const file_name = file.name.substring(file.name.indexOf("_") + 1, file.name.indexOf("."))
-              // console.log(file_name);
+              console.log(file_name);
               const CardioMoodObj = {
                 name: file_name,
                 records: data_array
               }
-              CardioMood.collection.insertOne(CardioMoodObj)
-              stream.end();
+
+              const db = req.app.locals.database;
+
+              const collection = db.collection('cardio_mood');
+  
+              collection.insertOne(CardioMoodObj)
+                .then(response => console.log(response))
+                .catch(err => console.log(err))
+  
             });
           })
           .catch(err => console.log(err))
@@ -77,6 +86,7 @@ router.get('/', function (req, res, next) {
     });
 
   res.send('respond with a resource');
+
 });
 
 module.exports = router;
