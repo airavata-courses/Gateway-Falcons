@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const passport = require('../auth/auth.js');
+var ip = require('ip');
 
 // TODO: ensure this is restricted to login auth route gaurding
 const isLoggedIn = (req, res, next) => {
@@ -10,7 +11,7 @@ const isLoggedIn = (req, res, next) => {
 
 router.get('/', function (req, res, next) {
   console.log(req.isAuthenticated(), req.user)
-  res.render('index', { title: 'Main Express Server' });
+  res.render('index', { title: ip.address() });
 });
 
 /**
