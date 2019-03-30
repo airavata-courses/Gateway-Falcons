@@ -8,8 +8,8 @@ cp -r ../../config ./
 npm install
 
 cd ..
-# docker login
-docker build -f DockerFileBackendDropbox -t chiraggalani25/backend_dropbox .
+docker login
+docker build -f DockerFileBackendDropbox -t johnlive/backend_dropbox .
 #docker run -p 3003:3003 -d chiraggalani25/backend_dropbox
 
-docker push chiraggalani25/backend_dropbox
+docker push johnlive/backend_dropbox
