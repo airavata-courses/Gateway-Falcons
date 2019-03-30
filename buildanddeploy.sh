@@ -9,6 +9,6 @@ cp ../../dietconfig.ini diet/dietconfig.ini
 mkdir scripts
 cp ~/scripts/*.sh ~/diet/Gateway-Falcons/scripts
 docker build --tag=$1 .
-docker login -u johnlive -p johnschwenck
+docker login
 docker tag $1 johnlive/$2
 docker push johnlive/$2
