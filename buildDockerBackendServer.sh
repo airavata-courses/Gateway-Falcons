@@ -5,7 +5,7 @@ rm -rf .env
 rm -rf config/
 cp ../../.env ./
 cp -r ../../config ./
-npm install
+
 
 cd ..
 docker login
