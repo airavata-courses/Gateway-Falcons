@@ -1,4 +1,6 @@
-cd ./server
+#!/bin/bash
+
+cd ./Gateway-Falcons/server
 rm -rf .env
 rm -rf config/
 cp ../../.env ./
