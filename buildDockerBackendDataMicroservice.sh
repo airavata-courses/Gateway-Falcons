@@ -1,4 +1,6 @@
-cd ./server-data-ms
+#!/bin/bash
+
+cd ./Gateway-Falcons/server-data-ms
 rm -rf .env
 rm -rf config/
 cp ../../.env ./
