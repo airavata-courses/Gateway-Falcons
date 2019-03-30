@@ -10,7 +10,7 @@ const axios = require('axios');
 router.get('/', (req, res) => {
     console.log('node server eeg data')
     axios({
-        url: `http://localhost:3002/cardio_mood`,
+        url: 'http://149.165.168.185:30072/cardio_mood',
         // headers: {
         //     'Content-Type': 'application/json'
         // }
