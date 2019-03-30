@@ -76,7 +76,7 @@ const fitbit_data_columns = {
     "Date": "dateOfSleep",
     "Fall Asleep": "startTime",
     "Wake Up": "endTime",
-    "Sleep Score": "efficiency",
+    // "Sleep Score": "efficiency",
     "Total Time in Bed": "totalTimeInBed",
     "Total Time Asleep": "minutesAsleep",
     "Light": "light",

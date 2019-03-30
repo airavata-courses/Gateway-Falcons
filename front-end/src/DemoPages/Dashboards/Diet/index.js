@@ -37,7 +37,7 @@ export default class DietDashboard extends Component {
 
     getAndSetDietData() {
         fetch(`${Constants.serverUrl}/diet`, {
-        // fetch('http://localhost:3001/diet', {
+            // fetch('http://localhost:3001/diet', {
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",
@@ -163,20 +163,7 @@ export default class DietDashboard extends Component {
 
                         <Card className="mb-3">
                             <CardHeader className="card-header-tab z-index-6">
-                                {/* <div
-                                    className="card-header-title font-size-lg text-capitalize font-weight-normal">
-                                    <i className="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
-                                    Portfolio Performance
-                                </div> */}
-                                {/* <div className="btn-actions-pane-right text-capitalize">
-                                    <span className="d-inline-block ml-2" style={{ width: 200 }}>
-                                        <Select
-                                            value={selectedOption}
-                                            onChange={this.handleChange}
-                                            options={options}
-                                        />
-                                    </span>
-                                </div> */}
+                                Macro Analysis
                             </CardHeader>
                             <Row className="no-gutters">
                                 <Col sm="6" md="4" xl="4">
@@ -246,16 +233,7 @@ export default class DietDashboard extends Component {
                                             <div className="widget-subheading">
                                                 Protein
                                             </div>
-                                            <div className="widget-numbers text-success">
-                                                {/* <CountUp start={0}
-                                                    end={563}
-                                                    separator=""
-                                                    decimals={0}
-                                                    decimal="."
-                                                    prefix="$"
-                                                    useEasing={false}
-                                                    suffix=""
-                                                    duration="7" /> */}
+                                            <div className="widget-numbers">
                                                 {protein}
                                             </div>
                                         </div>
@@ -408,12 +386,7 @@ export default class DietDashboard extends Component {
                                             </div>
                                         </PerfectScrollbar>
                                     </div>
-                                    {/* <CardFooter className="d-block text-center">
-                                        <Button className="btn-shadow btn-wide btn-pill" color="focus">
-                                            <div className="badge badge-dot badge-dot-lg badge-warning badge-pulse">Badge</div>
-                                            View All Messages
-                                        </Button>
-                                    </CardFooter> */}
+                                  
                                 </Card>
                             </Col>
                         </Row>
@@ -445,27 +418,6 @@ export default class DietDashboard extends Component {
                                                     </div>
                                                 </div>
                                             </ListGroupItem>
-                                            {/* <ListGroupItem className="bg-transparent">
-                                                <div className="widget-content p-0">
-                                                    <div className="widget-content-outer">
-                                                        <div className="widget-content-wrapper">
-                                                            <div className="widget-content-left">
-                                                                <div className="widget-heading">
-                                                                    Clients
-                                                                </div>
-                                                                <div className="widget-subheading">
-                                                                    Total Clients Profit
-                                                                </div>
-                                                            </div>
-                                                            <div className="widget-content-right">
-                                                                <div className="widget-numbers text-primary">
-                                                                    $12.6k
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </ListGroupItem> */}
                                         </ListGroup>
                                     </Col>
                                     <Col md="12" lg="4">
@@ -476,42 +428,28 @@ export default class DietDashboard extends Component {
                                                         <div className="widget-content-wrapper">
                                                             <div className="widget-content-left">
                                                                 <div className="widget-heading">
-                                                                    Sugar
+                                                                    Sugar Intake
                                                                 </div>
                                                                 <div className="widget-subheading">
                                                                     Target Goal: 55 g
                                                                 </div>
                                                             </div>
                                                             <div className="widget-content-right">
-                                                                <div className="widget-numbers text-danger">
-                                                                    {sugar}
-                                                                </div>
+                                                                {
+                                                                    (sugar > 55)
+                                                                        ? <div className="widget-numbers text-danger">
+                                                                            {sugar}
+                                                                        </div>
+                                                                        :
+                                                                        <div className="widget-numbers text-success">
+                                                                            {sugar}
+                                                                        </div>
+                                                                }
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </ListGroupItem>
-                                            {/* <ListGroupItem className="bg-transparent">
-                                                <div className="widget-content p-0">
-                                                    <div className="widget-content-outer">
-                                                        <div className="widget-content-wrapper">
-                                                            <div className="widget-content-left">
-                                                                <div className="widget-heading">
-                                                                    Products Sold
-                                                                </div>
-                                                                <div className="widget-subheading">
-                                                                    Total revenue streams
-                                                                </div>
-                                                            </div>
-                                                            <div className="widget-content-right">
-                                                                <div className="widget-numbers text-warning">
-                                                                    $3M
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </ListGroupItem> */}
                                         </ListGroup>
                                     </Col>
                                     <Col md="12" lg="4">
@@ -522,42 +460,29 @@ export default class DietDashboard extends Component {
                                                         <div className="widget-content-wrapper">
                                                             <div className="widget-content-left">
                                                                 <div className="widget-heading">
-                                                                    Sodium
+                                                                    Sodium Intake
                                                                 </div>
                                                                 <div className="widget-subheading">
                                                                     Target Goal: 1,500 mg
                                                                 </div>
                                                             </div>
                                                             <div className="widget-content-right">
-                                                                <div className="widget-numbers text-success">
-                                                                    {sodium}
-                                                                </div>
+                                                                {
+                                                                    (sodium > 1500)
+                                                                        ?
+                                                                        <div className="widget-numbers text-danger">
+                                                                            {sodium}
+                                                                        </div>
+                                                                        :
+                                                                        <div className="widget-numbers text-success">
+                                                                            {sodium}
+                                                                        </div>
+                                                                }
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </ListGroupItem>
-                                            {/* <ListGroupItem className="bg-transparent">
-                                                <div className="widget-content p-0">
-                                                    <div className="widget-content-outer">
-                                                        <div className="widget-content-wrapper">
-                                                            <div className="widget-content-left">
-                                                                <div className="widget-heading">
-                                                                    Clients
-                                                                </div>
-                                                                <div className="widget-subheading">
-                                                                    Total Clients Profit
-                                                                </div>
-                                                            </div>
-                                                            <div className="widget-content-right">
-                                                                <div className="widget-numbers text-primary">
-                                                                    $12.6k
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </ListGroupItem> */}
                                         </ListGroup>
                                     </Col>
                                 </Row>
@@ -589,7 +514,7 @@ export default class DietDashboard extends Component {
 
                     </div>
                 </ReactCSSTransitionGroup>
-            </Fragment>
+            </Fragment >
         )
     }
 }

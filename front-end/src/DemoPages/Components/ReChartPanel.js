@@ -10,23 +10,6 @@ import { Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader, CardTitle,
 
 class ReChartPanel extends Component {
 
-    // renderTitle(left, right, third) {
-
-    //     left = (left === "carbohydrates") ? "carbs" : left;
-    //     right = (right === "carbohydrates") ? "carbs" : right;
-    //     third = (third === "carbohydrates") ? "carbs" : third;
-
-    //     return (
-    //         <PanelHeader>
-    //             <Col md={12}>
-    //                 <h3>
-    //                     {left} vs. {right} {third ? `vs. ${third}` : ''}
-    //                 </h3>
-    //             </Col>
-    //         </PanelHeader>
-    //     );
-    // }
-
     getMax(attr, data) {
         if (data !== undefined && data.length > 0) {
             let max = data[0][attr];
@@ -170,11 +153,13 @@ class ReChartPanel extends Component {
                         dataKey={`${composed_line_attr}`}
                         stroke="#8884d8"
                         yAxisId="right"
+                        dot={false}
+                        name="Total Time In Bed"
                     />
-                    <Bar yAxisId="left" dataKey={first_attr} barSize={20} fill='#413ea0' />
-                    <Bar yAxisId="left" dataKey={second_attr} barSize={20} fill='#413ea0' />
-                    <Bar yAxisId="left" dataKey={third_attr} barSize={20} fill='#413ea0' />
-                    <Bar yAxisId="left" dataKey={fourth_attr} barSize={20} fill='#413ea0' />
+                    <Bar yAxisId="left" dataKey={first_attr} barSize={20} fill='#413ea0' name={first_attr.toUpperCase()} />
+                    <Bar yAxisId="left" dataKey={second_attr} barSize={20} fill='#f5f5f5' name={second_attr.toUpperCase()} />
+                    <Bar yAxisId="left" dataKey={third_attr} barSize={20} fill='#8884d8' name={third_attr.toUpperCase()} />
+                    <Bar yAxisId="left" dataKey={fourth_attr} barSize={20} fill='#82ca9d' name={fourth_attr.toUpperCase()} />
 
                 </ComposedChart>
             );

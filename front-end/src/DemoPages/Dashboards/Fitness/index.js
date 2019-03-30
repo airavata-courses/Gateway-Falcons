@@ -28,12 +28,13 @@ export default class FitnessDashboard extends Component {
             fitbit_kpi: {
                 minutesAsleep: 0,
                 totalTimeInBed: 0,
-                efficiency: 0,
                 deep: 0,
                 light: 0,
                 rem: 0,
-                wake: 0
+                wake: 0,
+                last_blood_pressure: 0,
             },
+            restingHeartRate: 0,
             wahoo_data: [],
             cardio_mood_data: [],
             cardio_mood_average: 0,
@@ -56,8 +57,9 @@ export default class FitnessDashboard extends Component {
     }
 
     getAndSetFitnessData() {
+
         fetch(`${Constants.serverUrl}/fitbit`, {
-        // fetch('http://localhost:3001/fitbit', {
+            // fetch('http://localhost:3001/fitbit', {
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",
@@ -67,22 +69,20 @@ export default class FitnessDashboard extends Component {
             .then(res => res.json())
             .then(records => {
                 const last_record = records[records.length - 1];
-                const { efficiency, summary, minutesAsleep } = last_record;
+                const { summary, minutesAsleep } = last_record;
                 const { totalTimeInBed, stages } = summary;
                 const { deep, light, rem, wake } = stages;
-                // console.log(sleep[0].efficiency, totalMinutesAsleep, totalTimeInBed, stages)
                 const sleep_table_data = [];
                 let sleep_chart_data = records.map(record => {
                     const { dateOfSleep, minutesAsleep, startTime, endTime, summary } = record;
                     const { totalTimeInBed, stages } = summary;
                     const { deep, light, rem, wake } = stages;
 
-                    console.log(startTime, endTime)
+                    // console.log(startTime, endTime)
                     sleep_table_data.push({
                         dateOfSleep,
-                        startTime: moment(startTime).format('hh:mm'),
-                        endTime: moment(endTime).format('hh:mm'),
-                        efficiency,
+                        startTime: moment(startTime).format('HH:mm'),
+                        endTime: moment(endTime).format('HH:mm'),
                         totalTimeInBed,
                         minutesAsleep,
                         light,
@@ -107,7 +107,6 @@ export default class FitnessDashboard extends Component {
                         light,
                         rem,
                         wake,
-                        efficiency,
                         minutesAsleep,
                         totalTimeInBed
                     },
@@ -116,8 +115,27 @@ export default class FitnessDashboard extends Component {
                 })
             })
 
+        // fetch(`${Constants.serverUrl}/fitbit_hr`, {
+        fetch('http://localhost:3001/fitbit_hr', {
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+            credentials: 'same-origin',
+        })
+            .then(res => res.json())
+            .then(records => {
+                const { restingHeartRate } = records[records.length - 1];
+                console.log(restingHeartRate);
+                console.log(records[records.length - 1]);
+                this.setState({
+                    restingHeartRateData: records,
+                    restingHeartRate
+                })
+            })
+
         fetch(`${Constants.serverUrl}/cardio_mood`, {
-        // fetch('http://localhost:3001/cardio_mood', {
+            // fetch('http://localhost:3001/cardio_mood', {
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",
@@ -126,13 +144,14 @@ export default class FitnessDashboard extends Component {
         })
             .then(res => res.json())
             .then(mood_data => {
-                // console.log(records)
                 const last_recording = mood_data[mood_data.length - 1];
                 const records = last_recording.records;
                 const cardio_mood_average =
                     (records.reduce((sum, { rr }) => sum + parseInt(rr), 0) / records.length)
                         .toFixed(5);
                 // let cardio_mood_average = 0;
+                console.log(records)
+                console.log(cardio_mood_average)
                 this.setState({
                     cardio_mood_data: records.reverse(),
                     cardio_mood_average
@@ -140,7 +159,7 @@ export default class FitnessDashboard extends Component {
             })
 
         fetch(`${Constants.serverUrl}/location`, {
-        // fetch(`http://localhost:3001/location`, {
+            // fetch(`http://localhost:3001/location`, {
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",
@@ -165,6 +184,8 @@ export default class FitnessDashboard extends Component {
                         total_descent,
                         max_grade,
                         avg_heart_rate,
+                        max_heart_rate,
+                        elapsed_time,
 
                     } = datum;
 
@@ -173,15 +194,17 @@ export default class FitnessDashboard extends Component {
                         latitude: parseFloat(data_lat).toFixed(5),
                         longitude: parseFloat(data_lon).toFixed(5),
                         total_distance,
-                        average_speed: average_speed.split(" ")[0],
+                        average_speed: average_speed, // .split(" ")[0],
                         max_speed,
                         avg_cadence,
                         max_cadence,
                         max_elevation,
                         total_climb,
                         total_descent,
+                        max_heart_rate,
+                        elapsed_time,
                         max_grade,
-                        avg_heart_rate: avg_heart_rate.split(" ")[0],
+                        avg_heart_rate: avg_heart_rate, // .split(" ")[0],
                         key: index
 
                     };
@@ -214,7 +237,7 @@ export default class FitnessDashboard extends Component {
 
     render() {
 
-        const { fitbit_kpi, wahoo_data, fitbit_data, sleep_chart_data, cardio_mood_data, cardio_mood_average } = this.state;
+        const { fitbit_kpi, wahoo_data, fitbit_data, sleep_chart_data, cardio_mood_data, cardio_mood_average, restingHeartRate } = this.state;
         // let _cardio_mood_data,  last_cardio_rr; 
         // if (cardio_mood_data.length > 0) {
         //     _cardio_mood_data = cardio_mood_data[0].records;
@@ -262,20 +285,20 @@ export default class FitnessDashboard extends Component {
                                         }}
                                     >
                                         <div className="widget-number">
-                                            <CountUp start={0}
+                                            {/* <CountUp start={0}
                                                 end={15065}
                                                 separator=","
                                                 decimals={0}
                                                 decimal=""
                                                 delay={2}
                                                 prefix="$"
-                                                duration="10" />
+                                                duration="10" /> */}
                                         </div>
                                         <div className="tab-subheading">
-                                            <span className="pr-2 opacity-6">
+                                            {/* <span className="pr-2 opacity-6">
                                                 <FontAwesomeIcon icon={faCommentDots} />
-                                            </span>
-                                            Totals
+                                            </span> */}
+                                            Heart Rate
                                         </div>
                                     </NavLink>
                                 </NavItem>
@@ -287,13 +310,9 @@ export default class FitnessDashboard extends Component {
                                         }}
                                     >
                                         <div className="widget-number">
-                                            <span className="pr-2 text-success">
-                                                <FontAwesomeIcon icon={faAngleUp} />
-                                            </span>
-                                            {fitbit_kpi.efficiency}
                                         </div>
                                         <div className="tab-subheading">
-                                            Sleep
+                                            Blood Pressure
                                         </div>
                                     </NavLink>
                                 </NavItem>
@@ -316,12 +335,12 @@ export default class FitnessDashboard extends Component {
                                             {/* { cardio_mood_data } */}
                                         </div>
                                         <div className="widget-number">
-                                            <span className="pr-2 text-success">
+                                            {/* <span className="pr-2 text-success">
                                                 <FontAwesomeIcon icon={faAngleUp} />
-                                            </span>
+                                            </span> */}
                                         </div>
                                         <div className="tab-subheading">
-                                            Last RR
+                                            R-R Intervals
                                         </div>
                                     </NavLink>
                                 </NavItem>
@@ -336,15 +355,15 @@ export default class FitnessDashboard extends Component {
                             <TabPane tabId="2">
                                 {/* brush={true} */}
                                 <CardBody>
-                                <ReChartPanel
-                                    data={sleep_chart_data}
-                                    chart_type={"Composed"}
-                                    first_attr={"wake"}
-                                    second_attr={"light"}
-                                    third_attr={"deep"}
-                                    fourth_attr={"rem"}
-                                    composed_line_attr={"totalTimeInBed"}
-                                />
+                                    <ReChartPanel
+                                        data={sleep_chart_data}
+                                        chart_type={"Composed"}
+                                        first_attr={"wake"}
+                                        second_attr={"light"}
+                                        third_attr={"deep"}
+                                        fourth_attr={"rem"}
+                                        composed_line_attr={"totalTimeInBed"}
+                                    />
                                 </CardBody>
                             </TabPane>
                             <TabPane tabId="3">
@@ -376,8 +395,8 @@ export default class FitnessDashboard extends Component {
                                                     <div className="widget-numbers mb-0 w-100">
                                                         <div className="widget-chart-flex">
                                                             <div className="fsize-4">
-                                                                {fitbit_kpi.totalTimeInBed}
-                                                                <small className="opacity-5">minutes</small>
+                                                                {fitbit_kpi.totalTimeInBed / 60}
+                                                                <small className="opacity-5">Hours</small>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -391,13 +410,13 @@ export default class FitnessDashboard extends Component {
                                         <div className="widget-chat-wrapper-outer">
                                             <div className="widget-chart-content">
                                                 <h6 className="widget-subheading">
-                                                    Sleep Efficiency
+                                                    Resting Heartrate
                                                 </h6>
                                                 <div className="widget-chart-flex">
                                                     <div className="widget-numbers mb-0 w-100">
                                                         <div className="widget-chart-flex">
                                                             <div className="fsize-4 text-danger">
-                                                                {fitbit_kpi.efficiency}
+                                                                {restingHeartRate}
                                                                 <small className="opacity-5 text-muted">(score)</small>
                                                             </div>
                                                         </div>
@@ -418,7 +437,7 @@ export default class FitnessDashboard extends Component {
                                                     <div className="widget-numbers mb-0 w-100">
                                                         <div className="widget-chart-flex">
                                                             <div className="fsize-4">
-                                                                {cardio_mood_average}
+                                                                {cardio_mood_average.toFixed(0)}
                                                                 <small className="opacity-5">(rating)</small>
                                                             </div>
                                                         </div>
@@ -433,22 +452,21 @@ export default class FitnessDashboard extends Component {
                                         <div className="widget-chat-wrapper-outer">
                                             <div className="widget-chart-content">
                                                 <h6 className="widget-subheading">
-                                                    SOME HEART RATE FIELD ...
+                                                    Last Blood Pressure Reading
                                                 </h6>
                                                 <div className="widget-chart-flex">
                                                     <div className="widget-numbers mb-0 w-100">
                                                         <div className="widget-chart-flex">
-                                                            <div className="fsize-4">
-                                                                <small className="opacity-5">$</small>
-                                                                31,564
-                                                            </div>
-                                                            <div className="ml-auto">
-                                                                <div className="widget-title ml-auto font-size-lg font-weight-normal text-muted">
-                                                                    <span className="text-warning pl-2">
-                                                                        +76%
-                                                                </span>
-                                                                </div>
-                                                            </div>
+                                                            {
+                                                                (fitbit_kpi.last_blood_pressure > 130)
+                                                                    ? <div className="widget-numbers text-danger">
+                                                                        {fitbit_kpi.last_blood_pressure}
+                                                                    </div>
+                                                                    :
+                                                                    <div className="widget-numbers text-success">
+                                                                        {fitbit_kpi.last_blood_pressure}
+                                                                    </div>
+                                                            }
                                                         </div>
                                                     </div>
                                                 </div>

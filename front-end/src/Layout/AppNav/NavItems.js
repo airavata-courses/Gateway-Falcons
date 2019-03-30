@@ -32,12 +32,12 @@ export const DataNav = [
         to: '#/dashboards/location',
     },
     {
-        icon: 'pe-7s-coffee',
+        icon: 'pe-7s-gym',
         label: 'Fitness',
         to: '#/dashboards/fitness',
     },
     {
-        icon: 'pe-7s-gym',
+        icon: 'pe-7s-coffee',
         label: 'Diet',
         to: '#/dashboards/diet',
     },
