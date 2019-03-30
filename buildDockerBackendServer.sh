@@ -8,7 +8,7 @@ cp -r ../../config ./
 npm install
 
 cd ..
-# docker login
-docker build -f DockerFileBackendServer -t chiraggalani25/backend_server .
+docker login
+docker build -f DockerFileBackendServer -t johnlive/backend_server .
 #docker run -p 3001:3001 -d chiraggalani25/backend_server
-docker push chiraggalani25/backend_server
+docker push johnlive/backend_server
