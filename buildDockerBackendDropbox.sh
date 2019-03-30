@@ -1,4 +1,4 @@
-kill -9 $(lsof -i:3003 -t) || echo $?
+
 
 cd ./server-dropbox
 rm -rf .env
