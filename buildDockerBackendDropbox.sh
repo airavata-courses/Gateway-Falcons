@@ -1,6 +1,6 @@
+#!/bin/bash
 
-
-cd ./server-dropbox
+cd ./Gateway-Falcons/server-dropbox
 rm -rf .env
 rm -rf config/
 cp ../../.env ./
