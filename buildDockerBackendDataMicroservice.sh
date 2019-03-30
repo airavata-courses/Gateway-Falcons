@@ -1,5 +1,3 @@
-kill -9 $(lsof -i:3002 -t) || echo $?
-
 cd ./server-data-ms
 rm -rf .env
 rm -rf config/
