@@ -38,7 +38,8 @@ export default class FitnessDashboard extends Component {
             wahoo_data: [],
             cardio_mood_data: [],
             cardio_mood_average: 0,
-            sleep_chart_data: []
+            sleep_chart_data: [],
+            fitBitTimeSeries: []
         }
     }
 
@@ -115,8 +116,8 @@ export default class FitnessDashboard extends Component {
                 })
             })
 
-        // fetch(`${Constants.serverUrl}/fitbit_hr`, {
-        fetch('http://localhost:3001/fitbit_hr', {
+        fetch(`${Constants.serverUrl}/fitbit_hr`, {
+        // fetch('http://localhost:3001/fitbit_hr', {
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",
@@ -126,8 +127,8 @@ export default class FitnessDashboard extends Component {
             .then(res => res.json())
             .then(records => {
                 const { restingHeartRate } = records[records.length - 1];
-                console.log(restingHeartRate);
-                console.log(records[records.length - 1]);
+                // console.log(restingHeartRate);
+                // console.log(records[records.length - 1]);
                 this.setState({
                     restingHeartRateData: records,
                     restingHeartRate
@@ -135,7 +136,7 @@ export default class FitnessDashboard extends Component {
             })
 
         fetch(`${Constants.serverUrl}/cardio_mood`, {
-            // fetch('http://localhost:3001/cardio_mood', {
+        // fetch('http://localhost:3001/cardio_mood', {
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",
@@ -145,15 +146,19 @@ export default class FitnessDashboard extends Component {
             .then(res => res.json())
             .then(mood_data => {
                 const last_recording = mood_data[mood_data.length - 1];
-                const records = last_recording.records;
-                const cardio_mood_average =
-                    (records.reduce((sum, { rr }) => sum + parseInt(rr), 0) / records.length)
-                        .toFixed(5);
-                // let cardio_mood_average = 0;
-                console.log(records)
-                console.log(cardio_mood_average)
+                let records = last_recording.records;
+                let cardio_mood_average = 0;
+                //     (records.reduce((sum, { rr }) => sum + parseInt(rr), 0) / records.length);
+                for (var record of records) {
+                    record.timestamp = record.timestamp / 1000;
+                    record.timestamp = record.timestamp.toFixed(0);
+                    cardio_mood_average += parseInt(record.rr);
+                }
+                cardio_mood_average = cardio_mood_average / records.length;
+                // console.log(records)
+                // console.log(cardio_mood_average)
                 this.setState({
-                    cardio_mood_data: records.reverse(),
+                    cardio_mood_data: records,
                     cardio_mood_average
                 })
             })
@@ -228,6 +233,43 @@ export default class FitnessDashboard extends Component {
                     // }
                 })
             });
+
+        fetch(`${Constants.serverUrl}/fitbit_ts`, {
+        // fetch('http://localhost:3001/fitbit_ts', {
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+            credentials: 'same-origin',
+        })
+            .then(res => res.json())
+            .then(records => {
+                // const lastHours = moment().subtract(24, 'hours'); // .calendar();
+                // const lastHours = moment(moment(), Date.now())
+                let yesterday = new Date(Date.now());
+                yesterday.setHours(yesterday.getHours() - 24);
+                console.log(yesterday.getTime());
+                console.log(records);
+                const _records = [];
+                for (var record of records) {
+                    const { date, time, value } = record;
+                    // console.log(date + " " + time);
+                    // console.log(moment(date + " " + time));
+                    // console.log(moment(date + " " + time).valueOf());
+                    if (moment(date + " " + time).valueOf() >= yesterday.getTime()) {
+                        _records.push({
+                            date,
+                            time: moment(date + " " + time).format('HH:mm'),
+                            value
+                        });
+                    }
+                }
+                console.log(_records);
+
+                this.setState({
+                    fitBitTimeSeries: _records,
+                })
+            })
     }
 
 
@@ -237,7 +279,9 @@ export default class FitnessDashboard extends Component {
 
     render() {
 
-        const { fitbit_kpi, wahoo_data, fitbit_data, sleep_chart_data, cardio_mood_data, cardio_mood_average, restingHeartRate } = this.state;
+        const { fitbit_kpi, wahoo_data, fitbit_data, sleep_chart_data, cardio_mood_data,
+            cardio_mood_average, restingHeartRate, restingHeartRateData, fitBitTimeSeries
+        } = this.state;
         // let _cardio_mood_data,  last_cardio_rr; 
         // if (cardio_mood_data.length > 0) {
         //     _cardio_mood_data = cardio_mood_data[0].records;
@@ -349,31 +393,33 @@ export default class FitnessDashboard extends Component {
                         <TabContent activeTab={this.state.activeTab}>
                             <TabPane tabId="1">
                                 <CardBody>
-                                    <IncomeReport />
+                                    <ReChartPanel
+                                        data={fitBitTimeSeries}
+                                        chart_type={"Line"}
+                                        first_attr={"value"}
+                                    />
+
                                 </CardBody>
                             </TabPane>
                             <TabPane tabId="2">
                                 {/* brush={true} */}
                                 <CardBody>
+                                    {/* TODO:  */}
                                     <ReChartPanel
-                                        data={sleep_chart_data}
-                                        chart_type={"Composed"}
-                                        first_attr={"wake"}
-                                        second_attr={"light"}
-                                        third_attr={"deep"}
-                                        fourth_attr={"rem"}
-                                        composed_line_attr={"totalTimeInBed"}
+                                        data={wahoo_data}
+                                        chart_type={"Bi-Area"}
+                                        first_attr={"average_speed"}
+                                        second_attr={"avg_heart_rate"}
                                     />
                                 </CardBody>
                             </TabPane>
                             <TabPane tabId="3">
                                 <CardBody>
-                                    {/* <IncomeReport /> */}
                                     <ReChartPanel
                                         data={cardio_mood_data}
                                         chart_type={"Bi-Line"}
-                                        first_attr={"bpm"}
-                                        second_attr={"rr"}
+                                        first_attr={"rr"}
+                                        second_attr={"bpm"}
                                     />
                                 </CardBody>
                             </TabPane>
@@ -395,7 +441,7 @@ export default class FitnessDashboard extends Component {
                                                     <div className="widget-numbers mb-0 w-100">
                                                         <div className="widget-chart-flex">
                                                             <div className="fsize-4">
-                                                                {fitbit_kpi.totalTimeInBed / 60}
+                                                                {(fitbit_kpi.totalTimeInBed / 60).toFixed(2)}
                                                                 <small className="opacity-5">Hours</small>
                                                             </div>
                                                         </div>
@@ -484,10 +530,13 @@ export default class FitnessDashboard extends Component {
                             <Card className="mb-3">
                                 <CardBody>
                                     <ReChartPanel
-                                        data={wahoo_data}
-                                        chart_type={"BF-Scatter"}
-                                        first_attr={"average_speed"}
-                                        second_attr={"avg_heart_rate"}
+                                        data={sleep_chart_data}
+                                        chart_type={"Composed"}
+                                        first_attr={"wake"}
+                                        second_attr={"light"}
+                                        third_attr={"deep"}
+                                        fourth_attr={"rem"}
+                                        composed_line_attr={"totalTimeInBed"}
                                     />
                                 </CardBody>
                             </Card>
@@ -496,10 +545,9 @@ export default class FitnessDashboard extends Component {
                             <Card className="mb-3">
                                 <CardBody>
                                     <ReChartPanel
-                                        data={wahoo_data}
-                                        chart_type={"BF-Scatter"}
-                                        first_attr={"average_speed"}
-                                        second_attr={"avg_heart_rate"}
+                                        data={restingHeartRateData}
+                                        chart_type={"Line"}
+                                        first_attr={"restingHeartRate"}
                                     />
                                 </CardBody>
                             </Card>
@@ -516,51 +564,13 @@ export default class FitnessDashboard extends Component {
                         </CardHeader>
                         <ReactTable
                             columns={fitbit_data_columns}
-                            data={fitbit_data}
+                            data={fitbit_data.reverse()}
                             defaultPageSize={20}
                             style={{
                                 height: "428px" // This will force the table body to overflow and scroll, since there is not enough room
                             }}
                             className="-striped -highlight -fixed"
                         />
-                        {/* <CardFooter className="d-block p-4 text-center">
-                            <Button color="dark" className="btn-pill btn-shadow btn-wide fsize-1" size="lg">
-                                <span className="mr-2 opacity-7">
-                                    <FontAwesomeIcon spin fixedWidth={false} icon={faCog} />
-                                </span>
-                                <span className="mr-1">
-                                    View Complete Report
-                                    </span>
-                            </Button>
-                        </CardFooter> */}
-                    </Card>
-
-                    {/* Wahoo */}
-                    <Card className="main-card mb-3">
-                        <CardHeader>
-                            <div className="card-header-title font-size-lg text-capitalize font-weight-normal">
-                                Wahoo Data
-                            </div>
-                        </CardHeader>
-                        <ReactTable
-                            data={wahoo_data}
-                            columns={wahoo_data_columns}
-                            defaultPageSize={20}
-                            style={{
-                                height: "428px" // This will force the table body to overflow and scroll, since there is not enough room
-                            }}
-                            className="-striped -highlight -fixed"
-                        />
-                        {/* <CardFooter className="d-block p-4 text-center">
-                            <Button color="dark" className="btn-pill btn-shadow btn-wide fsize-1" size="lg">
-                                <span className="mr-2 opacity-7">
-                                    <FontAwesomeIcon spin fixedWidth={false} icon={faCog} />
-                                </span>
-                                <span className="mr-1">
-                                    View Complete Report
-                                    </span>
-                            </Button>
-                        </CardFooter> */}
                     </Card>
 
                 </ReactCSSTransitionGroup>
