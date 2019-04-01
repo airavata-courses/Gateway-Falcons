@@ -14,24 +14,24 @@ else:
     print("error: No configuration file present")
     exit()
 
-app.config['MONGO_DBNAME'] = parser.get('DB','dbname')
+app.config['MONGO_DBNAME'] = parser.get('DB', 'dbname')
 app.config['MONGO_URI'] = parser.get('DB', 'url')
 mongo = PyMongo(app)
 auth_token = parser.get("fitbit", "token")
 head = {'Authorization': 'Bearer ' + auth_token}
+
 
 @app.route('/getsleep')
 @cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
 def add_sleep():
     date = datetime.datetime.now()
 
-    url = parser.get("fitbit","sleep_url") + date.strftime('%Y-%m-%d') +".json"
+    url = parser.get("fitbit", "sleep_url") + date.strftime('%Y-%m-%d') + ".json"
     response = requests.get(url, headers=head)
 
     sleep_db = mongo.db.sleep
     r_dict = response.json()
-    if len(r_dict['sleep'])>0:
-
+    if len(r_dict['sleep']) > 0:
         sleep_dict = r_dict['sleep'][0]
 
         sleep_db.delete_many({
@@ -40,7 +40,7 @@ def add_sleep():
         record = {
             "dateOfSleep": sleep_dict["dateOfSleep"],
             "duration": sleep_dict["duration"],
-            "efficiency":sleep_dict["efficiency"],
+            "efficiency": sleep_dict["efficiency"],
             "endTime": sleep_dict["endTime"],
             "infoCode": sleep_dict["infoCode"],
             "isMainSleep": sleep_dict["isMainSleep"],
@@ -61,12 +61,13 @@ def add_sleep():
 
     return "Sleep data added"
 
+
 @app.route('/getheartrate')
 @cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
 def add_heart_rate():
     date = datetime.datetime.now()
     url = parser.get("fitbit", "hr_url") + date.strftime('%Y-%m-%d') + "/1d.json"
-    print (url)
+    print(url)
 
     response = requests.get(url, headers=head)
 
@@ -78,36 +79,39 @@ def add_heart_rate():
             hr_db.delete_many({
                 "date": hr_dict["dateTime"]})
             hr_db.insert_one({
-                "date":hr_dict["dateTime"],
-                "restingHeartRate":hr_dict["value"]["restingHeartRate"]
+                "date": hr_dict["dateTime"],
+                "restingHeartRate": hr_dict["value"]["restingHeartRate"]
             })
             return "Heart rate added"
         return "No data found"
+
 
 @app.route('/getstat')
 @cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
 def add_heart_rate_time_series():
     date = datetime.datetime.now()
-    url = parser.get("fitbit","hr_series_url")+ date.strftime('%Y-%m-%d')+"/1d/1min.json"
+    start_time = date - datetime.timedelta(minutes=15)
+
+    url = parser.get("fitbit", "hr_series_url") + date.strftime('%Y-%m-%d') + "/1d/1min/time/" + start_time.strftime(
+        '%H:%M') \
+          + "/" + date.strftime('%H:%M') + ".json"
+    print(url)
     response = requests.get(url, headers=head)
 
     hr_db = mongo.db.fitbit_timeseries
     r_dict = response.json()
-    if len(r_dict["activities-heart-intraday"]["dataset"])>0:
+    if len(r_dict["activities-heart-intraday"]["dataset"]) > 0:
         timelist = r_dict["activities-heart-intraday"]["dataset"]
-        if len(timelist)>1:
-            series = timelist[len(timelist)-1]
-            hr_db.delete_many({
-                "time":series["time"],
-                "date":date.strftime('%Y-%m-%d')
-            })
-            hr_db.insert_one({
-                "date": date.strftime('%Y-%m-%d'),
-                "time": series["time"],
-                "value": series["value"]
-            })
+        if len(timelist) > 1:
+            for series in timelist:
+                if hr_db.count_documents({"time": series["time"], "date": date.strftime('%Y-%m-%d')}, limit=1) == 0:
+                    hr_db.insert_one({
+                        "date": date.strftime('%Y-%m-%d'),
+                        "time": series["time"],
+                        "value": series["value"]
+                    })
             return "Series data added"
-        return "No data found"
+    return "No data found"
 
 
 if __name__ == '__main__':
