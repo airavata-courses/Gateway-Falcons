@@ -19,8 +19,8 @@ router.get('/', function (req, res, next) {
   dbx.filesListFolder({ path: '/apps/iHealth_BP_Readings' })
     .then(function (response) {
       // TODO: 
-      // const today = moment().format('YYYY-MM-DD');
-      const today = moment().subtract(1, 'days').format('YYYY-MM-DD');
+      const today = moment().format('YYYY-MM-DD');
+      // const today = moment().subtract(1, 'days').format('YYYY-MM-DD');
       console.log(today);
 
       const files = [];
@@ -50,20 +50,20 @@ router.get('/', function (req, res, next) {
             stream.once('open', function () {
               stream.write(downloaded_file.fileBinary);
 
+              var rows = [];
               if (ext === '.xlsx') {
-                var rows = [];
                 var obj = xlsx.parse(file_path);
                 //looping through all sheets
                 for (var i = 0; i < obj.length; i++) {
                   var sheet = obj[i];
-                  //loop through all rows in the sheet
+                  // console.log(sheet['data'][1][0]);
                   for (var j = 1; j < sheet['data'].length; j++) {
-                    //add the row to the rows array
+
                     const row = {
                       date: sheet['data'][j][0],
-                      sys: sheet['data'][j][1],
-                      dia: sheet['data'][j][2],
-                      pulse: sheet['data'][j][3]
+                      sys: sheet['data'][j][1].replace(/\D/g, ''),
+                      dia: sheet['data'][j][2].replace(/\D/g, ''),
+                      pulse: sheet['data'][j][3].replace(/\D/g, '')
                     }
                     rows.push(row);
                   }
@@ -78,6 +78,7 @@ router.get('/', function (req, res, next) {
 
                 const collection = db.collection('blood_pressure');
 
+
                 collection.insertOne(BloodPresssureObj)
                   .then(response => console.log(response))
                   .catch(err => console.log(err))
@@ -86,10 +87,27 @@ router.get('/', function (req, res, next) {
                 csvtojsonV2()
                   .fromFile(file_path)
                   .then((jsonObj) => {
-                    console.log('jsonObj', jsonObj.length);
+
+                    for (var jobj of jsonObj) {
+
+                      const { Time, SYS, DIA, Pulse } = jobj;
+                      // console.log(jobj);
+
+                      const row = {
+                        time: Time,
+                        sys: SYS.replace(/\D/g, ''),
+                        dia: DIA.replace(/\D/g, ''),
+                        pulse: Pulse.replace(/\D/g, '')
+                      }
+
+                      rows.push(row);
+                    }
+
+                    // console.log(rows);
+
                     const BloodPresssureObj = {
                       name: file_name,
-                      records: jsonObj
+                      records: rows
                     }
 
                     const db = req.app.locals.database;
