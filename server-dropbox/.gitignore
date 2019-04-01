@@ -5,3 +5,7 @@
 config/
 
 node_modules
+
+blood_pressure/
+
+cardio_moood/
