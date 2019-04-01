@@ -67,8 +67,6 @@ def add_sleep():
 def add_heart_rate():
     date = datetime.datetime.now()
     url = parser.get("fitbit", "hr_url") + date.strftime('%Y-%m-%d') + "/1d.json"
-    print(url)
-
     response = requests.get(url, headers=head)
 
     hr_db = mongo.db.fitbit_heartrate
@@ -83,7 +81,7 @@ def add_heart_rate():
                 "restingHeartRate": hr_dict["value"]["restingHeartRate"]
             })
             return "Heart rate added"
-        return "No data found"
+    return "No data found"
 
 
 @app.route('/getstat')
@@ -95,7 +93,6 @@ def add_heart_rate_time_series():
     url = parser.get("fitbit", "hr_series_url") + date.strftime('%Y-%m-%d') + "/1d/1min/time/" + start_time.strftime(
         '%H:%M') \
           + "/" + date.strftime('%H:%M') + ".json"
-    print(url)
     response = requests.get(url, headers=head)
 
     hr_db = mongo.db.fitbit_timeseries
