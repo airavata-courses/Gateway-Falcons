@@ -41,8 +41,6 @@ router.get('/', function (req, res, next) {
 
             const file_name = file.name.substring(file.name.indexOf("_") + 1, file.name.indexOf("."))
             const ext = file.name.substring = file.name.substring(file.name.indexOf("."));
-            // console.log(file_name, ext)
-
 
             const file_path = `./blood_pressure/${file_name}.csv`; // TODO: PATH>JOIN
 
@@ -60,10 +58,10 @@ router.get('/', function (req, res, next) {
                   for (var j = 1; j < sheet['data'].length; j++) {
 
                     const row = {
-                      date: sheet['data'][j][0],
-                      sys: sheet['data'][j][1].replace(/\D/g, ''),
-                      dia: sheet['data'][j][2].replace(/\D/g, ''),
-                      pulse: sheet['data'][j][3].replace(/\D/g, '')
+                      date: new Date(sheet['data'][j][0]),
+                      sys: parseInt(sheet['data'][j][1].replace(/\D/g, '')),
+                      dia: parseInt(sheet['data'][j][2].replace(/\D/g, '')),
+                      pulse: parseInt(sheet['data'][j][3].replace(/\D/g, ''))
                     }
                     rows.push(row);
                   }
@@ -78,6 +76,7 @@ router.get('/', function (req, res, next) {
 
                 const collection = db.collection('blood_pressure');
 
+                console.log(rows);
 
                 collection.insertOne(BloodPresssureObj)
                   .then(response => console.log(response))
@@ -95,15 +94,15 @@ router.get('/', function (req, res, next) {
 
                       const row = {
                         time: Time,
-                        sys: SYS.replace(/\D/g, ''),
-                        dia: DIA.replace(/\D/g, ''),
-                        pulse: Pulse.replace(/\D/g, '')
+                        sys: parseInt(SYS.replace(/\D/g, '')),
+                        dia: parseInt(DIA.replace(/\D/g, '')),
+                        pulse: parseInt(Pulse.replace(/\D/g, ''))
                       }
 
                       rows.push(row);
                     }
 
-                    // console.log(rows);
+                    console.log(rows);
 
                     const BloodPresssureObj = {
                       name: file_name,
