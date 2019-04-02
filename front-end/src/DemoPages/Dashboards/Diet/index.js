@@ -84,7 +84,7 @@ export default class DietDashboard extends Component {
                     };
                 })
                 const len = res.length;
-                meals_arr = meals_arr.slice(len - 8, len );
+                meals_arr = meals_arr.slice(len - 8, len);
                 const _meals_arr = [];
                 meals_arr.map(meal_log => {
                     for (let i = 0; i < meal_log.meals.length; i++) {
@@ -290,7 +290,7 @@ export default class DietDashboard extends Component {
 
                             {/* Right Col */}
                             <Col sm="12" lg="6">
-                                <Card className="card-hover-shadow-2x mb-3"style={{height: 495}}>
+                                <Card className="card-hover-shadow-2x mb-3" style={{ height: 495 }}>
                                     <CardHeader className="card-header-tab" >
                                         <div
                                             className="card-header-title font-size-lg text-capitalize font-weight-normal">

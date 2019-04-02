@@ -39,131 +39,136 @@ export default class LocationPage extends Component {
         this.setState({ selectedMarker: marker })
     }
 
-    fetchMapMarkers() {
-        this.intervalId = setInterval(() =>
-            fetch(`${Constants.serverUrl}/location`, {
-                // fetch(`http://localhost:3001/location`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*",
-                },
-                credentials: 'same-origin',
-            })
-                .then(res => res.json())
-                // .then(res => console.log(res)),
-                .then(data => {
-                    const wahoo_data = [];
-                    const weather_data = [];
-                    data.map((datum, index) => {
+    _fetchMapMarkers() {
+        fetch(`${Constants.serverUrl}/location`, {
+            // fetch(`http://localhost:3001/location`, {
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+            credentials: 'same-origin',
+        })
+            .then(res => res.json())
+            // .then(res => console.log(res)),
+            .then(data => {
+                const wahoo_data = [];
+                const weather_data = [];
+                data.map((datum, index) => {
 
-                        const {
-                            workout_date_time,
-                            data_lat,
-                            data_lon,
-                            total_distance,
-                            average_speed,
-                            max_speed,
-                            avg_cadence,
-                            max_cadence,
-                            max_elevation,
-                            total_climb,
-                            total_descent,
-                            max_grade,
-                            avg_heart_rate,
-                            max_heart_rate,
-                            elapsed_time,
-
-                            wind_deg,
-                            wind_speed,
-                            pressure,
-                            visibility,
-                            temperature,
-                            weather,
-                            weather_desc,
-                            humidity
-                        } = datum;
-
-                        const newWahooObj = {
-                            workout_date_time,
-                            // latitude: parseInt(parseFloat(data_lat).toPrecision(5)),
-                            // longitude: parseInt(parseFloat(data_lon).toPrecision(5)),
-                            latitude: parseFloat(data_lat),
-                            longitude: parseFloat(data_lon),
-                            total_distance,
-                            average_speed: parseFloat(average_speed),
-                            max_speed,
-                            avg_cadence,
-                            max_cadence,
-                            max_elevation,
-                            total_climb, // total_climb: parseFloat(total_climb.split(" ")[0]),
-                            total_descent,
-                            max_grade,
-                            avg_heart_rate,
-                            max_heart_rate,
-                            elapsed_time,
-
-                            key: index
-
-                        };
-
-                        const newWeatherObj = {
-                            workout_date_time,
-                            wind_deg,
-                            wind_speed,
-                            pressure,
-                            visibility,
-                            temperature,
-                            weather,
-                            weather_desc,
-                            humidity,
-
-                            key: index
-
-                        };
-
-                        wahoo_data.push(newWahooObj);
-                        weather_data.push(newWeatherObj);
-
-                    });
-                    // const len = wahoo_data.length;
-                    // let agg_average_speed = 0,
-                    //     agg_total_climb = 0,
-                    //     agg_wind_speed = 0,
-                    //     agg_avg_heart_rate = 0;
-
-                    // for (let i = len - 8; i < len; i++) {
-                    //     const { average_speed,
-                    //         total_climb,
-                    //         wind_speed,
-                    //         avg_heart_rate
-                    //     } = wahoo_data[i];
-                    //     agg_average_speed += average_speed;
-                    //     agg_total_climb += total_climb;
-                    //     agg_wind_speed += wind_speed;
-                    //     agg_avg_heart_rate += avg_heart_rate;
-                    // }
-
-                    const { average_speed,
+                    const {
+                        workout_date_time,
+                        data_lat,
+                        data_lon,
+                        total_distance,
+                        average_speed,
+                        max_speed,
+                        avg_cadence,
+                        max_cadence,
+                        max_elevation,
                         total_climb,
+                        total_descent,
+                        max_grade,
+                        avg_heart_rate,
+                        max_heart_rate,
+                        elapsed_time,
+
+                        wind_deg,
+                        wind_speed,
+                        pressure,
+                        visibility,
+                        temperature,
+                        weather,
+                        weather_desc,
+                        humidity
+                    } = datum;
+
+                    const newWahooObj = {
+                        workout_date_time,
+                        // latitude: parseInt(parseFloat(data_lat).toPrecision(5)),
+                        // longitude: parseInt(parseFloat(data_lon).toPrecision(5)),
+                        latitude: parseFloat(data_lat),
+                        longitude: parseFloat(data_lon),
+                        total_distance,
+                        average_speed: parseFloat(average_speed),
+                        max_speed,
+                        avg_cadence,
+                        max_cadence,
+                        max_elevation,
+                        total_climb, // total_climb: parseFloat(total_climb.split(" ")[0]),
+                        total_descent,
+                        max_grade,
+                        avg_heart_rate,
+                        max_heart_rate,
+                        elapsed_time,
+
+                        key: index
+
+                    };
+
+                    const newWeatherObj = {
+                        workout_date_time,
+                        wind_deg,
+                        wind_speed,
+                        pressure,
+                        visibility,
+                        temperature,
+                        weather,
+                        weather_desc,
+                        humidity,
+
+                        key: index
+
+                    };
+
+                    wahoo_data.push(newWahooObj);
+                    weather_data.push(newWeatherObj);
+
+                });
+                // const len = wahoo_data.length;
+                // let agg_average_speed = 0,
+                //     agg_total_climb = 0,
+                //     agg_wind_speed = 0,
+                //     agg_avg_heart_rate = 0;
+
+                // for (let i = len - 8; i < len; i++) {
+                //     const { average_speed,
+                //         total_climb,
+                //         wind_speed,
+                //         avg_heart_rate
+                //     } = wahoo_data[i];
+                //     agg_average_speed += average_speed;
+                //     agg_total_climb += total_climb;
+                //     agg_wind_speed += wind_speed;
+                //     agg_avg_heart_rate += avg_heart_rate;
+                // }
+
+                const { average_speed,
+                    total_climb,
+                    avg_heart_rate
+                } = wahoo_data[wahoo_data.length - 1];
+
+                // console.log(weather_data)
+                const { wind_speed } = weather_data[weather_data.length - 1];
+
+                this.setState({
+                    map_data: wahoo_data.reverse(),
+                    weather_data: weather_data.reverse(),
+                    kpi: {
+                        average_speed,
+                        total_climb,
+                        wind_speed,
                         avg_heart_rate
-                    } = wahoo_data[wahoo_data.length - 1];
+                    }
+                })
+            });
+        // TODO:
+    }
 
-                    // console.log(weather_data)
-                    const { wind_speed } = weather_data[weather_data.length - 1];
-
-                    this.setState({
-                        map_data: wahoo_data.reverse(),
-                        weather_data: weather_data.reverse(),
-                        kpi: {
-                            average_speed,
-                            total_climb,
-                            wind_speed,
-                            avg_heart_rate
-                        }
-                    })
-                }),
-            // TODO:
-            11000);
+    fetchMapMarkers() {
+        this._fetchMapMarkers();
+        this.intervalId = setInterval(() =>
+            this._fetchMapMarkers(),
+            61000);
     }
 
     componentDidMount() {
@@ -179,11 +184,23 @@ export default class LocationPage extends Component {
         const { apiKey, data, map_data, weather_data, kpi } = this.state;
         console.log(apiKey)
 
+        // const wahoo_table_data 
+
         const wahoo_data_columns = Object.keys(Constants.wahoo_data_columns).map(key => {
-            // console.log(key, Constants.wahoo_data_columns[key]);
-            return {
-                Header: key,
-                accessor: Constants.wahoo_data_columns[key]
+            if (key === 'Latitude' || key === 'Longitude') {
+                const val = parseFloat(Constants.wahoo_data_columns[key]).toFixed(5);
+                console.log(Constants.wahoo_data_columns[key]);
+                return {
+                    Header: key,
+                    accessor: Constants.wahoo_data_columns[key],
+                    Cell: props => <div> {props.value.toFixed(5)} </div>
+                }
+            } else {
+                return {
+                    Header: key,
+                    accessor: Constants.wahoo_data_columns[key]
+                }
+
             }
         })
 

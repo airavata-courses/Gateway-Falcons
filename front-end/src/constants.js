@@ -63,7 +63,7 @@ const wahoo_data_columns = {
     "Avg H.R.": "avg_heart_rate",
     "Avg Cadence": "avg_cadence",
     "Max Cadence": "max_cadence",
-    "Elevation": "max_elevation",
+    // "Elevation": "max_elevation",
     "Total Ascent": "total_climb",
     "Total Descent": "total_descent",
     "Gradient": "max_grade",
