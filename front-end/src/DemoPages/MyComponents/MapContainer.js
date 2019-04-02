@@ -19,8 +19,10 @@ import {
 
 const MapWithMarkers = compose(withScriptjs, withGoogleMap)(props => {
 
+    const { center_lat, center_lon, zoom } = props;
+
     return (
-        <GoogleMap defaultZoom={8} defaultCenter={{ lat: 39, lng: -74 }}>
+        <GoogleMap defaultZoom={zoom} defaultCenter={{ lat: center_lat, lng: center_lon }}>
             {props.markers.map((marker, index) => {
                 const onClick = props.onClick.bind(this, marker)
                 return (

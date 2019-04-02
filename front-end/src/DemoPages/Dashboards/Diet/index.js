@@ -290,8 +290,8 @@ export default class DietDashboard extends Component {
 
                             {/* Right Col */}
                             <Col sm="12" lg="6">
-                                <Card className="card-hover-shadow-2x mb-3">
-                                    <CardHeader className="card-header-tab">
+                                <Card className="card-hover-shadow-2x mb-3"style={{height: 495}}>
+                                    <CardHeader className="card-header-tab" >
                                         <div
                                             className="card-header-title font-size-lg text-capitalize font-weight-normal">
                                             <i className="header-icon lnr-lighter icon-gradient bg-amy-crisp"> </i>
@@ -314,10 +314,10 @@ export default class DietDashboard extends Component {
                                                             } = last_meal;
                                                             const _items = items.map(item => item.name);
                                                             return (
+                                                                // icon={<i
+                                                                //     className="badge badge-dot badge-dot-xs badge-success"> </i>}
                                                                 <VerticalTimelineElement
                                                                     className="vertical-timeline-item"
-                                                                    icon={<i
-                                                                        className="badge badge-dot badge-dot-xs badge-success"> </i>}
                                                                     date={date}
                                                                     key={index}
                                                                 >
@@ -333,7 +333,6 @@ export default class DietDashboard extends Component {
                                             </div>
                                         </PerfectScrollbar>
                                     </div>
-
                                 </Card>
                             </Col>
                         </Row>

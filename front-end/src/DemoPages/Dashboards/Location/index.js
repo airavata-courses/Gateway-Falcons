@@ -11,7 +11,7 @@
 import React, { Component, Fragment } from 'react';
 import ReactTable from "react-table";
 import { Button, ButtonGroup, Card, CardBody, CardHeader, CardTitle, Col, Row } from 'reactstrap';
-import { Brush, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Brush, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, Legend } from 'recharts';
 import * as Constants from '../../../constants';
 import PageTitle from '../../../Layout/AppMain/PageTitle';
 import MapWithMarkers from '../../MyComponents/MapContainer';
@@ -42,7 +42,7 @@ export default class LocationPage extends Component {
     fetchMapMarkers() {
         this.intervalId = setInterval(() =>
             fetch(`${Constants.serverUrl}/location`, {
-            // fetch(`http://localhost:3001/location`, {
+                // fetch(`http://localhost:3001/location`, {
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",
@@ -95,7 +95,7 @@ export default class LocationPage extends Component {
                             avg_cadence,
                             max_cadence,
                             max_elevation,
-                            total_climb: parseFloat(total_climb.split(" ")[0]),
+                            total_climb, // total_climb: parseFloat(total_climb.split(" ")[0]),
                             total_descent,
                             max_grade,
                             avg_heart_rate,
@@ -162,7 +162,8 @@ export default class LocationPage extends Component {
                         }
                     })
                 }),
-            61000);
+            // TODO:
+            11000);
     }
 
     componentDidMount() {
@@ -304,6 +305,9 @@ export default class LocationPage extends Component {
                                         loadingElement={<div style={{ height: `100%` }} />}
                                         containerElement={<div style={{ height: `400px` }} />}
                                         mapElement={<div style={{ height: `100%` }} />}
+                                        center_lat={39.8283}
+                                        center_lon={-98.5795}
+                                        zoom={4}
                                     />
                                 </CardBody>
                             </Card>
@@ -325,7 +329,8 @@ export default class LocationPage extends Component {
                                             <XAxis dataKey="workout_date_time" />
                                             <YAxis />
                                             <Tooltip />
-                                            <Brush />
+                                            <Legend />
+                                            {/* <Brush /> */}
                                             <Line type='monotone' dataKey='average_speed' stroke='#8884d8' fill='#8884d8' />
                                         </LineChart>
                                     </ResponsiveContainer >
@@ -345,6 +350,7 @@ export default class LocationPage extends Component {
                                             <XAxis dataKey="workout_date_time" />
                                             <YAxis />
                                             <Tooltip />
+                                            <Legend />
                                             <Brush />
                                             <Line type='monotone' dataKey='wind_speed' stroke='#8884d8' fill='#8884d8' />
                                         </LineChart>
@@ -364,8 +370,9 @@ export default class LocationPage extends Component {
                                             <CartesianGrid strokeDasharray="3 3" />
                                             <XAxis dataKey="workout_date_time" />
                                             <YAxis />
+                                            <Legend />
                                             <Tooltip />
-                                            <Brush />
+                                            {/* <Brush /> */}
                                             <Line type='monotone' dataKey='total_climb' stroke='#8884d8' fill='#8884d8' />
                                         </LineChart>
                                     </ResponsiveContainer >

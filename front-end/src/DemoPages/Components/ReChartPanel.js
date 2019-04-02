@@ -30,6 +30,13 @@ class ReChartPanel extends Component {
                 if (third_attr) third_max = this.getMax(third_attr, data);
             }
 
+            let ret = <YAxis />;
+            if (first_attr === 'restingHeartRate') {
+                ret = <YAxis domain={[40, 100]} />;
+            } else if (first_attr === 'calories') {
+                ret = <YAxis domain={[0, 5000]} />;
+            }
+
             return (<LineChart
                 width={500}
                 height={300}
@@ -45,10 +52,9 @@ class ReChartPanel extends Component {
                         : <XAxis dataKey="time" />
                 }
                 {
-                    (first_attr === 'restingHeartRate')
-                        ? <YAxis domain={[40, 100]} />
-                        : <YAxis />
+                    ret
                 }
+             
                 <Tooltip />
                 {
                     (first_max && first_attr !== 'restingHeartRate' && first_attr !== 'bpm')
@@ -101,7 +107,7 @@ class ReChartPanel extends Component {
                     <XAxis dataKey="date" />
                     <YAxis />
                     <Tooltip />
-                    <Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px' }} />
+                    <Legend  />
                     <ReferenceLine y={0} stroke="#000" />
                     {/* {
                         (brush)
@@ -195,6 +201,7 @@ class ReChartPanel extends Component {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" />
                     <YAxis />
+                    <Legend />
                     <Tooltip />
                     <Area type="monotone" dataKey={first_attr} stroke="#8884d8" fill="#8884d8" />
                 </AreaChart>

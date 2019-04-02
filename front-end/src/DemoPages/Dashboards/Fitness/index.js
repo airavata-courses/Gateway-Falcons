@@ -63,8 +63,8 @@ export default class FitnessDashboard extends Component {
 
     getAndSetFitnessData() {
 
-        // fetch(`${Constants.serverUrl}/cardio_mood`, {
-        fetch('http://localhost:3001/blood_pressure', {
+        fetch(`${Constants.serverUrl}/cardio_mood`, {
+        // fetch('http://localhost:3001/blood_pressure', {
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",
