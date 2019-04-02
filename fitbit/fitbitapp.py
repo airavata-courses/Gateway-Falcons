@@ -34,35 +34,37 @@ def add_sleep():
 
     sleep_db = mongo.db.sleep
     r_dict = response.json()
-    if len(r_dict['sleep']) > 0:
-        sleep_dict = r_dict['sleep'][0]
+    if 'sleep' in r_dict:
+        if len(r_dict['sleep']) > 0:
+            sleep_dict = r_dict['sleep'][0]
 
-        sleep_db.delete_many({
-            "dateOfSleep": sleep_dict["dateOfSleep"],
-        })
-        record = {
-            "dateOfSleep": sleep_dict["dateOfSleep"],
-            "duration": sleep_dict["duration"],
-            "efficiency": sleep_dict["efficiency"],
-            "endTime": sleep_dict["endTime"],
-            "infoCode": sleep_dict["infoCode"],
-            "isMainSleep": sleep_dict["isMainSleep"],
-            "data": sleep_dict["levels"]["data"],
-            "shortData": sleep_dict["levels"]["shortData"],
-            "detailedSummary": sleep_dict["levels"]["summary"],
-            "minutesAfterWakeup": sleep_dict["minutesAfterWakeup"],
-            "minutesAsleep": sleep_dict["minutesAsleep"],
-            "minutesAwake": sleep_dict["minutesAwake"],
-            "minutesToFallAsleep": sleep_dict["minutesToFallAsleep"],
-            "startTime": sleep_dict["startTime"],
-            "timeInBed": sleep_dict["timeInBed"],
-            "type": sleep_dict["type"],
-            "summary": r_dict["summary"]
-        }
+            sleep_db.delete_many({
+                "dateOfSleep": sleep_dict["dateOfSleep"],
+            })
+            record = {
+                "dateOfSleep": sleep_dict["dateOfSleep"],
+                "duration": sleep_dict["duration"],
+                "efficiency": sleep_dict["efficiency"],
+                "endTime": sleep_dict["endTime"],
+                "infoCode": sleep_dict["infoCode"],
+                "isMainSleep": sleep_dict["isMainSleep"],
+                "data": sleep_dict["levels"]["data"],
+                "shortData": sleep_dict["levels"]["shortData"],
+                "detailedSummary": sleep_dict["levels"]["summary"],
+                "minutesAfterWakeup": sleep_dict["minutesAfterWakeup"],
+                "minutesAsleep": sleep_dict["minutesAsleep"],
+                "minutesAwake": sleep_dict["minutesAwake"],
+                "minutesToFallAsleep": sleep_dict["minutesToFallAsleep"],
+                "startTime": sleep_dict["startTime"],
+                "timeInBed": sleep_dict["timeInBed"],
+                "type": sleep_dict["type"],
+                "summary": r_dict["summary"]
+            }
 
-        sleep_db.insert_one(record)
+            sleep_db.insert_one(record)
+            return "Sleep data added"
 
-    return "Sleep data added"
+    return "No Data found"
 
 
 @app.route('/getheartrate')
@@ -74,16 +76,17 @@ def add_heart_rate():
 
     hr_db = mongo.db.fitbit_heartrate
     r_dict = response.json()
-    if len(r_dict['activities-heart']) > 0:
-        hr_dict = r_dict["activities-heart"][0]
-        if "restingHeartRate" in hr_dict["value"]:
-            hr_db.delete_many({
-                "date": hr_dict["dateTime"]})
-            hr_db.insert_one({
-                "date": hr_dict["dateTime"],
-                "restingHeartRate": hr_dict["value"]["restingHeartRate"]
-            })
-            return "Heart rate added"
+    if 'activities-heart' in r_dict:
+        if len(r_dict['activities-heart']) > 0:
+            hr_dict = r_dict["activities-heart"][0]
+            if "restingHeartRate" in hr_dict["value"]:
+                hr_db.delete_many({
+                    "date": hr_dict["dateTime"]})
+                hr_db.insert_one({
+                    "date": hr_dict["dateTime"],
+                    "restingHeartRate": hr_dict["value"]["restingHeartRate"]
+                })
+                return "Heart rate added"
     return "No data found"
 
 
