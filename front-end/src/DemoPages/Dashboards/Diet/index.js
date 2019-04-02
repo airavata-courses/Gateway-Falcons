@@ -29,7 +29,12 @@ export default class DietDashboard extends Component {
             diet_data: [],
             today: {},
             // yesterday: {},
-            last_meals: []
+            last_meals: [],
+            diet_kpi: {
+                carbohydrates: 0,
+                fat: 0,
+                protein: 0
+            }
         };
         this.toggle = this.toggle.bind(this);
 
@@ -79,7 +84,7 @@ export default class DietDashboard extends Component {
                     };
                 })
                 const len = res.length;
-                meals_arr = meals_arr.slice(len - 8, len - 1);
+                meals_arr = meals_arr.slice(len - 8, len );
                 const _meals_arr = [];
                 meals_arr.map(meal_log => {
                     for (let i = 0; i < meal_log.meals.length; i++) {
@@ -89,11 +94,24 @@ export default class DietDashboard extends Component {
                         });
                     }
                 });
+
+                const { carbohydrates, fat, protein, calories, sugar, sodium } = _data[len - 1];
+                // console.log(_data[len - 1]);
+                // console.log(carbohydrates, fat, protein, calories);
+
                 this.setState({
                     diet_data: _data.reverse(),
-                    today: _data[len - 1],
-                    yesterday: _data[len - 2],
-                    last_meals: _meals_arr.reverse()
+                    // today: _data[len - 1],
+                    // yesterday: _data[len - 2],
+                    last_meals: _meals_arr.reverse(),
+                    diet_kpi: {
+                        carbohydrates,
+                        calories,
+                        fat,
+                        protein,
+                        sugar,
+                        sodium
+                    }
                 })
             })
     }
@@ -115,14 +133,15 @@ export default class DietDashboard extends Component {
     render() {
         const { selectedOption } = this.state;
         const { data, diet_data,
-            today: {
-                calories,
-                carbohydrates,
-                fat,
-                protein,
-                sodium,
-                sugar
-            },
+            // today: {
+            //     calories,
+            //     carbohydrates,
+            //     fat,
+            //     protein,
+            //     sodium,
+            //     sugar
+            // },
+            diet_kpi,
             last_meals
         } = this.state;
         const settings = {
@@ -177,15 +196,9 @@ export default class DietDashboard extends Component {
                                                 Fats
                                             </div>
                                             <div className="widget-numbers">
-                                                {fat}
+                                                {diet_kpi.fat}
                                             </div>
-                                            {/* <div className="widget-description opacity-8 text-focus">
-                                                <div className="d-inline text-danger pr-1">
-                                                    <FontAwesomeIcon icon={faAngleDown} />
-                                                    <span className="pl-1">54.1%</span>
-                                                </div>
-                                                less earnings
-                                            </div> */}
+
                                         </div>
                                     </div>
                                     <div className="divider m-0 d-md-none d-sm-block" />
@@ -201,24 +214,8 @@ export default class DietDashboard extends Component {
                                                 Carbs
                                             </div>
                                             <div className="widget-numbers">
-                                                {carbohydrates}
-                                                {/* <CountUp start={0}
-                                                    end={carbohydrates}
-                                                    separator=""
-                                                    decimals={0}
-                                                    decimal=","
-                                                    prefix=""
-                                                    useEasing={false}
-                                                    suffix="M"
-                                                    duration="5" /> */}
+                                                {diet_kpi.carbohydrates}
                                             </div>
-                                            {/* <div className="widget-description opacity-8 text-focus">
-                                                Grow Rate:
-                                                <span className="text-info pl-1">
-                                                    <FontAwesomeIcon icon={faAngleDown} />
-                                                    <span className="pl-1">14.1%</span>
-                                                </span>
-                                            </div> */}
                                         </div>
                                     </div>
                                     <div className="divider m-0 d-md-none d-sm-block" />
@@ -234,22 +231,12 @@ export default class DietDashboard extends Component {
                                                 Protein
                                             </div>
                                             <div className="widget-numbers">
-                                                {protein}
+                                                {diet_kpi.protein}
                                             </div>
                                         </div>
                                     </div>
                                 </Col>
                             </Row>
-                            {/* <CardFooter className="text-center d-block p-3">
-                                <Button color="primary" className="btn-pill btn-shadow btn-wide fsize-1" size="lg">
-                                    <span className="mr-2 opacity-7">
-                                        <Ionicon color="#ffffff" icon="ios-analytics-outline" beat={true} />
-                                    </span>
-                                    <span className="mr-1">
-                                        View Complete Report
-                                    </span>
-                                </Button>
-                            </CardFooter> */}
                         </Card>
 
                         {/* Middle Row */}
@@ -262,7 +249,7 @@ export default class DietDashboard extends Component {
                                         <div
                                             className="card-header-title font-size-lg text-capitalize font-weight-normal">
                                             <i className="header-icon lnr-cloud-download icon-gradient bg-happy-itmeo"> </i>
-                                            Charts
+                                            Nutritional Analysis
                                         </div>
 
                                     </CardHeader>
@@ -297,46 +284,6 @@ export default class DietDashboard extends Component {
                                                 </div>
                                             </Slider>
                                         </div>
-                                        {/* <h6 className="text-muted text-uppercase font-size-md opacity-5 pl-3 pr-3 pb-1 font-weight-normal">
-                                            What the heck goes here
-                                        </h6> */}
-                                        {/* <ListGroup flush>
-                                            <ListGroupItem className="p-3 bg-transparent">
-                                                <div className="widget-content p-0">
-                                                    <div className="widget-content-outer">
-                                                        <div className="widget-content-wrapper">
-                                                            <div className="widget-content-left">
-                                                                <div className="widget-heading">
-                                                                    Total Calories
-                                                                </div>
-                                                                <div className="widget-subheading">
-                                                                    consumed today
-                                                                </div>
-                                                            </div>
-                                                            <div className="widget-content-right">
-                                                                <div className="widget-numbers text-success">
-                                                                    {calories}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="widget-progress-wrapper">
-                                                            <Progress
-                                                                className="progress-bar-sm progress-bar-animated-alt"
-                                                                color="primary"
-                                                                value={(calories / 3000) * 100} />
-                                                            <div className="progress-sub-label">
-                                                                <div className="sub-label-left">
-                                                                    Current calories out of 3000
-                                                                </div>
-                                                                <div className="sub-label-right">
-                                                                    {(calories / 3000) * 100}%
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </ListGroupItem>
-                                        </ListGroup> */}
                                     </CardBody>
                                 </Card>
                             </Col>
@@ -386,7 +333,7 @@ export default class DietDashboard extends Component {
                                             </div>
                                         </PerfectScrollbar>
                                     </div>
-                                  
+
                                 </Card>
                             </Col>
                         </Row>
@@ -411,7 +358,7 @@ export default class DietDashboard extends Component {
                                                             </div>
                                                             <div className="widget-content-right">
                                                                 <div className="widget-numbers">
-                                                                    {calories}
+                                                                    {diet_kpi.calories}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -436,13 +383,13 @@ export default class DietDashboard extends Component {
                                                             </div>
                                                             <div className="widget-content-right">
                                                                 {
-                                                                    (sugar > 55)
+                                                                    (diet_kpi.sugar > 55)
                                                                         ? <div className="widget-numbers text-danger">
-                                                                            {sugar}
+                                                                            {diet_kpi.sugar}
                                                                         </div>
                                                                         :
                                                                         <div className="widget-numbers text-success">
-                                                                            {sugar}
+                                                                            {diet_kpi.sugar}
                                                                         </div>
                                                                 }
                                                             </div>
@@ -468,14 +415,14 @@ export default class DietDashboard extends Component {
                                                             </div>
                                                             <div className="widget-content-right">
                                                                 {
-                                                                    (sodium > 1500)
+                                                                    (diet_kpi.sodium > 1500)
                                                                         ?
                                                                         <div className="widget-numbers text-danger">
-                                                                            {sodium}
+                                                                            {diet_kpi.sodium}
                                                                         </div>
                                                                         :
                                                                         <div className="widget-numbers text-success">
-                                                                            {sodium}
+                                                                            {diet_kpi.sodium}
                                                                         </div>
                                                                 }
                                                             </div>
@@ -501,7 +448,7 @@ export default class DietDashboard extends Component {
                             </CardHeader>
                             <CardBody>
                                 <ReactTable
-                                    data={diet_data}
+                                    data={diet_data.reverse()}
                                     columns={data_columns}
                                     defaultPageSize={20}
                                     style={{

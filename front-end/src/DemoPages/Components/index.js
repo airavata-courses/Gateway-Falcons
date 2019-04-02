@@ -168,7 +168,7 @@ const Components = ({match}) => (
                     <Route path={`${match.url}/tree-view`} component={TreeView}/>
 
                 </div>
-                <AppFooter/>
+                {/* <AppFooter/> */}
             </div>
         </div>
     </Fragment>

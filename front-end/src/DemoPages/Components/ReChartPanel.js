@@ -40,14 +40,18 @@ class ReChartPanel extends Component {
             >
                 <CartesianGrid strokeDasharray="3 3" />
                 {
-                    (first_attr !== 'value')
+                    (first_attr !== 'bpm')
                         ? <XAxis dataKey="date" />
                         : <XAxis dataKey="time" />
                 }
-                <YAxis />
+                {
+                    (first_attr === 'restingHeartRate')
+                        ? <YAxis domain={[40, 100]} />
+                        : <YAxis />
+                }
                 <Tooltip />
                 {
-                    (first_max && first_attr !== 'restingHeartRate' && first_attr !== 'value')
+                    (first_max && first_attr !== 'restingHeartRate' && first_attr !== 'bpm')
                         ? <ReferenceLine y={first_max} stroke="red" label={"max"} />
                         : <div />
                 }
@@ -61,8 +65,9 @@ class ReChartPanel extends Component {
                         ? <ReferenceLine y={third_max} stroke="red" label={"max"} />
                         : <div />
                 }
+
                 <Line type="monotone"
-                    dataKey={`${first_attr}`}
+                    dataKey={first_attr}
                     name={(first_attr === "carbohydrates") ? "carbs" : first_attr}
                     stroke="#8884d8"
                     dot={false}
@@ -78,7 +83,7 @@ class ReChartPanel extends Component {
                         :
                         <div />
                 }
-                <Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px' }} />
+                <Legend wrapperStyle={{ lineHeight: '40px' }} />
             </LineChart>
             )
         }
@@ -157,7 +162,7 @@ class ReChartPanel extends Component {
                         name="Total Time In Bed"
                     />
                     <Bar yAxisId="left" dataKey={first_attr} barSize={20} fill='#413ea0' name={first_attr.toUpperCase()} />
-                    <Bar yAxisId="left" dataKey={second_attr} barSize={20} fill='#f5f5f5' name={second_attr.toUpperCase()} />
+                    <Bar yAxisId="left" dataKey={second_attr} barSize={20} fill='#ee9a00' name={second_attr.toUpperCase()} />
                     <Bar yAxisId="left" dataKey={third_attr} barSize={20} fill='#8884d8' name={third_attr.toUpperCase()} />
                     <Bar yAxisId="left" dataKey={fourth_attr} barSize={20} fill='#82ca9d' name={fourth_attr.toUpperCase()} />
 
@@ -288,20 +293,25 @@ class ReChartPanel extends Component {
                     margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                     <defs>
                         <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-                            <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-                        </linearGradient>
-                        <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
                             <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
                             <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
                         </linearGradient>
+                        <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                            <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+                        </linearGradient>
                     </defs>
-                    <XAxis dataKey="name" />
+                    <XAxis dataKey="date" />
                     <YAxis />
                     <CartesianGrid strokeDasharray="3 3" />
                     <Tooltip />
-                    <Area type="monotone" dataKey={first_attr} stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
-                    <Area type="monotone" dataKey={second_attr} stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+                    <Legend />
+                    <Area type="monotone" dataKey={second_attr} stroke="#8884d8" fillOpacity={1} fill="url(#colorPv)"
+                        name={second_attr === 'dia' ? 'Diastolic' : second_attr}
+                    />
+                    <Area type="monotone" dataKey={first_attr} stroke="#82ca9d" fillOpacity={1} fill="url(#colorUv)"
+                        name={first_attr === 'sys' ? 'Systolic' : first_attr}
+                    />
                 </AreaChart>
             );
         }

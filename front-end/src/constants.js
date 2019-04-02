@@ -77,12 +77,12 @@ const fitbit_data_columns = {
     "Fall Asleep": "startTime",
     "Wake Up": "endTime",
     // "Sleep Score": "efficiency",
-    "Total Time in Bed": "totalTimeInBed",
-    "Total Time Asleep": "minutesAsleep",
-    "Light": "light",
-    "Deep": "deep",
-    "REM": "rem",
-    "Awake": "wake",
+    "Total Time in Bed (Hrs)": "totalTimeInBed",
+    "Total Time Asleep (Hrs)": "minutesAsleep",
+    "Light (Hrs)": "light",
+    "Deep (Hrs)": "deep",
+    "REM (Hrs)": "rem",
+    "Awake (Hrs)": "wake",
 }
 
 const weather_data_columns = {
