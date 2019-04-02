@@ -13,6 +13,7 @@ ADD server-data-ms /app/server-data-ms
 RUN ls -a server-data-ms
 
 RUN npm install
+RUN npm install --prefix server-data-ms
 
 # Bundle app source
 COPY . /app
