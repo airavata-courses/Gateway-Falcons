@@ -8,11 +8,12 @@ WORKDIR /app
 # where available (npm@5+)
 
 COPY package*.json ./
-ADD server /app/server-dropbox
+ADD server-dropbox /app/server-dropbox
 
 RUN ls -a server-dropbox
 
-RUN npm install
+RUN npm install 
+RUN npm install --prefix server-dropbox
 # If you are building your code for production
 # RUN npm ci --only=production
 
