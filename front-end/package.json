@@ -183,7 +183,8 @@
     "webpack-manifest-plugin": "1.2.1",
     "webpack-split-chunks": "^0.2.1",
     "whatwg-fetch": "2.0.3",
-    "window-resize-listener-react": "^1.1.0"
+    "window-resize-listener-react": "^1.1.0",
+    "youtube-live-react": "^1.0.0"
   },
   "devDependencies": {
     "animate-sass": "^0.8.2",

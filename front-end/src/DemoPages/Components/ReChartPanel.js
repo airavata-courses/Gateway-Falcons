@@ -158,7 +158,7 @@ class ReChartPanel extends Component {
                     <XAxis dataKey="date" />
                     <YAxis yAxisId="left" />
                     <YAxis yAxisId="right" orientation="right" />
-                    <Tooltip cursor={{fill: 'red'}} />
+                    <Tooltip />
                     <Legend />
                     <Line type="monotone"
                         dataKey={`${composed_line_attr}`}
