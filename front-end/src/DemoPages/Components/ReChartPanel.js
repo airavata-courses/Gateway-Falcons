@@ -54,7 +54,7 @@ class ReChartPanel extends Component {
                 {
                     ret
                 }
-             
+
                 <Tooltip />
                 {
                     (first_max && first_attr !== 'restingHeartRate' && first_attr !== 'bpm')
@@ -107,7 +107,7 @@ class ReChartPanel extends Component {
                     <XAxis dataKey="date" />
                     <YAxis />
                     <Tooltip />
-                    <Legend  />
+                    <Legend />
                     <ReferenceLine y={0} stroke="#000" />
                     {/* {
                         (brush)
@@ -158,7 +158,7 @@ class ReChartPanel extends Component {
                     <XAxis dataKey="date" />
                     <YAxis yAxisId="left" />
                     <YAxis yAxisId="right" orientation="right" />
-                    <Tooltip />
+                    <Tooltip cursor={{fill: 'red'}} />
                     <Legend />
                     <Line type="monotone"
                         dataKey={`${composed_line_attr}`}
@@ -319,6 +319,16 @@ class ReChartPanel extends Component {
                     <Area type="monotone" dataKey={first_attr} stroke="#82ca9d" fillOpacity={1} fill="url(#colorUv)"
                         name={first_attr === 'sys' ? 'Systolic' : first_attr}
                     />
+                    {
+                        (second_attr === 'dia')
+                            ? <ReferenceLine y={80} stroke="red" label={"Diastolic Target"} />
+                            : <div />
+                    }
+                    {
+                        (first_attr === 'sys')
+                            ? <ReferenceLine y={130} stroke="red" label={"Systolic Target"} />
+                            : <div />
+                    }
                 </AreaChart>
             );
         }

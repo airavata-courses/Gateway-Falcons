@@ -57,58 +57,8 @@ export default class AboutPage extends Component {
                 <div className="h-100">
                     <Row className="h-100 no-gutters">
 
-                        {/* Image SLider */}
-                        <Col lg="4" className="d-none d-lg-block">
-                            <div className="slider-light">
-                                <Slider  {...settings}>
-                                    <div
-                                        className="h-100 d-flex justify-content-center align-items-center bg-plum-plate">
-                                        <div className="slide-img-bg"
-                                            style={{
-                                                backgroundImage: 'url(' + bg1 + ')'
-                                            }} />
-                                        <div className="slider-content">
-                                            <h3>Perfect Balance</h3>
-                                            <p>
-                                                ArchitectUI is like a dream. Some think it's too good to be true! Extensive collection of unified React Boostrap Components and Elements.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div
-                                        className="h-100 d-flex justify-content-center align-items-center bg-premium-dark">
-                                        <div className="slide-img-bg"
-                                            style={{
-                                                backgroundImage: 'url(' + bg3 + ')'
-                                            }} />
-                                        <div className="slider-content">
-                                            <h3>Scalable, Modular, Consistent</h3>
-                                            <p>
-                                                Easily exclude the components you don't require. Lightweight, consistent
-                                                Bootstrap based styles across all elements and components
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div
-                                        className="h-100 d-flex justify-content-center align-items-center bg-sunny-morning">
-                                        <div className="slide-img-bg opacity-6"
-                                            style={{
-                                                backgroundImage: 'url(' + bg2 + ')'
-                                            }} />
-                                        <div className="slider-content">
-                                            <h3>Complex, but lightweight</h3>
-                                            <p>
-                                                We've included a lot of components that cover almost all use cases for
-                                                any type of application.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </Slider>
-                            </div>
-                        </Col>
-                        {/* End Image SLider */}
-
                         {/* Profile Section */}
-                        <Col md="12" lg="8" xl="8">
+                        <Col md="12" lg="12" xl="12">
                             <Card className="card-hover-shadow profile-responsive card-border border-success mb-3">
                                 <div className="dropdown-menu-header">
                                     <div className="dropdown-menu-header-inner bg-success">
@@ -132,7 +82,7 @@ export default class AboutPage extends Component {
                                                                 this.toggle('1');
                                                             }}
                                                         >
-                                                        About
+                                                            Mission
                                                         </Button>
                                                         <Button color="dark"
                                                             className={classnames({ active: this.state.activeTab === '2' })}
@@ -140,7 +90,7 @@ export default class AboutPage extends Component {
                                                                 this.toggle('2');
                                                             }}
                                                         >
-                                                        Story
+                                                            Background
                                                         </Button>
                                                         <Button color="dark"
                                                             className={"" + classnames({ active: this.state.activeTab === '3' })}
@@ -148,16 +98,16 @@ export default class AboutPage extends Component {
                                                                 this.toggle('3');
                                                             }}
                                                         >
-                                                        Mission
+                                                            Research
                                                         </Button>
-                                                        <Button color="dark"
+                                                        {/* <Button color="dark"
                                                             className={"" + classnames({ active: this.state.activeTab === '3' })}
                                                             onClick={() => {
                                                                 this.toggle('4');
                                                             }}
                                                         >
                                                         Research
-                                                        </Button>
+                                                        </Button> */}
                                                     </ButtonGroup>
                                                 </div>
                                             </div>
@@ -168,93 +118,88 @@ export default class AboutPage extends Component {
                                 <CardBody className="p-0">
 
                                     <TabContent activeTab={this.state.activeTab}>
+
                                         <TabPane tabId="1">
-                                            <ListGroup flush>
-                                                <ListGroupItem>
-                                                    <div className="widget-content p-0">
-                                                        <div className="widget-content-wrapper">
-                                                            <div className="widget-content-left mr-3">
-                                                                <div className="widget-content-left">
-                                                                    <img width={52} className="rounded-circle"
-                                                                        src={avatar6}
-                                                                        alt="" />
-                                                                </div>
-                                                            </div>
-                                                            <div className="widget-content-left flex2">
-                                                                <div className="widget-heading">
-                                                                    John Doe
-                                                                    </div>
-                                                                <div className="widget-subheading opacity-10">
-                                                                    <span className="pr-2">
-                                                                        <b>43</b> Sales
-                                                                    </span>
-                                                                    <span>
-                                                                        <b className="text-success">$156,24</b> Totals
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <div className="widget-content-right">
-                                                                <div className="icon-wrapper m-0">
-                                                                    <div className="progress-circle-wrapper">
-                                                                        <Progress
-                                                                            type="circle"
-                                                                            percent={62}
-                                                                            width="100%"
-                                                                        />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </ListGroupItem>
-                                                <ListGroupItem>
-                                                    <div className="widget-content p-0">
-                                                        <div className="widget-content-wrapper">
-                                                            <div className="widget-content-left mr-3">
-                                                                <div className="widget-content-left">
-                                                                    <img width={52} className="rounded-circle"
-                                                                        src={avatar6}
-                                                                        alt="" />
-                                                                </div>
-                                                            </div>
-                                                            <div className="widget-content-left flex2">
-                                                                <div className="widget-heading">
-                                                                    Rosy O'Dowell
-                                                                    </div>
-                                                                <div className="widget-subheading opacity-10">
-                                                                    <span className="pr-2">
-                                                                        <b className="text-danger">12</b> Leads
-                                                                    </span>
-                                                                    <span>
-                                                                        <b className="text-warning">$56,24</b> Totals
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <div className="widget-content-right">
-                                                                <div className="icon-wrapper m-0">
-                                                                    <div className="progress-circle-wrapper">
-                                                                        <Progress
-                                                                            color="danger"
-                                                                            type="circle"
-                                                                            percent={32}
-                                                                            width="100%"
-                                                                            theme={
-                                                                                {
-                                                                                    active: {
-                                                                                        trailColor: '#ccf3e6',
-                                                                                        color: '#3ac47d'
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        />
-                                                                    </div>
-                                                                </div>
+                                            <div> 
+                                                <p>
+                                                    Hey there!
+                                                </p> 
+
+                                                <p>
+                                                Thank you for visiting Schwenck.Live! April 15th 2019 began my 5,800-mile bicycle journey from New York City to Alaska to collect and analyze data from 25 variables for research. This decision, however, did not come out of thin air.
+                                                </p>
+
+                                                When the doctors told me that I have a problematic heart condition and suggested I limit my exercise, I naturally asked, "why?" I have excelled at football, rugby, and skiing my entire life and have never once had an issue. Being that this condition is relatively uncommon for highly active individuals, I am considered an outlier. With the lack of available research to draw conclusions from, they advised I take the safe route.
+
+                                                This did not resonate well with me at all. If a lack of research is going to hold me back from doing what I love, then I am determined to find an answer myself by conducting research that will help advance the scientific and medical communities. When debating ideas for an experiment, I thought back to my parents…
+
+                                                My father was 25 when he decided to set out for California on his bicycle - more than 3,700 miles - starting New Jersey. Over the course of 67 days, he endured the rain, heat, and wind with nothing but a tent, sleeping bag, and change of clothes. Upon his return, he was hungry for more. He and my mother - an equally avid cyclist - decided to push the limit and ride to Alaska. Despite the progress they made, their trip to the Last Frontier was put on hold once they realized I was on the way sooner than they were planning. Finishing their trip is the answer to my research.
+
+                                                In many ways, I do this for them, but I also have selfish reasons. I want to prove to myself that I can overcome any adversity thrown my way and be able to inspire others to achieve anything they put their mind to.
+
+                                                I do not simply wish to raise money for others' research, I want to be on the front lines spearheading the investigation myself, finding solutions and figuring out ways to intertwine "big data" and Statistics with other seemingly disparate fields such as Neuroscience, Cardiology, and Physiology.
+
+                                                The moment I return, I plan to leverage what I learn during my graduate studies this Fall at Texas A&M University using the latest technology to dive into the analysis and uncover valuable insights for others to use and build off of.
+
+                                                The best part is that this whole journey is broadcast live right here through Schwenck.Live for you all to enjoy. Tune in, dig into the data, and follow along as we defy the impossible together!
+
+                                                John Schwenck
+
+
+                                            </div>
+
+
+                                            {/* Image SLider */}
+                                            <Col lg="12" className="d-none d-lg-block">
+                                                <div className="slider-light">
+                                                    <Slider  {...settings}>
+                                                        <div
+                                                            className="h-100 d-flex justify-content-center align-items-center bg-plum-plate">
+                                                            <div className="slide-img-bg"
+                                                                style={{
+                                                                    backgroundImage: 'url(' + bg1 + ')'
+                                                                }} />
+                                                            <div className="slider-content">
+                                                                <h3>Perfect Balance</h3>
+                                                                <p>
+                                                                    ArchitectUI is like a dream. Some think it's too good to be true! Extensive collection of unified React Boostrap Components and Elements.
+                                            </p>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </ListGroupItem>
-                                            </ListGroup>
+                                                        <div
+                                                            className="h-100 d-flex justify-content-center align-items-center bg-premium-dark">
+                                                            <div className="slide-img-bg"
+                                                                style={{
+                                                                    backgroundImage: 'url(' + bg3 + ')'
+                                                                }} />
+                                                            <div className="slider-content">
+                                                                <h3>Scalable, Modular, Consistent</h3>
+                                                                <p>
+                                                                    Easily exclude the components you don't require. Lightweight, consistent
+                                                                    Bootstrap based styles across all elements and components
+                                            </p>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            className="h-100 d-flex justify-content-center align-items-center bg-sunny-morning">
+                                                            <div className="slide-img-bg opacity-6"
+                                                                style={{
+                                                                    backgroundImage: 'url(' + bg2 + ')'
+                                                                }} />
+                                                            <div className="slider-content">
+                                                                <h3>Complex, but lightweight</h3>
+                                                                <p>
+                                                                    We've included a lot of components that cover almost all use cases for
+                                                                    any type of application.
+                                            </p>
+                                                            </div>
+                                                        </div>
+                                                    </Slider>
+                                                </div>
+                                            </Col>
+                                            {/* End Image SLider */}
                                         </TabPane>
+
                                         <TabPane tabId="2">
                                             <ListGroup flush>
                                                 <ListGroupItem disabled tag="a" href="javascript:void(0);">Cras
@@ -272,6 +217,7 @@ export default class AboutPage extends Component {
                                                         eros</ListGroupItem>
                                             </ListGroup>
                                         </TabPane>
+
                                         <TabPane tabId="3">
                                             <div className="p-3">
                                                 <p>With supporting text below as a natural lead-in to additional
@@ -286,16 +232,19 @@ export default class AboutPage extends Component {
                                                         scrambled.</p>
                                             </div>
                                         </TabPane>
-                                        <TabPane tabId="4">
+
+                                        {/* <TabPane tabId="4">
                                         </TabPane>
+                          */}
                                     </TabContent>
 
                                 </CardBody>
-                                <CardFooter className="text-center d-block">
+                                {/* <CardFooter className="text-center d-block">
                                     <Button size="sm" className="mr-2 text-danger" color="link">Cancel</Button>
                                     <Button size="lg" className="btn-shadow-primary" color="primary">View
-                                            Profile</Button>
-                                </CardFooter>
+                                            Profile
+                                            </Button>
+                                </CardFooter> */}
                             </Card>
                         </Col>
 

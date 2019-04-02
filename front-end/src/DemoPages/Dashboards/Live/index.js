@@ -181,6 +181,38 @@ export default class LivePage extends Component {
                 />
                 <div>
 
+                    {/* FIrst Row */}
+                    <Row>
+                        <Col lg="12" xl="6">
+                            <Card className="main-card mb-3">
+                                <CardBody>
+                                    <CardTitle>
+                                        Live Stream
+                                    </CardTitle>
+                                    <LiveStream />
+                                </CardBody>
+                            </Card>
+                        </Col>
+                        <Col lg="12" xl="6">
+                            <Card className="main-card mb-3">
+                                <CardBody>
+                                    <CardTitle>
+                                        Current Location
+                                    </CardTitle>
+                                    <MapWithMarkers
+                                        selectedMarker={this.state.selectedMarker}
+                                        markers={map_data}
+                                        onClick={this.handleClick}
+                                        googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyD1KwG-BfsNZC-qjFRLgDKC-yc6x4s9f1A&v=3.exp&libraries=geometry,drawing,places`}
+                                        loadingElement={<div style={{ height: `100%` }} />}
+                                        containerElement={<div style={{ height: `400px` }} />}
+                                        mapElement={<div style={{ height: `100%` }} />}
+                                    />
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </Row>
+
                     {/* KPI */}
                     <Row>
                         <Col md="6" lg="3">
@@ -195,7 +227,7 @@ export default class LivePage extends Component {
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
                                                         <small className="opacity-5"></small>
-                                                        {kpi.average_speed} mph
+                                                        {(kpi.average_speed) ? kpi.average_speed + "mph" : "n/a"}
                                                     </div>
                                                 </div>
                                             </div>
@@ -215,7 +247,7 @@ export default class LivePage extends Component {
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4 text-danger">
-                                                        {kpi.total_climb} feet
+                                                        {(kpi.total_climb) ? kpi.total_climb + "ft" : "n/a"}
                                                     </div>
                                                 </div>
                                             </div>
@@ -235,7 +267,7 @@ export default class LivePage extends Component {
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                        {kpi.wind_speed} mph
+                                                        {(kpi.wind_speed) ? kpi.wind_speed + "mpn" : "n/a"}
                                                     </div>
                                                 </div>
                                             </div>
@@ -255,46 +287,13 @@ export default class LivePage extends Component {
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                        {kpi.avg_heart_rate} bpm
+                                                        {(kpi.avg_heart_rate) ? kpi.avg_heart_rate + "bpm" : "n/a"}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </Card>
-                        </Col>
-                    </Row>
-
-
-                    {/* FIrst Row */}
-                    <Row>
-                        <Col lg="12" xl="6">
-                            <Card className="main-card mb-3">
-                                <CardBody>
-                                    <CardTitle>
-                                        Heartrate
-                                    </CardTitle>
-                                    <LiveStream />
-                                </CardBody>
-                            </Card>
-                        </Col>
-                        <Col lg="12" xl="6">
-                            <Card className="main-card mb-3">
-                                <CardBody>
-                                    {/* <CardTitle>
-                                        Basic
-                                    </CardTitle> */}
-                                    <MapWithMarkers
-                                        selectedMarker={this.state.selectedMarker}
-                                        markers={map_data}
-                                        onClick={this.handleClick}
-                                        googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyD1KwG-BfsNZC-qjFRLgDKC-yc6x4s9f1A&v=3.exp&libraries=geometry,drawing,places`}
-                                        loadingElement={<div style={{ height: `100%` }} />}
-                                        containerElement={<div style={{ height: `400px` }} />}
-                                        mapElement={<div style={{ height: `100%` }} />}
-                                    />
-                                </CardBody>
                             </Card>
                         </Col>
                     </Row>
@@ -327,14 +326,14 @@ export default class LivePage extends Component {
                                     <tbody>
                                     </tbody>
                                 </Table>
-                                <CardFooter className="d-block text-center">
+                                {/* <CardFooter className="d-block text-center">
                                     <Button className="mr-2 btn-icon btn-icon-only" outline color="danger">
                                         <i className="pe-7s-trash btn-icon-wrapper"> </i>
                                     </Button>
                                     <Button className="btn-wide" color="success">
                                         Save
                                     </Button>
-                                </CardFooter>
+                                </CardFooter> */}
                             </Card>
                         </Col>
                     </Row>
@@ -414,14 +413,14 @@ export default class LivePage extends Component {
                                     }}
                                     className="-striped -highlight -fixed"
                                 />
-                                <CardFooter className="d-block text-center">
+                                {/* <CardFooter className="d-block text-center">
                                     <Button className="mr-2 btn-icon btn-icon-only" outline color="danger">
                                         <i className="pe-7s-trash btn-icon-wrapper"> </i>
                                     </Button>
                                     <Button className="btn-wide" color="success">
                                         Save
                                     </Button>
-                                </CardFooter>
+                                </CardFooter> */}
                             </Card>
                         </Col>
                     </Row>

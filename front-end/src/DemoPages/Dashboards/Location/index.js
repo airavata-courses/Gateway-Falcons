@@ -305,8 +305,8 @@ export default class LocationPage extends Component {
                                         loadingElement={<div style={{ height: `100%` }} />}
                                         containerElement={<div style={{ height: `400px` }} />}
                                         mapElement={<div style={{ height: `100%` }} />}
-                                        center_lat={39.8283}
-                                        center_lon={-98.5795}
+                                        center_lat={41.850033}
+                                        center_lon={-87.6500523}
                                         zoom={4}
                                     />
                                 </CardBody>

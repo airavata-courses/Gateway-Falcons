@@ -1,16 +1,12 @@
-import { faAngleUp, faCommentDots } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
 import moment from 'moment';
 import React, { Component, Fragment } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import CountUp from 'react-countup';
 import ReactTable from "react-table";
 import { Card, CardBody, CardHeader, Col, Nav, NavItem, NavLink, Row, TabContent, TabPane } from 'reactstrap';
 import * as Constants from '../../../constants';
 import PageTitle from '../../../Layout/AppMain/PageTitle';
 import ReChartPanel from '../../Components/ReChartPanel';
-import IncomeReport from '../Commerce/Examples/Components/IncomeReport';
 
 export default class FitnessDashboard extends Component {
 
@@ -63,7 +59,7 @@ export default class FitnessDashboard extends Component {
 
     getAndSetFitnessData() {
 
-        fetch(`${Constants.serverUrl}/cardio_mood`, {
+        fetch(`${Constants.serverUrl}/blood_pressure`, {
         // fetch('http://localhost:3001/blood_pressure', {
             headers: {
                 "Content-Type": "application/json",
