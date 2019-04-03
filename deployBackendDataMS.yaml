@@ -1,0 +1,58 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: backend-data-microservice
+  labels:
+    app: backend-data-microservice
+    kube-monkey/enabled: "enabled"
+    kube-monkey/identifier: "backend-data-microservice"
+    kube-monkey/mtbf: '2'
+    kube-monkey/kill-mode: "fixed"
+    kube-monkey/kill-value: "1"
+
+spec:
+  selector:
+    matchLabels:
+      app: backend-data-microservice
+  replicas: 3 # tells deployment to run 3 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: backend-data-microservice
+        kube-monkey/enabled: "enabled"
+        kube-monkey/identifier: "backend-data-microservice"
+        kube-monkey/mtbf: '2'
+        kube-monkey/kill-mode: "fixed"
+        kube-monkey/kill-value: "1"
+
+    spec:
+      containers:
+      - name: backend-data-microservice
+        image: johnlive/backend_data_microservice:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 3002
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-data-microservice
+  annotations:
+    service.beta.kubernetes.io/openstack-internal-load-balancer: "true"
+  labels:
+    app: backend-data-microservice
+spec:
+  type: LoadBalancer
+  # loadBalancerIP: 10.10.10.10
+  ports:
+  - port: 3002
+    targetPort: 3002
+    name: http
+    protocol: TCP
+    nodePort: 30072
+  selector:
+    app: backend-data-microservice
+  externalIPs:
+  - 149.165.168.185
+

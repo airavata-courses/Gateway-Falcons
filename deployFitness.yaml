@@ -1,0 +1,56 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: fitness
+  labels:
+    app: fitness
+    kube-monkey/enabled: "enabled"
+    kube-monkey/identifier: "fitness"
+    kube-monkey/mtbf: '2'
+    kube-monkey/kill-mode: "fixed"
+    kube-monkey/kill-value: "1"
+spec:
+  selector:
+    matchLabels:
+      app: fitness
+  replicas: 3 # tells deployment to run 3 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: fitness
+        kube-monkey/enabled: "enabled"
+        kube-monkey/identifier: "fitness"
+        kube-monkey/mtbf: '2'
+        kube-monkey/kill-mode: "fixed"
+        kube-monkey/kill-value: "1"
+    spec:
+      containers:
+      - name: fitness
+        image: johnlive/fitness:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 5001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fitness
+  annotations:
+    service.beta.kubernetes.io/openstack-internal-load-balancer: "true"
+  labels:
+    app: fitness
+spec:
+  type: LoadBalancer
+  # loadBalancerIP: 10.10.10.10
+  ports:
+  - port: 5001
+    targetPort: 5001
+    name: http
+    protocol: TCP
+    nodePort: 30062
+  selector:
+    app: fitness
+  externalIPs:
+  - 149.165.170.134
+

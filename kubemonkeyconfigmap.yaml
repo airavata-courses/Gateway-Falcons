@@ -1,0 +1,21 @@
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kube-monkey-config-map
+  namespace: kube-system
+data:
+  config.toml: |
+    [kubemonkey]
+    dry_run = false
+    run_hour = 15
+    start_hour = 20
+    end_hour = 23
+    blacklisted_namespaces = ["kube-system"]
+    whitelisted_namespaces = ["default"]
+    time_zone = "America/New_York"
+    graceperiod_sec= 10
+    [debug]
+    enabled= true
+    schedule_immediate_kill= true
