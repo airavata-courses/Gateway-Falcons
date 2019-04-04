@@ -190,6 +190,7 @@
     "animate-sass": "^0.8.2",
     "css-loader": "^1.0.1",
     "node-sass": "^4.10.0",
+    "react-social-icons": "^4.1.0",
     "sass-loader": "^6.0.6"
   },
   "scripts": {

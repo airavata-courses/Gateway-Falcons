@@ -17,6 +17,7 @@ import PageTitle from '../../../Layout/AppMain/PageTitle';
 import MapWithMarkers from '../../MyComponents/MapContainer';
 
 export default class LocationPage extends Component {
+
     constructor() {
         super();
         const apiKey = process.env.GOOGLE_API_KEY;
@@ -24,6 +25,7 @@ export default class LocationPage extends Component {
             title: 'Live',
             map_data: [],
             weather_data: [],
+            strava_data: [],
             selectedMarker: false,
             apiKey: apiKey,
             kpi: {
@@ -31,12 +33,61 @@ export default class LocationPage extends Component {
                 total_climb: 0,
                 wind_speed: 0,
                 avg_heart_rate: 0
+            },
+            strava_kpi: {
+                average_speed: 0,
+                distance: 0,
+                elapsed_time: 0,
+                moving_time: 0,
+                total_elevation_gain: 0
             }
         };
     }
 
     handleClick = (marker, event) => {
         this.setState({ selectedMarker: marker })
+    }
+
+    fetchStravaData() {
+        fetch(`${Constants.serverUrl}/fitness`, {
+            // fetch(`http://localhost:3001/fitness`, {
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+            credentials: 'same-origin',
+        })
+            .then(res => res.json())
+            .then(data => {
+
+                // calculate
+                // console.log(data);
+
+                const {
+                    average_speed,
+                    distance,
+                    elapsed_time,
+                    moving_time,
+                    total_elevation_gain,
+                } = data[data.length - 1];
+
+                console.log(average_speed.substring(0, average_speed.indexOf(" ")),
+                    distance.replace(/\D/g, ''),
+                    elapsed_time.replace(/\D/g, ''),
+                    moving_time.replace(/\D/g, ''),
+                    total_elevation_gain.replace(/\D/g, '')
+                )
+
+                this.setState({
+                    strava_kpi: {
+                        average_speed,
+                        distance,
+                        elapsed_time,
+                        moving_time,
+                        total_elevation_gain
+                    }
+                })
+            });
     }
 
     _fetchMapMarkers() {
@@ -161,7 +212,6 @@ export default class LocationPage extends Component {
                     }
                 })
             });
-        // TODO:
     }
 
     fetchMapMarkers() {
@@ -172,6 +222,7 @@ export default class LocationPage extends Component {
     }
 
     componentDidMount() {
+        this.fetchStravaData();
         this.fetchMapMarkers();
     }
 
@@ -181,7 +232,7 @@ export default class LocationPage extends Component {
 
     render() {
         // const radius = 107;
-        const { apiKey, data, map_data, weather_data, kpi } = this.state;
+        const { apiKey, data, map_data, weather_data, kpi, strava_kpi } = this.state;
         console.log(apiKey)
 
         // const wahoo_table_data 
@@ -189,7 +240,7 @@ export default class LocationPage extends Component {
         const wahoo_data_columns = Object.keys(Constants.wahoo_data_columns).map(key => {
             if (key === 'Latitude' || key === 'Longitude') {
                 const val = parseFloat(Constants.wahoo_data_columns[key]).toFixed(5);
-                console.log(Constants.wahoo_data_columns[key]);
+                // console.log(Constants.wahoo_data_columns[key]);
                 return {
                     Header: key,
                     accessor: Constants.wahoo_data_columns[key],
@@ -223,18 +274,18 @@ export default class LocationPage extends Component {
 
                     {/* KPI */}
                     <Row>
-                        <Col md="6" lg="3">
+                    <Col md="6" lg="2">
                             <Card className="card-shadow-primary mb-3 widget-chart widget-chart2 text-left">
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading">
-                                            Current Speed
+                                            Total Active Time (month)
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                        {kpi.average_speed} mph
+                                                    {strava_kpi.elapsed_time} minutes
                                                     </div>
                                                 </div>
                                             </div>
@@ -243,18 +294,38 @@ export default class LocationPage extends Component {
                                 </div>
                             </Card>
                         </Col>
-                        <Col md="6" lg="3">
+                        <Col md="6" lg="2">
                             <Card className="card-shadow-primary mb-3 widget-chart widget-chart2 text-left">
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading">
-                                            Current Elevation
+                                            Total Distance (month)
+                                        </h6>
+                                        <div className="widget-chart-flex">
+                                            <div className="widget-numbers mb-0 w-100">
+                                                <div className="widget-chart-flex">
+                                                    <div className="fsize-4">
+                                                    {strava_kpi.distance} miles
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Card>
+                        </Col>
+                        <Col md="6" lg="2">
+                            <Card className="card-shadow-primary mb-3 widget-chart widget-chart2 text-left">
+                                <div className="widget-chat-wrapper-outer">
+                                    <div className="widget-chart-content">
+                                        <h6 className="widget-subheading">
+                                            Total Distance (last ride)
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4 text-danger">
-                                                        {kpi.total_climb} feet
+                                                        {strava_kpi.distance} miles
                                                     </div>
                                                 </div>
                                             </div>
@@ -263,18 +334,18 @@ export default class LocationPage extends Component {
                                 </div>
                             </Card>
                         </Col>
-                        <Col md="6" lg="3">
+                        <Col md="6" lg="2">
                             <Card className="card-shadow-primary mb-3 widget-chart widget-chart2 text-left">
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading">
-                                            Current Wind
+                                            Elevation Gain
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                        {kpi.wind_speed} mph
+                                                        {strava_kpi.total_elevation_gain} ft
                                                     </div>
                                                 </div>
                                             </div>
@@ -283,18 +354,18 @@ export default class LocationPage extends Component {
                                 </div>
                             </Card>
                         </Col>
-                        <Col md="6" lg="3">
+                        <Col md="6" lg="2">
                             <Card className="card-shadow-primary mb-3 widget-chart widget-chart2 text-left">
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading">
-                                            Current Heart Rate
+                                            Average Speed
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                        {kpi.avg_heart_rate} bpm
+                                                        {strava_kpi.average_speed} mph
                                                     </div>
                                                 </div>
                                             </div>

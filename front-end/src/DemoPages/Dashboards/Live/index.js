@@ -218,12 +218,19 @@ export default class LivePage extends Component {
                                         Live Stream
                                     </CardTitle>
                                     {/* TODO: Make dynamic??? */}
-                                    <YoutubeLive
+                                    {/* UCLA_DiR1FfKNvjuUpBHmylQ */}
+                                    {/* <YoutubeLive
                                         iframeWidth={810}
                                         iframeHeight={400}
                                         maxResults={1}
-                                        youtubeChannelId='UCLA_DiR1FfKNvjuUpBHmylQ'
-                                        googleApiKey='AIzaSyAQ-GapDMmRRWsj9XdRrRZcdcQhQnxd8t0' />
+                                        youtubeChannelId='UCew4I7JglD8tX4lezXpM93Q'
+                                        googleApiKey='AIzaSyAQ-GapDMmRRWsj9XdRrRZcdcQhQnxd8t0' /> */}
+                                        {/* frameborder="0"
+                                        allowfullscreen */}
+                                    <iframe width="560" height="315"
+                                        src="https://www.youtube.com/embed/live_stream?channel=UCew4I7JglD8tX4lezXpM93Q"
+                                        >
+                                    </iframe>
                                 </CardBody>
                             </Card>
                         </Col>

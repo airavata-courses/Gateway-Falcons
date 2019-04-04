@@ -1,5 +1,5 @@
-import React, {Fragment} from 'react';
-import {connect} from 'react-redux';
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 
 import Hamburger from 'react-hamburgers';
 
@@ -10,6 +10,8 @@ import {
     setEnableMobileMenu,
     setEnableMobileMenuSmall,
 } from '../../reducers/ThemeOptions';
+
+import logo from './logo.png'
 
 class HeaderLogo extends React.Component {
     constructor(props) {
@@ -23,7 +25,7 @@ class HeaderLogo extends React.Component {
     }
 
     toggleEnableClosedSidebar = () => {
-        let {enableClosedSidebar, setEnableClosedSidebar} = this.props;
+        let { enableClosedSidebar, setEnableClosedSidebar } = this.props;
         setEnableClosedSidebar(!enableClosedSidebar);
     }
 
@@ -47,18 +49,19 @@ class HeaderLogo extends React.Component {
         return (
             <Fragment>
                 <div className="app-header__logo">
-                    <div className="logo-src"/>
+                    {/* <div className="logo-src"/> */}
+                    <img src={logo} style={{ width: 200, height: 80 }} />
                     <div className="header__pane ml-auto">
                         <div onClick={this.toggleEnableClosedSidebar}>
                             <Hamburger
                                 active={enableClosedSidebar}
                                 type="elastic"
-                                onClick={() => this.setState({active: !this.state.active})}
+                                onClick={() => this.setState({ active: !this.state.active })}
                             />
                         </div>
                     </div>
                 </div>
-                <AppMobileMenu/>
+                <AppMobileMenu />
             </Fragment>
         )
     }
