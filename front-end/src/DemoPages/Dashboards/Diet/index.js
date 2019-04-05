@@ -8,22 +8,16 @@ import { Card, CardBody, CardHeader, Col, ListGroup, ListGroupItem, Row } from '
 import * as Constants from '../../../constants';
 import PageTitle from '../../../Layout/AppMain/PageTitle';
 import ReChartPanel from '../../Components/ReChartPanel';
-import { makeData } from "../../Tables/DataTables/Examples/utils";
+import fat_icon from './fat.png';
+import meat_icon from './meat.png';
+import carbs_icon from './carbs.png';
 
-const options = [
-    { value: '1', label: 'Today' },
-    { value: '2', label: 'Last Week' },
-    { value: '3', label: 'Last 30 Days' },
-    { value: '4', label: 'Last 3 Months' },
-    { value: '5', label: 'Last Year' },
-];
 
 export default class DietDashboard extends Component {
     constructor() {
         super();
 
         this.state = {
-            data: makeData(),
             dropdownOpen: false,
             selectedOption: null,
             diet_data: [],
@@ -96,8 +90,6 @@ export default class DietDashboard extends Component {
                 });
 
                 const { carbohydrates, fat, protein, calories, sugar, sodium } = _data[len - 1];
-                // console.log(_data[len - 1]);
-                // console.log(carbohydrates, fat, protein, calories);
 
                 this.setState({
                     diet_data: _data.reverse(),
@@ -132,15 +124,7 @@ export default class DietDashboard extends Component {
 
     render() {
         const { selectedOption } = this.state;
-        const { data, diet_data,
-            // today: {
-            //     calories,
-            //     carbohydrates,
-            //     fat,
-            //     protein,
-            //     sodium,
-            //     sugar
-            // },
+        const { diet_data,
             diet_kpi,
             last_meals
         } = this.state;
@@ -181,16 +165,13 @@ export default class DietDashboard extends Component {
                         {/* Top KPI */}
 
                         <Card className="mb-3">
-                            <CardHeader className="card-header-tab z-index-6">
+                            <CardHeader className="card-header-tab z-index-6 text-center">
                                 Macro Analysis
                             </CardHeader>
                             <Row className="no-gutters">
                                 <Col sm="6" md="4" xl="4">
                                     <div className="card no-shadow rm-border bg-transparent widget-chart text-left">
-                                        <div className="icon-wrapper rounded-circle">
-                                            <div className="icon-wrapper-bg opacity-10 bg-warning" />
-                                            <i className="lnr-laptop-phone text-dark opacity-8" />
-                                        </div>
+                                        <img src={fat_icon} style={{ width: 50, height: 50 }} />
                                         <div className="widget-chart-content">
                                             <div className="widget-subheading">
                                                 Fats
@@ -205,10 +186,7 @@ export default class DietDashboard extends Component {
                                 </Col>
                                 <Col sm="6" md="4" xl="4">
                                     <div className="card no-shadow rm-border bg-transparent widget-chart text-left">
-                                        <div className="icon-wrapper rounded-circle">
-                                            <div className="icon-wrapper-bg opacity-9 bg-danger" />
-                                            <i className="lnr-graduation-hat text-white" />
-                                        </div>
+                                        <img src={carbs_icon} style={{ width: 50, height: 50 }} />
                                         <div className="widget-chart-content">
                                             <div className="widget-subheading">
                                                 Carbs
@@ -222,10 +200,7 @@ export default class DietDashboard extends Component {
                                 </Col>
                                 <Col sm="12" md="4" xl="4">
                                     <div className="card no-shadow rm-border bg-transparent widget-chart text-left">
-                                        <div className="icon-wrapper rounded-circle">
-                                            <div className="icon-wrapper-bg opacity-9 bg-success" />
-                                            <i className="lnr-apartment text-white" />
-                                        </div>
+                                        <img src={meat_icon} style={{ width: 50, height: 50 }} />
                                         <div className="widget-chart-content">
                                             <div className="widget-subheading">
                                                 Protein
@@ -258,6 +233,7 @@ export default class DietDashboard extends Component {
                                             <Slider {...settings}>
                                                 <div>
                                                     <div className="widget-chart widget-chart2 text-left p-0">
+                                                        <p className="d-block text-center"> Macro Trends </p>
                                                         <ReChartPanel
                                                             data={_diet_data}
                                                             chart_type={"Brush"}
@@ -265,21 +241,26 @@ export default class DietDashboard extends Component {
                                                             first_attr={"protein"}
                                                             second_attr={"carbohydrates"}
                                                             third_attr={"fat"}
+                                                            y_label={"Intake Level"}
                                                         />
                                                     </div>
                                                 </div>
                                                 <div>
+                                                    <p className="d-block text-center"> Caloric Intake </p>
                                                     <ReChartPanel
                                                         data={_diet_data}
                                                         chart_type={"Line"}
                                                         first_attr={"calories"}
+                                                        y_label={"Calorie Level"}
                                                     />
                                                 </div>
-                                                <div>
+                                                <div className="widget-chart widget-chart2 text-left p-0">
+                                                    <p className="d-block text-center"> Hydration Level </p>
                                                     <ReChartPanel
                                                         data={_diet_data}
                                                         chart_type={"Area"}
                                                         first_attr={"water"}
+                                                        y_label={"H2O (oz)"}
                                                     />
                                                 </div>
                                             </Slider>
@@ -290,7 +271,7 @@ export default class DietDashboard extends Component {
 
                             {/* Right Col */}
                             <Col sm="12" lg="6">
-                                <Card className="card-hover-shadow-2x mb-3" style={{ height: 495 }}>
+                                <Card className="card-hover-shadow-2x mb-3" style={{ height: 530 }}>
                                     <CardHeader className="card-header-tab" >
                                         <div
                                             className="card-header-title font-size-lg text-capitalize font-weight-normal">
@@ -314,8 +295,6 @@ export default class DietDashboard extends Component {
                                                             } = last_meal;
                                                             const _items = items.map(item => item.name);
                                                             return (
-                                                                // icon={<i
-                                                                //     className="badge badge-dot badge-dot-xs badge-success"> </i>}
                                                                 <VerticalTimelineElement
                                                                     className="vertical-timeline-item"
                                                                     date={date}

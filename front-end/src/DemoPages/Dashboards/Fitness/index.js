@@ -57,10 +57,49 @@ export default class FitnessDashboard extends Component {
         }
     }
 
+    getTimeSeries() {
+        fetch(`${Constants.serverUrl}/fitbit_ts`, {
+            // fetch('http://localhost:3001/fitbit_ts', {
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+            credentials: 'same-origin',
+        })
+            .then(res => res.json())
+            .then(records => {
+                // const lastHours = moment().subtract(24, 'hours'); // .calendar();
+                // const lastHours = moment(moment(), Date.now())
+                let yesterday = new Date(Date.now());
+                yesterday.setHours(yesterday.getHours() - 24);
+                console.log(yesterday.getTime());
+                console.log(records);
+                const _records = [];
+                for (var record of records) {
+                    const { date, time, value } = record;
+                    // console.log(date + " " + time);
+                    // console.log(moment(date + " " + time));
+                    // console.log(moment(date + " " + time).valueOf());
+                    if (moment(date + " " + time).valueOf() >= yesterday.getTime()) {
+                        _records.push({
+                            date,
+                            time: moment(date + " " + time).format('HH:mm'),
+                            bpm: value
+                        });
+                    }
+                }
+                console.log(_records);
+
+                this.setState({
+                    fitBitTimeSeries: _records,
+                })
+            })
+    }
+
     getAndSetFitnessData() {
 
         fetch(`${Constants.serverUrl}/blood_pressure`, {
-        // fetch('http://localhost:3001/blood_pressure', {
+            // fetch('http://localhost:3001/blood_pressure', {
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",
@@ -256,48 +295,21 @@ export default class FitnessDashboard extends Component {
                 })
             });
 
-        fetch(`${Constants.serverUrl}/fitbit_ts`, {
-            // fetch('http://localhost:3001/fitbit_ts', {
-            headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-            },
-            credentials: 'same-origin',
-        })
-            .then(res => res.json())
-            .then(records => {
-                // const lastHours = moment().subtract(24, 'hours'); // .calendar();
-                // const lastHours = moment(moment(), Date.now())
-                let yesterday = new Date(Date.now());
-                yesterday.setHours(yesterday.getHours() - 24);
-                console.log(yesterday.getTime());
-                console.log(records);
-                const _records = [];
-                for (var record of records) {
-                    const { date, time, value } = record;
-                    // console.log(date + " " + time);
-                    // console.log(moment(date + " " + time));
-                    // console.log(moment(date + " " + time).valueOf());
-                    if (moment(date + " " + time).valueOf() >= yesterday.getTime()) {
-                        _records.push({
-                            date,
-                            time: moment(date + " " + time).format('HH:mm'),
-                            bpm: value
-                        });
-                    }
-                }
-                console.log(_records);
-
-                this.setState({
-                    fitBitTimeSeries: _records,
-                })
-            })
     }
 
 
     componentDidMount() {
+        this.getTimeSeries();
         this.getAndSetFitnessData();
+        this.intervalId = setInterval(() =>
+            this.getTimeSeries(),
+            61000);
     }
+
+    componentWillUnmount() {
+        clearInterval(this.intervalId);
+    }
+
 
     render() {
 
@@ -313,8 +325,6 @@ export default class FitnessDashboard extends Component {
                 accessor: Constants.wahoo_data_columns[key]
             }
         })
-
-        // console.log('wahoo_data_columns', wahoo_data_columns)
 
         const fitbit_data_columns = Object.keys(Constants.fitbit_data_columns).map(key => {
             return {
@@ -402,6 +412,7 @@ export default class FitnessDashboard extends Component {
                                         data={fitBitTimeSeries}
                                         chart_type={"Line"}
                                         first_attr={"bpm"}
+                                        y_label={"Beats Per Minute"}
                                     />
 
                                 </CardBody>
@@ -415,6 +426,7 @@ export default class FitnessDashboard extends Component {
                                         chart_type={"Bi-Area"}
                                         first_attr={"sys"}
                                         second_attr={"dia"}
+                                        y_label={"BP Level (mmHg)"}
                                     />
                                 </CardBody>
                             </TabPane>
@@ -425,6 +437,8 @@ export default class FitnessDashboard extends Component {
                                         chart_type={"Bi-Line"}
                                         first_attr={"rr"}
                                         second_attr={"bpm"}
+                                        y_label={"Beats Per Minute (bpm)"}
+                                        y_label_2={"R-R Interval (ms)"}
                                     />
                                 </CardBody>
                             </TabPane>
@@ -538,6 +552,7 @@ export default class FitnessDashboard extends Component {
                         <Col sm="12" md="6">
                             <Card className="mb-3">
                                 <CardBody>
+                                    <p className="d-block text-center"> Sleep Stage Analysis </p>
                                     <ReChartPanel
                                         data={sleep_chart_data}
                                         chart_type={"Composed"}
@@ -546,6 +561,8 @@ export default class FitnessDashboard extends Component {
                                         third_attr={"deep"}
                                         fourth_attr={"rem"}
                                         composed_line_attr={"totalTimeInBed"}
+                                        y_label={"Sleep Stage Duration"}
+                                        y_label_2={"Total Time in Bed (hrs)"}
                                     />
                                 </CardBody>
                             </Card>
@@ -553,10 +570,12 @@ export default class FitnessDashboard extends Component {
                         <Col sm="12" lg="6">
                             <Card className="mb-3">
                                 <CardBody>
+                                    <p className="d-block text-center"> Resting HR </p>
                                     <ReChartPanel
                                         data={restingHeartRateData}
                                         chart_type={"Line"}
                                         first_attr={"restingHeartRate"}
+                                        y_label={"BPM"}
                                     />
                                 </CardBody>
                             </Card>

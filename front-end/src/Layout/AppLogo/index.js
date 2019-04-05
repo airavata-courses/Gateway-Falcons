@@ -14,6 +14,7 @@ import {
 import logo from './logo.png'
 
 class HeaderLogo extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -21,7 +22,6 @@ class HeaderLogo extends React.Component {
             mobile: false,
             activeSecondaryMenuMobile: false
         };
-
     }
 
     toggleEnableClosedSidebar = () => {
@@ -50,7 +50,11 @@ class HeaderLogo extends React.Component {
             <Fragment>
                 <div className="app-header__logo">
                     {/* <div className="logo-src"/> */}
-                    <img src={logo} style={{ width: 200, height: 80 }} />
+                    {
+                        (!this.state.active)
+                        ? <img src={logo} style={{ width: 200, height: 110 }} />
+                        : <div />
+                    }
                     <div className="header__pane ml-auto">
                         <div onClick={this.toggleEnableClosedSidebar}>
                             <Hamburger

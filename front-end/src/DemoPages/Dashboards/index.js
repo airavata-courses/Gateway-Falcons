@@ -24,8 +24,8 @@ const Dashboards = ({match}) => (
                     <Route path={`${match.url}/location`} component={LocationPage}/>
                     <Route path={`${match.url}/fitness`} component={FitnessDashboard}/>
                     <Route path={`${match.url}/diet`} component={DietDashboard}/>
-                    {/* <Route path={`${match.url}/analytics`} component={AnalyticsDashboard}/> */}
                     <Route path={`${match.url}/about`} component={AboutPage}/>
+                    {/* <Route path={`${match.url}/analytics`} component={AnalyticsDashboard}/> */}
                     {/* <Route path={`${match.url}/sales`} component={SalesDashboard}/>
                     <Route path={`${match.url}/commerce`} component={CommerceDashboard}/> */}
                     {/* <Route path={`${match.url}/crm`} component={CRMDashboard}/>

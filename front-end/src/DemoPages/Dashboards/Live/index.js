@@ -219,18 +219,18 @@ export default class LivePage extends Component {
                                     </CardTitle>
                                     {/* TODO: Make dynamic??? */}
                                     {/* UCLA_DiR1FfKNvjuUpBHmylQ */}
-                                    {/* <YoutubeLive
+                                    <YoutubeLive
                                         iframeWidth={810}
                                         iframeHeight={400}
                                         maxResults={1}
                                         youtubeChannelId='UCew4I7JglD8tX4lezXpM93Q'
-                                        googleApiKey='AIzaSyAQ-GapDMmRRWsj9XdRrRZcdcQhQnxd8t0' /> */}
+                                        googleApiKey='AIzaSyAQ-GapDMmRRWsj9XdRrRZcdcQhQnxd8t0' />
                                         {/* frameborder="0"
                                         allowfullscreen */}
-                                    <iframe width="560" height="315"
+                                    {/* <iframe width="560" height="315"
                                         src="https://www.youtube.com/embed/live_stream?channel=UCew4I7JglD8tX4lezXpM93Q"
                                         >
-                                    </iframe>
+                                    </iframe> */}
                                 </CardBody>
                             </Card>
                         </Col>
@@ -325,7 +325,7 @@ export default class LivePage extends Component {
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading">
-                                            Wint Speed
+                                            Wind Speed
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
@@ -363,7 +363,7 @@ export default class LivePage extends Component {
                     </Row>
 
                     {/* Poll section */}
-                    <Row>
+                    {/* <Row>
                         <Col md="12">
                             <Card className="main-card mb-3">
                                 <CardHeader>
@@ -390,17 +390,9 @@ export default class LivePage extends Component {
                                     <tbody>
                                     </tbody>
                                 </Table>
-                                {/* <CardFooter className="d-block text-center">
-                                    <Button className="mr-2 btn-icon btn-icon-only" outline color="danger">
-                                        <i className="pe-7s-trash btn-icon-wrapper"> </i>
-                                    </Button>
-                                    <Button className="btn-wide" color="success">
-                                        Save
-                                    </Button>
-                                </CardFooter> */}
                             </Card>
                         </Col>
-                    </Row>
+                    </Row> */}
 
                     {/* CHART SECTion */}
                     <Row>
@@ -408,13 +400,14 @@ export default class LivePage extends Component {
                             <Card className="main-card mb-3">
                                 <CardBody>
                                     <CardTitle>
-                                        Avg HR
+                                        Avg Heart Rate
                                     </CardTitle>
                                     <ReChartPanel
                                         data={map_data}
                                         chart_type={"Line"}
                                         brush={false}
                                         first_attr={"avg_heart_rate"}
+                                        y_label={"BPM"}
                                     />
                                 </CardBody>
                             </Card>
@@ -423,13 +416,14 @@ export default class LivePage extends Component {
                             <Card className="main-card mb-3">
                                 <CardBody>
                                     <CardTitle>
-                                        Elevation (ft)
+                                        Elevation
                                     </CardTitle>
                                     <ReChartPanel
                                         data={map_data}
                                         chart_type={"Line"}
                                         brush={false}
                                         first_attr={"total_climb"}
+                                        y_label={"Feet"}
                                     />
                                 </CardBody>
                             </Card>
@@ -438,13 +432,14 @@ export default class LivePage extends Component {
                             <Card className="main-card mb-3">
                                 <CardBody>
                                     <CardTitle>
-                                        Wind Speed (mph)
+                                        Wind Speed
                                     </CardTitle>
                                     <ReChartPanel
                                         data={weather_data}
                                         chart_type={"Line"}
                                         brush={false}
                                         first_attr={"wind_speed"}
+                                        y_label={"Miles Per Hour (mph)"}
                                     />
                                 </CardBody>
                             </Card>
@@ -459,13 +454,13 @@ export default class LivePage extends Component {
                             <Card className="main-card mb-3">
                                 <CardHeader>
                                     Location Data
-                                        <div className="btn-actions-pane-right">
+                                        {/* <div className="btn-actions-pane-right">
                                         <ButtonGroup size="sm">
                                             <Button caret="true" color="focus"
                                                 className={"active"}>Last Week</Button>
                                             <Button caret="true" color="focus">All Month</Button>
                                         </ButtonGroup>
-                                    </div>
+                                    </div> */}
                                 </CardHeader>
 
                                 <ReactTable
@@ -495,13 +490,13 @@ export default class LivePage extends Component {
                             <Card className="main-card mb-3">
                                 <CardHeader>
                                     Weather Data
-                                        <div className="btn-actions-pane-right">
+                                        {/* <div className="btn-actions-pane-right">
                                         <ButtonGroup size="sm">
                                             <Button caret="true" color="focus"
                                                 className={"active"}>Last Week</Button>
                                             <Button caret="true" color="focus">All Month</Button>
                                         </ButtonGroup>
-                                    </div>
+                                    </div> */}
                                 </CardHeader>
 
                                 <ReactTable
@@ -513,14 +508,14 @@ export default class LivePage extends Component {
                                     }}
                                     className="-striped -highlight -fixed"
                                 />
-                                <CardFooter className="d-block text-center">
+                                {/* <CardFooter className="d-block text-center">
                                     <Button className="mr-2 btn-icon btn-icon-only" outline color="danger">
                                         <i className="pe-7s-trash btn-icon-wrapper"> </i>
                                     </Button>
                                     <Button className="btn-wide" color="success">
                                         Save
                                     </Button>
-                                </CardFooter>
+                                </CardFooter> */}
                             </Card>
                         </Col>
                     </Row>

@@ -17,7 +17,9 @@ class Nav extends Component {
                 <br />
                 <h5 className="app-sidebar__heading">Contribute</h5>
                 {/* <a href="https://www.gofundme.com/send-Schwenck-to-Alaska-2019" target="_blank"> */}
-                    <MetisMenu content={DonateNav} activeLinkFromLocation className="vertical-nav-menu" iconNamePrefix="" classNameStateIcon="pe-7s-angle-down" />
+                {/* onClick={() => alert('aaa')} */}
+                    <MetisMenu content={DonateNav} className="vertical-nav-menu" target="_blank" iconNamePrefix="" classNameStateIcon="pe-7s-angle-down" 
+                    />
                 {/* </a> */}
             </Fragment>
         );

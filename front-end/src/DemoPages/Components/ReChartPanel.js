@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardTitle, Col } from 'reactstrap';
-import { Area, AreaChart, Bar, BarChart, CartesianGrid, ComposedChart, Legend, Line, LineChart, Pie, PieChart, ReferenceLine, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis } from 'recharts';
+import {
+    Area, AreaChart, Bar, BarChart, CartesianGrid, ComposedChart, Legend, Line,
+    LineChart, Pie, PieChart, ReferenceLine, ResponsiveContainer, Scatter, ScatterChart,
+    Tooltip, XAxis, YAxis, Label
+} from 'recharts';
 
 // http://recharts.org/en-US/examples/LineChartWithReferenceLines
 
@@ -19,7 +23,25 @@ class ReChartPanel extends Component {
         }
     }
 
-    renderChart(chart_type, first_attr, second_attr, third_attr, fourth_attr, composed_line_attr, data, brush) {
+    renderChart(chart_type, first_attr, second_attr, third_attr, fourth_attr, composed_line_attr, data, brush, y_label, y_label_2) {
+
+
+        let label, label_2;
+        if (y_label !== '') {
+            label = { value: y_label, angle: -90, position: 'insideLeft' };
+        } else {
+            label = "";
+        }
+
+        if (y_label_2 !== '') {
+            label_2 = { value: y_label_2, angle: 90, position: 'insideRight' };
+        } else {
+            label_2 = "";
+        }
+
+        let name = "";
+        if (first_attr === "carbohydrates") name = "carbs";
+        // else if (first_attr === "restingHeartRate") name = "Resting HR (bpm)";
 
         if (chart_type === "Line") {
 
@@ -30,11 +52,11 @@ class ReChartPanel extends Component {
                 if (third_attr) third_max = this.getMax(third_attr, data);
             }
 
-            let ret = <YAxis />;
+            let ret = <YAxis label={label} />;
             if (first_attr === 'restingHeartRate') {
-                ret = <YAxis domain={[40, 100]} />;
+                ret = <YAxis domain={[40, 80]} label={label} />;
             } else if (first_attr === 'calories') {
-                ret = <YAxis domain={[0, 5000]} />;
+                ret = <YAxis domain={[0, 5000]} label={label} />;
             }
 
             return (<LineChart
@@ -74,7 +96,7 @@ class ReChartPanel extends Component {
 
                 <Line type="monotone"
                     dataKey={first_attr}
-                    name={(first_attr === "carbohydrates") ? "carbs" : first_attr}
+                    name={(name !== "") ? name : first_attr}
                     stroke="#8884d8"
                     dot={false}
                 />
@@ -89,7 +111,11 @@ class ReChartPanel extends Component {
                         :
                         <div />
                 }
-                <Legend wrapperStyle={{ lineHeight: '40px' }} />
+                {/* {
+                    (first_attr !== "restingHeartRate")
+                    ? <Legend wrapperStyle={{ lineHeight: '40px' }} />
+                    : <div />
+                } */}
             </LineChart>
             )
         }
@@ -105,7 +131,7 @@ class ReChartPanel extends Component {
                 >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" />
-                    <YAxis />
+                    <YAxis label={label} />
                     <Tooltip />
                     <Legend />
                     <ReferenceLine y={0} stroke="#000" />
@@ -145,7 +171,7 @@ class ReChartPanel extends Component {
                 >
                     <CartesianGrid />
                     <XAxis type="number" dataKey="x" name="stature" unit="cm" />
-                    <YAxis type="number" dataKey="y" name="weight" unit="kg" />
+                    <YAxis type="number" dataKey="y" name="weight" unit="kg" label={label} />
                     <Tooltip cursor={{ strokeDasharray: '3 3' }} />
                     <Scatter name="A school" data={data} fill="#8884d8" />
                 </ScatterChart>
@@ -156,8 +182,8 @@ class ReChartPanel extends Component {
                 >
                     <CartesianGrid stroke='#f5f5f5' />
                     <XAxis dataKey="date" />
-                    <YAxis yAxisId="left" />
-                    <YAxis yAxisId="right" orientation="right" />
+                    <YAxis yAxisId="left" label={label} />
+                    <YAxis yAxisId="right" orientation="right" label={label_2} />
                     <Tooltip />
                     <Legend />
                     <Line type="monotone"
@@ -195,12 +221,15 @@ class ReChartPanel extends Component {
                     height={400}
                     data={data}
                     margin={{
-                        top: 10, right: 30, left: 0, bottom: 0,
+                        top: 10, right: 30, left: 25, bottom: 0,
+                    }}
+                    padding={{
+                        top: 10, right: 30, left: 25, bottom: 0,
                     }}
                 >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" />
-                    <YAxis />
+                    <YAxis label={label} />
                     <Legend />
                     <Tooltip />
                     <Area type="monotone" dataKey={first_attr} stroke="#8884d8" fill="#8884d8" />
@@ -218,8 +247,8 @@ class ReChartPanel extends Component {
                 >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="timestamp" />
-                    <YAxis yAxisId="left" orientation="right" stroke="#82ca9d" />
-                    <YAxis yAxisId="right" stroke="#8884d8" />
+                    <YAxis yAxisId="left" orientation="right" stroke="#82ca9d" label={label_2} />
+                    <YAxis yAxisId="right" stroke="#8884d8" label={label} />
                     <Tooltip />
                     <Legend />
                     <Line yAxisId="left" type="monotone" dataKey={first_attr} stroke="#82ca9d" dot={false} domain={[200, 600]} />
@@ -237,64 +266,66 @@ class ReChartPanel extends Component {
                 >
                     <CartesianGrid />
                     <XAxis type="number" dataKey={first_attr} name="Avg Speed" />
-                    <YAxis type="number" dataKey={second_attr} name="Avg Heart Rate" domain={[40, 200]} />
+                    <YAxis type="number" dataKey={second_attr} name="Avg Heart Rate" domain={[40, 200]} label={label} />
                     <Tooltip cursor={{ strokeDasharray: '3 3' }} />
                     <Legend />
                     <Scatter data={data} name="Best Fit" fill="#8884d8" line={{ stroke: 'red', strokeWidth: 2, lineType: 'fitting' }} />
                 </ScatterChart>
             );
-        } else if (chart_type === "Synchronized") {
-            return (
-                <div>
+        }
+        // else if (chart_type === "Synchronized") {
+        //     return (
+        //         <div>
 
-                    <Col lg="12" xl="4">
-                        <Card className="main-card mb-3">
-                            <CardBody>
-                                <CardTitle>
-                                    Heart Rate
-                                    </CardTitle>
-                                <ReChartPanel
-                                    data={data}
-                                    chart_type={"Line"}
-                                    brush={false}
-                                    first_attr={"avg_heart_rate"}
-                                />
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col lg="12" xl="4">
-                        <Card className="main-card mb-3">
-                            <CardBody>
-                                <CardTitle>
-                                    Elevation
-                                    </CardTitle>
-                                <ReChartPanel
-                                    data={data}
-                                    chart_type={"Line"}
-                                    brush={false}
-                                    first_attr={"total_climb"}
-                                />
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col lg="12" xl="4">
-                        <Card className="main-card mb-3">
-                            <CardBody>
-                                <CardTitle>
-                                    Wind Speed
-                                    </CardTitle>
-                                <ReChartPanel
-                                    data={data}
-                                    chart_type={"Line"}
-                                    brush={false}
-                                    first_attr={"wind_speed"}
-                                />
-                            </CardBody>
-                        </Card>
-                    </Col>
-                </div>
-            );
-        } else if (chart_type === "Bi-Area") {
+        //             <Col lg="12" xl="4">
+        //                 <Card className="main-card mb-3">
+        //                     <CardBody>
+        //                         <CardTitle>
+        //                             Heart Rate
+        //                             </CardTitle>
+        //                         <ReChartPanel
+        //                             data={data}
+        //                             chart_type={"Line"}
+        //                             brush={false}
+        //                             first_attr={"avg_heart_rate"}
+        //                         />
+        //                     </CardBody>
+        //                 </Card>
+        //             </Col>
+        //             <Col lg="12" xl="4">
+        //                 <Card className="main-card mb-3">
+        //                     <CardBody>
+        //                         <CardTitle>
+        //                             Elevation
+        //                             </CardTitle>
+        //                         <ReChartPanel
+        //                             data={data}
+        //                             chart_type={"Line"}
+        //                             brush={false}
+        //                             first_attr={"total_climb"}
+        //                         />
+        //                     </CardBody>
+        //                 </Card>
+        //             </Col>
+        //             <Col lg="12" xl="4">
+        //                 <Card className="main-card mb-3">
+        //                     <CardBody>
+        //                         <CardTitle>
+        //                             Wind Speed
+        //                             </CardTitle>
+        //                         <ReChartPanel
+        //                             data={data}
+        //                             chart_type={"Line"}
+        //                             brush={false}
+        //                             first_attr={"wind_speed"}
+        //                         />
+        //                     </CardBody>
+        //                 </Card>
+        //             </Col>
+        //         </div>
+        //     );
+        // } 
+        else if (chart_type === "Bi-Area") {
             return (
                 <AreaChart width={730} height={250} data={data}
                     margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
@@ -309,7 +340,7 @@ class ReChartPanel extends Component {
                         </linearGradient>
                     </defs>
                     <XAxis dataKey="date" />
-                    <YAxis />
+                    <YAxis label={label} />
                     <CartesianGrid strokeDasharray="3 3" />
                     <Tooltip />
                     <Legend />
@@ -321,12 +352,12 @@ class ReChartPanel extends Component {
                     />
                     {
                         (second_attr === 'dia')
-                            ? <ReferenceLine y={80} stroke="red" label={"Diastolic Target"} />
+                            ? <ReferenceLine y={80} stroke="red" label={"Diastolic Target = 80"} />
                             : <div />
                     }
                     {
                         (first_attr === 'sys')
-                            ? <ReferenceLine y={130} stroke="red" label={"Systolic Target"} />
+                            ? <ReferenceLine y={130} stroke="red" label={"Systolic Target = 130"} />
                             : <div />
                     }
                 </AreaChart>
@@ -344,18 +375,24 @@ class ReChartPanel extends Component {
             fourth_attr,
             composed_line_attr,
             data,
-            title
+            title,
+            y_label,
+            y_label_2
         } = this.props;
         if (chart_type !== "Synchronized") {
             return (
                 <ResponsiveContainer width='100%' height={400}>
-                    {this.renderChart(chart_type, first_attr, second_attr, third_attr, fourth_attr, composed_line_attr, data, brush)}
+                    {this.renderChart(chart_type, first_attr, second_attr, third_attr, fourth_attr,
+                        composed_line_attr, data, brush, y_label, y_label_2)
+                    }
                 </ResponsiveContainer>
             );
         } else {
             return (
                 <div>
-                    {this.renderChart(chart_type, first_attr, second_attr, third_attr, fourth_attr, composed_line_attr, data, brush)}
+                    {this.renderChart(chart_type, first_attr, second_attr, third_attr, fourth_attr,
+                        composed_line_attr, data, brush, y_label, y_label_2)
+                    }
                 </div>
             )
         }

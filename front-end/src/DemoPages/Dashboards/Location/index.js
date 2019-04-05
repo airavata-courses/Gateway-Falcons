@@ -274,18 +274,18 @@ export default class LocationPage extends Component {
 
                     {/* KPI */}
                     <Row>
-                    <Col md="6" lg="2">
+                        <Col md="6" lg="2">
                             <Card className="card-shadow-primary mb-3 widget-chart widget-chart2 text-left">
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading">
-                                            Total Active Time (month)
+                                            Total Active Time (last week)
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                    {strava_kpi.elapsed_time} minutes
+                                                        {strava_kpi.elapsed_time} 
                                                     </div>
                                                 </div>
                                             </div>
@@ -299,13 +299,13 @@ export default class LocationPage extends Component {
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading">
-                                            Total Distance (month)
+                                            Total Distance (last week)
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                    {strava_kpi.distance} miles
+                                                        {strava_kpi.distance} 
                                                     </div>
                                                 </div>
                                             </div>
@@ -325,7 +325,8 @@ export default class LocationPage extends Component {
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4 text-danger">
-                                                        {strava_kpi.distance} miles
+                                                        {strava_kpi.distance} 
+                                                        {/* miles */}
                                                     </div>
                                                 </div>
                                             </div>
@@ -339,13 +340,14 @@ export default class LocationPage extends Component {
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading">
-                                            Elevation Gain
+                                            Elevation Gain (last ride)
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                        {strava_kpi.total_elevation_gain} ft
+                                                        {strava_kpi.total_elevation_gain} 
+                                                        {/* ft */}
                                                     </div>
                                                 </div>
                                             </div>
@@ -358,14 +360,15 @@ export default class LocationPage extends Component {
                             <Card className="card-shadow-primary mb-3 widget-chart widget-chart2 text-left">
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
-                                        <h6 className="widget-subheading">
+                                        <h6 className="widget-subheading d-block text-center">
                                             Average Speed
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                        {strava_kpi.average_speed} mph
+                                                        {strava_kpi.average_speed} 
+                                                        {/* mph */}
                                                     </div>
                                                 </div>
                                             </div>
@@ -415,9 +418,9 @@ export default class LocationPage extends Component {
                                             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                                             <CartesianGrid strokeDasharray="3 3" />
                                             <XAxis dataKey="workout_date_time" />
-                                            <YAxis />
+                                            <YAxis label={{ value: "Miles Per Hour (mph)", angle: -90, position: 'insideLeft' }} />
                                             <Tooltip />
-                                            <Legend />
+                                            {/* <Legend /> */}
                                             {/* <Brush /> */}
                                             <Line type='monotone' dataKey='average_speed' stroke='#8884d8' fill='#8884d8' />
                                         </LineChart>
@@ -436,9 +439,9 @@ export default class LocationPage extends Component {
                                             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                                             <CartesianGrid strokeDasharray="3 3" />
                                             <XAxis dataKey="workout_date_time" />
-                                            <YAxis />
+                                            <YAxis label={{ value: "Miles Per Hour (mph)", angle: -90, position: 'insideLeft' }} />
                                             <Tooltip />
-                                            <Legend />
+                                            {/* <Legend /> */}
                                             <Brush />
                                             <Line type='monotone' dataKey='wind_speed' stroke='#8884d8' fill='#8884d8' />
                                         </LineChart>
@@ -457,8 +460,8 @@ export default class LocationPage extends Component {
                                             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                                             <CartesianGrid strokeDasharray="3 3" />
                                             <XAxis dataKey="workout_date_time" />
-                                            <YAxis />
-                                            <Legend />
+                                            <YAxis label={{ value: "Feet", angle: -90, position: 'insideLeft' }} />
+                                            {/* <Legend /> */}
                                             <Tooltip />
                                             {/* <Brush /> */}
                                             <Line type='monotone' dataKey='total_climb' stroke='#8884d8' fill='#8884d8' />
@@ -477,13 +480,13 @@ export default class LocationPage extends Component {
                             <Card className="main-card mb-3">
                                 <CardHeader>
                                     Location Data
-                                        <div className="btn-actions-pane-right">
-                                        <ButtonGroup size="sm">
+                                    {/* <div className="btn-actions-pane-right">
+                                            <ButtonGroup size="sm">
                                             <Button caret="true" color="focus"
                                                 className={"active"}>Last Week</Button>
                                             <Button caret="true" color="focus">All Month</Button>
                                         </ButtonGroup>
-                                    </div>
+                                    </div> */}
                                 </CardHeader>
 
                                 <ReactTable
@@ -513,13 +516,13 @@ export default class LocationPage extends Component {
                             <Card className="main-card mb-3">
                                 <CardHeader>
                                     Weather Data
-                                        <div className="btn-actions-pane-right">
-                                        <ButtonGroup size="sm">
-                                            <Button caret="true" color="focus"
-                                                className={"active"}>Last Week</Button>
-                                            <Button caret="true" color="focus">All Month</Button>
-                                        </ButtonGroup>
-                                    </div>
+                                        {/* <div className="btn-actions-pane-right">
+                                            <ButtonGroup size="sm">
+                                                <Button caret="true" color="focus"
+                                                    className={"active"}>Last Week</Button>
+                                                <Button caret="true" color="focus">All Month</Button>
+                                            </ButtonGroup>
+                                        </div> */}
                                 </CardHeader>
 
                                 <ReactTable
