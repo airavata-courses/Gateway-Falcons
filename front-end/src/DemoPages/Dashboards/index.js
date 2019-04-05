@@ -14,7 +14,7 @@ import LocationPage from './Location';
 
 const Dashboards = ({match}) => (
     <Fragment>
-        <ThemeOptions/>
+        {/* <ThemeOptions/> */}
         <AppHeader/>
         <div className="app-main">
             <AppSidebar/>
