@@ -133,10 +133,13 @@ export default class LocationPage extends Component {
                         humidity
                     } = datum;
 
+                    var index = workout_date_time.indexOf(' ', workout_date_time.indexOf(' ') + 1);
+                    const date = workout_date_time.substring(0, index).trim();
+                    const time = workout_date_time.substring(index).trim();
+                    // console.log(time.trim())
+                    
                     const newWahooObj = {
                         workout_date_time,
-                        // latitude: parseInt(parseFloat(data_lat).toPrecision(5)),
-                        // longitude: parseInt(parseFloat(data_lon).toPrecision(5)),
                         latitude: parseFloat(data_lat),
                         longitude: parseFloat(data_lon),
                         total_distance,
@@ -151,6 +154,8 @@ export default class LocationPage extends Component {
                         avg_heart_rate,
                         max_heart_rate,
                         elapsed_time,
+                        date,
+                        time,   
 
                         key: index
 
@@ -166,6 +171,8 @@ export default class LocationPage extends Component {
                         weather,
                         weather_desc,
                         humidity,
+                        date,
+                        time,
 
                         key: index
 
@@ -192,13 +199,13 @@ export default class LocationPage extends Component {
                 //     agg_wind_speed += wind_speed;
                 //     agg_avg_heart_rate += avg_heart_rate;
                 // }
+                // console.log(wahoo_data);
 
                 const { average_speed,
                     total_climb,
-                    avg_heart_rate
+                    avg_heart_rate,
+                    workout_date_time
                 } = wahoo_data[wahoo_data.length - 1];
-
-                // console.log(weather_data)
                 const { wind_speed } = weather_data[weather_data.length - 1];
 
                 this.setState({
@@ -285,7 +292,7 @@ export default class LocationPage extends Component {
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                        {strava_kpi.elapsed_time} 
+                                                        {strava_kpi.elapsed_time}
                                                     </div>
                                                 </div>
                                             </div>
@@ -305,7 +312,7 @@ export default class LocationPage extends Component {
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                        {strava_kpi.distance} 
+                                                        {strava_kpi.distance}
                                                     </div>
                                                 </div>
                                             </div>
@@ -325,7 +332,7 @@ export default class LocationPage extends Component {
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4 text-danger">
-                                                        {strava_kpi.distance} 
+                                                        {strava_kpi.distance}
                                                         {/* miles */}
                                                     </div>
                                                 </div>
@@ -346,7 +353,7 @@ export default class LocationPage extends Component {
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                        {strava_kpi.total_elevation_gain} 
+                                                        {strava_kpi.total_elevation_gain}
                                                         {/* ft */}
                                                     </div>
                                                 </div>
@@ -367,7 +374,7 @@ export default class LocationPage extends Component {
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                        {strava_kpi.average_speed} 
+                                                        {strava_kpi.average_speed}
                                                         {/* mph */}
                                                     </div>
                                                 </div>
@@ -417,7 +424,7 @@ export default class LocationPage extends Component {
                                         <LineChart width={600} height={200} data={map_data} syncId="anyId"
                                             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                                             <CartesianGrid strokeDasharray="3 3" />
-                                            <XAxis dataKey="workout_date_time" />
+                                            <XAxis dataKey="date" />
                                             <YAxis label={{ value: "Miles Per Hour (mph)", angle: -90, position: 'insideLeft' }} />
                                             <Tooltip />
                                             {/* <Legend /> */}
@@ -438,7 +445,7 @@ export default class LocationPage extends Component {
                                         <LineChart width={600} height={200} data={weather_data.reverse()} syncId="anyId"
                                             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                                             <CartesianGrid strokeDasharray="3 3" />
-                                            <XAxis dataKey="workout_date_time" />
+                                            <XAxis dataKey="date" />
                                             <YAxis label={{ value: "Miles Per Hour (mph)", angle: -90, position: 'insideLeft' }} />
                                             <Tooltip />
                                             {/* <Legend /> */}
@@ -459,7 +466,7 @@ export default class LocationPage extends Component {
                                         <LineChart width={600} height={200} data={map_data.reverse()} syncId="anyId"
                                             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                                             <CartesianGrid strokeDasharray="3 3" />
-                                            <XAxis dataKey="workout_date_time" />
+                                            <XAxis dataKey="date" />
                                             <YAxis label={{ value: "Feet", angle: -90, position: 'insideLeft' }} />
                                             {/* <Legend /> */}
                                             <Tooltip />
