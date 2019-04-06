@@ -11,6 +11,7 @@ import bg5 from '../../../assets/utils/images/originals/water.jpg';
 import profile from './profile.jpg';
 import signature from './signature.JPG';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import profile_background from './profile_background.jpg'
 
 export default class AboutPage extends Component {
 
@@ -132,12 +133,12 @@ export default class AboutPage extends Component {
 
 
                         {/* Profile Section */}
-                        <Col md="12" lg="6" xl="6">
+                        <Col md="12" lg="7" xl="7" >
 
                             <Card className="card-hover-shadow profile-responsive card-border border-success mb-3">
 
                                 <div className="dropdown-menu-header">
-                                    <div className="dropdown-menu-header-inner bg-success">
+                                    <div className="dropdown-menu-header-inner" style ={ { backgroundImage: "url("+ profile_background +")" } }>
                                         <div className="menu-header-content">
                                             <div
                                                 className="avatar-icon-wrapper btn-hover-shine mb-2 avatar-icon-xl">
@@ -149,7 +150,7 @@ export default class AboutPage extends Component {
                                                 <h5 className="menu-header-title">John Schwenck</h5>
                                                 <h6 className="menu-header-subtitle">
                                                     An aspiring polymath determined to bridge the gap between
-                                                    technical and non-technical fields using statistics, big data, and AI
+                                                    technical and non-technical fields using statistics, big data, and AIwhy        
                                                     </h6>
                                             </div>
                                             <div className="menu-header-btn-pane pt-2">
@@ -187,8 +188,8 @@ export default class AboutPage extends Component {
                                     </div>
                                 </div>
 
-                                <div className="scroll-area-lg">
-                                    <PerfectScrollbar>
+                                <div >
+                                    {/* <PerfectScrollbar style ={ { height: 600 } }> */}
 
                                         <CardBody className="p-0">
 
@@ -272,7 +273,7 @@ export default class AboutPage extends Component {
                                             </TabContent>
 
                                         </CardBody>
-                                    </PerfectScrollbar>
+                                    {/* </PerfectScrollbar> */}
                                 </div>
                             </Card>
 

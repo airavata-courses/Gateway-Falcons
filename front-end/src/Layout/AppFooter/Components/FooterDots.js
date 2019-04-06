@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { SocialIcon } from 'react-social-icons';
-
+import gofundme from '../gofundme.png'
 class FooterDots extends React.Component {
 
     render() {
@@ -13,8 +13,10 @@ class FooterDots extends React.Component {
                     <div className="dots-separator" />
                     <SocialIcon url="https://www.linkedin.com/in/john-schwenck/" />
                     <div className="dots-separator" />
-                    <SocialIcon url="http://twitter.com/jaketrent" />
-                    <div className="dots-separator" />
+                    <a href="https://gofundme.com/send-Schwenck-to-Alaska-2019" target="_blank">
+                        <img src={gofundme} style={{ width: 50, height: 50 }} />
+                    </a>
+                    {/* <div className="dots-separator" /> */}
                 </div>
             </Fragment>
         )
