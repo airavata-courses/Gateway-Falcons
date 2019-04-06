@@ -21,15 +21,16 @@ app.config['MONGO_URI'] = parser.get('DB', 'url')
 mongo = PyMongo(app)
 client = myfitnesspal.Client(parser.get('myfitnesspal', 'email'))
 
+
 @app.route('/add')
 @cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
 def add_diet():
-    for i in range(20,-1,-1):
-        date = datetime.datetime.now()- datetime.timedelta(days=i)
-        if date.time().hour <=10:
-            yesterday = date - datetime.timedelta(days=1)
-            add_diet_data(yesterday)
-        add_diet_data(date)
+
+    date = datetime.datetime.now()
+    if date.time().hour <=10:
+        yesterday = date - datetime.timedelta(days=1)
+        add_diet_data(yesterday)
+    add_diet_data(date)
     return "Added data"
 
 
