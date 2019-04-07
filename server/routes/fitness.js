@@ -5,6 +5,8 @@ const validation = require("../validation/utils");
 const fitnessValidation = require("../validation/images");
 const axios = require('axios');
 // TODO: Error handling
+const Constants = require('../constants')
+
 
 /**
  * Get fitness data for user by userID
@@ -14,7 +16,8 @@ router.get('/', (req, res) => {
     // const userID = req.params['userID'];
     console.log('node server fitness data')
     axios({
-        url: `http://149.165.168.185:30072/fitness`,
+        // url: `http://149.165.168.185:30072/fitness`,
+        url: `http://${Constants.serverUrl}/fitness`,
         // headers: {
         //     'Content-Type': 'application/json'
         // }

@@ -3,6 +3,7 @@ const router = express.Router();
 //TODO: validation-utils
 const axios = require('axios');
 // TODO: Error handling
+const Constants = require('../constants')
 
 /**
  * Get eeg 
@@ -10,7 +11,9 @@ const axios = require('axios');
 router.get('/', (req, res) => {
     console.log('node server eeg data')
     axios({
-        url: 'http://149.165.168.185:30072/cardio_mood',
+        // url: 'http://149.165.168.185:30072/cardio_mood',
+        url: `http://${Constants.serverUrl}/cardio_mood`,
+
         // headers: {
         //     'Content-Type': 'application/json'
         // }
