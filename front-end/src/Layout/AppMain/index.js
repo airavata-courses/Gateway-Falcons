@@ -121,8 +121,8 @@ const AppMain = () => {
                             <Loader type="ball-pulse-sync"/>
                         </div>
                         <h6 className="mt-3">
-                            Please wait while we load all the Dashboard Widgets examples
-                            <small>Because this is a demonstration we load at once all the Dashboard Widgets examples. This wouldn't happen in a real live app!</small>
+                            Welcome to Schwenck Live!
+                            <small>Please wait while the site builds (: </small>
                         </h6>
                     </div>
                 </div>

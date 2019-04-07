@@ -1,6 +1,9 @@
-// TODO::
 // const serverUrl = 'http://149.165.170.57:3001';
-const serverUrl = 'http://149.165.168.185:30032';
+// const serverUrl = 'http://149.165.168.185:30032';
+// TODO::
+const serverUrl = 'http://45.55.104.93:30032';
+// const serverUrl = 'http://localhost:3001';
+
 const _devServerUrl = 'http://localhost:3001';
 const imageUrl = 'http://localhost:8081';
 const zookeeperurl = 'http://149.165.157.75:5000';
@@ -18,41 +21,6 @@ const diet_data_columns = {
     "Water": 'water'
 };
 
-
-// const diet_data_columns = [
-//     'Date',
-//     'Calories',
-//     "Carbohydrates",
-//     "Fat",
-//     "Saturated Fat",
-//     "Protein",
-//     "Sodium",
-//     "Sugar",
-//     "Fiber",
-//     "Cholesterol",
-//     "Potassium",
-//     "Iron",
-//     "Calcium",
-//     "Vitamin A",
-//     "Vitamin C",
-//     "Hydration Level"
-// ];
-
-
-// const strava_data_columns = [
-//     'Name',
-//     'Avg. Cadence',
-//     'Avg. HR',
-//     'Max HR',
-//     'Avg Speed',
-//     'Max Speed',
-//     'Calories',
-//     'Timezone',
-//     'Start Lat.',
-//     'Start Lon',
-//     'Description'
-// ];
-
 const wahoo_data_columns = {
     'Date': "workout_date_time",
     "Latitude": "latitude",
@@ -63,7 +31,6 @@ const wahoo_data_columns = {
     "Avg H.R.": "avg_heart_rate",
     "Avg Cadence": "avg_cadence",
     "Max Cadence": "max_cadence",
-    // "Elevation": "max_elevation",
     "Total Ascent": "total_climb",
     "Total Descent": "total_descent",
     "Gradient": "max_grade",
@@ -76,7 +43,6 @@ const fitbit_data_columns = {
     "Date": "dateOfSleep",
     "Fall Asleep": "startTime",
     "Wake Up": "endTime",
-    // "Sleep Score": "efficiency",
     "Total Time in Bed (Hrs)": "totalTimeInBed",
     "Total Time Asleep (Hrs)": "minutesAsleep",
     "Light (Hrs)": "light",
