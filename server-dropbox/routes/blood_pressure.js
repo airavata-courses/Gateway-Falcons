@@ -8,6 +8,7 @@ var Dropbox = require('dropbox').Dropbox;
 var fs = require('fs');
 const csvtojsonV2 = require("csvtojson/v2");
 var xlsx = require('node-xlsx');
+const { getJsDateFromExcel } = require('excel-date-to-js');
 
 require('dotenv').config()
 
@@ -57,8 +58,21 @@ router.get('/', function (req, res, next) {
                   // console.log(sheet['data'][1][0]);
                   for (var j = 1; j < sheet['data'].length; j++) {
 
+                    let date = getJsDateFromExcel(moment(sheet['data'][j][0]).toDate());
+                    // console.log(moment(sheet['data'][j][0]).toDate(), getJsDateFromExcel(moment(sheet['data'][j][0]).toDate())); 
+                    // console.log(moment(sheet['data'][j][0]).toDate());
+                    var d = date.getDate();
+                    var m = date.getMonth() + 1; //Month from 0 to 11
+                    var y = date.getFullYear();
+                    var dateString = '' + y + '-' + (m <= 9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
+                    var h = date.getHours();
+                    var min = date.getMinutes();
+                    var s = date.getSeconds();
+                    var timeString = (h <= 9 ? '0' + h : h) + ":" + (min <= 9 ? '0' + min : min) + ":" + (s <= 9 ? '0' + s : s);
+
                     const row = {
-                      date: new Date(sheet['data'][j][0]),
+                      date: dateString,
+                      time: timeString,
                       sys: parseInt(sheet['data'][j][1].replace(/\D/g, '')),
                       dia: parseInt(sheet['data'][j][2].replace(/\D/g, '')),
                       pulse: parseInt(sheet['data'][j][3].replace(/\D/g, ''))
@@ -91,9 +105,13 @@ router.get('/', function (req, res, next) {
 
                       const { Time, SYS, DIA, Pulse } = jobj;
                       // console.log(jobj);
+                      
+                      const _date = Time.substring(0, time.indexOf(" "));
+                      const _time = Time.substring(time.indexOf(" "));
 
                       const row = {
-                        time: Time,
+                        date: _date,
+                        time: _time,
                         sys: parseInt(SYS.replace(/\D/g, '')),
                         dia: parseInt(DIA.replace(/\D/g, '')),
                         pulse: parseInt(Pulse.replace(/\D/g, ''))
@@ -102,7 +120,7 @@ router.get('/', function (req, res, next) {
                       rows.push(row);
                     }
 
-                    console.log(rows);
+                    // console.log(rows);
 
                     const BloodPresssureObj = {
                       name: file_name,
@@ -114,7 +132,7 @@ router.get('/', function (req, res, next) {
                     const collection = db.collection('blood_pressure');
 
                     collection.insertOne(BloodPresssureObj)
-                      .then(response => console.log(response))
+                      // .then(response => console.log(response))
                       .catch(err => console.log(err))
                   })
               }
