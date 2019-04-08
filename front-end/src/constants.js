@@ -2,8 +2,7 @@
 // const serverUrl = 'http://149.165.168.185:30032';
 // TODO::
 // const serverUrl = 'http://45.55.104.93:30032';
-// const serverUrl = 'http://backend.default.svc.cluster.local:3001';
-const serverUrl = 'http://backend-data-microservice.default.svc.cluster.local:3002';
+const serverUrl = 'http://backend.default.svc.cluster.local:3001';
 // const serverUrl = 'http://localhost:3001';
 
 const _devServerUrl = 'http://localhost:3001';
