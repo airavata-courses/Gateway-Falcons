@@ -122,7 +122,7 @@ const AppMain = () => {
                         </div>
                         <h6 className="mt-3">
                             Welcome to Schwenck Live!
-                            <small>Please wait while the site builds (: </small>
+                            <small>Please wait while we start our Journey (: </small>
                         </h6>
                     </div>
                 </div>
@@ -175,8 +175,8 @@ const AppMain = () => {
                             <Loader type="ball-grid-beat"/>
                         </div>
                         <h6 className="mt-3">
-                            Please wait while we load all the Dashboards examples
-                            <small>Because this is a demonstration, we load at once all the Dashboards examples. This wouldn't happen in a real live app!</small>
+                            Welcome to Schwenck Live!
+                            <small>Please wait to start the Journey (: </small>
                         </h6>
                     </div>
                 </div>

@@ -11,7 +11,7 @@ import ReChartPanel from '../../Components/ReChartPanel';
 import fat_icon from './fat.png';
 import meat_icon from './meat.png';
 import carbs_icon from './carbs.png';
-
+import axios from 'axios';
 
 export default class DietDashboard extends Component {
     constructor() {
@@ -35,7 +35,7 @@ export default class DietDashboard extends Component {
     }
 
     getAndSetDietData() {
-        fetch(`${Constants.serverUrl}/diet`, {
+        axios(`${Constants.serverUrl}/diet`, {
             // fetch('http://localhost:3001/diet', {
             headers: {
                 "Content-Type": "application/json",

@@ -102,7 +102,7 @@ export default class LocationPage extends Component {
                     };
                 })
 
-                console.log(strava_data);
+                // console.log(strava_data);
 
                 this.setState({
                     strava_data,
@@ -360,13 +360,13 @@ export default class LocationPage extends Component {
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading d-block text-center">
-                                            PLEASE CHANGE ME
+                                            Overall Time
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                        {strava_kpi.moving_time}
+                                                        {strava_kpi.elapsed_time}
                                                     </div>
                                                 </div>
                                             </div>
