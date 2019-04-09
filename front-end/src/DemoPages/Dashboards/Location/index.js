@@ -305,6 +305,16 @@ export default class LocationPage extends Component {
                 />
                 <div>
 
+                    <Row>
+                        <Col sm="12" md="12" lg="12">
+                            <Card className="mb-3">
+                                <CardHeader className="card-header-tab z-index-6 text-center">
+                                    Last Ride Stats
+                                </CardHeader>
+                            </Card>
+                        </Col>
+                    </Row>
+
                     {/* KPI */}
                     <Row>
 
@@ -330,8 +340,6 @@ export default class LocationPage extends Component {
                                 </div>
                             </Card>
                         </Col>
-
-
 
                         <Col md="6" lg="2">
                             <Card className="card-shadow-primary mb-3 widget-chart widget-chart2 text-left">

@@ -176,7 +176,7 @@ const AppMain = () => {
                         </div>
                         <h6 className="mt-3">
                             Welcome to Schwenck Live!
-                            <small>Please wait to start the Journey (: </small>
+                            <small>The journey is loading </small>
                         </h6>
                     </div>
                 </div>
