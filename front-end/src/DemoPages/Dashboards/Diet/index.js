@@ -43,7 +43,8 @@ export default class DietDashboard extends Component {
             },
             credentials: 'same-origin',
         })
-            .then(res => res.json())
+            .map(res => res )        
+            //.then(res => res.json())
             .then(res => {
                 let meals_arr = [];
                 // TODO: change to for loop and if > n - 7 then add to meals array 
