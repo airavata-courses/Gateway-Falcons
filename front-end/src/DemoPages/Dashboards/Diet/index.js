@@ -11,7 +11,7 @@ import ReChartPanel from '../../Components/ReChartPanel';
 import fat_icon from './fat.png';
 import meat_icon from './meat.png';
 import carbs_icon from './carbs.png';
-import axios from 'axios';
+// import axios from 'axios';
 
 export default class DietDashboard extends Component {
     constructor() {
@@ -35,7 +35,7 @@ export default class DietDashboard extends Component {
     }
 
     getAndSetDietData() {
-        axios(`${Constants.serverUrl}/diet`, {
+        fetch(`${Constants.serverUrl}/diet`, {
             // fetch('http://localhost:3001/diet', {
             headers: {
                 "Content-Type": "application/json",
@@ -43,8 +43,8 @@ export default class DietDashboard extends Component {
             },
             credentials: 'same-origin',
         })
-            .map(res => res )        
-            //.then(res => res.json())
+            // .map(res => res )        
+            .then(res => res.json())
             .then(res => {
                 let meals_arr = [];
                 // TODO: change to for loop and if > n - 7 then add to meals array 

@@ -1,29 +1,20 @@
-import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
-import React, {Suspense, lazy, Fragment} from 'react';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import React, { Suspense, lazy, Fragment } from 'react';
 import Loader from 'react-loaders'
 
 import {
     ToastContainer,
 } from 'react-toastify';
+import LandingPage from '../../DemoPages/Landing';
 
-const UserPages = lazy(() => import('../../DemoPages/UserPages'));
-const Applications = lazy(() => import('../../DemoPages/Applications'));
 const Dashboards = lazy(() => import('../../DemoPages/Dashboards'));
-
-const Widgets = lazy(() => import('../../DemoPages/Widgets'));
-const Elements = lazy(() => import('../../DemoPages/Elements'));
-const Components = lazy(() => import('../../DemoPages/Components'));
-const Charts = lazy(() => import('../../DemoPages/Charts'));
-const Forms = lazy(() => import('../../DemoPages/Forms'));
-const Tables = lazy(() => import('../../DemoPages/Tables'));
 
 const AppMain = () => {
 
     return (
         <Fragment>
 
-            {/* Components */}
-
+            {/* 
             <Suspense fallback={
                 <div className="loader-container">
                     <div className="loader-container-inner">
@@ -40,7 +31,6 @@ const AppMain = () => {
                 <Route path="/components" component={Components}/>
             </Suspense>
 
-            {/* Forms */}
 
             <Suspense fallback={
                 <div className="loader-container">
@@ -58,8 +48,6 @@ const AppMain = () => {
                 <Route path="/forms" component={Forms}/>
             </Suspense>
 
-            {/* Charts */}
-
             <Suspense fallback={
                 <div className="loader-container">
                     <div className="loader-container-inner">
@@ -75,8 +63,6 @@ const AppMain = () => {
             }>
                 <Route path="/charts" component={Charts}/>
             </Suspense>
-
-            {/* Tables */}
 
             <Suspense fallback={
                 <div className="loader-container">
@@ -94,7 +80,6 @@ const AppMain = () => {
                 <Route path="/tables" component={Tables}/>
             </Suspense>
 
-            {/* Elements */}
 
             <Suspense fallback={
                 <div className="loader-container">
@@ -112,7 +97,6 @@ const AppMain = () => {
                 <Route path="/elements" component={Elements}/>
             </Suspense>
 
-            {/* Dashboard Widgets */}
 
             <Suspense fallback={
                 <div className="loader-container">
@@ -130,7 +114,6 @@ const AppMain = () => {
                 <Route path="/widgets" component={Widgets}/>
             </Suspense>
 
-            {/* Pages */}
 
             <Suspense fallback={
                 <div className="loader-container">
@@ -147,14 +130,15 @@ const AppMain = () => {
             }>
                 <Route path="/pages" component={UserPages}/>
             </Suspense>
+*/}
 
-            {/* Applications */}
 
+            {/* Dashboards */}
             <Suspense fallback={
                 <div className="loader-container">
                     <div className="loader-container-inner">
                         <div className="text-center">
-                            <Loader type="ball-pulse"/>
+                            <Loader type="ball-pulse" />
                         </div>
                         <h6 className="mt-3">
                             Please wait while we load all the Applications examples
@@ -163,16 +147,14 @@ const AppMain = () => {
                     </div>
                 </div>
             }>
-                <Route path="/apps" component={Applications}/>
+                <Route path="/landing" component={LandingPage} />
             </Suspense>
-
-            {/* Dashboards */}
 
             <Suspense fallback={
                 <div className="loader-container">
                     <div className="loader-container-inner">
                         <div className="text-center">
-                            <Loader type="ball-grid-beat"/>
+                            <Loader type="ball-grid-beat" />
                         </div>
                         <h6 className="mt-3">
                             Welcome to Schwenck Live!
@@ -181,13 +163,13 @@ const AppMain = () => {
                     </div>
                 </div>
             }>
-                <Route path="/dashboards" component={Dashboards}/>
+                <Route path="/dashboards" component={Dashboards} />
             </Suspense>
 
             <Route exact path="/" render={() => (
-                <Redirect to="/dashboards/about"/>
-            )}/>
-            <ToastContainer/>
+                <Redirect to="/landing" />
+            )} />
+            <ToastContainer />
         </Fragment>
     )
 };
