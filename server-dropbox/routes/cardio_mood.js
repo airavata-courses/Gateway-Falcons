@@ -4,7 +4,7 @@ var router = express.Router();
 var Dropbox = require('dropbox').Dropbox;
 var fs = require('fs');
 var JFile = require('jfile');
-const CardioMood = require("../models/CardioMood");
+// const CardioMood = require("../models/CardioMood");
 
 require('dotenv').config()
 
@@ -73,9 +73,11 @@ router.get('/', function (req, res, next) {
               const collection = db.collection('cardio_mood');
   
               collection.insertOne(CardioMoodObj)
-                .then(response => console.log(response))
-                .catch(err => console.log(err))
-  
+                .then(response => res.send('Sucessfully uploaded to db'))
+                .catch(err => res.send('There was an error uploading to db \n'))
+
+              fs.unlinkSync(file_path);
+
             });
           })
           .catch(err => console.log(err))
@@ -85,7 +87,6 @@ router.get('/', function (req, res, next) {
       console.log(error);
     });
 
-  res.send('respond with a resource');
 
 });
 

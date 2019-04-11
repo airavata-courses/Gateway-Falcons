@@ -7,8 +7,8 @@ var router = express.Router();
 var Dropbox = require('dropbox').Dropbox;
 var fs = require('fs');
 const csvtojsonV2 = require("csvtojson/v2");
-var xlsx = require('node-xlsx');
-const { getJsDateFromExcel } = require('excel-date-to-js');
+// var xlsx = require('node-xlsx');
+// const { getJsDateFromExcel } = require('excel-date-to-js');
 
 require('dotenv').config()
 
@@ -50,96 +50,53 @@ router.get('/', function (req, res, next) {
               stream.write(downloaded_file.fileBinary);
 
               var rows = [];
-              if (ext === '.xlsx') {
-                var obj = xlsx.parse(file_path);
-                //looping through all sheets
-                for (var i = 0; i < obj.length; i++) {
-                  var sheet = obj[i];
-                  // console.log(sheet['data'][1][0]);
-                  for (var j = 1; j < sheet['data'].length; j++) {
+              csvtojsonV2()
+                .fromFile(file_path)
+                .then((jsonObj) => {
 
-                    let date = getJsDateFromExcel(moment(sheet['data'][j][0]).toDate());
-                    // console.log(moment(sheet['data'][j][0]).toDate(), getJsDateFromExcel(moment(sheet['data'][j][0]).toDate())); 
-                    // console.log(moment(sheet['data'][j][0]).toDate());
-                    var d = date.getDate();
-                    var m = date.getMonth() + 1; //Month from 0 to 11
-                    var y = date.getFullYear();
-                    var dateString = '' + y + '-' + (m <= 9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
-                    var h = date.getHours();
-                    var min = date.getMinutes();
-                    var s = date.getSeconds();
-                    var timeString = (h <= 9 ? '0' + h : h) + ":" + (min <= 9 ? '0' + min : min) + ":" + (s <= 9 ? '0' + s : s);
+                  for (var jobj of jsonObj) {
+
+                    const { Time, SYS, DIA, Pulse } = jobj;
+                    // console.log(jobj);
+
+                    const _date = Time.substring(0, Time.indexOf(" "));
+                    const _time = Time.substring(Time.indexOf(" "));
 
                     const row = {
-                      date: dateString,
-                      time: timeString,
-                      sys: parseInt(sheet['data'][j][1].replace(/\D/g, '')),
-                      dia: parseInt(sheet['data'][j][2].replace(/\D/g, '')),
-                      pulse: parseInt(sheet['data'][j][3].replace(/\D/g, ''))
+                      date: _date,
+                      time: _time,
+                      sys: parseInt(SYS.replace(/\D/g, '')),
+                      dia: parseInt(DIA.replace(/\D/g, '')),
+                      pulse: parseInt(Pulse.replace(/\D/g, ''))
                     }
+
                     rows.push(row);
                   }
-                }
 
-                const BloodPresssureObj = {
-                  name: file_name,
-                  records: rows
-                }
+                  // console.log(rows);
 
-                const db = req.app.locals.database;
+                  const BloodPresssureObj = {
+                    name: file_name,
+                    records: rows,
+                    date: today
+                  }
 
-                const collection = db.collection('blood_pressure');
+                  const db = req.app.locals.database;
 
-                console.log(rows);
+                  const collection = db.collection('blood_pressure');
 
-                collection.insertOne(BloodPresssureObj)
-                  .then(response => console.log(response))
-                  .catch(err => console.log(err))
-
-              } else if (ext === '.csv') {
-                csvtojsonV2()
-                  .fromFile(file_path)
-                  .then((jsonObj) => {
-
-                    for (var jobj of jsonObj) {
-
-                      const { Time, SYS, DIA, Pulse } = jobj;
-                      // console.log(jobj);
-                      
-                      const _date = Time.substring(0, time.indexOf(" "));
-                      const _time = Time.substring(time.indexOf(" "));
-
-                      const row = {
-                        date: _date,
-                        time: _time,
-                        sys: parseInt(SYS.replace(/\D/g, '')),
-                        dia: parseInt(DIA.replace(/\D/g, '')),
-                        pulse: parseInt(Pulse.replace(/\D/g, ''))
-                      }
-
-                      rows.push(row);
-                    }
-
-                    // console.log(rows);
-
-                    const BloodPresssureObj = {
-                      name: file_name,
-                      records: rows
-                    }
-
-                    const db = req.app.locals.database;
-
-                    const collection = db.collection('blood_pressure');
-
-                    collection.insertOne(BloodPresssureObj)
-                      // .then(response => console.log(response))
-                      .catch(err => console.log(err))
-                  })
-              }
-
-              // TODO: file clean up 
-            });
+                  collection.insertOne(BloodPresssureObj)
+                    .then(response => res.send('Sucessfully uploaded to db'))
+                    .catch(err => res.send('There was an error uploading to db \n'))
+                })
+            
+                // fs.unlinkSync('.' + file_path)
+                // return file_path; 
+            })
+            // .end()
+            // .then(written => console.log(written))
           })
+
           .catch(err => console.log(err))
       }
     })
@@ -147,7 +104,7 @@ router.get('/', function (req, res, next) {
       console.log(error);
     });
 
-  res.send('respond with a resource');
+  // res.send('respond with a resource');
 
 });
 
