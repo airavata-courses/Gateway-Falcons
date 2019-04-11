@@ -9,6 +9,6 @@ rm -rf config/
 #cd ..
 
 docker build -f DockerFileBackendDropbox -t johnlive/backend_dropbox .
-docker run -p 3003:3003 -d johnlive/backend_dropbox
+#docker run -p 3003:3003 -d johnlive/backend_dropbox
 
-#docker push johnlive/backend_dropbox
+docker push johnlive/backend_dropbox
