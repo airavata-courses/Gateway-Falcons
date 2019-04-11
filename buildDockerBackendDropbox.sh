@@ -3,10 +3,10 @@
 cd server-dropbox
 rm -rf .env
 rm -rf config/
-#cp ../../.env ./
-#cp -r ../../config ./
+cp ../../.env ./
+cp -r ../../config ./
 
-#cd ..
+cd ..
 
 docker build -f DockerFileBackendDropbox -t johnlive/backend_dropbox .
 #docker run -p 3003:3003 -d johnlive/backend_dropbox
