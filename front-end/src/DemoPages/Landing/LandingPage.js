@@ -170,20 +170,19 @@ class App extends Component {
 
                               </Nav>
                               <Nav>
-                                <Nav.Link href="#">About</Nav.Link>
-                                <Nav.Link eventKey={2} href="#">
-                                  Live
-                        </Nav.Link>
-                                <Nav.Link href="#">Media</Nav.Link>
-                                <Nav.Link eventKey={2} href="#">
-                                  Location
-                        </Nav.Link>
-                                <Nav.Link href="#">Fitness</Nav.Link>
-                                <Nav.Link href="#">Diet</Nav.Link>
+                                <Nav.Link href="#/dashboards/about">About</Nav.Link>
+                                <Nav.Link eventKey={2} href="#/dashboards/location">Live</Nav.Link>
+                                <Nav.Link href="https://johnschwenck.smugmug.com/">Media</Nav.Link>
+                                <Nav.Link eventKey={2} href="#/dashboards/location">Location</Nav.Link>
+                                <Nav.Link href="#/dashboards/fitness">Fitness</Nav.Link>
+                                <Nav.Link href="#/dashboards/diet">Diet</Nav.Link>
                                 <Nav.Item>
+                                <Nav.Link href="https://www.gofundme.com/send-Schwenck-to-Alaska-2019">
                                   <ButtonGroup className="mr-2" aria-label="First group">
                                     <Button variant="light">Donate</Button>
+                                 
                                   </ButtonGroup>
+                                  </Nav.Link>
                                 </Nav.Item>
                               </Nav>
                             </Navbar.Collapse>
@@ -248,7 +247,11 @@ class App extends Component {
                             <Row>
                               <Col></Col>
                               <div style={buttonz}>
-                                <Col><Button variant="dark">Learn More</Button></Col>
+                                <Col>
+                                <Link to="dashboards/about">
+                                <Button variant="dark">Learn More</Button>
+                                </Link>
+                                </Col>
                               </div>
                               <Col></Col>
                             </Row>

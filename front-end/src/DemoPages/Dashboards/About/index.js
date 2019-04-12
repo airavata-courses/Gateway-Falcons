@@ -17,7 +17,7 @@ import second from './2.jpg'
 import third from './3.jpg'
 import fourth from './4.jpg'
 import ReactCompareImage from 'react-compare-image';
-var Flickr = require('flickr-sdk');
+//var Flickr = require('flickr-sdk');
 
 //leftImage
 require('dotenv').config();
@@ -44,26 +44,26 @@ export default class AboutPage extends Component {
     }
 
     componentDidMount() {
-        var flickr = new Flickr(
-            process.env.REACT_APP_FLICKR_API_KEY
-        );
-        console.log('getPhotos', process.env.REACT_APP_FLICKR_API_KEY);
-        flickr.people.getPhotos({
-            api_key: process.env.REACT_APP_FLICKR_API_KEY,
-            user_id: '156532311@N02',
-            page: 1,
-            per_page: 100
-        }).then(result => {
-            const photo_id = result.body.photos.photo[result.body.photos.photo.length - 1].id;
-            flickr.photos.getSizes({
-                api_key: process.env.REACT_APP_FLICKR_API_KEY,
-                photo_id: photo_id,
-            })
-                // .then(res => console.log(res.body.sizes.size[res.body.sizes.size.length - 1].source))
-                .then(res => this.setState({
-                    rightImage: res.body.sizes.size[res.body.sizes.size.length - 1].source
-                }))
-        });
+        // var flickr = new Flickr(
+        //     process.env.REACT_APP_FLICKR_API_KEY
+        // );
+        // console.log('getPhotos', process.env.REACT_APP_FLICKR_API_KEY);
+        // flickr.people.getPhotos({
+        //     api_key: process.env.REACT_APP_FLICKR_API_KEY,
+        //     user_id: '156532311@N02',
+        //     page: 1,
+        //     per_page: 100
+        // }).then(result => {
+        //     const photo_id = result.body.photos.photo[result.body.photos.photo.length - 1].id;
+        //     flickr.photos.getSizes({
+        //         api_key: process.env.REACT_APP_FLICKR_API_KEY,
+        //         photo_id: photo_id,
+        //     })
+        //         // .then(res => console.log(res.body.sizes.size[res.body.sizes.size.length - 1].source))
+        //         .then(res => this.setState({
+        //             rightImage: res.body.sizes.size[res.body.sizes.size.length - 1].source
+        //         }))
+        // });
     }
 
     render() {
