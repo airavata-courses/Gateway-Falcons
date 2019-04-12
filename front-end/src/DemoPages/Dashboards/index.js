@@ -20,7 +20,7 @@ const Dashboards = ({match}) => (
             <AppSidebar/>
             <div className="app-main__outer">
                 <div className="app-main__inner">
-                    <Route path={`${match.url}/live`} component={LivePage}/>
+                    {/* <Route path={`${match.url}/live`} component={LivePage}/> */}
                     <Route path={`${match.url}/location`} component={LocationPage}/>
                     <Route path={`${match.url}/fitness`} component={FitnessDashboard}/>
                     <Route path={`${match.url}/diet`} component={DietDashboard}/>

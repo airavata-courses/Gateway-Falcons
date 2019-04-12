@@ -15,12 +15,14 @@ import { Brush, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XA
 import * as Constants from '../../../constants';
 import PageTitle from '../../../Layout/AppMain/PageTitle';
 import MapWithMarkers from '../../MyComponents/MapContainer';
+require('dotenv').config();
 
 export default class LocationPage extends Component {
 
     constructor() {
         super();
-        const apiKey = process.env.GOOGLE_API_KEY;
+        const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+        // console.log(process.env.REACT_APP_GOOGLE_API_KEY);
         this.state = {
             title: 'Live',
             map_data: [],
@@ -257,6 +259,8 @@ export default class LocationPage extends Component {
     }
 
     componentDidMount() {
+        // console.log(process.env.REACT_APP_GOOGLE_API_KEY);
+        // this.setState({ map_api_key: process.env.REACT_APP_GOOGLE_API_KEY })
         this.fetchStravaData();
         this.fetchMapMarkers();
     }
@@ -469,7 +473,7 @@ export default class LocationPage extends Component {
                                         selectedMarker={this.state.selectedMarker}
                                         markers={map_data}
                                         onClick={this.handleClick}
-                                        googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyD1KwG-BfsNZC-qjFRLgDKC-yc6x4s9f1A&v=3.exp&libraries=geometry,drawing,places`}
+                                        googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=3.exp&libraries=geometry,drawing,places`}
                                         loadingElement={<div style={{ height: `100%` }} />}
                                         containerElement={<div style={{ height: `400px` }} />}
                                         mapElement={<div style={{ height: `100%` }} />}

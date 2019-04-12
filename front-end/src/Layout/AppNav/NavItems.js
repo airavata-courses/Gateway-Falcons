@@ -12,11 +12,11 @@ export const JourneyNav = [
         label: 'About',
         to: '#/dashboards/about',
     },
-    {
-        icon: 'pe-7s-video',
-        label: 'LIVE',
-        to: '#/dashboards/live',
-    },
+    // {
+    //     icon: 'pe-7s-video',
+    //     label: 'LIVE',
+    //     to: '#/dashboards/live',
+    // },
     {
         icon: 'pe-7s-photo',
         label: 'Media',

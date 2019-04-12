@@ -1,0 +1,46 @@
+body{
+    background-color:#343a40;
+    overflow:hidden;
+
+}
+.details{
+    font-size:20px;
+    text-align:center;
+    color:black;
+    font-family:Patrick Hand SC, cursive;
+}
+.headG{
+    font-size:55px;
+    position: relative;
+    color:#cf7907;
+    margin-right:'20px';
+    text-align:center;
+    font-family:Gochi Hand, cursive;
+}
+@media only screen and (max-width:1220px){
+    .landingBody{
+        margin-left:200px;
+    }
+}
+@media only screen and (max-width:990px){
+    .landingBody{
+        margin-left:300px;
+    }
+}
+@media only screen and (max-width:766px){
+    .landingBody{
+        margin-left:270px;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .landingBody{
+        margin-left:280px;
+    }
+    .details{
+        font-size:14px;
+    }
+    .headG{
+        font-size:40px
+    }
+  }
+

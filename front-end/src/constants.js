@@ -58,7 +58,7 @@ const weather_data_columns = {
     "Wind Deg": "wind_deg",
     "Wind Speed": "wind_speed",
     "Atm Pres (hPa)": "pressure",
-    "Visibility": "visibility",
+    // "Visibility": "visibility",
     "Temperature": "temperature",
     "Weather": "weather",
     "Weather Desc.": "weather_desc",

@@ -177,7 +177,7 @@ export default class DietDashboard extends Component {
                                             <div className="widget-subheading">
                                                 Fats
                                             </div>
-                                            <div className="widget-numbers">
+                                            <div className="widget-numbers" style={{ paddingLeft: 5 }}>
                                                 {diet_kpi.fat}
                                             </div>
 
@@ -192,7 +192,7 @@ export default class DietDashboard extends Component {
                                             <div className="widget-subheading">
                                                 Carbs
                                             </div>
-                                            <div className="widget-numbers">
+                                            <div className="widget-numbers" style={{ paddingLeft: 5 }}>
                                                 {diet_kpi.carbohydrates}
                                             </div>
                                         </div>
@@ -206,7 +206,7 @@ export default class DietDashboard extends Component {
                                             <div className="widget-subheading">
                                                 Protein
                                             </div>
-                                            <div className="widget-numbers">
+                                            <div className="widget-numbers" style={{ paddingLeft: 5 }}>
                                                 {diet_kpi.protein}
                                             </div>
                                         </div>
