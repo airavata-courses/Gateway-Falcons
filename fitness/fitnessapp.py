@@ -16,14 +16,14 @@ else:
     print("error: No configuration file present")
     exit()
 
-
 app = Flask(__name__)
 client = Client()
-app.config['MONGO_DBNAME'] = parser.get('DB','dbname')
+app.config['MONGO_DBNAME'] = parser.get('DB', 'dbname')
 app.config['MONGO_URI'] = parser.get('DB', 'url')
 client_id = int(parser.get('STRAVA', 'id'))
-client_secret =  parser.get('STRAVA', 'secret')
+client_secret = parser.get('STRAVA', 'secret')
 mongo = PyMongo(app)
+
 
 @app.route('/')
 @cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
@@ -31,6 +31,7 @@ def home():
     authorize_url = client.authorization_url(client_id=client_id, redirect_uri='http://localhost:5001/authorized')
     print(authorize_url)
     return redirect(authorize_url)
+
 
 @app.route('/authorized')
 @cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
@@ -79,30 +80,30 @@ def get_athelete():
         strava_db.update_one(myquery, newvalues)
     athlete = client.get_athlete()
 
-    date_1_day_ago = datetime.now() - timedelta(days=1)
-    for activity in client.get_activities(after=date_1_day_ago):
+    date_2_day_ago = datetime.now() - timedelta(days=2)
+    for activity in client.get_activities(after=date_2_day_ago):
         if activity.type == "Ride":
-            fitness_db.delete_many({"activity_id":activity.upload_id})
+            fitness_db.delete_many({"activity_id": activity.upload_id})
             fitness_db.insert({
-                  "name": activity.name,
-                    "distance": str(activity.distance),
-                    "moving_time": str(activity.moving_time),
-                    "elapsed_time": str(activity.elapsed_time),
-                    "total_elevation_gain": str(activity.total_elevation_gain),
-                    "timezone": str(activity.timezone),
-                    "start_date": activity.start_date.strftime('%m/%d/%Y'),
-                    "start_date_local": activity.start_date_local.strftime('%m/%d/%Y'),
-                    "start_latlng": activity.start_latlng,
-                    "end_latlng": activity.end_latlng,
-                    "average_speed": str(activity.average_speed),
-                    "max_speed": str(activity.max_speed),
-                    "average_heartrate": str(activity.average_heartrate),
-                    "max_heartrate": str(activity.max_heartrate),
-                    "average_cadence": str(activity.average_cadence),
-                    "calories": activity.calories,
-                    "description": activity.description,
-                    "activity_id": activity.upload_id
-                })
+                "name": activity.name,
+                "distance": str(round(activity.distance.num*0.000621371,2) )+ ' mi',
+                "moving_time": str(activity.moving_time),
+                "elapsed_time": str(activity.elapsed_time),
+                "total_elevation_gain": str(round(activity.total_elevation_gain.num*3.28084)) + ' ft',
+                "timezone": str(activity.timezone),
+                "start_date": activity.start_date.strftime('%m/%d/%Y'),
+                "start_date_local": activity.start_date_local.strftime('%m/%d/%Y'),
+                "start_latlng": activity.start_latlng,
+                "end_latlng": activity.end_latlng,
+                "average_speed": str(round(activity.average_speed.num*2.23694,1)) + ' mi/h',
+                "max_speed": str(round(activity.max_speed.num*2.23694,1)) + ' mi/h',
+                "average_heartrate": str(activity.average_heartrate),
+                "max_heartrate": str(activity.max_heartrate),
+                "average_cadence": str(activity.average_cadence),
+                "calories": activity.calories,
+                "description": activity.description,
+                "activity_id": activity.upload_id
+            })
     return athlete.username
 
 
