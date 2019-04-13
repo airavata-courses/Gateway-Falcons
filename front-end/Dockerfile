@@ -19,6 +19,7 @@ RUN ls -a
 
 RUN npm install --silent
 RUN npm install react-scripts@1.1.1 -g --silent
+RUN npm install flickr-sdk --silent
 
 # start app
 CMD ["npm", "start"]
