@@ -177,11 +177,11 @@ class App extends Component {
                                 <Nav.Link href="#/dashboards/fitness">Fitness</Nav.Link>
                                 <Nav.Link href="#/dashboards/diet">Diet</Nav.Link>
                                 <Nav.Item>
-                                <Nav.Link href="https://www.gofundme.com/send-Schwenck-to-Alaska-2019">
-                                  <ButtonGroup className="mr-2" aria-label="First group">
-                                    <Button variant="light">Donate</Button>
-                                 
-                                  </ButtonGroup>
+                                  <Nav.Link href="https://www.gofundme.com/send-Schwenck-to-Alaska-2019">
+                                    <ButtonGroup className="mr-2" aria-label="First group">
+                                      <Button variant="light">Donate</Button>
+
+                                    </ButtonGroup>
                                   </Nav.Link>
                                 </Nav.Item>
                               </Nav>
@@ -202,10 +202,12 @@ class App extends Component {
               </Row>
 
 
-              <Container>
+              <Container
+                style={{ overflow: 'scroll' }}
+              >
                 <Row>
                   <Col>
-                    <Carousel defaultWait={3000} maxTurns={500000000}>
+                    <Carousel defaultWait={110000} maxTurns={500000000}>
                       <Slide right>
                         {/* Slide 1 */}
                         <div>
@@ -248,9 +250,9 @@ class App extends Component {
                               <Col></Col>
                               <div style={buttonz}>
                                 <Col>
-                                <Link to="dashboards/about">
-                                <Button variant="dark">Learn More</Button>
-                                </Link>
+                                  <Link to="dashboards/about">
+                                    <Button variant="dark">Learn More</Button>
+                                  </Link>
                                 </Col>
                               </div>
                               <Col></Col>
@@ -382,92 +384,92 @@ class App extends Component {
                                   </Link>
                                 </Col>
                               </div>
-                            <Col></Col>
+                              <Col></Col>
                             </Row>
                           </Container>
                         </div>
                       </Slide>
-                    <Slide right>
-                      <div>
-                        {/* Slide 5 */}
-                        <Container>
-                          <Row>
-                            <Col></Col>
-                            <div className="headG">
-                              <Col><p>Meal Tracking</p></Col>
-                            </div>
-                            <Col></Col>
-                          </Row>
-                        </Container>
-                        <Container>
-                          <Row>
-                            <Col></Col>
-                            <Col><div className="details">
-                              <p>With a minimal supply, discover the foods needed to keep the wheels spinning over 6 hours each day.</p>
-                            </div>
-                            </Col>
-                            <Col></Col>
-                          </Row>
-                        </Container>
-                        {/* Buttons */}
-                        <Container>
-                          <Row>
-                            <Col></Col>
-                            <div style={buttonz}>
-                              <Col>
-                                <Link to="dashboards/diet">
-                                  <Button variant="dark">Diet</Button>
-                                </Link>
+                      <Slide right>
+                        <div>
+                          {/* Slide 5 */}
+                          <Container>
+                            <Row>
+                              <Col></Col>
+                              <div className="headG">
+                                <Col><p>Meal Tracking</p></Col>
+                              </div>
+                              <Col></Col>
+                            </Row>
+                          </Container>
+                          <Container>
+                            <Row>
+                              <Col></Col>
+                              <Col><div className="details">
+                                <p>With a minimal supply, discover the foods needed to keep the wheels spinning over 6 hours each day.</p>
+                              </div>
                               </Col>
-                            </div>
-                            <Col></Col>
-                          </Row>
-                        </Container>
-                      </div>
-                    </Slide>
-                    <Slide right>
-                      <div>
-                        {/* Slide 6 */}
-                        <Container>
-                          <Row>
-                            <Col></Col>
-                            <div className="headG">
-                              <Col><p>Share The Experience</p></Col>
-                            </div>
-                            <Col></Col>
-                          </Row>
-                        </Container>
-                        <Container>
-                          <Row>
-                            <Col></Col>
-                            <Col><div className="details">
-                              <p>Enjoy the ride coast to coast. See what he sees and view highlights from the best spots throughout.</p>
-                            </div>
-                            </Col>
-                            <Col></Col>
-                          </Row>
-                        </Container>
+                              <Col></Col>
+                            </Row>
+                          </Container>
+                          {/* Buttons */}
+                          <Container>
+                            <Row>
+                              <Col></Col>
+                              <div style={buttonz}>
+                                <Col>
+                                  <Link to="dashboards/diet">
+                                    <Button variant="dark">Diet</Button>
+                                  </Link>
+                                </Col>
+                              </div>
+                              <Col></Col>
+                            </Row>
+                          </Container>
+                        </div>
+                      </Slide>
+                      <Slide right>
+                        <div>
+                          {/* Slide 6 */}
+                          <Container>
+                            <Row>
+                              <Col></Col>
+                              <div className="headG">
+                                <Col><p>Share The Experience</p></Col>
+                              </div>
+                              <Col></Col>
+                            </Row>
+                          </Container>
+                          <Container>
+                            <Row>
+                              <Col></Col>
+                              <Col><div className="details">
+                                <p>Enjoy the ride coast to coast. See what he sees and view highlights from the best spots throughout.</p>
+                              </div>
+                              </Col>
+                              <Col></Col>
+                            </Row>
+                          </Container>
 
-                        {/* Buttons */}
-                        <Container>
-                          <Row>
-                            <Col></Col>
-                            <div style={buttonz}>
-                              <Col>
-                                <a href="https://api.smugmug.com/api/v2/user/johnschwenck!albums"><Button variant="dark">Media</Button></a>
-                              </Col>
-                            </div>
-                            <Col></Col>
-                          </Row>
-                        </Container>
-                      </div>
-                    </Slide>
+                          {/* Buttons */}
+                          <Container>
+                            <Row>
+                              <Col></Col>
+                              <div style={buttonz}>
+                                <Col>
+                                  <a href="https://api.smugmug.com/api/v2/user/johnschwenck!albums"><Button variant="dark">Media</Button></a>
+                                </Col>
+                              </div>
+                              <Col></Col>
+                            </Row>
+                          </Container>
+                        </div>
+                      </Slide>
                     </Carousel>
                   </Col>
                 </Row>
               </Container>
             </div>
-  )}
+          )}
         </Spring>
 
       </div>

@@ -86,9 +86,9 @@ export default class AboutPage extends Component {
         return (
 
             <Fragment>
-                 <PerfectScrollbar style ={ { height: 600 } }>
+                {/* <PerfectScrollbar style ={ { height: 600 } }> */}
                 <div className="h-100">
-               
+
                     <Row className="h-100 no-gutters">
 
                         {/* Profile Section */}
@@ -157,13 +157,32 @@ export default class AboutPage extends Component {
                                 <div >
                                     {/* <PerfectScrollbar style ={ { height: 600 } }> */}
 
-                                    <CardBody className="p-0" style={{ paddingBottom: 30, marginBottom: 30}}>
+                                    <CardBody className="p-0" style={{ paddingBottom: 30, marginBottom: 30 }}>
 
                                         <TabContent activeTab={this.state.activeTab}>
 
                                             <TabPane tabId="1">
-                                          
+
                                                 <Row>
+
+                                                    <div className="p-3">
+                                                        <p>
+                                                            Hey there!
+                                                            </p>
+                                                        <p>
+                                                            Thank you for visiting Schwenck.Live! April 15th 2019 began my 5,800-mile bicycle journey from New York City to Alaska to collect and analyze data from 25 variables for research. This decision, however, did not come out of thin air.
+                                                                </p>
+                                                        <p>
+                                                            When the doctors told me that I have a problematic heart condition and suggested I limit my exercise, I naturally asked, "why?" I have excelled at football, rugby, and skiing my entire life and have never once had an issue. Being that this condition is relatively uncommon for highly active individuals, I am considered an outlier. With the lack of available research to draw conclusions from, they advised I take the safe route.
+                                                                </p>
+                                                        <p>
+                                                            This did not resonate well with me at all. If a lack of research is going to hold me back from doing what I love, then I am determined to find an answer myself by conducting research that will help advance the scientific and medical communities. When debating ideas for an experiment, I thought back to my parents…
+                                                                </p>
+                                                        <p>
+                                                            My father was 25 when he decided to set out for California on his bicycle - more than 3,700 miles - starting New Jersey. Over the course of 67 days, he endured the rain, heat, and wind with nothing but a tent, sleeping bag, and change of clothes. Upon his return, he was hungry for more. He and my mother - an equally avid cyclist - decided to push the limit and ride to Alaska. Despite the progress they made, their trip to the Last Frontier was put on hold once they realized I was on the way sooner than they were planning. Finishing their trip is the answer to my research.
+                                                                </p>
+
+                                                    </div>
 
                                                     {/* Slider */}
                                                     <Col lg="5" className="d-none d-lg-block" style={{ paddingRight: 30 }}>
@@ -195,7 +214,7 @@ export default class AboutPage extends Component {
                                                                             backgroundPosition: 'center',
 
                                                                         }} />
-                                                                </div> 
+                                                                </div>
 
 
                                                                 {/* <div
@@ -212,29 +231,14 @@ export default class AboutPage extends Component {
                                                                  </p>
                                                                     </div>
                                                                 </div> */}
-                                              
+
                                                             </Slider>
                                                         </div>
                                                     </Col>
 
-                                                    <Col lg="5" className="d-none d-lg-block" style={{ paddingRight: 30 }}> 
+                                                    <Col lg="5" className="d-none d-lg-block" style={{ paddingRight: 30 }}>
 
                                                         <div className="p-3" >
-                                                            <p>
-                                                                Hey there!
-                                                            </p>
-                                                            <p>
-                                                                Thank you for visiting Schwenck.Live! April 15th 2019 began my 5,800-mile bicycle journey from New York City to Alaska to collect and analyze data from 25 variables for research. This decision, however, did not come out of thin air.
-                                                                </p>
-                                                            <p>
-                                                                When the doctors told me that I have a problematic heart condition and suggested I limit my exercise, I naturally asked, "why?" I have excelled at football, rugby, and skiing my entire life and have never once had an issue. Being that this condition is relatively uncommon for highly active individuals, I am considered an outlier. With the lack of available research to draw conclusions from, they advised I take the safe route.
-                                                                </p>
-                                                            <p>
-                                                                This did not resonate well with me at all. If a lack of research is going to hold me back from doing what I love, then I am determined to find an answer myself by conducting research that will help advance the scientific and medical communities. When debating ideas for an experiment, I thought back to my parents…
-                                                                </p>
-                                                            <p>
-                                                                My father was 25 when he decided to set out for California on his bicycle - more than 3,700 miles - starting New Jersey. Over the course of 67 days, he endured the rain, heat, and wind with nothing but a tent, sleeping bag, and change of clothes. Upon his return, he was hungry for more. He and my mother - an equally avid cyclist - decided to push the limit and ride to Alaska. Despite the progress they made, their trip to the Last Frontier was put on hold once they realized I was on the way sooner than they were planning. Finishing their trip is the answer to my research.
-                                                                </p>
 
                                                             <p>
                                                                 In many ways, I do this for them, but I also have selfish reasons. I want to prove to myself that I can overcome any adversity thrown my way and be able to inspire others to achieve anything they put their mind to.
@@ -256,30 +260,17 @@ export default class AboutPage extends Component {
 
                                                             <img src={signature} style={{ width: 200, height: 110 }} />
                                                         </div>
-                                                    </Col>  
+                                                    </Col>
 
-                                                </Row> 
-                                               
+                                                </Row>
+
                                             </TabPane>
 
                                             <TabPane tabId="2">
-                                                <div className="p-3" >
-                                                    {/* <p>With supporting text below as a natural lead-in to additional
-                                                        content.</p>
-                                                    <p className="mb-0">Lorem Ipsum has been the industry's standard
-                                                        dummy
-                                                        text
-                                                        ever
-                                                        since the 1500s, when an unknown printer took a galley of
-                                                        type
-                                                        and
-                                                        scrambled.</p> */}
-                                                    <div
-                                                        className="avatar-icon-wrapper btn-hover-shine mb-2 avatar-icon-xl">
-                                                        {/* <div className="avatar-icon rounded"> */}
-                                                        <img src={fourth} alt="" style={{ height: 250, width: 150 }} />
+                                                <div className="p-3">
+                                                    <div className="avatar-icon-wrapper btn-hover-shine mb-2 avatar-icon-xl">
+                                                        <img src={fourth} alt="" style={{ height: 450, width: 250 }} />
                                                         <br />
-                                                        {/* </div> */}
                                                     </div>
                                                     <br />
                                                     <p>
@@ -319,16 +310,16 @@ export default class AboutPage extends Component {
                                     </CardBody>
                                     {/* </PerfectScrollbar> */}
                                 </div>
-                                
+
                             </Card>
 
                         </Col>
 
                         {/* End profile section */}
                     </Row>
-                    </div>
-                </PerfectScrollbar>
-                
+                </div>
+                {/* </PerfectScrollbar> */}
+
             </Fragment >
         );
     }
