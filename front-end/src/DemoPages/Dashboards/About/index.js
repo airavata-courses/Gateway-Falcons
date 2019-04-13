@@ -189,50 +189,15 @@ export default class AboutPage extends Component {
                                                     <Col lg="5" className="d-none d-lg-block" style={{ paddingRight: 30 }}>
                                                         <div className="slider-light">
                                                             <Slider  {...settings}>
-                                                                <div
-                                                                    className="h-100 d-flex justify-content-center align-items-center">
-                                                                    <div className="slide-img-bg"
-                                                                        style={{
-                                                                            backgroundImage: 'url(' + first + ')',
-                                                                            backgroundPosition: 'center',
-
-                                                                        }} />
-                                                                </div>
-                                                                <div
-                                                                    className="h-100 d-flex justify-content-center align-items-center">
-                                                                    <div className="slide-img-bg"
-                                                                        style={{
-                                                                            backgroundImage: 'url(' + second + ')',
-                                                                            backgroundPosition: 'center',
-
-                                                                        }} />
-                                                                </div>
-                                                                <div
-                                                                    className="h-100 d-flex justify-content-center align-items-center">
-                                                                    <div className="slide-img-bg"
-                                                                        style={{
-                                                                            backgroundImage: 'url(' + third + ')',
-                                                                            backgroundPosition: 'center',
-
-                                                                        }} />
-                                                                </div>
-
-
-                                                                {/* <div
-                                                                    className="h-100 d-flex justify-content-center align-items-center bg-premium-dark">
-                                                                    <div className="slide-img-bg"
-                                                                        style={{
-                                                                            backgroundImage: 'url(' + bg2 + ')'
-                                                                        }} />
-                                                                    <div className="slider-content">
-                                                                        <h3>Follow Along</h3>
-                                                                        <p>
-                                                                            Utilize an interactive map to learn about the daily weather
-                                                                            conditions and track his progress as he endures the elements
-                                                                 </p>
-                                                                    </div>
-                                                                </div> */}
-
+                                                            <div>
+                                                                <img src={first} style={{maxWidth: "100%" }}/>
+                                                            </div>
+                                                            <div>
+                                                                <img src={second} style={{maxWidth: "100%" }}/>
+                                                            </div>
+                                                            <div>
+                                                                <img src={third} style={{maxWidth: "100%" }}/>
+                                                            </div>
                                                             </Slider>
                                                         </div>
                                                     </Col>
@@ -297,6 +262,7 @@ export default class AboutPage extends Component {
 
                                             <TabPane tabId="3">
                                                 <div className="p-3">
+                                                    
                                                     <BeforeAfterSlider
                                                         after={third}
                                                         before={this.state.rightImage}
