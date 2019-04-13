@@ -151,7 +151,7 @@ class App extends Component {
                         {/* Insert below */}
                         <div style={navSty}>
                           <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                            <Navbar.Brand href="#home">
+                            <Navbar.Brand href="#/dashboards/about">
                               <img
                                 src={logo}
                                 width="90"

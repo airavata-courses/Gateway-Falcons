@@ -86,7 +86,9 @@ export default class AboutPage extends Component {
         return (
 
             <Fragment>
+                 <PerfectScrollbar style ={ { height: 600 } }>
                 <div className="h-100">
+               
                     <Row className="h-100 no-gutters">
 
                         {/* Profile Section */}
@@ -155,12 +157,12 @@ export default class AboutPage extends Component {
                                 <div >
                                     {/* <PerfectScrollbar style ={ { height: 600 } }> */}
 
-                                    <CardBody className="p-0" style={{ paddingBottom: 30, marginBottom: 30 }}>
+                                    <CardBody className="p-0" style={{ paddingBottom: 30, marginBottom: 30}}>
 
                                         <TabContent activeTab={this.state.activeTab}>
 
                                             <TabPane tabId="1">
-
+                                          
                                                 <Row>
 
                                                     {/* Slider */}
@@ -193,7 +195,7 @@ export default class AboutPage extends Component {
                                                                             backgroundPosition: 'center',
 
                                                                         }} />
-                                                                </div>
+                                                                </div> 
 
 
                                                                 {/* <div
@@ -209,18 +211,18 @@ export default class AboutPage extends Component {
                                                                             conditions and track his progress as he endures the elements
                                                                  </p>
                                                                     </div>
-                                                                </div>
-                                               */}
+                                                                </div> */}
+                                              
                                                             </Slider>
                                                         </div>
                                                     </Col>
 
-                                                    <Col lg="6" className="d-none d-lg-block" style={{ paddingRight: 30 }}>
+                                                    <Col lg="5" className="d-none d-lg-block" style={{ paddingRight: 30 }}> 
 
-                                                        <div className="p-3">
+                                                        <div className="p-3" >
                                                             <p>
                                                                 Hey there!
-        </p>
+                                                            </p>
                                                             <p>
                                                                 Thank you for visiting Schwenck.Live! April 15th 2019 began my 5,800-mile bicycle journey from New York City to Alaska to collect and analyze data from 25 variables for research. This decision, however, did not come out of thin air.
                                                                 </p>
@@ -250,14 +252,14 @@ export default class AboutPage extends Component {
                                                             <br />
                                                             <p>
                                                                 John Schwenck
-                                                                </p>
+                                                            </p>
 
                                                             <img src={signature} style={{ width: 200, height: 110 }} />
                                                         </div>
-                                                    </Col>
+                                                    </Col>  
 
-                                                </Row>
-
+                                                </Row> 
+                                               
                                             </TabPane>
 
                                             <TabPane tabId="2">
@@ -288,16 +290,16 @@ export default class AboutPage extends Component {
                                                     </p>
                                                     <p>
                                                         I have set up a routine that will allow me to standardize my health measurements as best I can using as little time as possible. There will be times when the circumstances warrant a missed read or a data integrity issue, but my hope is that in the long run, I will have an adequate dataset to work with. When considering which factors to analyze, I wanted to assess sleep, hydration, and diet (as these are directly controllable) in addition those beyond my control such as weather and elevation. These all serve to gain clarity and insight for understanding how the response variables -- riding and cardiac performance -- change through time under various environments.
-</p>
+                                                    </p>
                                                     <p>
                                                         There are trade-offs to every experimental design type. For this particular experiment, as it is a pilot study, the most obvious is the "n of 1" issue. By standardizing as much as I can, I hope to allow for future replication to obtain a more representative sample of individuals who also fit the same criteria. I am always open to discussing new ideas or improvements; if you would like to considering partnering or collaborating, feel free to email me at schwenck.live@gmail.com.
-</p>
+                                                    </p>
                                                     <p>
                                                         Admittedly, my passion lies in the field of Statistics, not necessarily the medical or physiological fields, but I see these communities as golden opportunities to implement the latest statistical methodologies to innovate to make a positive impact. I plan to leverage what I learn during my graduate studies in the field of Statistics to improve an individual's overall health using AI and 'big data' to suggest alternative solutions to medicine.
-</p>
+                                                    </p>
                                                     <p>
                                                         I hope you are as excited as I am to be a part of a research study like none other. Enjoy Schwenck Live and experience the journey of a lifetime!
-</p>
+                                                    </p>
                                                 </div>
                                             </TabPane>
 
@@ -317,13 +319,16 @@ export default class AboutPage extends Component {
                                     </CardBody>
                                     {/* </PerfectScrollbar> */}
                                 </div>
+                                
                             </Card>
 
                         </Col>
 
                         {/* End profile section */}
                     </Row>
-                </div>
+                    </div>
+                </PerfectScrollbar>
+                
             </Fragment >
         );
     }
