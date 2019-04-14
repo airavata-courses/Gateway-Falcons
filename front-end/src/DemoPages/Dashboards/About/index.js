@@ -55,7 +55,7 @@ export default class AboutPage extends Component {
             page: 1,
             per_page: 100
         }).then(result => {
-            const photo_id = result.body.photos.photo[result.body.photos.photo.length - 1].id;
+            const photo_id = result.body.photos.photo[0].id;
             flickr.photos.getSizes({
                 api_key: process.env.REACT_APP_FLICKR_API_KEY,
                 photo_id: photo_id,
@@ -87,7 +87,7 @@ export default class AboutPage extends Component {
         return (
 
             <Fragment>
-                <PerfectScrollbar style ={ { height: 600 } }>
+                {/* <PerfectScrollbar style ={ { height: 600 } }> */}
                 <div className="h-100">
 
                     <Row className="h-100 no-gutters">
@@ -186,23 +186,23 @@ export default class AboutPage extends Component {
                                                     </div>
 
                                                     {/* Slider */}
-                                                    <Col lg="5" className="d-none d-lg-block" style={{ paddingRight: 30 }}>
+                                                    <Col lg="5" style={{ paddingRight: 30 }}>
                                                         <div className="slider-light">
                                                             <Slider  {...settings}>
-                                                            <div>
-                                                                <img src={first} style={{maxWidth: "100%" }}/>
-                                                            </div>
-                                                            <div>
-                                                                <img src={second} style={{maxWidth: "100%" }}/>
-                                                            </div>
-                                                            <div>
-                                                                <img src={third} style={{maxWidth: "100%" }}/>
-                                                            </div>
+                                                                <div>
+                                                                    <img src={first} style={{ maxWidth: "100%" }} />
+                                                                </div>
+                                                                <div>
+                                                                    <img src={second} style={{ maxWidth: "100%" }} />
+                                                                </div>
+                                                                <div>
+                                                                    <img src={third} style={{ maxWidth: "100%" }} />
+                                                                </div>
                                                             </Slider>
                                                         </div>
                                                     </Col>
 
-                                                    <Col lg="5" className="d-none d-lg-block" style={{ paddingRight: 30 }}>
+                                                    <Col lg="5" style={{ paddingRight: 30, paddingLeft: 5 }}>
 
                                                         <div className="p-3" >
 
@@ -262,13 +262,6 @@ export default class AboutPage extends Component {
 
                                             <TabPane tabId="3">
                                                 <div className="p-3">
-                                                    
-                                                    <BeforeAfterSlider
-                                                        after={third}
-                                                        before={this.state.rightImage}
-                                                        width={640}
-                                                        height={480}
-                                                    />
                                                     <p>
                                                         schwenck.live@gmail.com
                                                     </p>
@@ -276,7 +269,15 @@ export default class AboutPage extends Component {
                                                         Phone: (929) 357-4658
                                                     </p>
                                                 </div>
-                                               
+
+                                                {/* <BeforeAfterSlider
+                                                        after={third}
+                                                        before={this.state.rightImage}
+                                                        width={640}
+                                                        height={480}
+                                                    /> */}
+                                                <ReactCompareImage leftImage={third} rightImage={this.state.rightImage} />
+
                                             </TabPane>
                                         </TabContent>
 
@@ -291,7 +292,7 @@ export default class AboutPage extends Component {
                         {/* End profile section */}
                     </Row>
                 </div>
-                </PerfectScrollbar>
+                {/* </PerfectScrollbar> */}
 
             </Fragment >
         );

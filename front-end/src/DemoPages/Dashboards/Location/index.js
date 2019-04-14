@@ -328,7 +328,7 @@ export default class LocationPage extends Component {
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading d-block text-center">
-                                            Total Distance (meters)
+                                            Total Distance (miles)
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
