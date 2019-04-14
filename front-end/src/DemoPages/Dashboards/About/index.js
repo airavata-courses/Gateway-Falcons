@@ -198,6 +198,9 @@ export default class AboutPage extends Component {
                                                                 <div>
                                                                     <img src={third} style={{ maxWidth: "100%" }} />
                                                                 </div>
+                                                                <div>
+                                                                    <img src={fourth} style={{ maxWidth: "100%" }} />
+                                                                </div>
                                                             </Slider>
                                                         </div>
                                                     </Col>
@@ -234,10 +237,10 @@ export default class AboutPage extends Component {
 
                                             <TabPane tabId="2">
                                                 <div className="p-3">
-                                                    <div className="avatar-icon-wrapper btn-hover-shine mb-2 avatar-icon-xl">
+                                                    {/* <div className="avatar-icon-wrapper btn-hover-shine mb-2 avatar-icon-xl">
                                                         <img src={fourth} alt="" style={{ height: 450, width: 250 }} />
                                                         <br />
-                                                    </div>
+                                                    </div> */}
                                                     <br />
                                                     <p>
                                                         At the end of the day, the goal for any research experiment is to answer the questions we all have about the world around us.</p>
