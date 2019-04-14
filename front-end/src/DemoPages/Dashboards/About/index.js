@@ -87,7 +87,7 @@ export default class AboutPage extends Component {
         return (
 
             <Fragment>
-                {/* <PerfectScrollbar style ={ { height: 600 } }> */}
+                <PerfectScrollbar style ={ { height: 600 } }>
                 <div className="h-100">
 
                     <Row className="h-100 no-gutters">
@@ -291,7 +291,7 @@ export default class AboutPage extends Component {
                         {/* End profile section */}
                     </Row>
                 </div>
-                {/* </PerfectScrollbar> */}
+                </PerfectScrollbar>
 
             </Fragment >
         );
