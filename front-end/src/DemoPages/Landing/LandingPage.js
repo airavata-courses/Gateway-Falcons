@@ -456,7 +456,7 @@ class App extends Component {
                               <Col></Col>
                               <div style={buttonz}>
                                 <Col>
-                                  <a href="https://api.smugmug.com/api/v2/user/johnschwenck!albums"><Button variant="dark">Media</Button></a>
+                                  <a href="https://johnschwenck.smugmug.com/"><Button variant="dark">Media</Button></a>
                                 </Col>
                               </div>
                               <Col></Col>
