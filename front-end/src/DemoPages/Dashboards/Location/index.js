@@ -10,8 +10,8 @@
 
 import React, { Component, Fragment } from 'react';
 import ReactTable from "react-table";
-import { Button, ButtonGroup, Card, CardBody, CardHeader, CardTitle, Col, Row } from 'reactstrap';
-import { Brush, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, Legend } from 'recharts';
+import { Card, CardBody, CardHeader, CardTitle, Col, Row } from 'reactstrap';
+import { Brush, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import * as Constants from '../../../constants';
 import PageTitle from '../../../Layout/AppMain/PageTitle';
 import MapWithMarkers from '../../MyComponents/MapContainer';
@@ -26,6 +26,7 @@ export default class LocationPage extends Component {
         this.state = {
             title: 'Live',
             map_data: [],
+            location_data: [],
             weather_data: [],
             strava_data: [],
             selectedMarker: false,
@@ -53,7 +54,7 @@ export default class LocationPage extends Component {
 
     fetchStravaData() {
         fetch(`${Constants.serverUrl}/fitness`, {
-            // fetch(`http://localhost:3001/fitness`, {
+        // fetch(`http://localhost:3001/fitness`, {
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",
@@ -72,14 +73,6 @@ export default class LocationPage extends Component {
                     average_heartrate
                 } = data[data.length - 1];
 
-                // console.log(average_speed.substring(0, average_speed.indexOf(" ")),
-                //     distance.replace(/\D/g, ''),
-                //     elapsed_time.replace(/\D/g, ''),
-                //     moving_time.replace(/\D/g, ''),
-                //     total_elevation_gain.replace(/\D/g, ''),
-                //     average_heartrate
-                // )
-
                 const strava_data = data.map(datum => {
 
                     const {
@@ -92,10 +85,11 @@ export default class LocationPage extends Component {
                         start_date,
                         average_cadence
                     } = datum;
+                    const _distance = distance.split(" ")[0];
 
                     return {
                         average_speed: average_speed.substring(0, average_speed.indexOf(" ")),
-                        distance: distance.replace(/\D/g, ''),
+                        distance: _distance,
                         elapsed_time, //: elapsed_time.replace(/\D/g, ''),
                         moving_time, // : moving_time.replace(/\D/g, ''),
                         total_elevation_gain: total_elevation_gain.substring(0, total_elevation_gain.indexOf(" ")),
@@ -106,11 +100,12 @@ export default class LocationPage extends Component {
 
                 // console.log(strava_data);
 
+                const _distance = distance.split(" ")[0];
                 this.setState({
                     strava_data,
                     strava_kpi: {
                         average_speed: average_speed.substring(0, average_speed.indexOf(" ")),
-                        distance: distance.replace(/\D/g, ''),
+                        distance: _distance,
                         elapsed_time, //: elapsed_time.replace(/\D/g, ''),
                         moving_time, // : moving_time.replace(/\D/g, ''),
                         total_elevation_gain: total_elevation_gain.substring(0, total_elevation_gain.indexOf(" ")),
@@ -121,8 +116,8 @@ export default class LocationPage extends Component {
     }
 
     _fetchMapMarkers() {
+        // fetch(`http://localhost:3001/location`, {
         fetch(`${Constants.serverUrl}/location`, {
-            // fetch(`http://localhost:3001/location`, {
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",
@@ -133,6 +128,7 @@ export default class LocationPage extends Component {
             // .then(res => console.log(res)),
             .then(data => {
                 const wahoo_data = [];
+                const wahoo_map_data = [];
                 const weather_data = [];
                 data.map((datum, index) => {
 
@@ -208,28 +204,28 @@ export default class LocationPage extends Component {
 
                     };
 
-                    wahoo_data.push(newWahooObj);
+                    // if ()
+                    const date_arr = date.split(" ");
+                    // console.log(date, date_arr);
+                    const date_num = date_arr[1].replace(/\D/g, '');
+                    if (date_arr[0] === "March" || date_arr[0] === "June") {
+                        wahoo_data.push(newWahooObj);
+                    }
+                    else if (date_arr[0] === "April") {
+                        if (parseInt(date_num) < 15) {
+                            wahoo_data.push(newWahooObj);
+                        } else {
+                            wahoo_map_data.push(newWahooObj);
+                            wahoo_data.push(newWahooObj);
+                        }
+                    } else {
+                        wahoo_map_data.push(newWahooObj);
+                        wahoo_data.push(newWahooObj);
+                    }
+
                     weather_data.push(newWeatherObj);
 
                 });
-                // const len = wahoo_data.length;
-                // let agg_average_speed = 0,
-                //     agg_total_climb = 0,
-                //     agg_wind_speed = 0,
-                //     agg_avg_heart_rate = 0;
-
-                // for (let i = len - 8; i < len; i++) {
-                //     const { average_speed,
-                //         total_climb,
-                //         wind_speed,
-                //         avg_heart_rate
-                //     } = wahoo_data[i];
-                //     agg_average_speed += average_speed;
-                //     agg_total_climb += total_climb;
-                //     agg_wind_speed += wind_speed;
-                //     agg_avg_heart_rate += avg_heart_rate;
-                // }
-                // console.log(wahoo_data);
 
                 const { average_speed,
                     total_climb,
@@ -239,7 +235,8 @@ export default class LocationPage extends Component {
                 const { wind_speed } = weather_data[weather_data.length - 1];
 
                 this.setState({
-                    map_data: wahoo_data.reverse(),
+                    map_data: wahoo_map_data,
+                    location_data: wahoo_data.reverse(),
                     weather_data: weather_data.reverse(),
                     kpi: {
                         average_speed,
@@ -271,7 +268,7 @@ export default class LocationPage extends Component {
 
     render() {
 
-        const { apiKey, data, map_data, weather_data, kpi, strava_data, strava_kpi } = this.state;
+        const { apiKey, data, map_data, location_data, weather_data, kpi, strava_data, strava_kpi } = this.state;
         // console.log(apiKey)
 
         const wahoo_data_columns = Object.keys(Constants.wahoo_data_columns).map(key => {
@@ -499,7 +496,7 @@ export default class LocationPage extends Component {
                                             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                                             <CartesianGrid strokeDasharray="3 3" />
                                             <XAxis dataKey="start_date" />
-                                            <YAxis label={{ value: "Meters per second (m/s)", angle: -90, position: 'insideLeft' }} />
+                                            <YAxis label={{ value: "Miles per hour (mph)", angle: -90, position: 'insideLeft' }} />
                                             <Tooltip />
                                             {/* <Legend /> */}
                                             {/* <Brush /> */}
@@ -564,7 +561,7 @@ export default class LocationPage extends Component {
                                 </CardHeader>
 
                                 <ReactTable
-                                    data={map_data}
+                                    data={location_data}
                                     columns={wahoo_data_columns}
                                     defaultPageSize={20}
                                     style={{
