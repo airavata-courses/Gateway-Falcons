@@ -15,6 +15,7 @@ import { Brush, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XA
 import * as Constants from '../../../constants';
 import PageTitle from '../../../Layout/AppMain/PageTitle';
 import MapWithMarkers from '../../MyComponents/MapContainer';
+// import console = require('console');
 require('dotenv').config();
 
 export default class LocationPage extends Component {
@@ -139,8 +140,8 @@ export default class LocationPage extends Component {
                         total_distance,
                         average_speed,
                         max_speed,
-                        avg_cadence,
-                        max_cadence,
+                        // avg_cadence,
+                        // max_cadence,
                         max_elevation,
                         total_climb,
                         total_descent,
@@ -171,8 +172,8 @@ export default class LocationPage extends Component {
                         total_distance,
                         average_speed: parseFloat(average_speed),
                         max_speed,
-                        avg_cadence,
-                        max_cadence,
+                        // avg_cadence,
+                        // max_cadence,
                         max_elevation,
                         total_climb, // total_climb: parseFloat(total_climb.split(" ")[0]),
                         total_descent,
@@ -270,7 +271,6 @@ export default class LocationPage extends Component {
 
         const { apiKey, data, map_data, location_data, weather_data, kpi, strava_data, strava_kpi } = this.state;
         // console.log(apiKey)
-
         const wahoo_data_columns = Object.keys(Constants.wahoo_data_columns).map(key => {
             if (key === 'Latitude' || key === 'Longitude') {
                 const val = parseFloat(Constants.wahoo_data_columns[key]).toFixed(5);
@@ -318,8 +318,6 @@ export default class LocationPage extends Component {
 
                     {/* KPI */}
                     <Row>
-
-
                         <Col md="6" lg="2">
                             <Card className="card-shadow-primary mb-3 widget-chart widget-chart2 text-left">
                                 <div className="widget-chat-wrapper-outer">
