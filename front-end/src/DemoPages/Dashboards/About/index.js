@@ -1,24 +1,17 @@
 import classnames from 'classnames';
 import React, { Component, Fragment } from "react";
 import Slider from "react-slick";
-import { Button, ButtonGroup, Card, CardBody, Col, ListGroup, ListGroupItem, Row, TabContent, TabPane } from 'reactstrap';
-import avatar6 from '../../../assets/utils/images/avatars/8.jpg';
-import bg1 from '../../../assets/utils/images/originals/city.jpg';
-import bg2 from '../../../assets/utils/images/originals/citydark.jpg';
-import bg3 from '../../../assets/utils/images/originals/citynights.jpg';
-import bg4 from '../../../assets/utils/images/originals/nightcolors.jpg';
-import bg5 from '../../../assets/utils/images/originals/water.jpg';
+import { Button, ButtonGroup, Card, CardBody, Col, Row, TabContent, TabPane } from 'reactstrap';
 import profile from './profile.jpg';
 import signature from './signature.JPG';
-import PerfectScrollbar from 'react-perfect-scrollbar';
 
-import BeforeAfterSlider from 'react-before-after-slider'
 import profile_background from './profile_background_new.jpeg'
 import first from './1.jpg'
 import second from './2.jpg'
 import third from './3.jpg'
 import fourth from './4.jpg'
-import ReactCompareImage from 'react-compare-image';
+import day1 from './images/Day1.jpeg'
+import ReactCompareImage from 'react-compare-image'
 var Flickr = require('flickr-sdk');
 
 //leftImage
@@ -69,7 +62,6 @@ export default class AboutPage extends Component {
 
     render() {
 
-        const { rightImage } = this.state;
 
         let settings = {
             dots: true,
@@ -273,13 +265,8 @@ export default class AboutPage extends Component {
                                                     </p>
                                                 </div>
 
-                                                {/* <BeforeAfterSlider
-                                                        after={third}
-                                                        before={this.state.rightImage}
-                                                        width={640}
-                                                        height={480}
-                                                    /> */}
-                                                <ReactCompareImage leftImage={third} rightImage={this.state.rightImage} />
+                                                
+                                                <ReactCompareImage leftImage={day1} rightImage={this.state.rightImage} />
 
                                             </TabPane>
                                         </TabContent>
