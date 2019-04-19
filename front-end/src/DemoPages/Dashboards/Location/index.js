@@ -44,7 +44,8 @@ export default class LocationPage extends Component {
                 elapsed_time: 0,
                 moving_time: 0,
                 total_elevation_gain: 0,
-                average_heartrate: 0
+                average_heartrate: 0,
+                distance_from_start:0,
             }
         };
     }
@@ -74,6 +75,7 @@ export default class LocationPage extends Component {
                     average_heartrate
                 } = data[data.length - 1];
 
+                let distance_since_start = 0;
                 const strava_data = data.map(datum => {
 
                     const {
@@ -87,7 +89,7 @@ export default class LocationPage extends Component {
                         average_cadence
                     } = datum;
                     const _distance = distance.split(" ")[0];
-
+                    distance_since_start += parse_float(_distance)
                     return {
                         average_speed: average_speed.substring(0, average_speed.indexOf(" ")),
                         distance: _distance,
@@ -99,7 +101,6 @@ export default class LocationPage extends Component {
                     };
                 })
 
-                // console.log(strava_data);
 
                 const _distance = distance.split(" ")[0];
                 this.setState({
@@ -110,7 +111,8 @@ export default class LocationPage extends Component {
                         elapsed_time, //: elapsed_time.replace(/\D/g, ''),
                         moving_time, // : moving_time.replace(/\D/g, ''),
                         total_elevation_gain: total_elevation_gain.substring(0, total_elevation_gain.indexOf(" ")),
-                        average_heartrate
+                        average_heartrate,
+                        distance_from_start:distance_since_start
                     }
                 })
             });
@@ -307,7 +309,7 @@ export default class LocationPage extends Component {
                 <div>
 
                     <Row>
-                        <Col sm="12" md="12" lg="12">
+                        <Col sm="11" md="11" lg="11">
                             <Card className="mb-3">
                                 <CardHeader className="card-header-tab z-index-6 text-center">
                                     Last Ride Stats
@@ -317,6 +319,7 @@ export default class LocationPage extends Component {
                     </Row>
 
                     {/* KPI */}
+                    
                     <Row>
                         <Col md="6" lg="2">
                             <Card className="card-shadow-primary mb-3 widget-chart widget-chart2 text-left">
@@ -437,13 +440,13 @@ export default class LocationPage extends Component {
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading d-block text-center">
-                                            Avg Cadence (m/s)
+                                        Overall Total Distance Since Start (miles)
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                        {strava_kpi.average_speed}
+                                                        {strava_kpi.distance_from_start}
                                                         {/* mph */}
                                                     </div>
                                                 </div>
