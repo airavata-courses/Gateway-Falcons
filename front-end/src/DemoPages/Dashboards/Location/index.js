@@ -15,6 +15,7 @@ import { Brush, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XA
 import * as Constants from '../../../constants';
 import PageTitle from '../../../Layout/AppMain/PageTitle';
 import MapWithMarkers from '../../MyComponents/MapContainer';
+//import console = require('console');
 // import console = require('console');
 require('dotenv').config();
 
@@ -269,10 +270,11 @@ export default class LocationPage extends Component {
         clearInterval(this.intervalId);
     }
     date_diff_indays () {
-        dt1 = new Date();
-        dt2 = new Date(date2);
-        return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
-        }
+        var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+        var firstDate = new Date();
+        var secondDate = new Date("2019-04-15");
+        return Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
+    }
     render() {
 
         const { apiKey, data, map_data, location_data, weather_data, kpi, strava_data, strava_kpi } = this.state;
@@ -380,7 +382,7 @@ export default class LocationPage extends Component {
                                             <div className="widget-numbers mb-0 w-100">
                                                 <div className="widget-chart-flex">
                                                     <div className="fsize-4">
-                                                        {strava_kpi.elapsed_time}
+                                                        {this.date_diff_indays()}
                                                     </div>
                                                 </div>
                                             </div>
