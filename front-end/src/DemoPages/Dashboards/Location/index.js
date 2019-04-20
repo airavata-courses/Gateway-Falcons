@@ -91,8 +91,8 @@ export default class LocationPage extends Component {
                     } = datum;
                     const _distance = distance.split(" ")[0];
                     var date_str = start_date.split("/")
-                    var month = parseInt(res[0])
-                    var day = parseInt(res[1])
+                    var month = parseInt(date_str[0])
+                    var day = parseInt(date_str[1])
                     if((month ==4 && day>=15)|| month>4){
                         distance_since_start += parseFloat(_distance)
                     }
