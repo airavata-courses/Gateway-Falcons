@@ -89,7 +89,7 @@ export default class LocationPage extends Component {
                         average_cadence
                     } = datum;
                     const _distance = distance.split(" ")[0];
-                    distance_since_start += parse_float(_distance)
+                    distance_since_start += parseFloat(_distance)
                     return {
                         average_speed: average_speed.substring(0, average_speed.indexOf(" ")),
                         distance: _distance,
@@ -268,7 +268,11 @@ export default class LocationPage extends Component {
     componentWillUnmount() {
         clearInterval(this.intervalId);
     }
-
+    date_diff_indays () {
+        dt1 = new Date();
+        dt2 = new Date(date2);
+        return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
+        }
     render() {
 
         const { apiKey, data, map_data, location_data, weather_data, kpi, strava_data, strava_kpi } = this.state;
@@ -370,7 +374,7 @@ export default class LocationPage extends Component {
                                 <div className="widget-chat-wrapper-outer">
                                     <div className="widget-chart-content">
                                         <h6 className="widget-subheading d-block text-center">
-                                            Overall Time
+                                            Day #
                                         </h6>
                                         <div className="widget-chart-flex">
                                             <div className="widget-numbers mb-0 w-100">
