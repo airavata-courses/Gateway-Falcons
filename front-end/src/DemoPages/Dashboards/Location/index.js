@@ -90,7 +90,7 @@ export default class LocationPage extends Component {
                         average_cadence
                     } = datum;
                     const _distance = distance.split(" ")[0];
-                    distance_since_start += parseFloat(_distance)
+                    distance_since_start += parseFloat(_distance).toFixed(2)
                     return {
                         average_speed: average_speed.substring(0, average_speed.indexOf(" ")),
                         distance: _distance,
