@@ -90,7 +90,7 @@ export default class LocationPage extends Component {
                         average_cadence
                     } = datum;
                     const _distance = distance.split(" ")[0];
-                    distance_since_start += parseFloat(_distance).toFixed(2)
+                    distance_since_start += parseFloat(_distance)
                     return {
                         average_speed: average_speed.substring(0, average_speed.indexOf(" ")),
                         distance: _distance,
@@ -113,7 +113,7 @@ export default class LocationPage extends Component {
                         moving_time, // : moving_time.replace(/\D/g, ''),
                         total_elevation_gain: total_elevation_gain.substring(0, total_elevation_gain.indexOf(" ")),
                         average_heartrate,
-                        distance_from_start:distance_since_start
+                        distance_from_start:distance_since_start.toFixed(2)
                     }
                 })
             });
