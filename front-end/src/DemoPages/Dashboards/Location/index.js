@@ -15,16 +15,13 @@ import { Brush, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XA
 import * as Constants from '../../../constants';
 import PageTitle from '../../../Layout/AppMain/PageTitle';
 import MapWithMarkers from '../../MyComponents/MapContainer';
-//import console = require('console');
-// import console = require('console');
 require('dotenv').config();
 
 export default class LocationPage extends Component {
 
     constructor() {
         super();
-        const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-        // console.log(process.env.REACT_APP_GOOGLE_API_KEY);
+        const apiKey = process.env.REACT_APP_GOOGLE_API_KEY || 'AIzaSyD1KwG-BfsNZC-qjFRLgDKC-yc6x4s9f1A';
         this.state = {
             title: 'Live',
             map_data: [],
@@ -94,6 +91,7 @@ export default class LocationPage extends Component {
                     var month = parseInt(date_str[0])
                     var day = parseInt(date_str[1])
                     if((month ==4 && day>=15)|| month>4){
+                        console.log(datum);
                         distance_since_start += parseFloat(_distance)
                     }
                     
@@ -217,7 +215,8 @@ export default class LocationPage extends Component {
                     // if ()
                     const date_arr = date.split(" ");
                     // console.log(date, date_arr);
-                    const date_num = date_arr[1].replace(/\D/g, '');
+                    const _date_num = date_arr[1] || ""; 
+                    const date_num = _date_num.replace(/\D/g, '');
                     if (date_arr[0] === "March" || date_arr[0] === "June") {
                         wahoo_data.push(newWahooObj);
                     }
