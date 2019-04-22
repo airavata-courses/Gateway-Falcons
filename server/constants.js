@@ -7,3 +7,4 @@ const serverUrl = 'backend-data-microservice.default.svc.cluster.local:3002';
 module.exports = {
     serverUrl
 }
+
