@@ -20,6 +20,7 @@ RUN ls -a
 RUN npm install --silent
 RUN npm install react-scripts@1.1.1 -g --silent
 RUN npm install flickr-sdk --silent
+RUN npm install auth0-js --silent
 
 # start app
 CMD ["npm", "start"]
