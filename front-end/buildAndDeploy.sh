@@ -1,4 +1,4 @@
 
 docker login
-docker build -t johnlive/frontend .
-docker push johnlive/frontend
+docker build -t johnlive/frontend-blue .
+docker push johnlive/frontend-blue
