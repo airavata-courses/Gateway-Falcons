@@ -2,7 +2,7 @@ export const LiveNav = [
     {
         icon: 'pe-7s-graph2',
         label: 'LIVE',
-        to: '#/dashboards/live',
+        to: '/dashboards/live',
     },
 ];
 
@@ -10,7 +10,7 @@ export const JourneyNav = [
     {
         icon: 'pe-7s-bicycle',
         label: 'About',
-        to: '#/dashboards/about',
+        to: '/dashboards/about',
     },
     // {
     //     icon: 'pe-7s-video',
@@ -29,17 +29,17 @@ export const DataNav = [
     {
         icon: 'pe-7s-map-marker',
         label: 'Location',
-        to: '#/dashboards/location',
+        to: '/dashboards/location',
     },
     {
         icon: 'pe-7s-gym',
         label: 'Fitness',
-        to: '#/dashboards/fitness',
+        to: '/dashboards/fitness',
     },
     {
         icon: 'pe-7s-coffee',
         label: 'Diet',
-        to: '#/dashboards/diet',
+        to: '/dashboards/diet',
     },
 ];
 

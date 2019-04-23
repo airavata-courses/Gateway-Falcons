@@ -55,7 +55,7 @@ export default class AboutPage extends Component {
             })
                 // .then(res => console.log(res.body.sizes.size[res.body.sizes.size.length - 1].source))
                 .then(res => this.setState({
-                    rightImage: res.body.sizes.size[res.body.sizes.size.length - 1].source
+                    rightImage: res.body.sizes.size[res.body.sizes.size.length - 2].source
                 }))
         });
     }

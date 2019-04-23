@@ -151,7 +151,7 @@ class App extends Component {
                         {/* Insert below */}
                         <div style={navSty}>
                           <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                            <Navbar.Brand href="#/dashboards/about">
+                            <Navbar.Brand href="dashboards/about">
                               <img
                                 src={logo}
                                 width="90"
@@ -170,12 +170,12 @@ class App extends Component {
 
                               </Nav>
                               <Nav>
-                                <Nav.Link href="#/dashboards/about">About</Nav.Link>
-                                <Nav.Link eventKey={2} href="#/dashboards/location">Live</Nav.Link>
+                                <Nav.Link href="dashboards/about">About</Nav.Link>
+                                {/* <Nav.Link eventKey={2} href="dashboards/location">Live</Nav.Link> */}
                                 <Nav.Link href="https://johnschwenck.smugmug.com/">Media</Nav.Link>
-                                <Nav.Link eventKey={2} href="#/dashboards/location">Location</Nav.Link>
-                                <Nav.Link href="#/dashboards/fitness">Fitness</Nav.Link>
-                                <Nav.Link href="#/dashboards/diet">Diet</Nav.Link>
+                                <Nav.Link eventKey={2} href="dashboards/location">Location</Nav.Link>
+                                <Nav.Link href="dashboards/fitness">Fitness</Nav.Link>
+                                <Nav.Link href="dashboards/diet">Diet</Nav.Link>
                                 <Nav.Item>
                                   <Nav.Link href="https://www.gofundme.com/send-Schwenck-to-Alaska-2019">
                                     <ButtonGroup className="mr-2" aria-label="First group">
