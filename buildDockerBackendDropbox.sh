@@ -8,7 +8,7 @@ cp -r ../../config ./
 
 cd ..
 
-docker build -f DockerFileBackendDropbox -t johnlive/backend_dropbox .
+docker build -f DockerFileBackendDropbox -t johnlive/backend_dropbox_blue .
 #docker run -p 3003:3003 -d johnlive/backend_dropbox
 
-docker push johnlive/backend_dropbox
+docker push johnlive/backend_dropbox_blue
