@@ -25,6 +25,7 @@ export const JourneyNav = [
 ];
 
 
+
 export const DataNav = [
     {
         icon: 'pe-7s-map-marker',
@@ -48,5 +49,13 @@ export const DonateNav = [
         icon: 'pe-7s-piggy',
         label: 'Donate',
         to: 'https://www.gofundme.com/send-Schwenck-to-Alaska-2019',
+    },
+];
+
+export const LoginNav = [
+    {
+        icon: 'pe-7s-home',
+        label: 'Login',
+        to: '/dashboards/login',
     },
 ];
