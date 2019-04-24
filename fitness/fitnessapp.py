@@ -104,7 +104,7 @@ def get_athelete():
                 "description": activity.description,
                 "activity_id": activity.upload_id
             })
-    return athlete.username
+    return "Fitness data added [Green DEPLOYMENT]"
 
 
 if __name__ == '__main__':
