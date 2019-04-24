@@ -31,7 +31,7 @@ def add_diet():
         yesterday = date - datetime.timedelta(days=1)
         add_diet_data(yesterday)
     add_diet_data(date)
-    return "Added data"
+    return "Added data [GREEN DEPLOYMENT]"
 
 
 def add_diet_data(date):
@@ -75,7 +75,7 @@ def create_meal(meals):
         m = {'name': meal.name, 'totals': meal.totals, "items": meal.get_as_list()}
         meals_list.append(m)
     return meals_list
-
+ 
 
 def create_exercise(exercises):
     exercises_list = []
