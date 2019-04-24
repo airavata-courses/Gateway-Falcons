@@ -215,7 +215,7 @@ class App extends Component {
                             <Row>
                               <Col></Col>
                               <div className="headG">
-                                <Col><h1>Welcome</h1></Col>
+                                <Col><h1>Welcome [BLUE DEPLOYMENT] </h1></Col>
                               </div>
                               <Col></Col>
                             </Row>
