@@ -1,0 +1,35 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: backend-data-microservice-green
+  labels:
+    app: backend-data-microservice
+    kube-monkey/enabled: "enabled"
+    kube-monkey/identifier: "backend-data-microservice"
+    kube-monkey/mtbf: '2'
+    kube-monkey/kill-mode: "fixed"
+    kube-monkey/kill-value: "1"
+
+spec:
+  selector:
+    matchLabels:
+      app: backend-data-microservice
+  replicas: 3 # tells deployment to run 3 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: backend-data-microservice
+        kube-monkey/enabled: "enabled"
+        kube-monkey/identifier: "backend-data-microservice"
+        kube-monkey/mtbf: '2'
+        kube-monkey/kill-mode: "fixed"
+        kube-monkey/kill-value: "1"
+        color: green
+    spec:
+      containers:
+      - name: backend-data-microservice
+        image: johnlive/backend_data_microservice_green:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 3002

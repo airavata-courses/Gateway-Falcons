@@ -1,7 +1,7 @@
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
-  name: backend-dropbox
+  name: backend-dropbox-green
   labels:
     app: backend-dropbox
     kube-monkey/enabled: "enabled"
@@ -23,34 +23,12 @@ spec:
         kube-monkey/mtbf: '2'
         kube-monkey/kill-mode: "fixed"
         kube-monkey/kill-value: "1"
+        color: green
     spec:
       containers:
       - name: backend-dropbox
-        image: johnlive/backend_dropbox
+        image: johnlive/backend_dropbox_green
         imagePullPolicy: Always
         ports:
         - name: http
           containerPort: 3003
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend-dropbox
-  annotations:
-    service.beta.kubernetes.io/openstack-internal-load-balancer: "true"
-  labels:
-    app: backend-dropbox
-spec:
-  type: LoadBalancer
-  # loadBalancerIP: 10.10.10.10
-  ports:
-  - port: 3003
-    targetPort: 3003
-    name: http
-    protocol: TCP
-    nodePort: 30092
-  selector:
-    app: backend-dropbox
-  externalIPs:
-  - 149.165.168.185
-

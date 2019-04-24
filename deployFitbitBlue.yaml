@@ -1,0 +1,35 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: fitbit-blue
+  labels:
+    app: fitbit
+    kube-monkey/enabled: "enabled"
+    kube-monkey/identifier: "fitbit"
+    kube-monkey/mtbf: '2'
+    kube-monkey/kill-mode: "fixed"
+    kube-monkey/kill-value: "1"
+spec:
+  selector:
+    matchLabels:
+      app: fitbit
+  replicas: 3 # tells deployment to run 3 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: fitbit
+        kube-monkey/enabled: "enabled"
+        kube-monkey/identifier: "fitbit"
+        kube-monkey/mtbf: '2'
+        kube-monkey/kill-mode: "fixed"
+        kube-monkey/kill-value: "1"
+        color: blue
+    spec:
+      containers:
+      - name: fitbit
+        image: johnlive/fitbit-blue:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 5004
+---

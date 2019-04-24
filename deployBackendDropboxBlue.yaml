@@ -1,0 +1,34 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: backend-dropbox-blue
+  labels:
+    app: backend-dropbox
+    kube-monkey/enabled: "enabled"
+    kube-monkey/identifier: "backend-dropbox"
+    kube-monkey/mtbf: '2'
+    kube-monkey/kill-mode: "fixed"
+    kube-monkey/kill-value: "1"
+spec:
+  selector:
+    matchLabels:
+      app: backend-dropbox
+  replicas: 3 # tells deployment to run 3 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: backend-dropbox
+        kube-monkey/enabled: "enabled"
+        kube-monkey/identifier: "backend-dropbox"
+        kube-monkey/mtbf: '2'
+        kube-monkey/kill-mode: "fixed"
+        kube-monkey/kill-value: "1"
+        color: blue
+    spec:
+      containers:
+      - name: backend-dropbox
+        image: johnlive/backend_dropbox_blue
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 3003

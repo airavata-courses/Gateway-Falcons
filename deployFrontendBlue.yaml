@@ -1,7 +1,7 @@
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
-  name: frontend
+  name: frontend-blue
   labels:
     app: frontend
     kube-monkey/enabled: "enabled"
@@ -9,12 +9,11 @@ metadata:
     kube-monkey/mtbf: '2'
     kube-monkey/kill-mode: "fixed"
     kube-monkey/kill-value: "1"
-
 spec:
   selector:
     matchLabels:
       app: frontend
-  replicas: 3 # tells deployment to run 3 pods matching the template
+  replicas: 1 # tells deployment to run 3 pods matching the template
   template:
     metadata:
       labels:
@@ -24,34 +23,12 @@ spec:
         kube-monkey/mtbf: '2'
         kube-monkey/kill-mode: "fixed"
         kube-monkey/kill-value: "1"
+        color: blue
     spec:
       containers:
       - name: frontend
-        image: johnlive/architect-front-end
+        image: johnlive/frontend-blue
         imagePullPolicy: Always
         ports:
         - name: http
           containerPort: 3000
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: frontend
-  annotations:
-    service.beta.kubernetes.io/openstack-internal-load-balancer: "true"
-  labels:
-    app: frontend
-spec:
-  type: LoadBalancer
-  # loadBalancerIP: 10.10.10.10
-  ports:
-  - port: 3000
-    targetPort: 3000
-    name: http
-    protocol: TCP
-    nodePort: 30042
-  selector:
-    app: frontend
-  externalIPs:
-  - 149.165.170.134
-

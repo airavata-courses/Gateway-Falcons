@@ -1,57 +1,35 @@
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
-  name: diet
+  name: backend-green
   labels:
-    app: diet
+    app: backend
     kube-monkey/enabled: "enabled"
-    kube-monkey/identifier: "diet"
+    kube-monkey/identifier: "backend"
     kube-monkey/mtbf: '2'
     kube-monkey/kill-mode: "fixed"
     kube-monkey/kill-value: "1"
 spec:
   selector:
     matchLabels:
-      app: diet
+      app: backend
   replicas: 3 # tells deployment to run 3 pods matching the template
   template:
     metadata:
       labels:
-        app: diet
+        app: backend
         kube-monkey/enabled: "enabled"
-        kube-monkey/identifier: "diet"
+        kube-monkey/identifier: "backend"
         kube-monkey/mtbf: '2'
         kube-monkey/kill-mode: "fixed"
         kube-monkey/kill-value: "1"
+        color: green
 
     spec:
       containers:
-      - name: diet
-        image: johnlive/diet:latest
+      - name: backend
+        image: johnlive/backend_server_green:latest
         imagePullPolicy: Always
         ports:
         - name: http
-          containerPort: 5000
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: diet
-  annotations:
-    service.beta.kubernetes.io/openstack-internal-load-balancer: "true"
-  labels:
-    app: diet
-spec:
-  type: LoadBalancer
-  # loadBalancerIP: 10.10.10.10
-  ports:
-  - port: 5000
-    targetPort: 5000
-    name: http
-    protocol: TCP
-    nodePort: 30082
-  selector:
-    app: diet
-  externalIPs:
-  - 149.165.170.134
-
+          containerPort: 3001
