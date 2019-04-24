@@ -11,7 +11,7 @@ const isLoggedIn = (req, res, next) => {
 
 router.get('/', function (req, res, next) {
   console.log(req.isAuthenticated(), req.user)
-  res.render('index', { title: ip.address() });
+  res.render('index', { title: ip.address() +"\nGreen Deployment" });
 });
 
 /**
