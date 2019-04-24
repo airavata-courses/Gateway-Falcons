@@ -62,7 +62,7 @@ def add_sleep():
             }
 
             sleep_db.insert_one(record)
-            return "Sleep data added"
+            return "Sleep data added [BLUE DEPLOYMENT]"
 
     return "No Data found"
 
@@ -86,7 +86,7 @@ def add_heart_rate():
                     "date": hr_dict["dateTime"],
                     "restingHeartRate": hr_dict["value"]["restingHeartRate"]
                 })
-                return "Heart rate added"
+                return "Heart rate added [BLUE DEPLOYMENT]"
     return "No data found"
 
 
