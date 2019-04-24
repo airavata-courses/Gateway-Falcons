@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import MetisMenu from 'react-metismenu';
 import { withRouter } from 'react-router-dom';
-import { DataNav, DonateNav, JourneyNav } from './NavItems';
+import { DataNav, DonateNav, JourneyNav,LoginNav } from './NavItems';
 
 class Nav extends Component {
 
@@ -21,6 +21,9 @@ class Nav extends Component {
                     <MetisMenu content={DonateNav} className="vertical-nav-menu" target="_blank" iconNamePrefix="" classNameStateIcon="pe-7s-angle-down" 
                     />
                 {/* </a> */}
+                <h5 className="app-sidebar__heading">Login</h5>
+                <MetisMenu content={LoginNav} activeLinkFromLocation className="vertical-nav-menu" iconNamePrefix="" classNameStateIcon="pe-7s-angle-down" />
+                <br />
             </Fragment>
         );
     }
