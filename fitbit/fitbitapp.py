@@ -64,7 +64,7 @@ def add_sleep():
             sleep_db.insert_one(record)
             return "Sleep data added [BLUE DEPLOYMENT]"
 
-    return "No Data found"
+    return "No Data found [BLUE DEPLOYMENT]"
 
 
 @app.route('/getheartrate')
@@ -87,7 +87,7 @@ def add_heart_rate():
                     "restingHeartRate": hr_dict["value"]["restingHeartRate"]
                 })
                 return "Heart rate added [BLUE DEPLOYMENT]"
-    return "No data found"
+    return "No data found [BLUE DEPLOYMENT]"
 
 
 @app.route('/getstat')
@@ -114,11 +114,11 @@ def add_heart_rate_time_series():
                             "time": series["time"],
                             "value": series["value"]
                         })
-                return json.dumps({"message":"Series data added",
+                return json.dumps({"message":"Series data added [BLUE DEPLOYMENT]",
                         "starttime": start_time.strftime('%H:%M'),
                         "endtime":   date.strftime('%H:%M')
                         })
-    return json.dumps({"message":"No data found",
+    return json.dumps({"message":"No data found [BLUE DEPLOYMENT]",
                         "starttime": start_time.strftime('%H:%M'),
                         "endtime":   date.strftime('%H:%M')
                         })
