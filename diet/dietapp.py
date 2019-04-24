@@ -31,7 +31,7 @@ def add_diet():
         yesterday = date - datetime.timedelta(days=1)
         add_diet_data(yesterday)
     add_diet_data(date)
-    return "Added data"
+    return "Added data BLUE DEPLOYMENT"
 
 
 def add_diet_data(date):
