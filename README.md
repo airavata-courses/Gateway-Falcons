@@ -1,4 +1,4 @@
-[![Build Status](http://149.165.170.222:8080/buildStatus/icon?job=FitbitPipeline)](http://149.165.170.222:8080/job/FitbitPipeline/)
+[![Build Status](http://149.165.170.222:8080/buildStatus/icon?job=Fitbit_blue_Pipeline)](http://149.165.170.222:8080/job/Fitbit_blue_Pipeline/)
 
 # Gateway-Falcons
 
