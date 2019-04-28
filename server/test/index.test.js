@@ -1,25 +1,16 @@
-const request = require('supertest');
-var test = require('tape');
-const express = require('express');
-var assert = require('assert');
+const request = require("supertest");
+var expect = require("chai").expect;
+const express = require("express");
 
-describe('request(url)', function () {
-
-  const app = express();
-
-  test('Mock test!', function (t) {
-    t.end();
-  });
-
-  test('should have a main index route', function (t) {
-
-    request(app)
-      .get('/')
-      .expect('Content-Type', /json/)
-      .expect(200, { title: 'Main Express Server' })
-      .end(function (err, res) {
+describe("testMainPage()", function() {
+  it("should return server address", function() {
+    // 1. ARRANGE
+    request(express)
+      .get("/")
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .end(function(err, res) {
         t.end();
       });
-  })
-
+  });
 });
