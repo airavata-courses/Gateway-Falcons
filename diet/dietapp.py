@@ -4,7 +4,6 @@ import myfitnesspal
 import datetime
 from configparser import ConfigParser
 import os
-import requests
 from flask_cors import cross_origin
 
 
@@ -25,7 +24,6 @@ client = myfitnesspal.Client(parser.get('myfitnesspal', 'email'))
 @app.route('/add')
 @cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
 def add_diet():
-
     date = datetime.datetime.now()
     if date.time().hour <=10:
         yesterday = date - datetime.timedelta(days=1)
