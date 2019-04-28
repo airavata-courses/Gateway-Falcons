@@ -19,6 +19,8 @@ RUN npm install --prefix server-data-ms
 COPY . /app
 EXPOSE 3002
 
+CMD npm test
+
 CMD npm start --prefix server-data-ms
 
 

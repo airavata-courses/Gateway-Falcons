@@ -2,11 +2,11 @@ const request = require("supertest");
 var expect = require("chai").expect;
 const express = require("express");
 
-describe("testFitnessURL()", function() {
-  it("should return fitness data", function() {
+describe("testBloodPressureURL()", function() {
+  it("should return Blood Pressure data", function() {
     // 1. ARRANGE
     request(express)
-      .get("/fitness")
+      .get("/blood_pressure")
       .expect("Content-Type", /json/)
       .expect(200)
       .end(function(err, res) {
