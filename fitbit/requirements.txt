@@ -6,3 +6,5 @@ requests==2.21.0
 configparser==3.7.3
 Flask-Cors==3.0.7
 pytz
+pytest
+mock
