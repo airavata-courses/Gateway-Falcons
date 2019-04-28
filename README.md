@@ -1,4 +1,4 @@
-[![Build Status](http://149.165.170.222:8080/buildStatus/icon?job=Dietpipeline)](http://149.165.170.222:8080/job/Dietpipeline/)
+[![Build Status](http://149.165.170.222:8080/buildStatus/icon?job=Diet-green-pipeline)](http://149.165.170.222:8080/job/Diet-green-pipeline/)
 
 # Gateway-Falcons
 
