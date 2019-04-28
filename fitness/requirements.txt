@@ -20,3 +20,5 @@ urllib3==1.24.1
 Werkzeug==0.14.1
 configparser==3.7.3
 Flask-Cors==3.0.7
+pytest
+mock
