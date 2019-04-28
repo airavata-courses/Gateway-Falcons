@@ -10,4 +10,4 @@ test_app.testing = True
 @mock.patch('dietapp.add_diet_data')
 def test_add_data(add_diet_data):
     response = test_client.get('/add')
-    assert b'Added data' in response.data
+    assert b'Added data BLUE DEPLOYMENT' in response.data
