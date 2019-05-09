@@ -25,12 +25,14 @@ client = myfitnesspal.Client(parser.get('myfitnesspal', 'email'))
 @app.route('/add')
 @cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
 def add_diet():
-
-    date = datetime.datetime.now()
-    if date.time().hour <=10:
-        yesterday = date - datetime.timedelta(days=1)
-        add_diet_data(yesterday)
-    add_diet_data(date)
+    try:
+        date = datetime.datetime.now()
+        if date.time().hour <= 10:
+            yesterday = date - datetime.timedelta(days=1)
+            add_diet_data(yesterday)
+        add_diet_data(date)
+    except:
+        return "Error occurred"
     return "Added data BLUE DEPLOYMENT"
 
 
