@@ -1,11 +1,8 @@
 import React, { Fragment } from 'react';
 import { Route } from 'react-router-dom';
 import AppFooter from '../../Layout/AppFooter/';
-// Layout
 import AppHeader from '../../Layout/AppHeader/';
 import AppSidebar from '../../Layout/AppSidebar/';
-// Theme Options
-import ThemeOptions from '../../Layout/ThemeOptions/';
 import AboutPage from './About';
 import DietDashboard from './Diet';
 import FitnessDashboard from './Fitness';
@@ -25,6 +22,7 @@ const Dashboards = ({match}) => (
                     <Route path={`${match.url}/fitness`} component={FitnessDashboard}/>
                     <Route path={`${match.url}/diet`} component={DietDashboard}/>
                     <Route path={`${match.url}/about`} component={AboutPage}/>
+                    <Route path={`${match.url}/live`} component={LivePage}/>
                     {/* <Route path={`${match.url}/analytics`} component={AnalyticsDashboard}/> */}
                     {/* <Route path={`${match.url}/sales`} component={SalesDashboard}/>
                     <Route path={`${match.url}/commerce`} component={CommerceDashboard}/> */}

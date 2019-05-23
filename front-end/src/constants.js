@@ -3,6 +3,7 @@
 // TODO::
 // const serverUrl = 'http://45.55.104.93:30032';
 // const serverUrl = 'http://backend.default.svc.cluster.local:3001';
+
 const serverUrl = ' /foo';
 // const serverUrl = 'http://localhost:3001';
 
@@ -30,15 +31,15 @@ const wahoo_data_columns = {
     "Daily Distance": "total_distance",
     "Avg Speed": "average_speed",
     "Max Speed": "max_speed",
-    "Avg H.R.": "avg_heart_rate",
+    // "Avg H.R.": "avg_heart_rate",
     // "Avg Cadence": "avg_cadence",
     // "Max Cadence": "max_cadence",
     "Total Ascent": "total_climb",
     "Total Descent": "total_descent",
-    "Gradient": "max_grade",
-    'Max HR': 'max_heart_rate',
+    // "Gradient": "max_grade",
+    // 'Max HR': 'max_heart_rate',
     'Active Time': 'elapsed_time',
-    'Max HR': 'max_heart_rate',
+    // 'Max HR': 'max_heart_rate',
 };
 
 const fitbit_data_columns = {
