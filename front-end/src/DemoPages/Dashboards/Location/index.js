@@ -91,10 +91,9 @@ export default class LocationPage extends Component {
                     var month = parseInt(date_str[0])
                     var day = parseInt(date_str[1])
                     if ((month == 4 && day >= 15) || month > 4) {
-                        console.log(datum);
+                        // console.log(day, month, _distance);
                         distance_since_start += parseFloat(_distance)
                     }
-
                     return {
                         average_speed: average_speed.substring(0, average_speed.indexOf(" ")),
                         distance: _distance,
@@ -135,7 +134,7 @@ export default class LocationPage extends Component {
             .then(res => res.json())
             // .then(res => console.log(res)),
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 const wahoo_data = [];
                 const wahoo_map_data = [];
                 const weather_data = [];

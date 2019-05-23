@@ -4,8 +4,8 @@
 // const serverUrl = 'http://45.55.104.93:30032';
 // const serverUrl = 'http://backend.default.svc.cluster.local:3001';
 
-const serverUrl = ' /foo';
-// const serverUrl = 'http://localhost:3001';
+// const serverUrl = ' /foo';
+const serverUrl = 'http://localhost:3001';
 
 const _devServerUrl = 'http://localhost:3001';
 const imageUrl = 'http://localhost:8081';
