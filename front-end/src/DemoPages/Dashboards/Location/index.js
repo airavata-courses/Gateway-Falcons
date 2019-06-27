@@ -217,7 +217,7 @@ export default class LocationPage extends Component {
                     // console.log(date, date_arr);
                     const _date_num = date_arr[1] || "";
                     const date_num = _date_num.replace(/\D/g, '');
-                    if (date_arr[0] === "March" || date_arr[0] === "June") {
+                    if (date_arr[0] === "March") {
                         wahoo_data.push(newWahooObj);
                     }
                     else if (date_arr[0] === "April") {

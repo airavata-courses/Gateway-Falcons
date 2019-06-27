@@ -262,9 +262,10 @@ class App extends Component {
 
                         </div>
                       </Slide>
-                      <Slide right>
+                          
+                        {/* Slide 2 */}
+                      {/* <Slide right>
                         <div>
-                          {/* Slide 2 */}
                           <Container>
                             <Row>
                               <Col></Col>
@@ -285,7 +286,6 @@ class App extends Component {
                             </Row>
                           </Container>
 
-                          {/* Buttons */}
                           <Container>
                             <Row>
                               <Col></Col>
@@ -300,12 +300,10 @@ class App extends Component {
                               </div>
                               <Col></Col>
                             </Row>
-                          </Container>
-
-
-
+                          </Container> 
                         </div>
-                      </Slide>
+                      </Slide> */}
+
                       <Slide right>
                         <div>
                           {/* Slide 3 */}

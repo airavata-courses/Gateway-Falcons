@@ -13,11 +13,6 @@ export const JourneyNav = [
         to: '/dashboards/about',
     },
     {
-        icon: 'pe-7s-video',
-        label: 'LIVE',
-        to: '/dashboards/live',
-    },
-    {
         icon: 'pe-7s-photo',
         label: 'Media',
         to: 'https://johnschwenck.smugmug.com/',
