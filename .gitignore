@@ -1,1 +1,11 @@
 .DS_Store
+<<<<<<< HEAD
+=======
+
+server/.env
+server-data-ms/.env
+server/config/
+server-data-ms/config/
+node_modules/
+Location/locationconfig.ini
+>>>>>>> origin/server-dev

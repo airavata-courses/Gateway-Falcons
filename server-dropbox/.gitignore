@@ -1,0 +1,11 @@
+.DS_Store
+
+.env
+
+config/
+
+node_modules
+
+blood_pressure/
+
+cardio_moood/

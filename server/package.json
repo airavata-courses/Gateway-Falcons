@@ -1,0 +1,46 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "test": "mocha",
+    "start:live": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "assert": "^1.4.1",
+    "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "form-data": "^2.3.3",
+    "googleapis": "^37.1.0",
+    "helmet": "^3.15.0",
+    "http-errors": "^1.6.3",
+    "ip": "^1.1.5",
+    "jade": "^1.11.0",
+    "jsonwebtoken": "^8.4.0",
+    "kroknet-passport-google-oauth": "0.0.2",
+    "mongoose": "^5.4.7",
+    "morgan": "~1.9.0",
+    "multer": "^1.4.1",
+    "passport": "^0.4.0",
+    "passport-google-oauth": "^1.0.0",
+    "passport-google-oauth20": "^1.0.0",
+    "passport-jwt": "^4.0.0",
+    "plop": "^2.2.0",
+    "pug": "^2.0.3",
+    "tape": "^4.10.1",
+    "validator": "^10.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9",
+    "supertest": "^3.4.2"
+  }
+}
