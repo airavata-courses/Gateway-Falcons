@@ -21,7 +21,7 @@
     "jfile": "^1.1.12",
     "moment": "^2.24.0",
     "mongodb": "^3.1.13",
-    "mongoose": "^5.4.19",
+    "mongoose": "^5.7.5",
     "mongoose-gridfs": "^0.6.2",
     "morgan": "~1.9.0",
     "node-xlsx": "^0.14.1"
