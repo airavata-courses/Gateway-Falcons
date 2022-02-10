@@ -198,7 +198,7 @@
     "animate-sass": "^0.8.2",
     "css-loader": "^1.0.1",
     "flickr-sdk": "^3.8.0",
-    "node-sass": "^4.10.0",
+    "node-sass": "^7.0.0",
     "react-social-icons": "^4.1.0",
     "sass-loader": "^6.0.6"
   },
